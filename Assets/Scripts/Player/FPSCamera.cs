@@ -12,10 +12,11 @@ public class FPSCamera : MonoBehaviour
 
     public Transform playerBody;
     public Transform lookTransform;
+    float eyeHeight;
 
-    [Space]
-    public Transform vertMoveTransform;
-    public Transform vertMoveWeaponTransform;
+    //[Space]
+    //public Transform vertMoveTransform;
+    //public Transform vertMoveWeaponTransform;
 
     private float yRotation;
 
@@ -27,29 +28,31 @@ public class FPSCamera : MonoBehaviour
 
     private float sensitivity => CurrentSensFromSettings * SENSITIVITY_MULT;
 
-    public static float CurrentSensFromSettings = 50;
+    public static float CurrentSensFromSettings = 50f;
 
     public static float VerticalDip = 0f;
 
-    private const float CrouchOffset = 1f;
-    private const float EyeHeight = 0.8f;
-    private const float VertDipSmoothing = 4;
-    private const float VertDipSpeed = 6;
+    private const float VertDipSmoothing = 4f;
+    private const float VertDipSpeed = 6f;
     private const float VertDipRotationMult = 6f;
 
     [Space]
     public float sprintHorShake = 0.18f;
     public float sprintVertShake = 0.2f;
     public float sprintRunMul = 4;
-    public Transform sprintTransform;
 
 
     public static bool Crouched;
 
     public static Vector3 ViewDir => instance.transform.forward;
 
+    Vector3 pos;
+    Quaternion rot;
+    Quaternion sprintRot;
+
     private void Start()
     {
+        eyeHeight = lookTransform.localPosition.y;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -63,29 +66,32 @@ public class FPSCamera : MonoBehaviour
 
         VerticalMovement();
         SprintShake();
+
+        lookTransform.localPosition = pos + Vector3.up * eyeHeight;
+        lookTransform.localRotation = rot * sprintRot;
     }
 
     private void MouseLook()
     {
-        float x = Input.GetAxisRaw("Mouse X");
-        float y = Input.GetAxisRaw("Mouse Y");
+        //float x = Input.GetAxisRaw("Mouse X");
+        //float y = Input.GetAxisRaw("Mouse Y");
+        Vector2 look = PlayerInputs.Look;
 
-        playerBody.Rotate(Vector3.up * x * sensitivity);
+        playerBody.Rotate(Vector3.up * look.x * sensitivity);
         // Rotates the body horizontally
 
-        yRotation = Mathf.Clamp(yRotation - y * sensitivity, -maxVerticalRotation, maxVerticalRotation);
+        yRotation = Mathf.Clamp(yRotation - look.y * sensitivity, -maxVerticalRotation, maxVerticalRotation);
         //float clampedRotWithRecoil = yRotation;
         float clampedRotWithRecoil = Mathf.Clamp(yRotation, -maxVerticalRotation, maxVerticalRotation);
 
         // Clamps the Y rotation so you can only look straight up or down, not backwards
-        lookTransform.localRotation = Quaternion.Euler(new Vector3(clampedRotWithRecoil, 0));
+        transform.localRotation = Quaternion.Euler(new Vector3(clampedRotWithRecoil, 0));
     }
 
     private void VerticalMovement()
     {
-        float crouchOffset = Crouched ? CrouchOffset : 0f;
-        vertMoveTransform.localPosition = Vector3.Lerp(vertMoveTransform.localPosition, Vector3.down * (VerticalDip/* - EyeHeight*/ + crouchOffset), Time.deltaTime * VertDipSmoothing);
-        vertMoveTransform.localRotation = Quaternion.Slerp(vertMoveTransform.localRotation, Quaternion.Euler(VerticalDip * VertDipRotationMult, 0, 0), Time.deltaTime * VertDipSmoothing);
+        pos = Vector3.Lerp(pos, Vector3.down * VerticalDip, Time.deltaTime * VertDipSmoothing);
+        rot = Quaternion.Slerp(rot, Quaternion.Euler(VerticalDip * VertDipRotationMult, 0, 0), Time.deltaTime * VertDipSmoothing);
         //vertMoveWeaponTransform
 
         //VerticalDip = Mathf.MoveTowards(VerticalDip, 0, Time.deltaTime * VertDipSpeed);
@@ -101,6 +107,6 @@ public class FPSCamera : MonoBehaviour
         Vector3 desired = new Vector3(Mathf.Abs(vert) * sprintVertShake, -sin * sprintHorShake);
         //Vector3 desired = Vector3.zero;
 
-        sprintTransform.localRotation = Quaternion.Slerp(sprintTransform.localRotation, Quaternion.Euler(desired), Time.deltaTime * 10);
+        sprintRot = Quaternion.Slerp(sprintRot, Quaternion.Euler(desired), Time.deltaTime * 10);
     }
 }

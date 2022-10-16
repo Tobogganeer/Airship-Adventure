@@ -78,6 +78,11 @@ public class ObjectPoolManager : MonoBehaviour
         if (instance.objectPools.TryGetValue(objectType, out ObjectPool pool))
         {
             PooledObjectInstance obj = pool.pool.Dequeue();
+            if (obj.gameObject.activeInHierarchy)
+            {
+                IncreasePoolSize(objectType, pool.pool.Count);
+                Debug.Log($"Doubled size of {objectType} pool ({pool.pool.Count} => {pool.pool.Count * 2}) due to dequeueing an active object.");
+            }
             pool.pool.Enqueue(obj);
 
             obj.Spawn();
@@ -96,6 +101,11 @@ public class ObjectPoolManager : MonoBehaviour
         if (instance.objectPools.TryGetValue(objectType, out ObjectPool pool))
         {
             PooledObjectInstance obj = pool.pool.Dequeue();
+            if (obj.gameObject.activeInHierarchy)
+            {
+                IncreasePoolSize(objectType, pool.pool.Count);
+                Debug.Log($"Doubled size of {objectType} pool ({pool.pool.Count} => {pool.pool.Count * 2}) due to dequeueing an active object.");
+            }
             pool.pool.Enqueue(obj);
 
             obj.Spawn(position, rotation);

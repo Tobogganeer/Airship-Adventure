@@ -118,7 +118,7 @@ public class AudioManager : MonoBehaviour
         if (audio.Parent != null && !audio.Parent.gameObject.activeInHierarchy)
         {
             // Parent is turned off
-            Debug.Log("Skipping audio played on disabled parent");
+            Debug.Log($"Skipping audio played on disabled parent ({audio.Parent.name})");
             sourceObj.SetActive(false);
             return;
         }

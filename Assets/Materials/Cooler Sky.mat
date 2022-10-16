@@ -26,10 +26,10 @@ Material:
     - _HorizonLineExponent: 4
     - _SkyGradientExponent: 2.5
     - _SunDiscContribution: 1
-    - _SunDiscExponent: 125000
+    - _SunDiscExponent: 4250
     - _SunDiscMultiplier: 25
     - _SunHaloContribution: 0.5
-    - _SunHaloExponent: 125
+    - _SunHaloExponent: 60.5
     - _Title: 0
     - __dirty: 0
     m_Colors:

@@ -9,6 +9,13 @@ public static class Functions
         return new Vector3(Mathf.Sin(time), amplitude * Mathf.Sin(period * time * Mathf.PI));
     }
 
+    public static Vector3 Lissajous3D(float time1, float time2, float time3, float amplitude, float period)
+    {
+        return Lissajous(time1, amplitude, period)
+            + Lissajous(time2, amplitude, period).zxy()
+            + Lissajous(time3, amplitude, period).yzx();
+    }
+
     public class DampedVector
     {
         // https://www.youtube.com/watch?v=KPoeNZZ6H4s

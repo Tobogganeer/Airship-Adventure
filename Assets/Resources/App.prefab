@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6814918612736422899}
   - component: {fileID: -2199389829717027695}
   - component: {fileID: 3387363760288231107}
+  - component: {fileID: 5393575534802343073}
   m_Layer: 0
   m_Name: App
   m_TagString: Untagged
@@ -67,8 +68,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29149061d9c29284ba2c318ab1b3a4be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  singleClips: []
-  clipGroups: []
+  singleClips:
+  - {fileID: 8300000, guid: 352f1f10289782349ba2d75da916e9fc, type: 3}
+  - {fileID: 8300000, guid: 280725bd5e211d640a46854928660e8c, type: 3}
+  clipGroups:
+  - name: RightFoot
+    clips:
+    - {fileID: 8300000, guid: 4c6bb6dd36aa6c849842241a4fc72eb9, type: 3}
+    - {fileID: 8300000, guid: 985aa9c01bd0b2f45b46ff8b5d03277f, type: 3}
+    - {fileID: 8300000, guid: 9bf8de6b167c76149b2e00f9ddee460c, type: 3}
+  - name: LeftFoot
+    clips:
+    - {fileID: 8300000, guid: b94e876ebc8ec874fa70a3acef545d71, type: 3}
+    - {fileID: 8300000, guid: 5d92f5dcb36b6da45a6111916e10b6aa, type: 3}
+    - {fileID: 8300000, guid: 1b1a94f110727694f8a67cc4b8e112ee, type: 3}
+  - name: Drop
+    clips:
+    - {fileID: 8300000, guid: ca0ff2e9ddb042444ae58dc0290aa8ff, type: 3}
+    - {fileID: 8300000, guid: c7972ab5773fad143aa3c0ba177ecfb8, type: 3}
+    - {fileID: 8300000, guid: 116b9aeba94b1674294adbe1d30119af, type: 3}
 --- !u!114 &3387363760288231107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,3 +106,15 @@ MonoBehaviour:
   - name: Game
     level: 1
     scene: Game
+--- !u!114 &5393575534802343073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2420169551764057506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7413f5241a1394843994b68adcd81c8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

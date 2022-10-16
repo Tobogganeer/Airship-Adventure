@@ -21,10 +21,9 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = 10f;
     public float slideFriction = 0.5f;
     public float slopeAccelPercent = 0.5f;
-    public float groundAcceleration = 12f;
-    public float airAcceleration = 3f;
+    public float groundAcceleration = 8f;
+    public float airAcceleration = 1f;
     public float accelLerpSpeed = 5f;
-    public float jumpHeight = 5f;
     public float pushPower = 3f;
 
     public LayerMask groundLayerMask;
@@ -38,8 +37,6 @@ public class PlayerMovement : MonoBehaviour
 
     private float timeOnSlope;
     private float timeOnRamp;
-    private float timeSinceLastJump;
-    private float jumpReduction;
 
     private float groundAngle;
 
@@ -55,19 +52,12 @@ public class PlayerMovement : MonoBehaviour
 
     #region Constants
 
-    //Jump
-    const float JumpFalloff = 0.65f;
-    const float JumpFalloffMul = 1.40f;
-    const float JumpMaxFalloff = 3.25f;
-    const float JumpChargeTime = 0.4f;
-    const float JumpCamDip = 1.2f;
-
     //Crouch
-    const float CrouchRaySize = 0.4f;
-    const float CrouchRayLength = 1f;
-    const float StandingHeight = 2f;
-    const float CrouchingHeight = 1f;
-    const float CrouchHeightDif = StandingHeight - CrouchingHeight;
+    //const float CrouchRaySize = 0.4f;
+    //const float CrouchRayLength = 1f;
+    //const float StandingHeight = 2f;
+    //const float CrouchingHeight = 1f;
+    //const float CrouchHeightDif = StandingHeight - CrouchingHeight;
 
     //Grounded
     const float GroundedSphereRadius = 0.475f;
@@ -88,11 +78,8 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
-    private float jumpCharge;
-
     private float cur_speed;
     private float cur_accel;
-    private float cur_jumpHeight;
 
     private float airtime;
 
@@ -149,7 +136,6 @@ public class PlayerMovement : MonoBehaviour
 
         UpdateSpeed();
         UpdateAcceleration();
-        UpdateJumpHeight();
 
         Move();
 
@@ -182,9 +168,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void IncrementValues(float dt)
     {
-        timeSinceLastJump += dt;
-        jumpReduction -= dt;
-
         float fadeMult = 1f;
 
         float angle = Vector3.Angle(Vector3.up, groundNormal);
@@ -214,30 +197,27 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        const float JustJumpedThreshold = 0.4f;
         const float SlopeSpeedIncrease = 5;
         const float MaxSlopeTime = SlopeSpeedIncrease * 4.5f;
 
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        input.Normalize();
+        //Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        //input.Normalize();
+        Vector2 input = PlayerInputs.Movement;
 
         desiredVelocity = transform.right * input.x + transform.forward * input.y;
         desiredVelocity *= cur_speed;
 
         y -= gravity * Time.deltaTime;
 
-        if (grounded && timeSinceLastJump > JustJumpedThreshold) y = -DOWNFORCE;
-
         if (grounded)
         {
+            y = -DOWNFORCE;
+
             if (!wasGrounded)
             {
                 // Just landed
                 OnLand?.Invoke(airtime);
                 FPSCamera.VerticalDip += Mathf.Lerp(0.0f, 2f, airtime * 0.6f);
-                jumpReduction = Mathf.Max(jumpReduction, Mathf.Clamp(airtime * airtime * 3, 1.25f, JumpMaxFalloff * 1.5f));
-                // Reduce jump upon landing
-                //airtime = 0;
 
                 airtime = 0;
             }
@@ -258,7 +238,7 @@ public class PlayerMovement : MonoBehaviour
         bonusSlideVelocity = Vector3.zero;
         bool goingWithRamp = false;
 
-        if ((timeOnSlope > 0.2f || goingWithRamp) && timeSinceLastJump > 0.6f)
+        if ((timeOnSlope > 0.2f || goingWithRamp))
         {
             // On slope and hasnt like just jumped
 
@@ -312,32 +292,11 @@ public class PlayerMovement : MonoBehaviour
             slopeTime = 1f;
         }
 
-        if (wasGrounded && !grounded && timeSinceLastJump > JustJumpedThreshold)
+        if (wasGrounded && !grounded)
         {
             // Left ground (not from a jump, otherwise why cancel y velocity)
             //y += DOWNFORCE; // counteract downforce, set y to 0
             y = 0; // didn't work as downforce was set multiplied with downforce earlier, just set to 0
-            jumpCharge = 0; // cancel any pending jump
-        }
-
-        if (grounded && Input.GetKeyDown(KeyCode.Space) && timeSinceLastJump > JustJumpedThreshold && timeOnSlope < 0.2f && jumpCharge <= 0)
-        {
-            //float timeMult = crouched ? 2f : 1f;
-            jumpCharge = JumpChargeTime;// * timeMult;
-            float dip = JumpCamDip;
-            dip = Mathf.Clamp(dip - jumpReduction * 0.3f, 0.1f, JumpCamDip);
-            //float dipMult = crouched ? 2.5f : 1f; // now crouch jumping makes you stand up
-            FPSCamera.VerticalDip += dip;
-        }
-
-        if (jumpCharge > 0)
-        {
-            jumpCharge -= Time.deltaTime;
-
-            if (jumpCharge <= 0)
-            {
-                Jump();
-            }
         }
 
         //moveDir.y = y;
@@ -390,28 +349,6 @@ public class PlayerMovement : MonoBehaviour
         desiredVelocity *= control;
     }
 
-    private void Jump()
-    {
-        if (grounded && timeSinceLastJump > 0.4f && timeOnSlope < 0.2f)
-        {
-            // Jump!
-            //AudioManager.Play(new Audio("Jump").SetPosition(transform.position.WithY(transform.position.y - 0.4f)));
-            //AudioManager.Play(AudioArray.Jump, transform.position.WithY(transform.position.y - 0.4f));
-
-            jumpReduction = Mathf.Max(1, jumpReduction);
-            float calibratedHeight = cur_jumpHeight / Mathf.Min(jumpReduction, JumpFalloffMul);
-            float red = (jumpReduction + JumpFalloff) * JumpFalloffMul;
-            //if (red < JUMP_MAX_FALLOFF)
-            if (jumpReduction < JumpMaxFalloff)
-                jumpReduction = red;
-
-            y += DOWNFORCE + calibratedHeight;
-            timeSinceLastJump = 0;
-        }
-
-        jumpCharge = 0;
-    }
-
     private void UpdateSpeed()
     {
         cur_speed = moveSpeed;
@@ -422,13 +359,6 @@ public class PlayerMovement : MonoBehaviour
         float target = grounded ? groundAcceleration : airAcceleration;
 
         cur_accel = Mathf.Lerp(cur_accel, target, Time.deltaTime * accelLerpSpeed);
-    }
-
-    private void UpdateJumpHeight()
-    {
-        float target = jumpHeight;
-
-        cur_jumpHeight = target;
     }
 
     private void UpdateGrounded()
@@ -468,12 +398,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (controller == null)
             controller = GetComponent<CharacterController>();
-
-        Vector3 pos = Vector3.up * (CrouchRayLength - CrouchRaySize);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(transform.position + pos, CrouchRaySize);
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.up * CrouchRayLength);
-        //Crouch
     }
 
 
