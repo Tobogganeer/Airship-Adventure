@@ -14,10 +14,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private CharacterController controller;
+    public Transform airship;
 
+    [Space]
     public float moveSpeed = 3.5f;
-    public float rampLimit = 60f;
-    public float slopeLimit = 45f;
+    public float slopeLimit = 60f;
     public float gravity = 10f;
     public float slideFriction = 0.5f;
     public float slopeAccelPercent = 0.5f;
@@ -25,6 +26,10 @@ public class PlayerMovement : MonoBehaviour
     public float airAcceleration = 1f;
     public float accelLerpSpeed = 5f;
     public float pushPower = 3f;
+
+    [Space]
+    public float groundTimeToWalkOnSlopes = 0.5f;
+    public float slopePushPower = 0.3f;
 
     public LayerMask groundLayerMask;
 
@@ -36,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private float y;
 
     private float timeOnSlope;
-    private float timeOnRamp;
+    private float timeOnGround;
 
     private float groundAngle;
 
@@ -44,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
     //float slopeMult;
 
     Vector3 desiredVelocity;
-    Vector3 bonusSlideVelocity;
     Vector3 moveVelocity;
     Vector3 actualVelocity;
     Vector3 lastPos;
@@ -69,12 +73,8 @@ public class PlayerMovement : MonoBehaviour
 
 
     // Other
-    const float BonusSlideVelocityFadeMult = 2.35f;
-    const float BonusSlideVelocityMult = 2.5f;
-    const float SqrSpeedToKeepSliding = 10f;
     const float SlideSpeedDecreaseMult = 2.65f;
     const float SlideMoveDirInfluence = 0.6f;
-    const float CrouchHopSpeedDecrease = 1.25f;
 
     #endregion
 
@@ -85,7 +85,10 @@ public class PlayerMovement : MonoBehaviour
 
     public static event Action<float> OnLand;
 
-    private bool slidingFromSpeed;
+    Vector3 lastAirshipPos;
+    Vector3 lastAirshipRot;
+
+    //private bool slidingFromSpeed;
 
     public static bool Grounded => instance.grounded;
     public static bool Moving { get; private set; }
@@ -105,11 +108,14 @@ public class PlayerMovement : MonoBehaviour
         lastPos = transform.position;
         slopeTime = 1;
         groundNormal = Vector3.up;
+
+        lastAirshipPos = airship.position;
+        lastAirshipRot = airship.eulerAngles;
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        groundNormal = hit.normal;
+        //groundNormal = hit.normal;
         /*
         var body = hit.collider.attachedRigidbody;
         if (body != null && !body.isKinematic)
@@ -132,9 +138,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        IncrementValues(Time.deltaTime);
-
-        UpdateSpeed();
+        cur_speed = moveSpeed; // UpdateSpeed();
         UpdateAcceleration();
 
         Move();
@@ -150,10 +154,10 @@ public class PlayerMovement : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.Mouse0))
         //    AddImpulse(FPSCamera.instance.transform.forward);
 
-        actualVelocity = (transform.position - lastPos) / Time.deltaTime;
-        lastPos = transform.position;
-
-        SetProperties();
+        //actualVelocity = (transform.position - lastPos) / Time.deltaTime;
+        //lastPos = transform.position;
+        //SetProperties();
+        // Moved to late update ^^^
     }
 
     private void SetProperties()
@@ -161,38 +165,9 @@ public class PlayerMovement : MonoBehaviour
         WorldVelocity = actualVelocity;
         LocalVelocity = transform.InverseTransformVector(WorldVelocity);
         Moving = desiredVelocity.sqrMagnitude > 0.1f && WorldVelocity.Flattened().sqrMagnitude > 0.1f;
-        Sliding = Grounded && /*Crouched &&*/ (bonusSlideVelocity.sqrMagnitude > 0.5f || timeOnSlope > 0.3f || timeOnRamp > 0.3f || slidingFromSpeed);
+        Sliding = Grounded && /*Crouched &&*/ (timeOnSlope > 0.3f);
         NormalizedSpeed = 1;
         AirTime = airtime;
-    }
-
-    private void IncrementValues(float dt)
-    {
-        float fadeMult = 1f;
-
-        float angle = Vector3.Angle(Vector3.up, groundNormal);
-        if (angle > rampLimit)
-        {
-            const float UP_HILL_SLIDE_FADE = 5f;
-            const float STEEPNESS_FADE_FACTOR = 3f;
-
-            float hillAmount = Mathf.InverseLerp(rampLimit, controller.slopeLimit, angle);
-            hillAmount += 1f; // rebound from 0-1 to 1-2
-            hillAmount *= STEEPNESS_FADE_FACTOR; // rebound to 1-2 * STEEPNESS_FADE_FACTOR
-
-            Vector3 slopeHorDir = groundNormal.Flattened().normalized;
-            Vector3 velDir = actualVelocity.Flattened().normalized;
-            float velSimilarity = Vector3.Dot(slopeHorDir, velDir);
-            fadeMult = Mathf.Clamp(-velSimilarity * UP_HILL_SLIDE_FADE, 0, UP_HILL_SLIDE_FADE) * hillAmount * actualVelocity.Flattened().magnitude * 0.5f;
-            //Debug.Log("Slope Fade: " + fadeMult);
-        }
-
-        //bonusSlideVelocity = Vector3.MoveTowards(bonusSlideVelocity, Vector3.zero, dt * BonusSlideVelocityFadeMult * fadeMult);
-
-        const float LerpMul = 2f;
-        bonusSlideVelocity = Vector3.Lerp(bonusSlideVelocity, Vector3.zero, dt * BonusSlideVelocityFadeMult * fadeMult * LerpMul);
-
-        // Switched after discovering airtime was reset before multiplication
     }
 
     private void Move()
@@ -228,17 +203,14 @@ public class PlayerMovement : MonoBehaviour
         // On a slope, but not above a void or something (will fall onto ground)
         if (timeOnSlope > 0.2f)// && groundNear) // Commented out to try to counteract walking up edges of slopes
         {
-            if (groundNear)
+            //if (groundNear)
                 SlopeMovement();
-            else
-                AirSlopeMovement();
+            //else
+            //    AirSlopeMovement();
         }
         // Let player still move sideways on slopes
 
-        bonusSlideVelocity = Vector3.zero;
-        bool goingWithRamp = false;
-
-        if ((timeOnSlope > 0.2f || goingWithRamp))
+        if (timeOnSlope > 0.2f)
         {
             // On slope and hasnt like just jumped
 
@@ -270,7 +242,7 @@ public class PlayerMovement : MonoBehaviour
             desiredVelocity.z += groundNormal.z * slopeTime * (1f - slideFriction);
 
             float angle = Vector3.Angle(Vector3.up, groundNormal);
-            if (angle > rampLimit)
+            if (angle > slopeLimit)
             {
                 const float ViewInfluence = 1.25f;
                 const float MaxViewInfluence = 2.5f;
@@ -309,8 +281,6 @@ public class PlayerMovement : MonoBehaviour
         //moveVelocity = Vector3.Lerp(flatVel, desiredVelocity, Time.deltaTime * cur_accel).WithY(y);
         moveVelocity = Vector3.Lerp(flatVel, desiredVelocity, Time.deltaTime * cur_accel).WithY(0);
 
-        slidingFromSpeed = false;
-
         moveVelocity.y = y;
 
         controller.Move(moveVelocity * Time.deltaTime);
@@ -320,17 +290,19 @@ public class PlayerMovement : MonoBehaviour
     private void SlopeMovement()
     {
         // Normal slope movement
-        Vector3 slopeHorDir = groundNormal.Flattened().normalized;
-        Vector3 slopeSide = Vector3.Cross(slopeHorDir, Vector3.up);
-        Vector3 velDir = desiredVelocity.Flattened().normalized;
+        //Vector3 slopeHorDir = groundNormal.Flattened().normalized;
+        //Vector3 slopeSide = Vector3.Cross(slopeHorDir, Vector3.up);
+        //Vector3 velDir = desiredVelocity.Flattened().normalized;
 
-        float similarity = Vector3.Dot(slopeSide, velDir);
-        similarity *= similarity;
-        
-        const float MaxControl = 0.7f;
+        //float similarity = Vector3.Dot(slopeSide, velDir);
+        //similarity *= similarity;
 
-        float control = Mathf.Clamp(Mathf.Abs(similarity) * slopeAccelPercent * slopeTime, 0.1f, MaxControl);
-        desiredVelocity *= control;
+        //const float MaxControl = 0.7f;
+
+        //float control = Mathf.Clamp(Mathf.Abs(similarity) * slopeAccelPercent * slopeTime, 0.1f, MaxControl);
+        //desiredVelocity *= control;
+        Vector3 slopeHorDir = groundNormal.WithY(-groundNormal.y);
+        desiredVelocity = slopeHorDir;
     }
 
     private void AirSlopeMovement()
@@ -349,11 +321,6 @@ public class PlayerMovement : MonoBehaviour
         desiredVelocity *= control;
     }
 
-    private void UpdateSpeed()
-    {
-        cur_speed = moveSpeed;
-    }
-
     private void UpdateAcceleration()
     {
         float target = grounded ? groundAcceleration : airAcceleration;
@@ -366,12 +333,24 @@ public class PlayerMovement : MonoBehaviour
         groundAngle = Vector3.Angle(Vector3.up, groundNormal);
 
         if (groundAngle > slopeLimit)
+        {
             timeOnSlope += Time.deltaTime;
+            timeOnGround = 0f;
+        }
         else
-            timeOnSlope = 0;
+        {
+            timeOnSlope = 0f;
+            timeOnGround += Time.deltaTime;
+        }
 
-        timeOnRamp = 0f;
-        //grounded = !onSlope;
+        if (timeOnGround < groundTimeToWalkOnSlopes)
+        {
+            controller.slopeLimit = slopeLimit;
+        }
+        else
+        {
+            controller.slopeLimit = 80f;
+        }
 
         wasGrounded = grounded;
         RaycastHit hit;
@@ -401,9 +380,26 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public void AddImpulse(Vector3 force)
+    private void LateUpdate()
     {
-        lastPos -= force;
-        y += force.y * 10;
+        Vector3 airshipVel = airship.position - lastAirshipPos;
+        Vector3 airshipRot = airship.eulerAngles - lastAirshipRot;
+
+        Vector3 diff = transform.position - lastPos;
+
+        transform.Translate(airshipVel, Space.World);
+        transform.RotateAround(airship.position, Vector3.up, airshipRot.y);
+
+        //Vector3 playerTranslation = transform.position - pos;
+        //lastPos -= playerTranslation;
+        lastPos = transform.position + diff;
+
+        lastAirshipPos = airship.position;
+        lastAirshipRot = airship.eulerAngles;
+
+        actualVelocity = (transform.position - lastPos) / Time.deltaTime;
+        lastPos = transform.position;
+
+        SetProperties();
     }
 }

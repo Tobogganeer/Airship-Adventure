@@ -7,16 +7,8 @@ public class PopUp : MonoBehaviour
     public static PopUp instance;
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
+        instance = this;
+        transform.SetParent(null);
     }
 
     public TMPro.TMP_Text text;
@@ -26,7 +18,7 @@ public class PopUp : MonoBehaviour
         instance.text.text = message;
         instance.CancelInvoke();
         instance.Invoke(nameof(Cancel), time);
-        Debug.Log(message);
+        //Debug.Log(message);
     }
 
     private void Cancel()

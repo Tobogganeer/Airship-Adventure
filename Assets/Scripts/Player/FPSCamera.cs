@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FPSCamera : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class FPSCamera : MonoBehaviour
 
     private float sensitivity => CurrentSensFromSettings * SENSITIVITY_MULT;
 
-    public static float CurrentSensFromSettings = 50f;
+    public static float CurrentSensFromSettings = 35f;
 
     public static float VerticalDip = 0f;
 
@@ -62,6 +63,7 @@ public class FPSCamera : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.Mouse0))
         //    Shake(Input.GetKey(Inputs.ADS) ? debugAimedShake : debugShake, Input.GetKey(Inputs.ADS) ? debugAimedWeaponShake : debugWeaponShake);
 
+        SensControls();
         MouseLook();
 
         VerticalMovement();
@@ -69,6 +71,20 @@ public class FPSCamera : MonoBehaviour
 
         lookTransform.localPosition = pos + Vector3.up * eyeHeight;
         lookTransform.localRotation = rot * sprintRot;
+    }
+
+    private void SensControls()
+    {
+        if (Keyboard.current.equalsKey.wasPressedThisFrame)
+        {
+            CurrentSensFromSettings = Mathf.Min(CurrentSensFromSettings += 5f, 75f);
+            PopUp.Show("Current sens: " + CurrentSensFromSettings, 1f);
+        }
+        if (Keyboard.current.minusKey.wasPressedThisFrame)
+        {
+            CurrentSensFromSettings = Mathf.Max(CurrentSensFromSettings -= 5f, 15f);
+            PopUp.Show("Current sens: " + CurrentSensFromSettings, 1f);
+        }
     }
 
     private void MouseLook()
