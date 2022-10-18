@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private CharacterController controller;
-    public Transform airship;
+    //public Transform airship;
 
     [Space]
     public float moveSpeed = 3.5f;
@@ -85,8 +85,8 @@ public class PlayerMovement : MonoBehaviour
 
     public static event Action<float> OnLand;
 
-    Vector3 lastAirshipPos;
-    Vector3 lastAirshipRot;
+    //Vector3 lastAirshipPos;
+    //Vector3 lastAirshipRot;
 
     //private bool slidingFromSpeed;
 
@@ -109,8 +109,8 @@ public class PlayerMovement : MonoBehaviour
         slopeTime = 1;
         groundNormal = Vector3.up;
 
-        lastAirshipPos = airship.position;
-        lastAirshipRot = airship.eulerAngles;
+        //lastAirshipPos = airship.position;
+        //lastAirshipRot = airship.eulerAngles;
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -158,6 +158,11 @@ public class PlayerMovement : MonoBehaviour
         //lastPos = transform.position;
         //SetProperties();
         // Moved to late update ^^^
+
+        actualVelocity = moveVelocity;
+        lastPos = transform.position;
+
+        SetProperties();
     }
 
     private void SetProperties()
@@ -273,7 +278,9 @@ public class PlayerMovement : MonoBehaviour
 
         //moveDir.y = y;
 
-        Vector3 flatVel = actualVelocity.Flattened();
+        //Vector3 flatVel = actualVelocity.Flattened();
+        Vector3 flatVel = moveVelocity.Flattened(); // AIRSHIP MOVEMENT -----
+
         //if (actualVelocity.y > 0)
         //y = actualVelocity.y;
         //this.moveVelocity.y = actualVelocity.y;
@@ -382,24 +389,31 @@ public class PlayerMovement : MonoBehaviour
 
     private void LateUpdate()
     {
+        /*
         Vector3 airshipVel = airship.position - lastAirshipPos;
         Vector3 airshipRot = airship.eulerAngles - lastAirshipRot;
 
-        Vector3 diff = transform.position - lastPos;
+        //Vector3 diff = transform.position - lastPos;
 
-        transform.Translate(airshipVel, Space.World);
+        //transform.Translate(airshipVel, Space.World);
+        controller.enabled = false;
         transform.RotateAround(airship.position, Vector3.up, airshipRot.y);
+        controller.enabled = true;
+        controller.Move(airshipVel);
 
         //Vector3 playerTranslation = transform.position - pos;
         //lastPos -= playerTranslation;
-        lastPos = transform.position + diff;
+        //lastPos = transform.position + diff;
 
         lastAirshipPos = airship.position;
         lastAirshipRot = airship.eulerAngles;
+        
 
-        actualVelocity = (transform.position - lastPos) / Time.deltaTime;
+        //actualVelocity = (transform.position - lastPos) / Time.deltaTime; // AIRSHIP MOVEMENT -----
+        actualVelocity = moveVelocity;
         lastPos = transform.position;
 
         SetProperties();
+        */
     }
 }
