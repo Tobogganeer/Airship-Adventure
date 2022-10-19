@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GrappleHook : MonoBehaviour
 {
+    public Transform hook;
+    public LineRenderer lr;
+
     // Start is called before the first frame update
     void Start()
     {
