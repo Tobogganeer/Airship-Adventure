@@ -5,7 +5,14 @@ using UnityEngine.InputSystem;
 
 public class Airship : MonoBehaviour
 {
+    public static Airship instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public CharacterController playerController;
+    public Wheel wheel;
 
     public Vector3 movement;
     //public Vector3 rot;
@@ -14,18 +21,18 @@ public class Airship : MonoBehaviour
     public float turnAmount = 15f;
 
     public static float Turn { get; private set; }
+    float turnPlusMinus1;
 
     void Update()
     {
         float desired = 0f;
-        if (Keyboard.current.qKey.isPressed)
-            desired -= turnAmount;
-        if (Keyboard.current.eKey.isPressed)
-            desired += turnAmount;
+        if (wheel.IsInteracting)
+            desired = PlayerInputs.Movement.x;
 
-        Turn = Mathf.Lerp(Turn, desired, Time.deltaTime * speed);
+        turnPlusMinus1 = Mathf.MoveTowards(turnPlusMinus1, desired, Time.deltaTime * speed);
+        Turn = (EaseInOutQuad(0, 1, (turnPlusMinus1 + 1) / 2f) * 2 - 1) * turnAmount;
 
-        Vector3 delta = transform.TransformVector(movement) * Time.deltaTime;
+        Vector3 delta = (transform.TransformVector(movement) / transform.localScale.z) * Time.deltaTime;
         MovePlayer(delta, Turn);
 
         transform.Rotate(Vector3.up * Turn * Time.deltaTime);
@@ -41,4 +48,16 @@ public class Airship : MonoBehaviour
         playerController.transform.RotateAround(transform.position, Vector3.up, y * Time.deltaTime);
         playerController.enabled = true;
     }
+
+    // https://gitlab.com/gamedev-public/unity/-/blob/main/Scripts/Extensions/Easings/EasingUtility.cs
+    public static float EaseInOutQuad(float start, float end, float value)
+    {
+        value /= .5f;
+        end -= start;
+        if (value < 1) return end * 0.5f * value * value + start;
+        value--;
+        return -end * 0.5f * (value * (value - 2) - 1) + start;
+    }
+
+
 }

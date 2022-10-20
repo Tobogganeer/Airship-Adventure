@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 6f847efa783c87c4abf57277f083e25e
+guid: 9abf68d904b13cc4cbd9c52c14822bca
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Taht material thing
-    second: {fileID: 2100000, guid: 6b44fe902553e6c45b4f88cc09dde7e5, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

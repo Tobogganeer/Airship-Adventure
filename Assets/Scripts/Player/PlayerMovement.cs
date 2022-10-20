@@ -185,7 +185,6 @@ public class PlayerMovement : MonoBehaviour
         if (Interactor.Interacting)
         {
             desiredVelocity = transform.position.DirectionTo_NoNormalize(Interactor.CurrentInteractable.InteractFrom.position).Flattened();
-            Debug.Log(desiredVelocity);
         }
         else
         {

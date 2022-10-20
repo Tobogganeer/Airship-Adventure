@@ -45,6 +45,8 @@ public class FPSCamera : MonoBehaviour
 
     public static bool Crouched;
 
+    public static Transform Transform => instance.transform;
+    public static Vector3 Position => instance.transform.forward;
     public static Vector3 ViewDir => instance.transform.forward;
 
     Vector3 pos;

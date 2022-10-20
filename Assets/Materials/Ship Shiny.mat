@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ship
+  m_Name: Ship Shiny
   m_Shader: {fileID: -6465566751694194690, guid: dc79d3b580f506b43b93e4e87782d877,
     type: 3}
   m_ValidKeywords: []
@@ -26,7 +26,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: f489c182768ec9942bed0eaf8945b089, type: 3}
+        m_Texture: {fileID: 2800000, guid: fff9fb28028923b448a94cbbfac833a0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -46,16 +46,16 @@ Material:
     - _Colour_Blend: 15
     - _Colour_Divider: 2
     - _Colour_Power: 15.91
-    - _Metallic: 0
+    - _Metallic: 1
     - _Noise_Roughness: 2.46
     - _Normal_Scale: 0.86
-    - _Normal_Strength: 0.28
+    - _Normal_Strength: 0.33
     - _Persistence: 0.55
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Roughness: 0.4
     - _Scale: 1
-    - _Smoothness: 0.2
+    - _Smoothness: 0.74
     m_Colors:
     - _Colour: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
     - _Colour_2: {r: 0.0252314, g: 0.08610529, b: 0.1981132, a: 1}
