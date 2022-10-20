@@ -7,118 +7,60 @@ public class Interactor : MonoBehaviour
     public float interactRange = 4;
     public LayerMask interactLayers;
     public Transform interactFrom;
-    public float interactCooldown = 1;
-    float cooldown;
 
-    //private IInteractable currentInteractable;
+    public static IInteractable CurrentInteractable { get; private set; }
+    static IInteractable lookingAt;
 
-    float interactTime;
-    bool interacting;
-
-    public bool Interacting => interacting;
-
-    // WILL NOT WORK RN INPUT SYSTEM NOT SET UP RIGHT (no key up or held detect)
-
+    public static bool Interacting => CurrentInteractable != null && CurrentInteractable.IsInteracting;
+    
     private void Update()
     {
-        cooldown -= Time.deltaTime;
-
         FetchInteractables();
 
-        /*
-        if (PlayerInputs.Interact && cooldown <= 0)
+        if (PlayerInputs.Secondary)
         {
-            bool setCooldown = true;
-
-            if (currentInteractable != null)
+            if (CurrentInteractable != null && CurrentInteractable.IsInteracting)
             {
-                if (currentInteractable.CanInteract(player))
+                CurrentInteractable.OnInteract();
+                if (CurrentInteractable.IsInteracting == false)
                 {
-                    currentInteractable.StartInteract(player);
-                    float time = currentInteractable.GetInteractTime();
+                    CurrentInteractable = null;
+                }
 
-                    if (time > 0)
-                    {
-                        interacting = true;
-                        interactTime = time;
-                        HUD.SetInteractCooldown(interactTime);
-                        setCooldown = false;
-                    }
+                return;
+            }
+            else
+            {
+                CurrentInteractable = null;
+            }
+
+            if (lookingAt != null)
+            {
+                lookingAt.OnInteract();
+                if (lookingAt.IsInteracting)
+                {
+                    CurrentInteractable = lookingAt;
+                }
+                else
+                {
+                    CurrentInteractable = null;
                 }
             }
-
-            if (setCooldown)
-            {
-                HUD.SetInteractCooldown(interactCooldown);
-                cooldown = interactCooldown;
-            }
-            player.animator.UseArmAction();
         }
-
-        if (PlayerInputs.Interact && interacting)
-        {
-            interactTime -= Time.deltaTime;
-
-            if (interactTime <= 0)
-            {
-                interacting = false;
-                interactTime = 0;
-                currentInteractable?.FinishInteract(player);
-
-                HUD.SetInteractCooldown(interactCooldown);
-                cooldown = interactCooldown;
-            }
-        }
-
-        if (PlayerInputs.Interact && interacting)
-        {
-            if (interactTime > 0)
-            {
-                currentInteractable?.EndInteract(player);
-
-                HUD.SetInteractCooldown(interactCooldown);
-                cooldown = interactCooldown;
-            }
-
-            interacting = false;
-            interactTime = 0;
-        }
-        */
     }
 
     private void FetchInteractables()
     {
-        /*
         if (Physics.Raycast(interactFrom.position, interactFrom.forward, out RaycastHit hit, interactRange, interactLayers, QueryTriggerInteraction.Collide))
         {
-            if (hit.transform.TryGetComponent(out currentInteractable))
-                HUD.SetInteract(currentInteractable.CanInteract(player));
-            else
+            if (hit.transform.TryGetComponent(out lookingAt))
             {
-                HUD.SetInteract(false);
-                if (interacting)
-                {
-                    currentInteractable?.EndInteract(player);
-                    interactTime = 0;
-                    HUD.SetInteractCooldown(interactCooldown);
-                    cooldown = interactCooldown;
-                }
-                currentInteractable = null;
+                HUD.SetInteract(!lookingAt.IsInteracting);
+                return;
             }
         }
-        else
-        {
-            HUD.SetInteract(false);
 
-            if (interacting)
-            {
-                currentInteractable?.EndInteract(player);
-                interactTime = 0;
-                HUD.SetInteractCooldown(interactCooldown);
-                cooldown = interactCooldown;
-            }
-            currentInteractable = null;
-        }
-        */
+        HUD.SetInteract(false);
+        lookingAt = null;
     }
 }

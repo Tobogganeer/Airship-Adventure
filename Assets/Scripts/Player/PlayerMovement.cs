@@ -180,11 +180,18 @@ public class PlayerMovement : MonoBehaviour
         const float SlopeSpeedIncrease = 5;
         const float MaxSlopeTime = SlopeSpeedIncrease * 4.5f;
 
-        //Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        //input.Normalize();
         Vector2 input = PlayerInputs.Movement;
 
-        desiredVelocity = transform.right * input.x + transform.forward * input.y;
+        if (Interactor.Interacting)
+        {
+            desiredVelocity = transform.position.DirectionTo_NoNormalize(Interactor.CurrentInteractable.InteractFrom.position).Flattened();
+            Debug.Log(desiredVelocity);
+        }
+        else
+        {
+            desiredVelocity = transform.right * input.x + transform.forward * input.y;
+        }
+
         desiredVelocity *= cur_speed;
 
         y -= gravity * Time.deltaTime;
