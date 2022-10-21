@@ -12,7 +12,9 @@ public class HUD : MonoBehaviour
     }
 
     public CanvasGroup interactIcon;
+    public CanvasGroup blackScreen;
     bool interact;
+    bool black;
 
 
     //public static bool HUDVisible = true;
@@ -22,10 +24,15 @@ public class HUD : MonoBehaviour
         instance.interact = on;
     }
 
+    public static void SetBlack(bool on)
+    {
+        instance.black = on;
+    }
 
 
     private void Update()
     {
         interactIcon.alpha = Mathf.Lerp(interactIcon.alpha, interact ? 1 : 0, Time.deltaTime * 10);
+        blackScreen.alpha = Mathf.Lerp(blackScreen.alpha, black ? 1 : 0, Time.deltaTime * 10);
     }
 }

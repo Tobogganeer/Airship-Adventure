@@ -184,7 +184,7 @@ public class Timer
         {
             float dt = UnityEngine.Time.deltaTime;
 
-            for (int i = timers.Count; i >= 0; i--)
+            for (int i = timers.Count - 1; i >= 0; i--)
             {
                 timers[i].Update(dt);
             }

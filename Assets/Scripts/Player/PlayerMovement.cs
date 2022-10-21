@@ -20,39 +20,25 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 3.5f;
     public float slopeLimit = 60f;
     public float gravity = 10f;
-    public float slideFriction = 0.5f;
-    public float slopeAccelPercent = 0.5f;
     public float groundAcceleration = 8f;
     public float airAcceleration = 1f;
     public float accelLerpSpeed = 5f;
     public float pushPower = 3f;
 
-    [Space]
-    public float groundTimeToWalkOnSlopes = 0.5f;
-    public float slopePushPower = 0.3f;
-
     public LayerMask groundLayerMask;
 
-    private Vector3 groundNormal;
     private bool grounded;
     private bool wasGrounded;
-    private bool groundNear;
 
     private float y;
 
-    private float timeOnSlope;
-    private float timeOnGround;
-
-    private float groundAngle;
-
-    const float DOWNFORCE = 3f;
+    const float DOWNFORCE = 10f;
     //float slopeMult;
 
     Vector3 desiredVelocity;
     Vector3 moveVelocity;
     Vector3 actualVelocity;
-    Vector3 lastPos;
-    float slopeTime;
+    Vector3 groundNormal;
 
     #region Constants
 
@@ -105,9 +91,6 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         controller.slopeLimit = 80;
-        lastPos = transform.position;
-        slopeTime = 1;
-        groundNormal = Vector3.up;
 
         //lastAirshipPos = airship.position;
         //lastAirshipRot = airship.eulerAngles;
@@ -160,7 +143,6 @@ public class PlayerMovement : MonoBehaviour
         // Moved to late update ^^^
 
         actualVelocity = moveVelocity;
-        lastPos = transform.position;
 
         SetProperties();
     }
@@ -170,16 +152,12 @@ public class PlayerMovement : MonoBehaviour
         WorldVelocity = actualVelocity;
         LocalVelocity = transform.InverseTransformVector(WorldVelocity);
         Moving = desiredVelocity.sqrMagnitude > 0.1f && WorldVelocity.Flattened().sqrMagnitude > 0.1f;
-        Sliding = Grounded && /*Crouched &&*/ (timeOnSlope > 0.3f);
         NormalizedSpeed = 1;
         AirTime = airtime;
     }
 
     private void Move()
     {
-        const float SlopeSpeedIncrease = 5;
-        const float MaxSlopeTime = SlopeSpeedIncrease * 4.5f;
-
         Vector2 input = PlayerInputs.Movement;
 
         if (Interactor.Interacting)
@@ -197,7 +175,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (grounded)
         {
-            y = -DOWNFORCE;
+            //y = -DOWNFORCE;
+            CalculateDownForce();
 
             if (!wasGrounded)
             {
@@ -210,70 +189,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else airtime += Time.deltaTime;
 
-
-        // On a slope, but not above a void or something (will fall onto ground)
-        if (timeOnSlope > 0.2f)// && groundNear) // Commented out to try to counteract walking up edges of slopes
-        {
-            //if (groundNear)
-                SlopeMovement();
-            //else
-            //    AirSlopeMovement();
-        }
-        // Let player still move sideways on slopes
-
-        if (timeOnSlope > 0.2f)
-        {
-            // On slope and hasnt like just jumped
-
-            //moveDir = Vector3.zero;
-            Vector3 slopeHorDir = groundNormal.Flattened().normalized;
-
-            if (groundNear)
-            {
-                Vector3 velDir = actualVelocity.Flattened().normalized;
-                float velSimilarity = Vector3.Dot(slopeHorDir, velDir);
-
-                if (velSimilarity > -0.1f)
-                    slopeTime += Time.deltaTime * SlopeSpeedIncrease;
-                else
-                    slopeTime -= Time.deltaTime * SlopeSpeedIncrease;
-
-                if (slopeTime > MaxSlopeTime)
-                    slopeTime = MaxSlopeTime;
-
-                if (slopeTime < 1f)
-                    slopeTime = 1f;
-
-                y = -DOWNFORCE * slopeTime;
-            }
-            else
-                slopeTime = 1f;
-
-            desiredVelocity.x += groundNormal.x * slopeTime * (1f - slideFriction);
-            desiredVelocity.z += groundNormal.z * slopeTime * (1f - slideFriction);
-
-            float angle = Vector3.Angle(Vector3.up, groundNormal);
-            if (angle > slopeLimit)
-            {
-                const float ViewInfluence = 1.25f;
-                const float MaxViewInfluence = 2.5f;
-                const float Mult = 0.2f;
-
-                Vector3 viewDir = FPSCamera.ViewDir.Flattened().normalized;
-                Vector3 slopeSide = Vector3.Cross(slopeHorDir, Vector3.up);
-                float viewSimilarity = Vector3.Dot(slopeSide, viewDir);
-
-                float mul = ViewInfluence * Mathf.Abs(viewSimilarity) * slopeTime * Mult;
-                mul = Mathf.Clamp(mul, 0, MaxViewInfluence);
-
-                desiredVelocity.x += viewDir.x * mul;
-                desiredVelocity.z += viewDir.z * mul;
-            }
-        }
-        else
-        {
-            slopeTime = 1f;
-        }
 
         if (wasGrounded && !grounded)
         {
@@ -300,40 +215,6 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void SlopeMovement()
-    {
-        // Normal slope movement
-        //Vector3 slopeHorDir = groundNormal.Flattened().normalized;
-        //Vector3 slopeSide = Vector3.Cross(slopeHorDir, Vector3.up);
-        //Vector3 velDir = desiredVelocity.Flattened().normalized;
-
-        //float similarity = Vector3.Dot(slopeSide, velDir);
-        //similarity *= similarity;
-
-        //const float MaxControl = 0.7f;
-
-        //float control = Mathf.Clamp(Mathf.Abs(similarity) * slopeAccelPercent * slopeTime, 0.1f, MaxControl);
-        //desiredVelocity *= control;
-        Vector3 slopeHorDir = groundNormal.WithY(-groundNormal.y);
-        desiredVelocity = slopeHorDir;
-    }
-
-    private void AirSlopeMovement()
-    {
-        // Slope movement with no ground beneath, like say walking on a fence top
-        Vector3 slopeHorDir = groundNormal.Flattened().normalized;
-        // ^^^ points directly towards edge
-        Vector3 velDir = desiredVelocity.Flattened().normalized;
-
-        float similarity = Vector3.Dot(slopeHorDir, velDir);
-        //similarity *= similarity;
-
-        const float MaxControl = 0.9f;
-
-        float control = Mathf.Clamp(Mathf.Abs(similarity) * slopeAccelPercent * slopeTime, 0.1f, MaxControl);
-        desiredVelocity *= control;
-    }
-
     private void UpdateAcceleration()
     {
         float target = grounded ? groundAcceleration : airAcceleration;
@@ -343,28 +224,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateGrounded()
     {
-        groundAngle = Vector3.Angle(Vector3.up, groundNormal);
-
-        if (groundAngle > slopeLimit)
-        {
-            timeOnSlope += Time.deltaTime;
-            timeOnGround = 0f;
-        }
-        else
-        {
-            timeOnSlope = 0f;
-            timeOnGround += Time.deltaTime;
-        }
-
-        if (timeOnGround < groundTimeToWalkOnSlopes)
-        {
-            controller.slopeLimit = slopeLimit;
-        }
-        else
-        {
-            controller.slopeLimit = 80f;
-        }
-
         wasGrounded = grounded;
         RaycastHit hit;
         grounded = Physics.SphereCast(new Ray(transform.position, Vector3.down), GroundedSphereRadius, out hit, GroundedSphereDist, groundLayerMask)
@@ -373,10 +232,38 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
             groundNormal = hit.normal;
 
-        groundNear = Physics.Raycast(new Ray(transform.position, Vector3.down), GroundNearDist, groundLayerMask);
-
         if (!Physics.CheckSphere(transform.position + Vector3.down * NearSurfaceDist, NearSurfaceRadius, groundLayerMask))
             groundNormal = Vector3.up;
+    }
+
+    private void CalculateDownForce()
+    {
+        // y = -DOWNFORCE;
+        float angle = Vector3.Angle(Vector3.up, groundNormal);
+
+        if (angle < 1f)
+        {
+            y = -DOWNFORCE;
+        }
+        else
+        {
+            if (actualVelocity.Flattened().sqrMagnitude < 0.5f)
+            {
+                y = 0;
+            }
+            else
+            {
+                float dot = Vector3.Dot(groundNormal.Flattened().normalized, actualVelocity.normalized);
+                if (dot > 0)
+                {
+                    y = -Mathf.Clamp(DOWNFORCE * actualVelocity.Flattened().magnitude, 0, DOWNFORCE);
+                }
+                else
+                {
+                    y = 0;
+                }
+            }
+        }
     }
 
     private void OnDrawGizmos()
@@ -386,40 +273,5 @@ public class PlayerMovement : MonoBehaviour
 
         Gizmos.color = Color.magenta;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * GroundedRayDist);
-        // Grounded
-
-        if (controller == null)
-            controller = GetComponent<CharacterController>();
-    }
-
-
-    private void LateUpdate()
-    {
-        /*
-        Vector3 airshipVel = airship.position - lastAirshipPos;
-        Vector3 airshipRot = airship.eulerAngles - lastAirshipRot;
-
-        //Vector3 diff = transform.position - lastPos;
-
-        //transform.Translate(airshipVel, Space.World);
-        controller.enabled = false;
-        transform.RotateAround(airship.position, Vector3.up, airshipRot.y);
-        controller.enabled = true;
-        controller.Move(airshipVel);
-
-        //Vector3 playerTranslation = transform.position - pos;
-        //lastPos -= playerTranslation;
-        //lastPos = transform.position + diff;
-
-        lastAirshipPos = airship.position;
-        lastAirshipRot = airship.eulerAngles;
-        
-
-        //actualVelocity = (transform.position - lastPos) / Time.deltaTime; // AIRSHIP MOVEMENT -----
-        actualVelocity = moveVelocity;
-        lastPos = transform.position;
-
-        SetProperties();
-        */
     }
 }

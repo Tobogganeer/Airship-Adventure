@@ -18,6 +18,7 @@ public class AudioMaster : MonoBehaviour
 
         transform.SetParent(null);
         DontDestroyOnLoad(gameObject);
+        ObjectPoolManager.CreatePool(PooledObject.AudioSource, audioSourcePrefab, 16);
     }
 
     public GameObject audioSourcePrefab;

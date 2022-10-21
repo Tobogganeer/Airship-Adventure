@@ -37,13 +37,14 @@ public class FPSCamera : MonoBehaviour
     private const float VertDipSpeed = 6f;
     private const float VertDipRotationMult = 6f;
 
+    /*
     [Space]
     public float sprintHorShake = 0.18f;
     public float sprintVertShake = 0.2f;
     public float sprintRunMul = 4;
-
-
+    
     public static bool Crouched;
+    */
 
     public static Transform Transform => instance.transform;
     public static Vector3 Position => instance.transform.forward;
@@ -69,7 +70,7 @@ public class FPSCamera : MonoBehaviour
         MouseLook();
 
         VerticalMovement();
-        SprintShake();
+        //SprintShake();
 
         lookTransform.localPosition = pos + Vector3.up * eyeHeight;
         lookTransform.localRotation = rot * sprintRot;
@@ -116,6 +117,7 @@ public class FPSCamera : MonoBehaviour
         VerticalDip = Mathf.Lerp(VerticalDip, 0, Time.deltaTime * VertDipSpeed);
     }
 
+    /*
     private void SprintShake()
     {
         if (!PlayerMovement.Grounded) return;
@@ -127,4 +129,5 @@ public class FPSCamera : MonoBehaviour
 
         sprintRot = Quaternion.Slerp(sprintRot, Quaternion.Euler(desired), Time.deltaTime * 10);
     }
+    */
 }

@@ -36,7 +36,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Alpha_Power: 2.5
-    - _Glow: 3
+    - _Glow: 12.72
     - _Min: 0.02
     - _Mult: 0.3
     - _Noise_Power: 3.38

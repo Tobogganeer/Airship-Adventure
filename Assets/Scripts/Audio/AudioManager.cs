@@ -111,7 +111,7 @@ public class AudioManager : MonoBehaviour
         {
             // Create pool
             Debug.Log("Creating audio source pool");
-            ObjectPoolManager.CreatePool(PooledObject.AudioSource, AudioMaster.Instance.audioSourcePrefab, 35);
+            ObjectPoolManager.CreatePool(PooledObject.AudioSource, AudioMaster.Instance.audioSourcePrefab, 16);
             sourceObj = ObjectPoolManager.GetObject(PooledObject.AudioSource);
         }
 
