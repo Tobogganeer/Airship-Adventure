@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
+    private void Start()
+    {
+        HUD.SetBlack(false);
+        HUD.SetInteract(false);
+        HUD.SetFuelVisibility(false);
+    }
+
     public void Play()
     {
         SceneManager.LoadLevel(Level.Game);

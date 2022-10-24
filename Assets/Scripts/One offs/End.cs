@@ -9,6 +9,8 @@ public class End : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PopUp.Show("You win!");
+            HUD.SetBlack(true);
+            Timer.Create(3f, () => SceneManager.LoadLevel(Level.MainMenu));
         }
     }
 }

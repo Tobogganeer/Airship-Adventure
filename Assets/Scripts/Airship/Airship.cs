@@ -9,6 +9,7 @@ public class Airship : MonoBehaviour
     {
         instance = this;
         HUD.SetBlack(false);
+        HUD.SetFuelVisibility(true);
     }
 
     public CharacterController playerController;
@@ -99,6 +100,7 @@ public class Airship : MonoBehaviour
         {
             Crash("Ran out of fuel! Collect floating caches!", 5f);
         }
+        HUD.SetFuel(Fuel);
     }
 
     void MovePlayer(Vector3 delta, float y)
