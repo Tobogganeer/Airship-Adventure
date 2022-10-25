@@ -9,6 +9,9 @@ public class MainMenu : MonoBehaviour
         HUD.SetBlack(false);
         HUD.SetInteract(false);
         HUD.SetFuelVisibility(false);
+        Time.timeScale = 1f;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void Play()

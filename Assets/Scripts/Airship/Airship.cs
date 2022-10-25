@@ -19,7 +19,12 @@ public class Airship : MonoBehaviour
     public float turnAmount = 15f;
 
     [Space]
-    public float crashDistance = 15f;
+    public float crashDistance = 2f;
+
+    [Space]
+    public GrappleHook leftHook;
+    public GrappleHook rightHook;
+    public float hookGrabbingTurnAmount = 2f;
 
 
     public static float Turn { get; private set; }
@@ -41,6 +46,11 @@ public class Airship : MonoBehaviour
         UpdateFuel();
 
         float desired = 0f;
+        if (leftHook.grabbedTarget != null)
+            desired -= hookGrabbingTurnAmount;
+        if (rightHook.grabbedTarget != null)
+            desired += hookGrabbingTurnAmount;
+
         if (wheel.IsInteracting)
             desired = PlayerInputs.Movement.x;
 
@@ -75,7 +85,7 @@ public class Airship : MonoBehaviour
     void IntroSpiel()
     {
         Timer.New(0.0f, () => PopUp.Show("Welcome to Airship Game!"));
-        Timer.New(4.0f, () => PopUp.Show("Right Click/E/F to interact with the wheel/grapple hooks", 4.0f));
+        Timer.New(4.0f, () => PopUp.Show("Right Click/E/F to interact with the wheel/grapple hooks (+- for sens)", 4.0f));
         Timer.New(8.0f, () => PopUp.Show("Shoot fuel caches with LMB", 3.0f));
         Timer.New(11.0f, () => PopUp.Show("Reach the end sphere, follow the arrows!", 4.0f));
         Timer.New(16.0f, () => PopUp.Show("Good Luck!", 3.0f));

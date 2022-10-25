@@ -44,6 +44,10 @@ public class CacheSpawner : MonoBehaviour
                     pos.z = -pos.z;
                     newCache.transform.position = pos + transform.position;
                 }
+
+                Vector3 audioPos = Airship.instance.transform.position +
+                    Airship.instance.transform.position.DirectionTo(newCache.transform.position) * 20f;
+                AudioManager.Play(new Audio("Hit").SetPosition(audioPos).SetVolume(0.2f).SetDistance(100f));
             }
         }
     }

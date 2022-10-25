@@ -6,7 +6,8 @@ public class GrappleHook : MonoBehaviour, IInteractable
 {
     public GrappleHook other;
     public LineRenderer laser;
-    public LineRenderer rope;
+    //public LineRenderer rope;
+    public GrappleRope rope;
     public Transform hook;
     public Transform hookHome;
     public Transform head;
@@ -62,8 +63,12 @@ public class GrappleHook : MonoBehaviour, IInteractable
             laser.enabled = false;
         }
 
-        rope.SetPosition(0, rope.transform.position);
-        rope.SetPosition(1, hook.position);
+        rope.show = grabbing && grabbedTarget != null;
+        rope.start = rope.transform.position;
+        rope.end = hook.position;
+        rope.DrawRope();
+        //rope.SetPosition(0, rope.transform.position);
+        //rope.SetPosition(1, hook.position);
     }
 
     void TryShoot()

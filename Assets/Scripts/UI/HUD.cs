@@ -53,6 +53,5 @@ public class HUD : MonoBehaviour
         fuelBar.alpha = Mathf.Lerp(fuelBar.alpha, fuelShow ? 1 : 0, Time.deltaTime * 10);
         fuelFill.fillAmount = Mathf.Lerp(fuelFill.fillAmount, Remap.Float(fuel, 0, 180, 0, 1), Time.deltaTime * 10f);
         fuelFill.color = fuelGradient.Evaluate(fuelFill.fillAmount);
-        // https://gist.github.com/Refsa/e006f1a8d3a974ae88cb7ecd93bf306b
     }
 }

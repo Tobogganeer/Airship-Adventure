@@ -92,6 +92,9 @@ public class FPSCamera : MonoBehaviour
 
     private void MouseLook()
     {
+        if (PauseMenu.Paused)
+            return;
+
         //float x = Input.GetAxisRaw("Mouse X");
         //float y = Input.GetAxisRaw("Mouse Y");
         Vector2 look = PlayerInputs.Look;

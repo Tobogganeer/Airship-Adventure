@@ -40,6 +40,24 @@ MonoBehaviour:
     DirectLightingStrength: 0.25
     Radius: 0.25
     SampleCount: 12
+--- !u!114 &-585374866527910652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2a9c6bcc9f9664a898f3348c880908, type: 3}
+  m_Name: UIBlurFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    DownscaleAmount: 2
+    BlurType: 0
+    BlurIterations: 4
+    EffectCompute: {fileID: 7200000, guid: 08b04a8e50ad0e04b94726856a643f5f, type: 3}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,8 +75,10 @@ MonoBehaviour:
       type: 3}
   m_RendererFeatures:
   - {fileID: -1878332245247344467}
+  - {fileID: -585374866527910652}
   - {fileID: -1980355072386613639}
-  m_RendererFeatureMap: adc0de57c6d2eee579be40d58d5d84e4
+  - {fileID: 6022545821692632820}
+  m_RendererFeatureMap: adc0de57c6d2eee50485290ca954e0f779be40d58d5d84e4f49e801984619453
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -98,3 +118,30 @@ MonoBehaviour:
   m_ClusteredRendering: 0
   m_TileSize: 32
   m_IntermediateTextureMode: 1
+--- !u!114 &6022545821692632820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e83db520041bcb44966275a111dd4ee, type: 3}
+  m_Name: AtmosphericFogRenderFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    color: {r: 0.80651474, g: 0.8320322, b: 0.8679245, a: 1}
+    sunColor: {r: 0.9433962, g: 0.8535622, b: 0.6897472, a: 1}
+    fogDensity: 0.01
+    fogDensityPower: 0.1
+    skyAlpha: 0
+    useHeightFog: 1
+    fogHeightStart: -100
+    fogHeightEnd: 25
+    fogHeightPower: 0.5
+    extraFogHeightEnd: -50
+    extraFogHeightPower: 0.9
+    directionalIntesity: 1
+    directionalPower: 2.93

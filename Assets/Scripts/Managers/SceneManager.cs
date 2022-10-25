@@ -33,11 +33,13 @@ public class SceneManager : MonoBehaviour
 
     public static void LoadLevel(Level level)
     {
+        /*
         if (CurrentLevel == level)
         {
             Debug.Log($"Skipping level change to {level} as that is the current level");
             return;
-        }    
+        }
+        */
 
         if (!scenes.TryGetValue(level, out string scene))
         {

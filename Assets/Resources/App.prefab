@@ -202,7 +202,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -10, y: -10}
+  m_SizeDelta: {x: -10, y: -6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4436314280456481072
 CanvasRenderer:
@@ -225,14 +225,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.16355896, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.16355896, b: 0, a: 0.29803923}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0b672651f3ba07f4fb45d017c6728499, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 82b8a01d69359d24eb996d3921f14491, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -268,7 +268,6 @@ GameObject:
   - component: {fileID: 3387363760288231107}
   - component: {fileID: 9064390647583115209}
   - component: {fileID: -8447345476862139220}
-  - component: {fileID: 7329770833492605487}
   m_Layer: 0
   m_Name: App
   m_TagString: Untagged
@@ -402,7 +401,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 894ea8a38565c594dadbb47771e1c9d1, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -486,29 +485,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!164 &7329770833492605487
-AudioReverbFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2420169551764057506}
-  m_Enabled: 1
-  m_DryLevel: 0
-  m_Room: -1000
-  m_RoomHF: -2500
-  m_DecayTime: 1.49
-  m_DecayHFRatio: 0.21
-  m_ReflectionsLevel: -2780
-  m_ReverbLevel: -1434
-  m_ReverbDelay: 0.1
-  m_Diffusion: 27
-  m_Density: 100
-  m_HFReference: 5000
-  m_RoomLF: 0
-  m_LFReference: 250
-  m_ReflectionsDelay: 0
-  m_ReverbPreset: 18
 --- !u!1 &3783725709054197570
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,9 +623,9 @@ MonoBehaviour:
   fuelGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0.10849059, b: 0.10849059, a: 1}
-    key1: {r: 1, g: 0.5430124, b: 0, a: 1}
-    key2: {r: 0.98299253, g: 0.9198113, b: 1, a: 0}
-    key3: {r: 0.4866965, g: 0.8301887, b: 0.3250267, a: 0}
+    key1: {r: 1, g: 0.5430124, b: 0, a: 0.19607843}
+    key2: {r: 0.98299253, g: 0.9198113, b: 1, a: 0.19607843}
+    key3: {r: 0.68990034, g: 0.8867924, b: 0.5981666, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
@@ -663,8 +639,8 @@ MonoBehaviour:
     ctime6: 0
     ctime7: 0
     atime0: 0
-    atime1: 65535
-    atime2: 0
+    atime1: 23294
+    atime2: 65535
     atime3: 0
     atime4: 0
     atime5: 0
@@ -672,7 +648,7 @@ MonoBehaviour:
     atime7: 0
     m_Mode: 0
     m_NumColorKeys: 4
-    m_NumAlphaKeys: 2
+    m_NumAlphaKeys: 3
 --- !u!1 &5642052529171398815
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,10 +820,10 @@ RectTransform:
   m_Father: {fileID: 4942618080667340598}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 50}
-  m_SizeDelta: {x: 600, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 10}
+  m_SizeDelta: {x: 0, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2531856782743219573
 CanvasRenderer:
@@ -870,14 +846,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.019607844}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0b672651f3ba07f4fb45d017c6728499, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 82b8a01d69359d24eb996d3921f14491, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
