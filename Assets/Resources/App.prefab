@@ -355,6 +355,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 2435ab2e4e07e754ca850ee166ef7356, type: 3}
     - {fileID: 8300000, guid: 0c4fd1c713aa1cf468ed234458fb1147, type: 3}
     - {fileID: 8300000, guid: b9c335d6a3a682b4d931075b100906ad, type: 3}
+  - name: HighReverb
+    clips:
+    - {fileID: 8300000, guid: 7053c08cba160f94abdba3c62ff912e4, type: 3}
+    - {fileID: 8300000, guid: a5da1cf9fb6a13d478e2aa47b1877636, type: 3}
+    - {fileID: 8300000, guid: f2d91af295fe1724c989e0c27003249c, type: 3}
 --- !u!114 &3387363760288231107
 MonoBehaviour:
   m_ObjectHideFlags: 0
