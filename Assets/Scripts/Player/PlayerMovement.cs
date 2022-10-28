@@ -91,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         controller.slopeLimit = 80;
+        //controller.detectCollisions = false;
 
         //lastAirshipPos = airship.position;
         //lastAirshipRot = airship.eulerAngles;
@@ -104,18 +105,28 @@ public class PlayerMovement : MonoBehaviour
         if (body != null && !body.isKinematic)
             body.velocity += controller.velocity;
         */
+
+        //Rigidbody body = hit.collider.attachedRigidbody;
+        //if (body != null && !body.isKinematic)
+        //     body.velocity += hit.controller.velocity;
+
+        
         Rigidbody body = hit.collider.attachedRigidbody;
         Vector3 force;
 
         if (body == null || body.isKinematic) return;
 
+        /*
         if (hit.moveDirection.y < -0.3f)
             force = Vector3.down * gravity;
         else
             force = hit.controller.velocity * pushPower;
+        */
+        force = actualVelocity * pushPower;
 
         // Apply the push
-        body.AddForceAtPosition(force, hit.point);
+        //body.AddForceAtPosition(force, hit.point);
+        body.velocity = force;
     }
 
 

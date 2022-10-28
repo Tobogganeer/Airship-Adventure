@@ -62,7 +62,7 @@ public class Airship : MonoBehaviour
 
         transform.Rotate(Vector3.up * Turn * Time.deltaTime);
         //transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
-        transform.position -= transform.forward * moveSpeed * Time.deltaTime;
+        transform.position += delta;
         //rb.MovePosition(transform.position - transform.forward * moveSpeed * Time.deltaTime);
 
         //MovePlayer(transform.position - pos, turn);

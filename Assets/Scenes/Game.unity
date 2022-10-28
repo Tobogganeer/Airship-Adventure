@@ -2631,6 +2631,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1704774515531647974, guid: ed68e832f536e3d43ac00689876b8382,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704774515531647974, guid: ed68e832f536e3d43ac00689876b8382,
+        type: 3}
       propertyPath: playerController
       value: 
       objectReference: {fileID: 1260610922}
@@ -2644,10 +2649,20 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 1704774516323383740, guid: ed68e832f536e3d43ac00689876b8382,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1975385555115992978, guid: ed68e832f536e3d43ac00689876b8382,
         type: 3}
       propertyPath: m_Name
       value: Airship
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975385555115992978, guid: ed68e832f536e3d43ac00689876b8382,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed68e832f536e3d43ac00689876b8382, type: 3}
