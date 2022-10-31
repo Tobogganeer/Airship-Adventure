@@ -12,19 +12,25 @@ public class Airship : MonoBehaviour
         HUD.SetFuelVisibility(true);
     }
 
+    public Rigidbody rb;
     public CharacterController playerController;
+    public List<Transform> kiddos;
     public Wheel wheel;
     public float moveSpeed = 5f;
-    public float speed = 1f;
-    public float turnAmount = 15f;
+    public float turnSpeed = 0.2f;
+    public float turnAmount = 20f;
 
     [Space]
     public float crashDistance = 2f;
+    public float fuelBurnRate = 1f;
 
     [Space]
     public GrappleHook leftHook;
     public GrappleHook rightHook;
     public float hookGrabbingTurnAmount = 2f;
+
+    [Space]
+    public Transform spawnCrapHere;
 
 
     public static float Turn { get; private set; }
@@ -54,16 +60,18 @@ public class Airship : MonoBehaviour
         if (wheel.IsInteracting)
             desired = PlayerInputs.Movement.x;
 
-        turnPlusMinus1 = Mathf.MoveTowards(turnPlusMinus1, desired, Time.deltaTime * speed);
+        turnPlusMinus1 = Mathf.MoveTowards(turnPlusMinus1, desired, Time.deltaTime * turnSpeed);
         Turn = (EaseInOutQuad(0, 1, (turnPlusMinus1 + 1) / 2f) * 2 - 1) * turnAmount;
 
         Vector3 delta = (-transform.forward * moveSpeed) * Time.deltaTime;
         MovePlayer(delta, Turn);
+        MoveKids(delta, Turn);
 
         transform.Rotate(Vector3.up * Turn * Time.deltaTime);
         //transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
         transform.position += delta;
-        //rb.MovePosition(transform.position - transform.forward * moveSpeed * Time.deltaTime);
+        //rb.velocity = -transform.forward * moveSpeed;
+        //rb.MovePosition(transform.position + delta);
 
         //MovePlayer(transform.position - pos, turn);
 
@@ -105,7 +113,7 @@ public class Airship : MonoBehaviour
 
     void UpdateFuel()
     {
-        Fuel -= Time.deltaTime;
+        Fuel -= Time.deltaTime * fuelBurnRate;
         if (Fuel <= 0)
         {
             Crash("Ran out of fuel! Collect floating caches!", 5f);
@@ -119,6 +127,15 @@ public class Airship : MonoBehaviour
         playerController.enabled = false;
         playerController.transform.RotateAround(transform.position, Vector3.up, y * Time.deltaTime);
         playerController.enabled = true;
+    }
+
+    void MoveKids(Vector3 delta, float y)
+    {
+        foreach (Transform child in kiddos)
+        {
+            child.position += delta;
+            child.transform.RotateAround(transform.position, Vector3.up, y * Time.deltaTime);
+        }
     }
 
     // https://gitlab.com/gamedev-public/unity/-/blob/main/Scripts/Extensions/Easings/EasingUtility.cs

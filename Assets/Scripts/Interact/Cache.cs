@@ -8,21 +8,19 @@ public class Cache : MonoBehaviour
     public float ascendRate = 2f;
     public float sizeMin = 0.1f;
     public float sizemax = 1.0f;
+    float size;
 
-    [Header("Touch these for balance")]
-    public float fuelMin = 15f;
-    public float fuelMax = 45f;
+    [Space]
+    public GameObject prefab;
 
     public static int Num { get; private set; }
-    float fuel;
 
     float lifeTime;
 
     private void Start()
     {
-        fuel = Random.Range(fuelMin, fuelMax);
-        transform.localScale = Vector3.one * Remap.Float(fuel, fuelMin, fuelMax, sizeMin, sizemax);
-        //Destroy(gameObject, 35f);
+        size = Random.Range(sizeMin, sizemax);
+        transform.localScale = Vector3.one * size;
     }
 
     public void OnReelIn()
@@ -31,8 +29,12 @@ public class Cache : MonoBehaviour
         Audio audio = new Audio().SetPosition(transform.position).SetParent(Airship.instance.transform).SetDistance(50f);
         AudioManager.Play(audio.SetClip("Hit"));
         AudioManager.Play(audio.SetClip("Pop"));
-        Airship.Fuel += fuel;
-        PopUp.Show($"+{Mathf.Round(fuel)} seconds of fuel: Total: {Mathf.Round(Airship.Fuel)}");
+        GameObject obj = Instantiate(prefab, Airship.instance.spawnCrapHere.position,
+            Airship.instance.spawnCrapHere.rotation);//, Airship.instance.transform);
+        Airship.instance.kiddos.Add(obj.transform);
+        //obj.transform.localScale = Vector3.one / Airship.instance.transform.localScale.x;
+        //Airship.Fuel += fuel;
+        //PopUp.Show($"+{Mathf.Round(fuel)} seconds of fuel: Total: {Mathf.Round(Airship.Fuel)}");
     }
 
     private void Update()

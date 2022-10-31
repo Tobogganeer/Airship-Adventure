@@ -25,6 +25,7 @@ public class GrappleHook : MonoBehaviour, IInteractable
     public Material red;
     public Material green;
 
+    bool IInteractable.FixedPosition => true;
     public Transform grabbedTarget { get; private set; }
     Vector3 grabbedPos;
     bool grabbing;

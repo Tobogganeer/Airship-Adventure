@@ -171,7 +171,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 input = PlayerInputs.Movement;
 
-        if (Interactor.Interacting)
+        if (Interactor.Interacting && Interactor.CurrentInteractable.FixedPosition)
         {
             desiredVelocity = transform.position.DirectionTo_NoNormalize(Interactor.CurrentInteractable.InteractFrom.position).Flattened();
         }
