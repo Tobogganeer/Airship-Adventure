@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Pickup : MonoBehaviour, IInteractable
 {
@@ -8,17 +9,33 @@ public class Pickup : MonoBehaviour, IInteractable
     public bool IsInteracting { get; set; }
     Transform IInteractable.InteractFrom => throw new System.NotImplementedException();
     Rigidbody rb;
-    bool blasto;
+    Spring spring;
+
+    public bool useSpring = true;
+    public float springStrength = 50f;
+    public float springVelocity = 10f;
+    public float springDamper = 6f;
+    Vector3 scale;
+    //bool blasto;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        if (useSpring)
+        {
+            spring = new Spring();
+            spring.SetTarget(1f);
+            spring.SetDamper(springDamper);
+            spring.SetStrength(springStrength);
+            spring.SetVelocity(springVelocity);
+            scale = transform.localScale;
+        }
     }
 
     public void OnInteract()
     {
         IsInteracting = !IsInteracting;
-        blasto = IsInteracting == false;
+        //blasto = IsInteracting == false;
     }
 
     private void FixedUpdate()
@@ -48,5 +65,25 @@ public class Pickup : MonoBehaviour, IInteractable
         {
             rb.useGravity = true;
         }
+    }
+
+    private void Update()
+    {
+        if (useSpring)
+        {
+            spring.Update(Time.deltaTime);
+            transform.localScale = spring.Value * scale;
+        }
+
+        /*
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            spring.SetTarget(1f);
+            spring.SetDamper(springDamper);
+            spring.SetStrength(springStrength);
+            spring.SetVelocity(springVelocity);
+            spring.Reset();
+        }
+        */
     }
 }

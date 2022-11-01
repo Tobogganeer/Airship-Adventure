@@ -15,13 +15,13 @@ public class Airship : MonoBehaviour
     public Rigidbody rb;
     public CharacterController playerController;
     public List<Transform> kiddos;
+    public float kidRemoveRange = 40f;
     public Wheel wheel;
     public float moveSpeed = 5f;
     public float turnSpeed = 0.2f;
     public float turnAmount = 20f;
 
     [Space]
-    public float crashDistance = 2f;
     public float fuelBurnRate = 1f;
 
     [Space]
@@ -74,14 +74,6 @@ public class Airship : MonoBehaviour
         //rb.MovePosition(transform.position + delta);
 
         //MovePlayer(transform.position - pos, turn);
-
-        if (Physics.Raycast(transform.position + Vector3.down * 5f, Vector3.down, out RaycastHit hit))
-        {
-            if (hit.distance < crashDistance)
-            {
-                Crash("Crashed into terrain!", 3f);
-            }
-        }
     }
 
     private void Start()
@@ -99,12 +91,12 @@ public class Airship : MonoBehaviour
         Timer.New(16.0f, () => PopUp.Show("Good Luck!", 3.0f));
     }
 
-    void Crash(string reason, float time)
+    public static void Crash(string reason, float time)
     {
-        if (!crashed)
+        if (!instance.crashed)
         {
             Timer.DestroyAll(-1);
-            crashed = true;
+            instance.crashed = true;
             PopUp.Show(reason, time);
             HUD.SetBlack(true);
             Timer.Create(time, SceneManager.ReloadCurrentLevel);
@@ -131,6 +123,13 @@ public class Airship : MonoBehaviour
 
     void MoveKids(Vector3 delta, float y)
     {
+        for (int i = kiddos.Count; i > 0;)
+        {
+            i--;
+            if (kiddos[i].position.SqrDistance(transform.position) > kidRemoveRange)
+                kiddos.RemoveAt(i);
+        }
+
         foreach (Transform child in kiddos)
         {
             child.position += delta;
@@ -148,5 +147,9 @@ public class Airship : MonoBehaviour
         return -end * 0.5f * (value * (value - 2) - 1) + start;
     }
 
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, kidRemoveRange);
+    }
 }
