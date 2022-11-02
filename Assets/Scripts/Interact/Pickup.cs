@@ -18,6 +18,8 @@ public class Pickup : MonoBehaviour, IInteractable
     Vector3 scale;
     //bool blasto;
 
+    const float MaxRange = 6f;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -74,6 +76,9 @@ public class Pickup : MonoBehaviour, IInteractable
             spring.Update(Time.deltaTime);
             transform.localScale = spring.Value * scale;
         }
+
+        if (transform.position.SqrDistance(Interactor.InteractFrom.position) > MaxRange * MaxRange)
+            IsInteracting = false;
 
         /*
         if (Keyboard.current.spaceKey.wasPressedThisFrame)

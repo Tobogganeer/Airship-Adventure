@@ -52,10 +52,8 @@ public class Airship : MonoBehaviour
         UpdateFuel();
 
         float desired = 0f;
-        if (leftHook.grabbedTarget != null)
-            desired -= hookGrabbingTurnAmount;
-        if (rightHook.grabbedTarget != null)
-            desired += hookGrabbingTurnAmount;
+        desired += leftHook.GetTurnAmount() * hookGrabbingTurnAmount;
+        desired += rightHook.GetTurnAmount() * hookGrabbingTurnAmount;
 
         if (wheel.IsInteracting)
             desired = PlayerInputs.Movement.x;
@@ -126,7 +124,7 @@ public class Airship : MonoBehaviour
         for (int i = kiddos.Count; i > 0;)
         {
             i--;
-            if (kiddos[i].position.SqrDistance(transform.position) > kidRemoveRange)
+            if (kiddos[i].position.SqrDistance(transform.position) > kidRemoveRange * kidRemoveRange)
                 kiddos.RemoveAt(i);
         }
 
