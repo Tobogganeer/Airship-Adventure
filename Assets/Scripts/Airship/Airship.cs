@@ -22,7 +22,14 @@ public class Airship : MonoBehaviour
     public float turnAmount = 20f;
 
     [Space]
+    [Min(0f)]
     public float fuelBurnRate = 1f;
+    [Range(0f, 1f)]
+    public float startingFuel = 0.5f;
+    public float maxFuel = 100f;
+
+    [ReadOnly] public float startingSecondsOfFuel;
+    [ReadOnly] public float maxSecondsOfFuel;
 
     [Space]
     public GrappleHook leftHook;
@@ -30,20 +37,19 @@ public class Airship : MonoBehaviour
     public float hookGrabbingTurnAmount = 2f;
 
     [Space]
+    [Rename("Pickup Spawn Position")]
     public Transform spawnCrapHere;
 
 
     public static float Turn { get; private set; }
     float turnPlusMinus1;
 
-    static float fuel = 60f;
+    static float fuel = 50f;
     public static float Fuel
     {
         get => fuel;
-        set => fuel = Mathf.Clamp(value, 0, MaxFuel);
+        set => fuel = Mathf.Clamp(value, 0, instance.maxFuel);
     }
-
-    const float MaxFuel = 180f;
 
     bool crashed;
 
@@ -77,7 +83,7 @@ public class Airship : MonoBehaviour
     private void Start()
     {
         IntroSpiel();
-        fuel = 60f;
+        fuel = maxFuel * startingFuel;
     }
 
     void IntroSpiel()
@@ -124,7 +130,8 @@ public class Airship : MonoBehaviour
         for (int i = kiddos.Count; i > 0;)
         {
             i--;
-            if (kiddos[i].position.SqrDistance(transform.position) > kidRemoveRange * kidRemoveRange)
+            if (kiddos[i] == null || kiddos[i].position
+                .SqrDistance(transform.position) > kidRemoveRange * kidRemoveRange)
                 kiddos.RemoveAt(i);
         }
 
@@ -149,5 +156,12 @@ public class Airship : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, kidRemoveRange);
+    }
+
+
+    private void OnValidate()
+    {
+        startingSecondsOfFuel = maxFuel * startingFuel / fuelBurnRate;
+        maxSecondsOfFuel = maxFuel / fuelBurnRate;
     }
 }

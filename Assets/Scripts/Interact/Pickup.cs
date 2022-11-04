@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Pickup : MonoBehaviour, IInteractable
 {
     bool IInteractable.FixedPosition => false;
@@ -11,6 +12,11 @@ public class Pickup : MonoBehaviour, IInteractable
     Rigidbody rb;
     Spring spring;
 
+    [Header("Carrying")]
+    public float carryForce = 10f;
+    public bool useMass = false;
+
+    [Header("Spawning")]
     public bool useSpring = true;
     public float springStrength = 50f;
     public float springVelocity = 10f;
@@ -54,7 +60,8 @@ public class Pickup : MonoBehaviour, IInteractable
             Quaternion targetRot = Interactor.InteractFrom.rotation;// * relRot;
 
             //interpolate to the target position using velocity
-            rb.velocity = (targetPos - rb.position) * 10f;
+            float mass = useMass ? rb.mass : 1f;
+            rb.velocity = (targetPos - rb.position) * (carryForce / mass);
 
             //keep the relative rotation the same
             //rb.rotation = targetRot;
