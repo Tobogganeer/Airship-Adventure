@@ -14,11 +14,11 @@ TagManager:
   - Player
   - Interactable
   - Target
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Pickup
+  - Player Only Collider
+  - Terrain
+  - Ship Crash
+  - No Player Collision
   - 
   - 
   - 

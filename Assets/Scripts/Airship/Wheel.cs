@@ -8,6 +8,7 @@ public class Wheel : MonoBehaviour, IInteractable
     public Transform InteractFrom { get; set; }
     public float mult = 4f;
 
+    bool IInteractable.FixedPosition => true;
     public bool IsInteracting { get; set; }
 
     void Update()

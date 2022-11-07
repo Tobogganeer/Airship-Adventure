@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class GrappleHook : MonoBehaviour, IInteractable
 {
@@ -25,9 +26,11 @@ public class GrappleHook : MonoBehaviour, IInteractable
     public Material red;
     public Material green;
 
+    bool IInteractable.FixedPosition => true;
     public Transform grabbedTarget { get; private set; }
     Vector3 grabbedPos;
     bool grabbing;
+    bool targetOnHook;
 
     //readonly WaitForSeconds wait = new WaitForSeconds(1f);
     //readonly float wait = 1f;
@@ -100,6 +103,7 @@ public class GrappleHook : MonoBehaviour, IInteractable
     IEnumerator GrabTarget()
     {
         grabbing = true;
+        targetOnHook = false;
         IsInteracting = false;
         float time = 0f;
 
@@ -120,6 +124,7 @@ public class GrappleHook : MonoBehaviour, IInteractable
 
         Vector3 hookOffset = hook.position.DirectionTo_NoNormalize(grabbedTarget != null ? grabbedTarget.position : Vector3.zero);
         Vector3 grab = hook.position;
+        targetOnHook = true;
 
         while (time > 0)
         {
@@ -139,5 +144,26 @@ public class GrappleHook : MonoBehaviour, IInteractable
         }
 
         grabbing = false;
+        targetOnHook = false;
+    }
+
+    public float GetTurnAmount()
+    {
+        if (grabbedTarget == null || !targetOnHook)
+            return 0f;
+        //return Vector3.Dot(-Airship.instance.transform.forward, transform.position.DirectionTo(grabbedTarget.position));
+
+        float dot = Vector3.Dot(-Airship.instance.transform.forward, transform.position.Flattened()
+            .DirectionTo(grabbedTarget.position.Flattened()));
+        float val;
+        if (dot > 0)
+            val = Remap.Float(dot, 1f, 0f, 0f, 0.5f);
+        else
+            val = Remap.Float(dot, 0f, -1f, 0.5f, 1f);
+
+        float sideDot = Vector3.Dot(-Airship.instance.transform.right, transform.position.Flattened()
+            .DirectionTo(grabbedTarget.position.Flattened()));
+
+        return val * Mathf.Sign(sideDot);
     }
 }

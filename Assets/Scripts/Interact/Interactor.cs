@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class Interactor : MonoBehaviour
 {
+    private static Interactor instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public float interactRange = 4;
     public LayerMask interactLayers;
     public Transform interactFrom;
+    public static Transform InteractFrom => instance.interactFrom;
+    public static float InteractRange => instance.interactRange;
 
     public static IInteractable CurrentInteractable { get; private set; }
     static IInteractable lookingAt;

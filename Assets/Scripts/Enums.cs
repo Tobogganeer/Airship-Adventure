@@ -15,10 +15,3 @@ public enum PooledObject
 {
     AudioSource
 }
-
-public enum GameStage : byte
-{
-    MainMenu,
-    Lobby,
-    Game
-}

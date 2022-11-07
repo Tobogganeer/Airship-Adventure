@@ -31,8 +31,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3901816550349912079}
   m_LocalRotation: {x: -6.123234e-17, y: 1, z: 6.123234e-17, w: -3.7493994e-33}
-  m_LocalPosition: {x: -47.732487, y: 0, z: -35.672787}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -47.732487, y: -0.5898, z: -35.9901}
+  m_LocalScale: {x: 1, y: 1.0129, z: 1.0652}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -158,5 +158,4 @@ MonoBehaviour:
   ascendRate: 2
   sizeMin: 0.1
   sizemax: 1
-  fuelMin: 8
-  fuelMax: 25
+  prefab: {fileID: 5763963324444371567, guid: 0be51e5f0b0e96547a01e648cd78351f, type: 3}

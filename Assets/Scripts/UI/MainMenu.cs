@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
+    public GameObject mainHud;
+
+
     private void Start()
     {
         HUD.SetBlack(false);
