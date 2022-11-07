@@ -158,4 +158,4 @@ MonoBehaviour:
   ascendRate: 2
   sizeMin: 0.1
   sizemax: 1
-  prefab: {fileID: 7709578546971849529, guid: de9d0c3fb99dca040bdc0b2eb1dd1dd6, type: 3}
+  prefab: {fileID: 5763963324444371567, guid: 0be51e5f0b0e96547a01e648cd78351f, type: 3}

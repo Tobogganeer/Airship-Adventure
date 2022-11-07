@@ -11,6 +11,9 @@ public class HUD : MonoBehaviour
         instance = this;
     }
 
+    public CanvasGroup hudHolder;
+
+    [Space]
     public CanvasGroup interactIcon;
     public CanvasGroup blackScreen;
     public CanvasGroup fuelBar;
@@ -23,7 +26,7 @@ public class HUD : MonoBehaviour
     float fuel;
 
 
-    //public static bool HUDVisible = true;
+    public static bool ShowHUD = true;
 
     public static void SetInteract(bool on)
     {
@@ -53,5 +56,6 @@ public class HUD : MonoBehaviour
         fuelBar.alpha = Mathf.Lerp(fuelBar.alpha, fuelShow ? 1 : 0, Time.deltaTime * 10);
         fuelFill.fillAmount = Mathf.Lerp(fuelFill.fillAmount, Remap.Float(fuel, 0, 180, 0, 1), Time.deltaTime * 10f);
         fuelFill.color = fuelGradient.Evaluate(fuelFill.fillAmount);
+        hudHolder.alpha = ShowHUD ? 1f : 0f;
     }
 }

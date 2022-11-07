@@ -87,6 +87,7 @@ public class UIBlurFeature : ScriptableRendererFeature
                 {
                     BlurType.Box => BoxBlurKernelID,
                     BlurType.Gaussian => GaussianBlurKernelID,
+                    _ => throw new System.NotImplementedException(),
                 };
 
                 cmd.SetComputeTextureParam(settings.EffectCompute, blurKernelID, "_Dest", tempColorTarget.Identifier());

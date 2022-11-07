@@ -15,10 +15,10 @@ TagManager:
   - Interactable
   - Target
   - Pickup
-  - Pusher
-  - 
-  - 
-  - 
+  - Player Only Collider
+  - Terrain
+  - Ship Crash
+  - No Player Collision
   - 
   - 
   - 

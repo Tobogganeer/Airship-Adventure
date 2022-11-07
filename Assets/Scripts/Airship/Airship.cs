@@ -15,14 +15,21 @@ public class Airship : MonoBehaviour
     public Rigidbody rb;
     public CharacterController playerController;
     public List<Transform> kiddos;
+    public float kidRemoveRange = 40f;
     public Wheel wheel;
     public float moveSpeed = 5f;
     public float turnSpeed = 0.2f;
     public float turnAmount = 20f;
 
     [Space]
-    public float crashDistance = 2f;
+    [Min(0f)]
     public float fuelBurnRate = 1f;
+    [Range(0f, 1f)]
+    public float startingFuel = 0.5f;
+    public float maxFuel = 100f;
+
+    [ReadOnly] public float startingSecondsOfFuel;
+    [ReadOnly] public float maxSecondsOfFuel;
 
     [Space]
     public GrappleHook leftHook;
@@ -30,20 +37,19 @@ public class Airship : MonoBehaviour
     public float hookGrabbingTurnAmount = 2f;
 
     [Space]
+    [Rename("Pickup Spawn Position")]
     public Transform spawnCrapHere;
 
 
     public static float Turn { get; private set; }
     float turnPlusMinus1;
 
-    static float fuel = 60f;
+    static float fuel = 50f;
     public static float Fuel
     {
         get => fuel;
-        set => fuel = Mathf.Clamp(value, 0, MaxFuel);
+        set => fuel = Mathf.Clamp(value, 0, instance.maxFuel);
     }
-
-    const float MaxFuel = 180f;
 
     bool crashed;
 
@@ -52,10 +58,8 @@ public class Airship : MonoBehaviour
         UpdateFuel();
 
         float desired = 0f;
-        if (leftHook.grabbedTarget != null)
-            desired -= hookGrabbingTurnAmount;
-        if (rightHook.grabbedTarget != null)
-            desired += hookGrabbingTurnAmount;
+        desired += leftHook.GetTurnAmount() * hookGrabbingTurnAmount;
+        desired += rightHook.GetTurnAmount() * hookGrabbingTurnAmount;
 
         if (wheel.IsInteracting)
             desired = PlayerInputs.Movement.x;
@@ -74,20 +78,12 @@ public class Airship : MonoBehaviour
         //rb.MovePosition(transform.position + delta);
 
         //MovePlayer(transform.position - pos, turn);
-
-        if (Physics.Raycast(transform.position + Vector3.down * 5f, Vector3.down, out RaycastHit hit))
-        {
-            if (hit.distance < crashDistance)
-            {
-                Crash("Crashed into terrain!", 3f);
-            }
-        }
     }
 
     private void Start()
     {
         IntroSpiel();
-        fuel = 60f;
+        fuel = maxFuel * startingFuel;
     }
 
     void IntroSpiel()
@@ -99,12 +95,12 @@ public class Airship : MonoBehaviour
         Timer.New(16.0f, () => PopUp.Show("Good Luck!", 3.0f));
     }
 
-    void Crash(string reason, float time)
+    public static void Crash(string reason, float time)
     {
-        if (!crashed)
+        if (!instance.crashed)
         {
             Timer.DestroyAll(-1);
-            crashed = true;
+            instance.crashed = true;
             PopUp.Show(reason, time);
             HUD.SetBlack(true);
             Timer.Create(time, SceneManager.ReloadCurrentLevel);
@@ -131,6 +127,14 @@ public class Airship : MonoBehaviour
 
     void MoveKids(Vector3 delta, float y)
     {
+        for (int i = kiddos.Count; i > 0;)
+        {
+            i--;
+            if (kiddos[i] == null || kiddos[i].position
+                .SqrDistance(transform.position) > kidRemoveRange * kidRemoveRange)
+                kiddos.RemoveAt(i);
+        }
+
         foreach (Transform child in kiddos)
         {
             child.position += delta;
@@ -148,5 +152,16 @@ public class Airship : MonoBehaviour
         return -end * 0.5f * (value * (value - 2) - 1) + start;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, kidRemoveRange);
+    }
 
+
+    private void OnValidate()
+    {
+        startingSecondsOfFuel = maxFuel * startingFuel / fuelBurnRate;
+        maxSecondsOfFuel = maxFuel / fuelBurnRate;
+    }
 }
