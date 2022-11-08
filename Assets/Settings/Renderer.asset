@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    color: {r: 0.80651474, g: 0.8320322, b: 0.8679245, a: 1}
+    color: {r: 0.39061943, g: 0.4834283, b: 0.6226415, a: 1}
     sunColor: {r: 0.9433962, g: 0.8535622, b: 0.6897472, a: 1}
     fogDensity: 0.01
     fogDensityPower: 0.1
