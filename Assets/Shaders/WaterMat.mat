@@ -44,8 +44,8 @@ Material:
     m_Ints: []
     m_Floats:
     - Depth: 2
-    - _Displacment: 0.05
-    - _NormalScale: 15
+    - _Displacment: 0.07
+    - _NormalScale: 8.5
     - _Normal_Strength: 0.481
     - _QueueControl: 0
     - _QueueOffset: 0
