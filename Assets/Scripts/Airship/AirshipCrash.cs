@@ -7,6 +7,7 @@ public class AirshipCrash : MonoBehaviour
     [Layer]
     public int terrainLayer;
 
+    // Bruh
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == terrainLayer)

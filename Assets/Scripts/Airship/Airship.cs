@@ -4,45 +4,53 @@ using UnityEngine;
 
 public class Airship : MonoBehaviour
 {
+    // Singleton stuff
     public static Airship instance;
     private void Awake()
     {
         instance = this;
+        // Enable game hud
         HUD.SetBlack(false);
         HUD.SetFuelVisibility(true);
     }
 
-    public Rigidbody rb;
-    public CharacterController playerController;
-    public List<Transform> kiddos;
-    public float kidRemoveRange = 40f;
-    public Wheel wheel;
-    public float moveSpeed = 5f;
-    public float turnSpeed = 0.2f;
-    public float turnAmount = 20f;
+    public Rigidbody rb; // Airship rb (not sure if used)
+    public CharacterController playerController; // To move the player with the ship
+    public List<Transform> kiddos; // Objects that the ship should move (crates, rat etc)
+    public float kidRemoveRange = 40f; // Don't drag along objects further away than this
+    // TODO: Add objects to kiddos list when they come within range
+    // (currently, once a barrel etc is removed from the list,
+    //      they are never a child of the ship again)
+    public Wheel wheel; // Wheel yknow
+    public float moveSpeed = 5f; // Speed of the ship
+    public float turnSpeed = 0.2f; // Turn speed
+    public float turnAmount = 20f; // Turn angle
 
     [Space]
     [Min(0f)]
-    public float fuelBurnRate = 1f;
+    public float fuelBurnRate = 1f; // How many fuel units are burnt, per second
     [Range(0f, 1f)]
-    public float startingFuel = 0.5f;
-    public float maxFuel = 100f;
+    public float startingFuel = 0.5f; // Percentage (0-1) of how full a tank to start with
+    public float maxFuel = 100f; // The max fuel the ship holds
 
-    [ReadOnly] public float startingSecondsOfFuel;
-    [ReadOnly] public float maxSecondsOfFuel;
+    [ReadOnly] public float startingSecondsOfFuel; // Inspector values, showing the equivalant
+    [ReadOnly] public float maxSecondsOfFuel;       // seconds of fuel, from fuel units
 
     [Space]
-    public GrappleHook leftHook;
+    public GrappleHook leftHook; // Grapple hooks
     public GrappleHook rightHook;
     public float hookGrabbingTurnAmount = 2f;
+    // When reeling in a cache, the amount the ship should turn towards that direction
 
     [Space]
     [Rename("Pickup Spawn Position")]
     public Transform spawnCrapHere;
+    // Place on the ship to spawn cargo (temporary)
 
-
+    // Static float for the ships current turn amount
     public static float Turn { get; private set; }
     float turnPlusMinus1;
+    // Actual value, for smoothing formula
 
     static float fuel = 50f;
     public static float Fuel
@@ -50,8 +58,16 @@ public class Airship : MonoBehaviour
         get => fuel;
         set => fuel = Mathf.Clamp(value, 0, instance.maxFuel);
     }
+    // Fuel idk
 
-    bool crashed;
+    bool crashed; // Self explanatory bruh
+    // (also temporary, ship damage etc will be later)
+
+    private void Start()
+    {
+        IntroSpiel(); // Tutorial text
+        fuel = maxFuel * startingFuel; // Starting fuel
+    }
 
     void Update()
     {
@@ -60,17 +76,23 @@ public class Airship : MonoBehaviour
         float desired = 0f;
         desired += leftHook.GetTurnAmount() * hookGrabbingTurnAmount;
         desired += rightHook.GetTurnAmount() * hookGrabbingTurnAmount;
+        // Turn the ship towards 
 
         if (wheel.IsInteracting)
-            desired = PlayerInputs.Movement.x;
+            desired += PlayerInputs.Movement.x;
+        // Turn the ship if the player is interacting with the wheel
 
         turnPlusMinus1 = Mathf.MoveTowards(turnPlusMinus1, desired, Time.deltaTime * turnSpeed);
         Turn = (EaseInOutQuad(0, 1, (turnPlusMinus1 + 1) / 2f) * 2 - 1) * turnAmount;
+        // Easing the turn value so steering is smoothed
 
+        // VVV How much the ship will move
         Vector3 delta = (-transform.forward * moveSpeed) * Time.deltaTime;
         MovePlayer(delta, Turn);
         MoveKids(delta, Turn);
+        // ^^^ Move the player and children along with the ship
 
+        // VVV Move and rotate the ship itself
         transform.Rotate(Vector3.up * Turn * Time.deltaTime);
         //transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
         transform.position += delta;
@@ -80,14 +102,10 @@ public class Airship : MonoBehaviour
         //MovePlayer(transform.position - pos, turn);
     }
 
-    private void Start()
-    {
-        IntroSpiel();
-        fuel = maxFuel * startingFuel;
-    }
 
     void IntroSpiel()
     {
+        // Using a timer util class to show the tutorial text
         Timer.New(0.0f, () => PopUp.Show("Welcome to Airship Game!"));
         Timer.New(4.0f, () => PopUp.Show("Right Click/E/F to interact with the wheel/grapple hooks (+- for sens)", 4.0f));
         Timer.New(8.0f, () => PopUp.Show("Shoot fuel caches with LMB", 3.0f));
@@ -104,6 +122,7 @@ public class Airship : MonoBehaviour
             PopUp.Show(reason, time);
             HUD.SetBlack(true);
             Timer.Create(time, SceneManager.ReloadCurrentLevel);
+            // Sets screen to black, shows text, reloads level after time
         }
     }
 
@@ -115,6 +134,7 @@ public class Airship : MonoBehaviour
             Crash("Ran out of fuel! Collect floating caches!", 5f);
         }
         HUD.SetFuel(Fuel);
+        // Decreases fuel and sets the fuel bar
     }
 
     void MovePlayer(Vector3 delta, float y)
@@ -123,10 +143,12 @@ public class Airship : MonoBehaviour
         playerController.enabled = false;
         playerController.transform.RotateAround(transform.position, Vector3.up, y * Time.deltaTime);
         playerController.enabled = true;
+        // Moves and rotates player, must disable cc to rotate player
     }
 
     void MoveKids(Vector3 delta, float y)
     {
+        // Removes kids that are far away
         for (int i = kiddos.Count; i > 0;)
         {
             i--;
@@ -135,6 +157,7 @@ public class Airship : MonoBehaviour
                 kiddos.RemoveAt(i);
         }
 
+        // Moves kids
         foreach (Transform child in kiddos)
         {
             child.position += delta;
@@ -143,6 +166,7 @@ public class Airship : MonoBehaviour
     }
 
     // https://gitlab.com/gamedev-public/unity/-/blob/main/Scripts/Extensions/Easings/EasingUtility.cs
+    // Ease function
     public static float EaseInOutQuad(float start, float end, float value)
     {
         value /= .5f;
@@ -152,13 +176,15 @@ public class Airship : MonoBehaviour
         return -end * 0.5f * (value * (value - 2) - 1) + start;
     }
 
-    private void OnDrawGizmos()
+    // Just visual for kid removal range
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, kidRemoveRange);
     }
 
 
+    // Inspector values
     private void OnValidate()
     {
         startingSecondsOfFuel = maxFuel * startingFuel / fuelBurnRate;
