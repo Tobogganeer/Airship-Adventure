@@ -13,6 +13,7 @@ public class EnvBaker : MonoBehaviour
         lastRender = reflectionProbe.RenderProbe(target);
     }
 
+    [ContextMenu("Bake")]
     public void Bake()
     {
         if (reflectionProbe.IsFinishedRendering(lastRender))
