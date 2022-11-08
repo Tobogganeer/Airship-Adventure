@@ -52,13 +52,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DisolvePower: 2
-    - _MaskPower: 0.99
+    - _DisolvePower: 0.1
+    - _MaskPower: 0.89
     - _NoiseScale: 30
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _WobbleFrequency: 7.13
+    - _WobbleSpeed: 7.48
     m_Colors:
-    - _Color: {r: 0, g: 7.4642644, b: 7.3180842, a: 1}
-    - _NoiseSpeed: {r: 0, g: -0.05, b: 0, a: 0}
-    - _NoiseTiling: {r: 0.1, g: 10, b: 0, a: 0}
+    - _Color: {r: 0, g: 766.9961, b: 758.9647, a: 1}
+    - _NoiseSpeed: {r: 0, g: 0.015, b: 0, a: 0}
+    - _NoiseTiling: {r: 0.12, g: 10, b: 0, a: 0}
+    - _Vector3: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
