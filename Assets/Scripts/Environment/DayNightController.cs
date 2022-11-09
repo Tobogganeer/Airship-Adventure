@@ -21,6 +21,9 @@ public class DayNightController : MonoBehaviour
     public AnimationCurve dayLightIntensity;
     public AnimationCurve nightIntensity;
     public AnimationCurve nightLightIntensity;
+    public Gradient fogColour;
+    public Gradient fogSunColour;
+    public AnimationCurve fogExtraHeight;
 
     [Space]
     public LensFlareComponentSRP flare;
@@ -58,6 +61,13 @@ public class DayNightController : MonoBehaviour
         if (lightData != null)
         {
             lightData.intensity = dayLightIntensity.Evaluate(timeOfDay) * lightIntensityMult;
+        }
+
+        if (atmosFog?.settings != null)
+        {
+            atmosFog.settings.color = fogColour.Evaluate(timeOfDay);
+            atmosFog.settings.sunColor = fogSunColour.Evaluate(timeOfDay);
+            atmosFog.settings.fogHeightEnd = 25 + fogExtraHeight.Evaluate(timeOfDay);
         }
 
         if (Application.isPlaying)
