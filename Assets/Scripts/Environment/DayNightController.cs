@@ -24,6 +24,7 @@ public class DayNightController : MonoBehaviour
 
     [Space]
     public LensFlareComponentSRP flare;
+    public OD.AtmosphericFogRenderFeature atmosFog;
     public Light lightData;
     public float lightIntensityMult = 1.5f;
 
