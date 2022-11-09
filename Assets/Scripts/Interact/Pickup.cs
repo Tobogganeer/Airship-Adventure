@@ -37,6 +37,7 @@ public class Pickup : MonoBehaviour, IInteractable
             spring.SetStrength(springStrength);
             spring.SetVelocity(springVelocity);
             scale = transform.localScale;
+            transform.localScale = spring.Value * scale;
         }
     }
 
