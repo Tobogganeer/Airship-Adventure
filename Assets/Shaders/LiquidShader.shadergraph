@@ -2798,7 +2798,7 @@
     "m_DefaultRefNameVersion": 0,
     "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_afbed82321df45abb1eccdfcb1bda448",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_Fill",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",

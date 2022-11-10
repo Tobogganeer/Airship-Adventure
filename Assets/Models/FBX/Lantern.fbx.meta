@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: 3ee5544af95f38b4dad8e29a3b8f441f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Material
     second: {fileID: 2100000, guid: 894bd24fbade7054aafd0b3192e4ee4f, type: 2}
   materials:

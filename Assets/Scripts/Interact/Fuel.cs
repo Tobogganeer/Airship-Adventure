@@ -10,7 +10,7 @@ public class Fuel : MonoBehaviour
     [Space, ReadOnly]
     public float fuel;
 
-    private void Start()
+    protected virtual void Start()
     {
         fuel = Random.Range(minFuel, maxFuel);
     }
