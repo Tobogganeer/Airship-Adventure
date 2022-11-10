@@ -8,4 +8,9 @@ public static class Remap
     {
         return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
     }
+
+    public static float Float01(float value, float from1, float to1)
+    {
+        return (value - from1) / (to1 - from1);
+    }
 }
