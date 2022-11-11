@@ -6,7 +6,7 @@ public class OilFuel : Fuel
 {
     public Renderer oilLevelRenderer;
     public float levelAtMin = 0.4f;
-    public float levelAtmax = 0.8f;
+    public float levelAtMax = 0.8f;
 
     Material mat;
 
