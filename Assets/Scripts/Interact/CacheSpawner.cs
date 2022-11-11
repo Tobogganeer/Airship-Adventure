@@ -5,7 +5,8 @@ using UnityEngine;
 public class CacheSpawner : MonoBehaviour
 {
     public GameObject cachePrefab;
-    public Camera cam;
+    //public Camera cam;
+    Camera cam;
     public float maxSpawnRange = 250f;
     public float minSpawnRange = 150f;
     public int caches = 3;
@@ -14,6 +15,10 @@ public class CacheSpawner : MonoBehaviour
 
     float timer;
 
+    private void Start()
+    {
+        cam = FPSCamera.instance.GetComponent<Camera>();
+    }
 
     private bool IsVisible(Camera c, Renderer target)
     {

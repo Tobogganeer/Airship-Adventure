@@ -22,7 +22,7 @@ public class Airship : MonoBehaviour
     // (currently, once a barrel etc is removed from the list,
     //      they are never a child of the ship again)
     public Wheel wheel; // Wheel yknow
-    public float moveSpeed = 5f; // Speed of the ship
+    public Vector3 movement = new Vector3(0, 0, 5f); // Speed of the ship
     public float turnSpeed = 0.2f; // Turn speed
     public float turnAmount = 20f; // Turn angle
 
@@ -87,15 +87,16 @@ public class Airship : MonoBehaviour
         // Easing the turn value so steering is smoothed
 
         // VVV How much the ship will move
-        Vector3 delta = (-transform.forward * moveSpeed) * Time.deltaTime;
+        Vector3 delta = (-transform.forward * movement.z + Vector3.up * movement.y) * Time.deltaTime;
         MovePlayer(delta, Turn);
         MoveKids(delta, Turn);
         // ^^^ Move the player and children along with the ship
 
         // VVV Move and rotate the ship itself
-        transform.Rotate(Vector3.up * Turn * Time.deltaTime);
-        //transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
         transform.position += delta;
+        transform.Rotate(Vector3.up * Turn * Time.deltaTime);
+
+        //transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
         //rb.velocity = -transform.forward * moveSpeed;
         //rb.MovePosition(transform.position + delta);
 
@@ -139,8 +140,9 @@ public class Airship : MonoBehaviour
 
     void MovePlayer(Vector3 delta, float y)
     {
-        playerController.Move(delta);
+        //playerController.Move(delta);
         playerController.enabled = false;
+        playerController.transform.position += delta;
         playerController.transform.RotateAround(transform.position, Vector3.up, y * Time.deltaTime);
         playerController.enabled = true;
         // Moves and rotates player, must disable cc to rotate player

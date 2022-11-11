@@ -40,6 +40,8 @@ public class DayNightController : MonoBehaviour
         bakeTime = 0;
     }
 
+    const float DefaultFogHeight = 15f;
+
     void Update()
     {
         transform.localRotation = Quaternion.Euler(timeOfDay * 360, yRot, 0);
@@ -67,7 +69,7 @@ public class DayNightController : MonoBehaviour
         {
             atmosFog.settings.color = fogColour.Evaluate(timeOfDay);
             atmosFog.settings.sunColor = fogSunColour.Evaluate(timeOfDay);
-            atmosFog.settings.fogHeightEnd = 25 + fogExtraHeight.Evaluate(timeOfDay);
+            atmosFog.settings.fogHeightEnd = DefaultFogHeight + fogExtraHeight.Evaluate(timeOfDay);
         }
 
         if (Application.isPlaying)
