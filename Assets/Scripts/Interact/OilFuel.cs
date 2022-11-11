@@ -6,7 +6,7 @@ public class OilFuel : Fuel
 {
     public Renderer oilLevelRenderer;
     public float levelAtMin = 0.4f;
-    public float levelAtmax = 0.8f;
+    public float levelAtMax = 0.8f;
 
     Material mat;
 
@@ -14,7 +14,7 @@ public class OilFuel : Fuel
     {
         base.Start();
         mat = oilLevelRenderer.material;
-        mat.SetFloat()
+        mat.SetFloat("_Fill", Remap.Float(fuel, minFuel, maxFuel, levelAtMin, levelAtMax));
     }
 
     private void OnDestroy()
