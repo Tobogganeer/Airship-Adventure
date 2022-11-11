@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1484147339600556970}
   - component: {fileID: 8678350952925649088}
   - component: {fileID: 8038015155136738997}
+  - component: {fileID: 1372737580641356287}
   m_Layer: 0
   m_Name: Liquid
   m_TagString: Untagged
@@ -91,13 +92,29 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 122005573678754613}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abb91ea933dcb3b4293cc40bea0c35e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fuelgrab: 0
   classfuel: {fileID: 0}
+--- !u!114 &1372737580641356287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122005573678754613}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f250b842eb7fe14d9d133ddb32aea47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minFuel: 0
+  maxFuel: 0
+  rend: {fileID: 8678350952925649088}
+  fuel: 0
 --- !u!1 &137549181191498551
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,6 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minFuel: 16
   maxFuel: 36
+  rend: {fileID: 8678350952925649088}
   fuel: 0
 --- !u!114 &137549181191498548
 MonoBehaviour:
