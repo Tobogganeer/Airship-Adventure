@@ -8,7 +8,7 @@ public class CacheSpawner : MonoBehaviour
     public Camera cam;
     public float maxSpawnRange = 250f;
     public float minSpawnRange = 150f;
-    public int caches = 4;
+    public int caches = 3;
     public Vector2 spawnTime = new Vector2(5f, 20f);
     Plane[] planes = new Plane[6];
 
