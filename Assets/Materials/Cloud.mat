@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4427712123747881099
+--- !u!114 &-910948230483895475
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Liquid_Oil
-  m_Shader: {fileID: -6465566751694194690, guid: f054c51a131e8144eb3575d249a0a918,
+  m_Name: Cloud
+  m_Shader: {fileID: -6465566751694194690, guid: b8fb60a55c21d1246bb6b290e439085e,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -48,20 +48,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_a258fdbdd5a540fd8458cc3f5abc6553: 65.22
-    - Vector1_afbed82321df45abb1eccdfcb1bda448: 0.45
-    - Vector1_c1e09e92b97a4befb407f25bb68515b5: 0
-    - _Fill: 0.44
+    - Vector1_0d07dd78cfa64d6fbf7f88c6b069e9df: 6.53
+    - Vector1_56323b89ab6a4d018d24b09c764a751b: 0.05
+    - Vector1_5b3b0c6f6fbf4686bf1905802ebfd38a: 0.05
+    - Vector1_708281637e6e4941a6c660f36a8cb83b: 140
+    - Vector1_ca4143e649c34eaf8fda91884b58078d: 0
+    - Vector1_dd554bb561254d65a91a7cbd678a099a: 80
+    - Vector1_ef946adc812d4eb983085418fa4d6eba: 1.15
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _WobbleX: 0
-    - _WobbleZ: 0
     m_Colors:
-    - Color_7ec25c65ad6847798d1723ac6534f30b: {r: 1.1486983, g: 1.1486983, b: 1.1486983,
+    - Color_39023f87b67e45fa9cd944ebab82d05a: {r: 0.7137255, g: 1.0509804, b: 1.4980392,
         a: 1}
-    - Color_7fd4ecd9480b48a184704b0225ff2fd5: {r: 0.021137413, g: 0.03292322, b: 0.047169805,
-        a: 1}
-    - Color_faa2bfa9e6484e90bfe7e88ebc782e57: {r: 0.019607844, g: 0.03137255, b: 0.047058824,
-        a: 1}
-    - Vector2_db1932b72a4b485299a91d4c17381ffe: {r: 0.17, g: -0.07, b: 0, a: 0}
+    - Vector2_14ad63afaa9d476bb9994e39bc04af57: {r: 0, g: 1, b: 0, a: 0}
+    - Vector2_68ec496e452a4945a45b51f5c6189d39: {r: 0, g: 0.005, b: 0, a: 0}
+    - Vector2_97c82385a96d41128be6a374d7ca3491: {r: 0.0001, g: 0.0001, b: 0, a: 0}
   m_BuildTextureStacks: []
