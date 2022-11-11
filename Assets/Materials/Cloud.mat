@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6682986054322960703
+--- !u!114 &-910948230483895475
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DayNight
-  m_Shader: {fileID: -6465566751694194690, guid: a870bcd48337df849a42d92b461be848,
+  m_Name: Cloud
+  m_Shader: {fileID: -6465566751694194690, guid: b8fb60a55c21d1246bb6b290e439085e,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -34,18 +34,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _DayTex:
-        m_Texture: {fileID: 2800000, guid: 86d6237eae14d4445938026f84318d65, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NightTex:
-        m_Texture: {fileID: 2800000, guid: c9239cedccc8f4b4f9a6b646b4d4cd2f, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_bfb89a68866d46d9a27eb83bfc8fdece_Texture_1:
-        m_Texture: {fileID: 2800000, guid: ced8a4dc2baf4b34098b773d6da3577f, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -60,16 +48,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DayIntensity: 0.4101206
-    - _Day_Intensity: 0.3
-    - _Mix: 0.41575527
-    - _Mult: 1
-    - _NightIntensity: 0.21428934
-    - _Night_Intensity: 1
+    - Vector1_0d07dd78cfa64d6fbf7f88c6b069e9df: 6.53
+    - Vector1_56323b89ab6a4d018d24b09c764a751b: 0.05
+    - Vector1_5b3b0c6f6fbf4686bf1905802ebfd38a: 0.05
+    - Vector1_708281637e6e4941a6c660f36a8cb83b: 140
+    - Vector1_ca4143e649c34eaf8fda91884b58078d: 0
+    - Vector1_dd554bb561254d65a91a7cbd678a099a: 80
+    - Vector1_ef946adc812d4eb983085418fa4d6eba: 1.15
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Rotate: 81.2
-    - _Sub: 0.5
-    - _Test: 1
-    m_Colors: []
+    m_Colors:
+    - Color_39023f87b67e45fa9cd944ebab82d05a: {r: 0.7137255, g: 1.0509804, b: 1.4980392,
+        a: 1}
+    - Vector2_14ad63afaa9d476bb9994e39bc04af57: {r: 0, g: 1, b: 0, a: 0}
+    - Vector2_68ec496e452a4945a45b51f5c6189d39: {r: 0, g: 0.005, b: 0, a: 0}
+    - Vector2_97c82385a96d41128be6a374d7ca3491: {r: 0.0001, g: 0.0001, b: 0, a: 0}
   m_BuildTextureStacks: []
