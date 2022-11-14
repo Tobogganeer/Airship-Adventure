@@ -9,4 +9,9 @@ public class TurretGFX : MonoBehaviour
     public Transform rotateGear;
     public Transform winchGear;
     public Transform shaft;
+
+    private void Update()
+    {
+        
+    }
 }
