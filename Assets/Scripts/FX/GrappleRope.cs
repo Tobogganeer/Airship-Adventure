@@ -76,4 +76,9 @@ public class GrappleRope : MonoBehaviour
             lr.SetPosition(i, Vector3.Lerp(start, end, delta) + offset);
         }
     }
+
+    public void Reset()
+    {
+        spring.Reset();
+    }
 }
