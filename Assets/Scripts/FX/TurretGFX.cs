@@ -5,12 +5,19 @@ using UnityEngine;
 
 public class TurretGFX : MonoBehaviour
 {
+    public GrappleHook hook;
+
+    [Space]
     public Transform lowerHydraulic;
     public Transform upperHydraulic;
     public Transform rotateGear;
     public Transform winchGear;
     public Transform shaft;
     public Transform head;
+    public float winchSpeed = 100f;
+
+    float winch;
+    float winchSpeedSmooth;
 
     [Space]
     public Vector3 gearOffset;
@@ -22,6 +29,7 @@ public class TurretGFX : MonoBehaviour
         //rotateGear.localRotation = Quaternion.Euler(head.eulerAngles.);
         Gear();
         Hydraulics();
+        Winch();
     }
 
     void Gear()
@@ -36,5 +44,17 @@ public class TurretGFX : MonoBehaviour
     {
         lowerHydraulic.LookAt(upperHydraulic);
         upperHydraulic.LookAt(lowerHydraulic);
+    }
+
+    void Winch()
+    {
+        if (hook.grabbing && !hook.targetOnHook)
+            winchSpeedSmooth = Mathf.Lerp(winchSpeedSmooth, winchSpeed, Time.deltaTime * 5);
+        //winch += Time.deltaTime * winchSpeed;
+        else
+            winchSpeedSmooth = Mathf.Lerp(winchSpeedSmooth, -winchSpeed, Time.deltaTime * 5);
+        winch += Time.deltaTime * winchSpeedSmooth;
+        winch = Mathf.Max(winch, 0);
+        winchGear.localRotation = Quaternion.Euler(-winch, 0, -90);
     }
 }

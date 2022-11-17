@@ -31,8 +31,8 @@ public class GrappleHook : MonoBehaviour, IInteractable
     bool IInteractable.FixedPosition => true;
     public Transform grabbedTarget { get; private set; }
     Vector3 grabbedPos;
-    bool grabbing;
-    bool targetOnHook;
+    public bool grabbing { get; private set; }
+    public bool targetOnHook { get; private set; }
 
     //readonly WaitForSeconds wait = new WaitForSeconds(1f);
     //readonly float wait = 1f;
@@ -50,15 +50,24 @@ public class GrappleHook : MonoBehaviour, IInteractable
         {
             Quaternion cam = Quaternion.LookRotation(head.position.DirectionTo(grabbedTarget.position + grabbedPos));
             //head.rotation = Quaternion.Slerp(head.rotation, cam * Quaternion.Euler(aimOffset), turnSpeed * Time.deltaTime);
-            shaft.rotation = Quaternion.Slerp(shaft.rotation, Quaternion.Euler(cam.eulerAngles.With(x: 0, z: 0) + aimOffset), turnSpeed * Time.deltaTime);
+            //shaft.rotation = Quaternion.Slerp(shaft.rotation, Quaternion.Euler(cam.eulerAngles.With(x: 0, z: 0) + aimOffset), turnSpeed * Time.deltaTime);
             head.rotation = Quaternion.Slerp(head.rotation, cam * Quaternion.Euler(aimOffset), turnSpeed * Time.deltaTime);
+            Quaternion headRot = head.rotation;
+            shaft.rotation = Quaternion.Euler(0, head.eulerAngles.y, 0);
+            head.rotation = headRot; // Prevent springy
             laser.enabled = false;
         }
         else if (IsInteracting)
         {
-            Quaternion cam = Quaternion.LookRotation(FPSCamera.ViewDir);
-            shaft.rotation = Quaternion.Slerp(shaft.rotation, Quaternion.Euler(cam.eulerAngles.With(x: 0, z: 0) + aimOffset), turnSpeed * Time.deltaTime);
-            head.rotation = Quaternion.Slerp(head.rotation, cam * Quaternion.Euler(aimOffset), turnSpeed * Time.deltaTime);
+            //Quaternion cam = Quaternion.LookRotation(FPSCamera.ViewDir);
+            //shaft.rotation = Quaternion.Slerp(shaft.rotation, Quaternion.Euler(cam.eulerAngles.With(x: 0, z: 0) + aimOffset), turnSpeed * Time.deltaTime);
+            //head.rotation = Quaternion.Slerp(head.rotation, cam * Quaternion.Euler(aimOffset), turnSpeed * Time.deltaTime);
+            Quaternion desired = Quaternion.Euler(Mathf.Clamp(-FPSCamera.YRot, -10, 40), FPSCamera.Transform.eulerAngles.y + 180, 0);
+            head.rotation = Quaternion.Slerp(head.rotation, desired, turnSpeed * Time.deltaTime);
+            Quaternion headRot = head.rotation;
+            shaft.rotation = Quaternion.Euler(0, head.eulerAngles.y, 0);
+            head.rotation = headRot; // Prevent springy
+            //head.localRotation = Quaternion.Euler(head.localEulerAngles.WithX(Mathf.Clamp(FPSCamera.YRot, -10, 40)));
             laser.enabled = true;
             laser.SetPosition(0, laser.transform.position);
             laser.SetPosition(1, laser.transform.forward * 1000 + laser.transform.position);
