@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DockingSysten : MonoBehaviour
 {
@@ -14,6 +15,12 @@ public class DockingSysten : MonoBehaviour
             if (Docking != true)
             {
                 PopUp.Show("Press U To Dock Ship");
+                        
+                if (Keyboard.current.uKey.wasPressedThisFrame)
+                {
+                   Docking = true;
+                }
+                
             }
             else
             {
