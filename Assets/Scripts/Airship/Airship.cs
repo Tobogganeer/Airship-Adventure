@@ -58,6 +58,7 @@ public class Airship : MonoBehaviour
         get => fuel;
         set => fuel = Mathf.Clamp(value, 0, instance.maxFuel);
     }
+    public static float Fuel01 => Remap.Float01(Fuel, 0, instance.maxFuel);
     // Fuel idk
 
     bool crashed; // Self explanatory bruh
