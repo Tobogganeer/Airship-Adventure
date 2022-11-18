@@ -26,6 +26,7 @@ public class Airship : MonoBehaviour
     public float turnSpeed = 0.2f; // Turn speed
     public float turnAmount = 20f; // Turn angle
 
+   
     [Space]
     [Min(0f)]
     public float fuelBurnRate = 1f; // How many fuel units are burnt, per second
@@ -89,6 +90,12 @@ public class Airship : MonoBehaviour
 
         // VVV How much the ship will move
         Vector3 delta = (-transform.forward * movement.z + Vector3.up * movement.y) * Time.deltaTime;
+
+        if (DockingSystem.Docking)
+        {
+            delta = Vector3.zero;
+        }
+
         MovePlayer(delta, Turn);
         MoveKids(delta, Turn);
         // ^^^ Move the player and children along with the ship
@@ -96,6 +103,8 @@ public class Airship : MonoBehaviour
         // VVV Move and rotate the ship itself
         transform.position += delta;
         transform.Rotate(Vector3.up * Turn * Time.deltaTime);
+
+
 
         //transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
         //rb.velocity = -transform.forward * moveSpeed;

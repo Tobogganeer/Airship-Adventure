@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DockingSysten : MonoBehaviour
+public class DockingSystem : MonoBehaviour
 {
-    public Boolean Docking;
+    public static bool Docking;
 
     public void OnTriggerStay(Collider other)
     {
