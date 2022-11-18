@@ -11,7 +11,7 @@ public class Airship : MonoBehaviour
         instance = this;
         // Enable game hud
         HUD.SetBlack(false);
-        HUD.SetFuelVisibility(true);
+        //HUD.SetFuelVisibility(true);
     }
 
     public Rigidbody rb; // Airship rb (not sure if used)
@@ -135,7 +135,7 @@ public class Airship : MonoBehaviour
         {
             Crash("Ran out of fuel! Collect floating caches!", 5f);
         }
-        HUD.SetFuel(Fuel);
+        //HUD.SetFuel(Fuel);
         // Decreases fuel and sets the fuel bar
     }
 

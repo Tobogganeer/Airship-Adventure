@@ -5,7 +5,7 @@ using UnityEngine;
 public class FurnaceOil : MonoBehaviour
 {
     public Renderer oilLevelRenderer;
-    public float levelAtMin = 0.4f;
+    public float levelAtMin = 0.3f;
     public float levelAtMax = 0.8f;
 
     Material mat;
