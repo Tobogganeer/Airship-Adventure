@@ -100,7 +100,14 @@ public class Airship : MonoBehaviour
             turnPlusMinus1 = 0;
             float y = DockingSystem.ActiveSystem.transform.eulerAngles.y;
             Turn = y - transform.eulerAngles.y;
-            Turn *= Time.deltaTime;
+            Turn /= 2;
+           
+            if (transform.eulerAngles.y < 2)
+            {
+                DockingSystem.Docked = true;
+                HUD.SetDepartureIndicator(true);
+
+            }
         }
 
         MovePlayer(delta, Turn);

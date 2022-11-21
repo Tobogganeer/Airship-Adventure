@@ -17,9 +17,11 @@ public class HUD : MonoBehaviour
     public CanvasGroup interactIcon;
     public CanvasGroup blackScreen;
     public CanvasGroup dockingIndicator;
+    public CanvasGroup departureIndicator;
     bool interact;
     bool black;
     bool dock;
+    bool depart;
 
 
     public static bool ShowHUD = true;
@@ -39,11 +41,17 @@ public class HUD : MonoBehaviour
         instance.dock = on;
     }
 
+    public static void SetDepartureIndicator(bool on)
+    {
+        instance.depart = on;
+    }
+
     private void Update()
     {
         interactIcon.alpha = Mathf.Lerp(interactIcon.alpha, interact ? 1 : 0, Time.deltaTime * 10);
         blackScreen.alpha = Mathf.Lerp(blackScreen.alpha, black ? 1 : 0, Time.deltaTime * 10);
         dockingIndicator.alpha = Mathf.Lerp(dockingIndicator.alpha, dock ? 1 : 0, Time.deltaTime * 10);
+        departureIndicator.alpha = Mathf.Lerp(departureIndicator.alpha, depart ? 1 : 0, Time.deltaTime * 10);
         hudHolder.alpha = ShowHUD ? 1f : 0f;
     }
 }

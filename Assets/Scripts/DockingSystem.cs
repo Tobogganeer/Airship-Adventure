@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public class DockingSystem : MonoBehaviour
 {
     public static bool Docking;
+    public static bool Docked;
+    public static bool recentlyDocked;
     public static DockingSystem ActiveSystem;
 
     public float dockingDistance = 15f;
@@ -14,22 +16,62 @@ public class DockingSystem : MonoBehaviour
         Airship.instance.transform.position) < dockingDistance * dockingDistance : false;
     bool wasInRange;
 
+
+    private void Start()
+    {
+        Docked = false;
+    }
+
+
     private void Update()
     {
         bool inRange = InRange;
 
         if (inRange)
         {
-            if (Docking)
+            //Check To see if Ship is Docked
+            if (Docked)
             {
+                //HUD Jazz
+                HUD.SetDepartureIndicator(true);
                 HUD.SetDockIndicator(false);
+
+                //If i is pressed depart
+                if (Keyboard.current.iKey.wasPressedThisFrame)
+                {
+                    Docking = false;
+                    Docked = false;
+                    recentlyDocked = true;
+                    HUD.SetDepartureIndicator(false);
+                }
+            }
+            
+            else if (Docking)
+            {
+                //HUD Jazz
+                HUD.SetDockIndicator(false);
+                HUD.SetDepartureIndicator(false);
+
             }
             else
             {
-                HUD.SetDockIndicator(true);
+                if (recentlyDocked)
+                {
+                    //HUD Jazz
+                    HUD.SetDockIndicator(false);
+                    HUD.SetDepartureIndicator(false);
+                }
+                else
+                {
+                    //HUD Jazz
+                    HUD.SetDockIndicator(true);
+                    HUD.SetDepartureIndicator(false);
+                }
 
+                //If u is pressed dock
                 if (Keyboard.current.uKey.wasPressedThisFrame)
                 {
+                    HUD.SetDockIndicator(false);
                     Docking = true;
                     ActiveSystem = this;
                 }
@@ -39,11 +81,17 @@ public class DockingSystem : MonoBehaviour
         {
             if (wasInRange)
             {
+                //HUD Jazz
                 HUD.SetDockIndicator(false);
+                HUD.SetDepartureIndicator(false);
+                Docked = false;
+                recentlyDocked = false;
+                Docking = false;
             }
         }
 
         wasInRange = inRange;
+        
     }
 
     /*
@@ -88,6 +136,8 @@ public class DockingSystem : MonoBehaviour
 
     private void OnDisable()
     {
+        //HUD Jazz
         HUD.SetDockIndicator(false);
+        HUD.SetDepartureIndicator(false);
     }
 }
