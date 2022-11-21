@@ -75,11 +75,18 @@ public class GrappleHook : MonoBehaviour, IInteractable
         }
         else
         {
-            shaft.localRotation = Quaternion.Slerp(shaft.rotation,
-                Quaternion.Euler(offset), turnSpeed * Time.deltaTime);
-
+            //head.rotation = Quaternion.Slerp(head.rotation, desired, turnSpeed * Time.deltaTime);
             head.localRotation = Quaternion.Slerp(head.localRotation,
                 Quaternion.Euler(offset), turnSpeed * Time.deltaTime);
+            Quaternion headRot = head.rotation;
+            shaft.rotation = Quaternion.Euler(0, head.eulerAngles.y, 0);
+            head.rotation = headRot; // Prevent springy
+
+            //shaft.localRotation = Quaternion.Slerp(shaft.rotation,
+            //    Quaternion.Euler(offset), turnSpeed * Time.deltaTime);
+
+            //head.localRotation = Quaternion.Slerp(head.localRotation,
+            //    Quaternion.Euler(offset), turnSpeed * Time.deltaTime);
 
             laser.enabled = false;
         }
