@@ -75,25 +75,32 @@ public class Airship : MonoBehaviour
     {
         UpdateFuel();
 
-        float desired = 0f;
-        desired += leftHook.GetTurnAmount() * hookGrabbingTurnAmount;
-        desired += rightHook.GetTurnAmount() * hookGrabbingTurnAmount;
+        float desiredTurn = 0f;
+        desiredTurn += leftHook.GetTurnAmount() * hookGrabbingTurnAmount;
+        desiredTurn += rightHook.GetTurnAmount() * hookGrabbingTurnAmount;
         // Turn the ship towards 
 
         if (wheel.IsInteracting)
-            desired += PlayerInputs.Movement.x;
+            desiredTurn += PlayerInputs.Movement.x;
         // Turn the ship if the player is interacting with the wheel
 
-        turnPlusMinus1 = Mathf.MoveTowards(turnPlusMinus1, desired, Time.deltaTime * turnSpeed);
-        Turn = (EaseInOutQuad(0, 1, (turnPlusMinus1 + 1) / 2f) * 2 - 1) * turnAmount;
         // Easing the turn value so steering is smoothed
+        turnPlusMinus1 = Mathf.MoveTowards(turnPlusMinus1, desiredTurn, Time.deltaTime * turnSpeed);
+        Turn = (EaseInOutQuad(0, 1, (turnPlusMinus1 + 1) / 2f) * 2 - 1) * turnAmount;
 
         // VVV How much the ship will move
         Vector3 delta = (-transform.forward * movement.z + Vector3.up * movement.y) * Time.deltaTime;
 
         if (DockingSystem.Docking)
         {
-            delta = Vector3.zero;
+            //delta = Vector3.zero;
+            delta = transform.position.DirectionTo_NoNormalize
+                (DockingSystem.ActiveSystem.transform.position) * Time.deltaTime;
+            //desiredTurn = 0;
+            turnPlusMinus1 = 0;
+            float y = DockingSystem.ActiveSystem.transform.eulerAngles.y;
+            Turn = y - transform.eulerAngles.y;
+            Turn *= Time.deltaTime;
         }
 
         MovePlayer(delta, Turn);

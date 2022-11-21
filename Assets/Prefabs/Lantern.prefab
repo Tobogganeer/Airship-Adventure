@@ -816,6 +816,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1175038234713550385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8644687248664852830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb2d830c60874dc4ea902b9a2f47e5f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportDistance: 30
 --- !u!114 &5521465286901642187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -830,7 +843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carryForce: 10
   useMass: 0
-  useSpring: 1
+  useSpring: 0
   springStrength: 50
   springVelocity: 10
   springDamper: 6
