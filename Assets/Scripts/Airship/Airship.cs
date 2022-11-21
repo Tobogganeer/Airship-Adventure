@@ -1,7 +1,5 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class Airship : MonoBehaviour
@@ -13,7 +11,7 @@ public class Airship : MonoBehaviour
         instance = this;
         // Enable game hud
         HUD.SetBlack(false);
-        HUD.SetFuelVisibility(true);
+        //HUD.SetFuelVisibility(true);
     }
 
     public Rigidbody rb; // Airship rb (not sure if used)
@@ -28,16 +26,7 @@ public class Airship : MonoBehaviour
     public float turnSpeed = 0.2f; // Turn speed
     public float turnAmount = 20f; // Turn angle
 
-    //Docking System Jazz
-    public Transform dock;
-    public Transform airshiploc;
-    public Vector3 target = new Vector3(5, 5, 5);
-    public Vector3 targetdockda;
-    public float speed;
-    float timeElapsed;
-    public float moveDuration = 5;
-
-
+   
     [Space]
     [Min(0f)]
     public float fuelBurnRate = 1f; // How many fuel units are burnt, per second
@@ -86,40 +75,32 @@ public class Airship : MonoBehaviour
     {
         UpdateFuel();
 
-        float desired = 0f;
-        desired += leftHook.GetTurnAmount() * hookGrabbingTurnAmount;
-        desired += rightHook.GetTurnAmount() * hookGrabbingTurnAmount;
+        float desiredTurn = 0f;
+        desiredTurn += leftHook.GetTurnAmount() * hookGrabbingTurnAmount;
+        desiredTurn += rightHook.GetTurnAmount() * hookGrabbingTurnAmount;
         // Turn the ship towards 
 
         if (wheel.IsInteracting)
-            desired += PlayerInputs.Movement.x;
+            desiredTurn += PlayerInputs.Movement.x;
         // Turn the ship if the player is interacting with the wheel
 
-        turnPlusMinus1 = Mathf.MoveTowards(turnPlusMinus1, desired, Time.deltaTime * turnSpeed);
-        Turn = (EaseInOutQuad(0, 1, (turnPlusMinus1 + 1) / 2f) * 2 - 1) * turnAmount;
         // Easing the turn value so steering is smoothed
+        turnPlusMinus1 = Mathf.MoveTowards(turnPlusMinus1, desiredTurn, Time.deltaTime * turnSpeed);
+        Turn = (EaseInOutQuad(0, 1, (turnPlusMinus1 + 1) / 2f) * 2 - 1) * turnAmount;
 
         // VVV How much the ship will move
         Vector3 delta = (-transform.forward * movement.z + Vector3.up * movement.y) * Time.deltaTime;
 
-        
-
         if (DockingSystem.Docking)
         {
-            targetdockda = dock.position;
-            float step = speed * Time.deltaTime;
-            timeElapsed += Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, target, step);
-            //Vector3 targetdock = (dock.position -= airshiploc.position) * Time.deltaTime;
-            //transform.position = Vector3.MoveTowards(transform.position, targetdock, step);
-            //while (timeElapsed < moveDuration)
-            // {
-            //    delta = Vector3.Lerp(transform.position, dock.position, timeElapsed / moveDuration);
-            //}
-            //delta = Vector3.MoveTowards(transform.position, targetdock, step);
-            //(10f, 0, 0) * Time.deltaTime
-            //Vector3 targetdock = airshiploc.position -= dock.position;
-            //transform.position = targetdock;
+            //delta = Vector3.zero;
+            delta = transform.position.DirectionTo_NoNormalize
+                (DockingSystem.ActiveSystem.transform.position) * Time.deltaTime;
+            //desiredTurn = 0;
+            turnPlusMinus1 = 0;
+            float y = DockingSystem.ActiveSystem.transform.eulerAngles.y;
+            Turn = y - transform.eulerAngles.y;
+            Turn *= Time.deltaTime;
         }
 
         MovePlayer(delta, Turn);
@@ -127,16 +108,8 @@ public class Airship : MonoBehaviour
         // ^^^ Move the player and children along with the ship
 
         // VVV Move and rotate the ship itself
-        if (DockingSystem.Docking) 
-        {
-            transform.position = delta;
-        }
-        else
-        {
-            transform.position += delta;
-            transform.Rotate(Vector3.up * Turn * Time.deltaTime);
-        }
-        
+        transform.position += delta;
+        transform.Rotate(Vector3.up * Turn * Time.deltaTime);
 
 
 
@@ -178,7 +151,7 @@ public class Airship : MonoBehaviour
         {
             Crash("Ran out of fuel! Collect floating caches!", 5f);
         }
-        HUD.SetFuel(Fuel);
+        //HUD.SetFuel(Fuel);
         // Decreases fuel and sets the fuel bar
     }
 
