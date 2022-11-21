@@ -8853,6 +8853,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1704774515531647974, guid: ed68e832f536e3d43ac00689876b8382,
         type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704774515531647974, guid: ed68e832f536e3d43ac00689876b8382,
+        type: 3}
       propertyPath: maxFuel
       value: 180
       objectReference: {fileID: 0}
@@ -9074,6 +9079,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Docking System
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406765735288429617, guid: 2d79a89d1bfb58a4883564f26d7dabbc,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406765735288429617, guid: 2d79a89d1bfb58a4883564f26d7dabbc,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406765735288429617, guid: 2d79a89d1bfb58a4883564f26d7dabbc,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406765735288429617, guid: 2d79a89d1bfb58a4883564f26d7dabbc,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d79a89d1bfb58a4883564f26d7dabbc, type: 3}
