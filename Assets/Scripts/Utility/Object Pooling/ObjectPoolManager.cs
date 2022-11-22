@@ -73,6 +73,8 @@ public class ObjectPoolManager : MonoBehaviour
         instance.objectPools.Add(pool.objectType, new ObjectPool(pool.prefab, holder, objectPool));
     }
 
+    const int MaxPoolSize = ushort.MaxValue;
+
     public static GameObject GetObject(PooledObject objectType)
     {
         if (instance.objectPools.TryGetValue(objectType, out ObjectPool pool))
@@ -80,8 +82,11 @@ public class ObjectPoolManager : MonoBehaviour
             PooledObjectInstance obj = pool.pool.Dequeue();
             if (obj.gameObject.activeInHierarchy)
             {
-                IncreasePoolSize(objectType, pool.pool.Count);
-                Debug.Log($"Doubled size of {objectType} pool ({pool.pool.Count} => {pool.pool.Count * 2}) due to dequeueing an active object.");
+                if (pool.pool.Count < MaxPoolSize)
+                {
+                    IncreasePoolSize(objectType, pool.pool.Count);
+                    Debug.Log($"Doubled size of {objectType} pool ({pool.pool.Count} => {pool.pool.Count * 2}) due to dequeueing an active object.");
+                }
             }
             pool.pool.Enqueue(obj);
 

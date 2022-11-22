@@ -15,6 +15,7 @@ public class Pickup : MonoBehaviour, IInteractable
     [Header("Carrying")]
     public float carryForce = 10f;
     public bool useMass = false;
+    public float carryRange = 2;
 
     [Header("Spawning")]
     public bool useSpring = true;
@@ -57,7 +58,7 @@ public class Pickup : MonoBehaviour, IInteractable
         if (IsInteracting)
         {
             rb.useGravity = false;
-            Vector3 targetPos = Interactor.InteractFrom.position + Interactor.InteractFrom.forward * Interactor.InteractRange;
+            Vector3 targetPos = Interactor.InteractFrom.position + Interactor.InteractFrom.forward * carryRange;
             Quaternion targetRot = Interactor.InteractFrom.rotation;// * relRot;
 
             //interpolate to the target position using velocity

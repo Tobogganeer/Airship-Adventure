@@ -767,10 +767,25 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: af5e6deb064fb6f4d9b71d28e5a8c1ca, type: 2}
+    - target: {fileID: -417049694986029037, guid: 27a239d31d325cd44b6031a9b01a9789,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 27a239d31d325cd44b6031a9b01a9789,
         type: 3}
       propertyPath: m_Name
       value: Lantern
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 27a239d31d325cd44b6031a9b01a9789,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390501975968031575, guid: 27a239d31d325cd44b6031a9b01a9789,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27a239d31d325cd44b6031a9b01a9789, type: 3}
@@ -829,6 +844,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportDistance: 30
+--- !u!114 &3787994386227786009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8644687248664852830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa55a4850daa6ca4f95cf179d9811193, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound: MetalHit
+  dist: 10
+  minVelocity: 3
+  minVelocityVolume: 0.1
+  maxVolVelocity: 15
+  maxVol: 1
 --- !u!114 &5521465286901642187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -843,6 +876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carryForce: 10
   useMass: 0
+  carryRange: 2
   useSpring: 0
   springStrength: 50
   springVelocity: 10
