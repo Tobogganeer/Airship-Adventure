@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour
     {
         HUD.SetBlack(false);
         HUD.SetInteract(false);
-        HUD.SetFuelVisibility(false);
+        //HUD.SetFuelVisibility(false);
         Time.timeScale = 1f; // Time slowed when game is paused, reset it
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;

@@ -11,7 +11,7 @@ public class Airship : MonoBehaviour
         instance = this;
         // Enable game hud
         HUD.SetBlack(false);
-        HUD.SetFuelVisibility(true);
+        //HUD.SetFuelVisibility(true);
     }
 
     public Rigidbody rb; // Airship rb (not sure if used)
@@ -22,10 +22,11 @@ public class Airship : MonoBehaviour
     // (currently, once a barrel etc is removed from the list,
     //      they are never a child of the ship again)
     public Wheel wheel; // Wheel yknow
-    public float moveSpeed = 5f; // Speed of the ship
+    public Vector3 movement = new Vector3(0, 0, 5f); // Speed of the ship
     public float turnSpeed = 0.2f; // Turn speed
     public float turnAmount = 20f; // Turn angle
 
+   
     [Space]
     [Min(0f)]
     public float fuelBurnRate = 1f; // How many fuel units are burnt, per second
@@ -58,6 +59,7 @@ public class Airship : MonoBehaviour
         get => fuel;
         set => fuel = Mathf.Clamp(value, 0, instance.maxFuel);
     }
+    public static float Fuel01 => Remap.Float01(Fuel, 0, instance.maxFuel);
     // Fuel idk
 
     bool crashed; // Self explanatory bruh
@@ -73,29 +75,52 @@ public class Airship : MonoBehaviour
     {
         UpdateFuel();
 
-        float desired = 0f;
-        desired += leftHook.GetTurnAmount() * hookGrabbingTurnAmount;
-        desired += rightHook.GetTurnAmount() * hookGrabbingTurnAmount;
+        float desiredTurn = 0f;
+        desiredTurn += leftHook.GetTurnAmount() * hookGrabbingTurnAmount;
+        desiredTurn += rightHook.GetTurnAmount() * hookGrabbingTurnAmount;
         // Turn the ship towards 
 
         if (wheel.IsInteracting)
-            desired += PlayerInputs.Movement.x;
+            desiredTurn += PlayerInputs.Movement.x;
         // Turn the ship if the player is interacting with the wheel
 
-        turnPlusMinus1 = Mathf.MoveTowards(turnPlusMinus1, desired, Time.deltaTime * turnSpeed);
-        Turn = (EaseInOutQuad(0, 1, (turnPlusMinus1 + 1) / 2f) * 2 - 1) * turnAmount;
         // Easing the turn value so steering is smoothed
+        turnPlusMinus1 = Mathf.MoveTowards(turnPlusMinus1, desiredTurn, Time.deltaTime * turnSpeed);
+        Turn = (EaseInOutQuad(0, 1, (turnPlusMinus1 + 1) / 2f) * 2 - 1) * turnAmount;
 
         // VVV How much the ship will move
-        Vector3 delta = (-transform.forward * moveSpeed) * Time.deltaTime;
+        Vector3 delta = (-transform.forward * movement.z + Vector3.up * movement.y) * Time.deltaTime;
+
+        if (DockingSystem.Docking)
+        {
+            //delta = Vector3.zero;
+            delta = transform.position.DirectionTo_NoNormalize
+                (DockingSystem.ActiveSystem.transform.position) * Time.deltaTime;
+            //desiredTurn = 0;
+            turnPlusMinus1 = 0;
+            float y = DockingSystem.ActiveSystem.transform.eulerAngles.y;
+            Turn = y - transform.eulerAngles.y;
+            Turn /= 2;
+           
+            if (transform.eulerAngles.y < 2)
+            {
+                DockingSystem.Docked = true;
+                HUD.SetDepartureIndicator(true);
+
+            }
+        }
+
         MovePlayer(delta, Turn);
         MoveKids(delta, Turn);
         // ^^^ Move the player and children along with the ship
 
         // VVV Move and rotate the ship itself
-        transform.Rotate(Vector3.up * Turn * Time.deltaTime);
-        //transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
         transform.position += delta;
+        transform.Rotate(Vector3.up * Turn * Time.deltaTime);
+
+
+
+        //transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
         //rb.velocity = -transform.forward * moveSpeed;
         //rb.MovePosition(transform.position + delta);
 
@@ -133,14 +158,15 @@ public class Airship : MonoBehaviour
         {
             Crash("Ran out of fuel! Collect floating caches!", 5f);
         }
-        HUD.SetFuel(Fuel);
+        //HUD.SetFuel(Fuel);
         // Decreases fuel and sets the fuel bar
     }
 
     void MovePlayer(Vector3 delta, float y)
     {
-        playerController.Move(delta);
+        //playerController.Move(delta);
         playerController.enabled = false;
+        playerController.transform.position += delta;
         playerController.transform.RotateAround(transform.position, Vector3.up, y * Time.deltaTime);
         playerController.enabled = true;
         // Moves and rotates player, must disable cc to rotate player

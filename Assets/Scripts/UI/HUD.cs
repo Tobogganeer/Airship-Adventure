@@ -16,14 +16,12 @@ public class HUD : MonoBehaviour
     [Space]
     public CanvasGroup interactIcon;
     public CanvasGroup blackScreen;
-    public CanvasGroup fuelBar;
-    public Image fuelFill;
-    public Gradient fuelGradient;
+    public CanvasGroup dockingIndicator;
+    public CanvasGroup departureIndicator;
     bool interact;
     bool black;
-    bool fuelShow;
-
-    float fuel;
+    bool dock;
+    bool depart;
 
 
     public static bool ShowHUD = true;
@@ -38,24 +36,22 @@ public class HUD : MonoBehaviour
         instance.black = on;
     }
 
-    public static void SetFuel(float fuel)
+    public static void SetDockIndicator(bool on)
     {
-        instance.fuel = fuel;
+        instance.dock = on;
     }
 
-    public static void SetFuelVisibility(bool on)
+    public static void SetDepartureIndicator(bool on)
     {
-        instance.fuelShow = on;
+        instance.depart = on;
     }
-
 
     private void Update()
     {
         interactIcon.alpha = Mathf.Lerp(interactIcon.alpha, interact ? 1 : 0, Time.deltaTime * 10);
         blackScreen.alpha = Mathf.Lerp(blackScreen.alpha, black ? 1 : 0, Time.deltaTime * 10);
-        fuelBar.alpha = Mathf.Lerp(fuelBar.alpha, fuelShow ? 1 : 0, Time.deltaTime * 10);
-        fuelFill.fillAmount = Mathf.Lerp(fuelFill.fillAmount, Remap.Float(fuel, 0, 180, 0, 1), Time.deltaTime * 10f);
-        fuelFill.color = fuelGradient.Evaluate(fuelFill.fillAmount);
+        dockingIndicator.alpha = Mathf.Lerp(dockingIndicator.alpha, dock ? 1 : 0, Time.deltaTime * 10);
+        departureIndicator.alpha = Mathf.Lerp(departureIndicator.alpha, depart ? 1 : 0, Time.deltaTime * 10);
         hudHolder.alpha = ShowHUD ? 1f : 0f;
     }
 }

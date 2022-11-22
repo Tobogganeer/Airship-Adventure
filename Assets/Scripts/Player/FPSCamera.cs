@@ -20,6 +20,7 @@ public class FPSCamera : MonoBehaviour
     //public Transform vertMoveWeaponTransform;
 
     private float yRotation;
+    public static float YRot => instance.yRotation;
 
     //public float sensitivity = 3;
     public float maxVerticalRotation = 90;

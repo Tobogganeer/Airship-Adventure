@@ -105,26 +105,6 @@ MeshRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 8130241843327910598}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5927040055206063264 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2492030350272917094, guid: ad150136dfe5a6849ba8a43b313020c8,
-    type: 3}
-  m_PrefabInstance: {fileID: 8130241843327910598}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &5207649073189282774
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5927040055206063264}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1110480277110371123, guid: ad150136dfe5a6849ba8a43b313020c8, type: 3}
 --- !u!1 &8941055042905898903 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ad150136dfe5a6849ba8a43b313020c8,
@@ -147,6 +127,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &831349282477254706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8941055042905898903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ffed331adf50254f873c97434f9c295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minFuel: 20
+  maxFuel: 40
+  rend: {fileID: 0}
+  fuel: 0
+  oilLevelRenderer: {fileID: 401414407130713184}
+  levelAtMin: 0.4
+  levelAtMax: 0.8
 --- !u!114 &5967543372476840233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,19 +164,17 @@ MonoBehaviour:
   springStrength: 50
   springVelocity: 10
   springDamper: 6
---- !u!114 &831349282477254706
-MonoBehaviour:
+--- !u!64 &4141432997439555049
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8941055042905898903}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ffed331adf50254f873c97434f9c295, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minFuel: 20
-  maxFuel: 40
-  fuel: 0
-  oilLevelRenderer: {fileID: 401414407130713184}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1110480277110371123, guid: ad150136dfe5a6849ba8a43b313020c8, type: 3}

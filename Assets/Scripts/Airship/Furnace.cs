@@ -7,6 +7,8 @@ public class Furnace : MonoBehaviour
     // If you want an explanation @ me lol
     private void OnTriggerEnter(Collider other)
     {
+        //Debug.Log(other.gameObject.name);
+
         if (other.TryGetComponent(out Fuel fuel))
         {
             Airship.Fuel += fuel.fuel;
