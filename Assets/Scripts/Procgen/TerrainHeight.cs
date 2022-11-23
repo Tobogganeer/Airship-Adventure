@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class TerrainHeight : MonoBehaviour
 {
-    [HideInInspector]
-    public Terrain terrain;
+    [HideInInspector] public Terrain terrain;
 
     [HideInInspector] public FastNoiseLite prec;
     [HideInInspector] public FastNoiseLite temp;
@@ -34,6 +33,20 @@ public class TerrainHeight : MonoBehaviour
     float GetHeight(int x, int y)
     {
         // 0-1
+        //Vector3 pos = transform.position;
+        //pos.x /= transform.localScale.x;
+        //pos.z /= transform.localScale.z;
+
+        //Vector2 uv = new Vector2(pos.x, pos.z);
+        Vector2 uv = new Vector2(x / terrain.terrainData.size.x * hmRes,
+            y / terrain.terrainData.size.z * hmRes);
+
+        uv += main.offset;
+
+        Vector2 precUV = uv;
+        //precUV += 
+
+        Vector2 tempUV = uv;
 
         return 0;
     }
