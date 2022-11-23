@@ -9018,6 +9018,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed68e832f536e3d43ac00689876b8382, type: 3}
+--- !u!1 &1704774515814894477 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1975385555115992978, guid: ed68e832f536e3d43ac00689876b8382,
+    type: 3}
+  m_PrefabInstance: {fileID: 1704774515814894476}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1704774515814894478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704774515814894477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 450b0066f87c6b949a714347634c2d00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 7022542629992361439, guid: 17bee2b9d15b29d4a97fa253ce922f96,
+    type: 3}
+  maxSpawnRange: 100
+  minSpawnRange: 50
+  enemys: 1
+  spawnTime: {x: 2, y: 10}
 --- !u!1001 &2698679292781573599
 PrefabInstance:
   m_ObjectHideFlags: 0
