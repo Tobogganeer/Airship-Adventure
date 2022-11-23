@@ -8,7 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: New Terrain
-  m_Shader: {fileID: -6465566751694194690, guid: 80fbfe79050e6b641bd123f313751572, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 80fbfe79050e6b641bd123f313751572,
+    type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 2
@@ -48,7 +49,7 @@ Material:
     - _PWarp_Amplitude: 27
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Scale: 750
+    - _Scale: 5
     - _Smoothness: 0.3
     - _TFrequency: 1.8
     - _TGain: -0.59
