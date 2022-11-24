@@ -9,7 +9,7 @@ public class MosSpawner : MonoBehaviour
     Camera cam;
     public float maxSpawnRange = 250f;
     public float minSpawnRange = 150f;
-    public int enemys = 1;
+    public int enemys = 2;
     public Vector2 spawnTime = new Vector2(2f, 10f);
     Plane[] planes = new Plane[6];
 
@@ -35,24 +35,25 @@ public class MosSpawner : MonoBehaviour
         {
             timer = Random.Range(spawnTime.x, spawnTime.y);
 
-            if (Mos.Num < enemys)
+            if (Mos.NumEnemys < enemys)
             {
                 Vector3 pos = Random.insideUnitCircle.XYToXZ() * maxSpawnRange;
                 if (pos.magnitude < minSpawnRange)
                     pos = pos.normalized * minSpawnRange;
                 pos.y = Random.Range(-5f, 25f);
 
-                GameObject newCache = Instantiate(enemyPrefab, pos + transform.position, Quaternion.Euler(0, Random.value * 360f, 0));
-                if (IsVisible(cam, newCache.GetComponent<Renderer>()))
+                GameObject newEnemy = Instantiate(enemyPrefab, pos + transform.position, Quaternion.Euler(0, 0, 0));
+                if (IsVisible(cam, newEnemy.GetComponent<Renderer>()))
                 {
+                    pos.y = -pos.y;
                     pos.x = -pos.x;
                     pos.z = -pos.z;
-                    newCache.transform.position = pos + transform.position;
+                    newEnemy.transform.position = pos + transform.position;
                 }
 
-                Vector3 audioPos = Airship.instance.transform.position +
-                    Airship.instance.transform.position.DirectionTo(newCache.transform.position) * 20f;
-                AudioManager.Play(new Audio("Hit").SetPosition(audioPos).SetVolume(0.2f).SetDistance(100f));
+                /* Vector3 audioPos = Airship.instance.transform.position +
+                    Airship.instance.transform.position.DirectionTo(newEnemy.transform.position) * 20f;
+                AudioManager.Play(new Audio("Hit").SetPosition(audioPos).SetVolume(0.2f).SetDistance(100f)); */
             }
         }
     }

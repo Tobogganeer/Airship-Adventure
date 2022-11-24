@@ -4,48 +4,37 @@ using UnityEngine;
 
 public class Mos : MonoBehaviour
 {
-    public float maxDist = 450f;
-    public float ascendRate = 2f;
-    public float sizeMin = 0.1f;
-    public float sizemax = 1.0f;
-    float size;
+    public float speed = 6f;
 
-    [Space]
-    public GameObject prefab;
+    public Vector3 movement = new Vector3(0, 0, 5f); // Speed of the mos
 
-    public static int Num { get; private set; }
+    public static int NumEnemys;
 
     float lifeTime;
 
     private void Start()
     {
-        size = Random.Range(sizeMin, sizemax);
-        transform.localScale = Vector3.one * size;
+        transform.localScale = Vector3.one;
     }
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, Airship.instance.transform.position) > maxDist)
-            Destroy(gameObject);
-        transform.position += Vector3.up * ascendRate * Time.deltaTime;
+        Vector3 delta;
 
-        lifeTime += Time.deltaTime;
-        if (lifeTime > 45f)
-        {
-            ascendRate -= Time.deltaTime * 3f;
-        }
+        //delta = transform.position.DirectionTo_NoNormalize
+        //        (Airship.instance.enemyPOI.position) * (Time.deltaTime);
+        delta = Vector3.MoveTowards(transform.position, Airship.instance.enemyPOI.position, Time.deltaTime * speed);
 
-        if (transform.position.y < -100)
-            Destroy(gameObject);
+        transform.position += delta;
     }
 
     private void OnEnable()
     {
-        Num++;
+        NumEnemys++;
     }
 
     private void OnDisable()
     {
-        Num--;
+        NumEnemys--;
     }
 }

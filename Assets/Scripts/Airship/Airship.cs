@@ -46,6 +46,9 @@ public class Airship : MonoBehaviour
     [Space]
     [Rename("Pickup Spawn Position")]
     public Transform spawnCrapHere;
+
+    [Space]
+    public Transform enemyPOI;
     // Place on the ship to spawn cargo (temporary)
 
     // Static float for the ships current turn amount
@@ -102,7 +105,7 @@ public class Airship : MonoBehaviour
             Turn = y - transform.eulerAngles.y;
             Turn /= 2;
            
-            if (transform.eulerAngles.y < 2)
+            if (transform.eulerAngles.y < 4)
             {
                 DockingSystem.Docked = true;
                 HUD.SetDepartureIndicator(true);
