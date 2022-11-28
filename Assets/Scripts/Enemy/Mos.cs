@@ -10,11 +10,9 @@ public class Mos : MonoBehaviour
 
     public static int NumEnemys;
 
-    float lifeTime;
-
     private void Start()
     {
-        transform.localScale = Vector3.one;
+    
     }
 
     private void Update()

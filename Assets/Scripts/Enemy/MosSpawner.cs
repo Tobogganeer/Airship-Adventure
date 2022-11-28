@@ -9,8 +9,8 @@ public class MosSpawner : MonoBehaviour
     Camera cam;
     public float maxSpawnRange = 250f;
     public float minSpawnRange = 150f;
-    public int enemys = 2;
-    public Vector2 spawnTime = new Vector2(2f, 10f);
+    public int enemys = 1;
+    public Vector2 spawnTime = new Vector2(5f, 20f);
     Plane[] planes = new Plane[6];
 
     float timer;
@@ -42,17 +42,16 @@ public class MosSpawner : MonoBehaviour
                     pos = pos.normalized * minSpawnRange;
                 pos.y = Random.Range(-5f, 25f);
 
-                GameObject newEnemy = Instantiate(enemyPrefab, pos + transform.position, Quaternion.Euler(0, 0, 0));
-                if (IsVisible(cam, newEnemy.GetComponent<Renderer>()))
+                GameObject newCache = Instantiate(enemyPrefab, pos + transform.position, Quaternion.Euler(0, Random.value * 360f, 0));
+                if (IsVisible(cam, newCache.GetComponent<Renderer>()))
                 {
-                    pos.y = -pos.y;
                     pos.x = -pos.x;
                     pos.z = -pos.z;
-                    newEnemy.transform.position = pos + transform.position;
+                    newCache.transform.position = pos + transform.position;
                 }
 
                 /* Vector3 audioPos = Airship.instance.transform.position +
-                    Airship.instance.transform.position.DirectionTo(newEnemy.transform.position) * 20f;
+                    Airship.instance.transform.position.DirectionTo(newCache.transform.position) * 20f;
                 AudioManager.Play(new Audio("Hit").SetPosition(audioPos).SetVolume(0.2f).SetDistance(100f)); */
             }
         }
