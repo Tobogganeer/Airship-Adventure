@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scale: 1
   seed: 1258
-  offset: {x: 0, y: 0}
+  offset: {x: 2.08, y: 0}
   frequency: 1.4
   octaves: 7
   lacunarity: 3.85

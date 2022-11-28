@@ -31,18 +31,18 @@ public class NoiseSettings : ScriptableObject
     //[Space]
     DomainWarpType mDomainWarpType = DomainWarpType.OpenSimplex2;
 
-    public FastNoiseLite Get()
+    public FastNoiseLite Get(ProcGen.MainSettings settings)
     {
         FastNoiseLite noise = new FastNoiseLite((int)seed);
 
-        noise.SetFrequency(frequency);
+        noise.SetFrequency(frequency * (settings.frequency / 10f));
         noise.SetNoiseType(mNoiseType);
         noise.SetRotationType3D(mRotationType3D);
 
         noise.SetFractalType(mFractalType);
         noise.SetFractalOctaves((int)octaves);
-        noise.SetFractalLacunarity(lacunarity);
-        noise.SetFractalGain(gain);
+        noise.SetFractalLacunarity(lacunarity * (settings.lacunarity / 10f));
+        noise.SetFractalGain(gain * (settings.gain / 10f));
         noise.SetFractalWeightedStrength(mWeightedStrength);
         noise.SetFractalPingPongStrength(mPingPongStrength);
 
@@ -51,7 +51,7 @@ public class NoiseSettings : ScriptableObject
         noise.SetCellularJitter(mCellularJitterModifier);
 
         noise.SetDomainWarpType(mDomainWarpType);
-        noise.SetDomainWarpAmp(warpAmplitute);
+        noise.SetDomainWarpAmp(warpAmplitute * settings.warpMult);
 
         return noise;
     }

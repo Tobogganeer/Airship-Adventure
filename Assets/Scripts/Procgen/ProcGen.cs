@@ -43,14 +43,28 @@ public class ProcGen : MonoBehaviour
         terrain.terrain.materialTemplate = mat;
         UploadValues();
 
-        terrain.temp = temp.Get();
-        terrain.prec = prec.Get();
+        terrain.temp = temp;
+        terrain.prec = prec;
+        //terrain.tempNoise = temp.Get();
+        //terrain.precNoise = prec.Get();
         terrain.main = main;
         terrain.SetHeight();
     }
     private void OnDestroy()
     {
         Destroy(mat);
+    }
+
+    public void Gen()
+    {
+        UploadValues();
+
+        terrain.temp = temp;
+        terrain.prec = prec;
+        //terrain.tempNoise = temp.Get();
+        //terrain.precNoise = prec.Get();
+        terrain.main = main;
+        terrain.SetHeight();
     }
 
     void UploadValues()

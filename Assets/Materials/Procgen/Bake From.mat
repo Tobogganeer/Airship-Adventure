@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mesh
+  m_Name: Bake From
   m_Shader: {fileID: -6465566751694194690, guid: 80fbfe79050e6b641bd123f313751572,
     type: 3}
   m_ValidKeywords: []
@@ -80,7 +80,6 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _B_AND_W: 0
     - _Base_Height: 0.39
     - _Blend: 0
     - _BumpScale: 1
@@ -99,7 +98,7 @@ Material:
     - _GlossyReflections: 0
     - _Lacunarity: 10
     - _Metallic: 0
-    - _Normal_Strength: 0.3
+    - _Normal_Strength: 0.01
     - _OcclusionStrength: 1
     - _PFrequency: 1.4
     - _PGain: -0.48
@@ -118,7 +117,6 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _TERRAIN: 0
     - _TFrequency: 1.8
     - _TGain: -0.59
     - _TLacunarity: 2.46

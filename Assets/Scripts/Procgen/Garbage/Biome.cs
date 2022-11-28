@@ -62,8 +62,8 @@ public abstract class Biome
 
     public static void GenerateNoiseProfiles()
     {
-        tempNoise = Noises.Temperature.Get();
-        precNoise = Noises.Precipitation.Get();
+        tempNoise = Noises.Temperature.Get(null);
+        precNoise = Noises.Precipitation.Get(null);
     }
 
     public static Biome GetBiomeAt(int x, int y)
