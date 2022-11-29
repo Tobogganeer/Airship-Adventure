@@ -5,37 +5,37 @@ using UnityEngine;
 
 public class BakeShader : MonoBehaviour
 {
-    public int res = 513;
     public Material mat;
-
-    [Space]
-    public Material showMat;
-
-    Texture2D texture;
-
-    private void Start()
-    {
-        texture = new Texture2D(res, res);
-        showMat.mainTexture = texture;
-    }
 
     //void Update()
     //{
     //    
     //}
 
-    [ContextMenu("Bake")]
-    void Bake()
+    public float[,] Bake(int res)
     {
         RenderTexture renderTexture = RenderTexture.GetTemporary(res, res);
         Graphics.Blit(null, renderTexture, mat);
 
+        Texture2D texture = new Texture2D(res, res);
         RenderTexture.active = renderTexture;
         texture.ReadPixels(new Rect(0, 0, res, res), 0, 0);
 
+        float[,] heights = new float[res, res];
+
+        for (int i = 0; i < res; i++)
+        {
+            for (int j = 0; j < res; j++)
+            {
+                heights[i, j] = texture.GetPixel(i, j).r;
+            }
+        }
+
         RenderTexture.active = null;
         RenderTexture.ReleaseTemporary(renderTexture);
-        //DestroyImmediate(texture);
-        texture.Apply();
+        DestroyImmediate(texture);
+
+        return heights;
+        //texture.Apply();
     }
 }

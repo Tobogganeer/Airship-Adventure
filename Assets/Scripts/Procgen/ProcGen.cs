@@ -6,6 +6,8 @@ using UnityEngine;
 public class ProcGen : MonoBehaviour
 {
     public Material terrainMat;
+    public Material mapMat;
+    public Material bakeMat;
     public TerrainHeight terrain;
 
     [Space]
@@ -17,15 +19,16 @@ public class ProcGen : MonoBehaviour
     public class MainSettings
     {
         public float scale = 750f;
+        public float terrainScale = 5f;
         public Vector2 offset = Vector2.zero;
         public float frequency = 6;
         public float gain = 9;
         public float lacunarity = 10;
         public float warpMult = 100;
 
-        public void SetToMat(Material mat)
+        public void SetToMat(Material mat, bool useTerrainScale = false)
         {
-            mat.SetFloat("_Scale", scale);
+            mat.SetFloat("_Scale", useTerrainScale ? terrainScale : scale);
             mat.SetVector("_Offset", offset);
             mat.SetFloat("_Frequency", frequency);
             mat.SetFloat("_Gain", gain);
@@ -35,12 +38,12 @@ public class ProcGen : MonoBehaviour
     }
 
 
-    Material mat;
+    //Material c_mat;
     private void Start()
     {
         //mat = GetComponent<Renderer>().material;
-        mat = Instantiate(terrainMat);
-        terrain.terrain.materialTemplate = mat;
+        //c_mat = Instantiate(terrainMat);
+        //terrain.terrain.materialTemplate = c_mat;
         UploadValues();
 
         terrain.temp = temp;
@@ -52,7 +55,7 @@ public class ProcGen : MonoBehaviour
     }
     private void OnDestroy()
     {
-        Destroy(mat);
+        //Destroy(c_mat);
     }
 
     public void Gen()
@@ -69,8 +72,16 @@ public class ProcGen : MonoBehaviour
 
     void UploadValues()
     {
-        prec.SetToMat(mat, "P");
-        temp.SetToMat(mat, "T");
-        main.SetToMat(mat);
+        prec.SetToMat(terrainMat, "P");
+        temp.SetToMat(terrainMat, "T");
+        main.SetToMat(terrainMat, true);
+
+        prec.SetToMat(mapMat, "P");
+        temp.SetToMat(mapMat, "T");
+        main.SetToMat(mapMat);
+
+        prec.SetToMat(bakeMat, "P");
+        temp.SetToMat(bakeMat, "T");
+        main.SetToMat(bakeMat);
     }
 }

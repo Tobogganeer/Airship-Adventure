@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mesh
+  m_Name: Map
   m_Shader: {fileID: -6465566751694194690, guid: 80fbfe79050e6b641bd123f313751572,
     type: 3}
   m_ValidKeywords: []
@@ -92,8 +92,8 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _Frequency: 10
-    - _Gain: 10
+    - _Frequency: 6
+    - _Gain: 9
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -106,7 +106,7 @@ Material:
     - _PLacunarity: 3.85
     - _POctaves: 7
     - _PScale: 1
-    - _PSeed: 1258
+    - _PSeed: 1269.42
     - _PWarp_Amplitude: 27
     - _Parallax: 0.005
     - _QueueControl: 0
@@ -136,7 +136,7 @@ Material:
     - _HighCol: {r: 1, g: 0.7647059, b: 0.5254902, a: 1}
     - _LowCol: {r: 0.03137255, g: 0, b: 0.50980395, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _POffset: {r: 0, g: 0, b: 0, a: 0}
+    - _POffset: {r: 2.08, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

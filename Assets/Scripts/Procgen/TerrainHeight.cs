@@ -6,9 +6,9 @@ using static UnityEngine.Rendering.DebugUI;
 public class TerrainHeight : MonoBehaviour
 {
     public float height = 80f;
-    public float scale = 5f;
+    //public float scale = 5f;
 
-    public Material debugMat;
+    public BakeShader baker;
 
     [HideInInspector] public Terrain terrain;
 
@@ -17,21 +17,23 @@ public class TerrainHeight : MonoBehaviour
     [HideInInspector] public ProcGen.MainSettings main;
 
     int hmRes;
-    Texture2D debugTex;
+    //Texture2D debugTex;
 
     void Awake()
     {
         terrain = GetComponent<Terrain>();
         hmRes = terrain.terrainData.heightmapResolution;
-        debugTex = new Texture2D(hmRes, hmRes);
-        debugMat.mainTexture = debugTex;
+        //debugTex = new Texture2D(hmRes, hmRes);
+        //debugMat.mainTexture = debugTex;
         //SetHeight();
     }
 
     public void SetHeight()
     {
+        /*
         float[,] heights = new float[hmRes, hmRes];
         for (int i = 0; i < hmRes; i++)
+        {
             for (int j = 0; j < hmRes; j++)
             {
                 float height = GetHeight(i, j);
@@ -40,11 +42,25 @@ public class TerrainHeight : MonoBehaviour
                 //heights[i, j] = height * this.height;
                 debugTex.SetPixel(i, j, new Color(height, height, height));
             }
+        }
+        */
+
+        float[,] heights = baker.Bake(hmRes);
+
+        for (int i = 0; i < hmRes; i++)
+        {
+            for (int j = 0; j < hmRes; j++)
+            {
+                heights[i, j] = Remap.Float(heights[i, j], 0, 1,
+                    0, this.height / terrain.terrainData.size.y);
+            }
+        }
 
         terrain.terrainData.SetHeights(0, 0, heights);
-        debugTex.Apply();
+        //debugTex.Apply();
     }
 
+    /*
     float GetHeight(int x, int y)
     {
         // 0-1
@@ -100,4 +116,5 @@ public class TerrainHeight : MonoBehaviour
         uv = Warp(n, uv);
         return (n.GetNoise(uv.x, uv.y) + 1f) / 2f;
     }
+    */
 }
