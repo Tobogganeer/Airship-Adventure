@@ -42,8 +42,8 @@ public class MosSpawner : MonoBehaviour
                     pos = pos.normalized * minSpawnRange;
                 pos.y = Random.Range(-5f, 25f);
 
-                GameObject newCache = Instantiate(enemyPrefab, pos + transform.position, Quaternion.Euler(0, Random.value * 360f, 0));
-                if (IsVisible(cam, newCache.GetComponent<Renderer>()))
+                GameObject newCache = Instantiate(enemyPrefab, pos + transform.position, Quaternion.identity);
+                if (IsVisible(cam, newCache.GetComponentInChildren<Renderer>()))
                 {
                     pos.x = -pos.x;
                     pos.z = -pos.z;
