@@ -9,28 +9,29 @@ public class NoiseSettings : ScriptableObject
     [Space]
     public float scale = 1;
     public float seed = 1258;
-    public Vector2 offset = Vector2.zero;
-    public float frequency = 1.4f;
-    NoiseType mNoiseType = NoiseType.OpenSimplex2;
-    RotationType3D mRotationType3D = RotationType3D.None;
-
-    [Space]
-    FractalType mFractalType = FractalType.None;
-    public float octaves = 7;
-    public float lacunarity = 3.85f;
-    public float gain = -0.48f;
-    public float warpAmplitute = 27f;
-    float mWeightedStrength = 0.0f;
-    float mPingPongStrength = 2.0f;
+    //public Vector2 offset = Vector2.zero;
+    //public float frequency = 1.4f;
+    //NoiseType mNoiseType = NoiseType.OpenSimplex2;
+    //RotationType3D mRotationType3D = RotationType3D.None;
 
     //[Space]
-    CellularDistanceFunction mCellularDistanceFunction = CellularDistanceFunction.EuclideanSq;
-    CellularReturnType mCellularReturnType = CellularReturnType.Distance;
-    float mCellularJitterModifier = 1.0f;
+    //FractalType mFractalType = FractalType.None;
+    //public float octaves = 7;
+    //public float lacunarity = 3.85f;
+    //public float gain = -0.48f;
+    //public float warpAmplitute = 27f;
+    //float mWeightedStrength = 0.0f;
+    //float mPingPongStrength = 2.0f;
 
     //[Space]
-    DomainWarpType mDomainWarpType = DomainWarpType.OpenSimplex2;
+    //CellularDistanceFunction mCellularDistanceFunction = CellularDistanceFunction.EuclideanSq;
+    //CellularReturnType mCellularReturnType = CellularReturnType.Distance;
+    //float mCellularJitterModifier = 1.0f;
 
+    //[Space]
+    //DomainWarpType mDomainWarpType = DomainWarpType.OpenSimplex2;
+
+    /*
     public FastNoiseLite Get(ProcGen.MainSettings settings)
     {
         FastNoiseLite noise = new FastNoiseLite((int)seed);
@@ -55,6 +56,7 @@ public class NoiseSettings : ScriptableObject
 
         return noise;
     }
+    */
 
     public void SetToMat(Material mat, string prefix)
     {
@@ -62,11 +64,11 @@ public class NoiseSettings : ScriptableObject
 
         mat.SetFloat(Get("Scale"), scale);
         mat.SetFloat(Get("Seed"), seed);
-        mat.SetVector(Get("Offset"), offset);
-        mat.SetFloat(Get("Frequency"), frequency);
-        mat.SetFloat(Get("Octaves"), octaves);
-        mat.SetFloat(Get("Lacunarity"), lacunarity);
-        mat.SetFloat(Get("Gain"), gain);
-        mat.SetFloat(Get("Warp_Amplitude"), warpAmplitute);
+        //mat.SetVector(Get("Offset"), offset);
+        //mat.SetFloat(Get("Frequency"), frequency);
+        //mat.SetFloat(Get("Octaves"), octaves);
+        //mat.SetFloat(Get("Lacunarity"), lacunarity);
+        //mat.SetFloat(Get("Gain"), gain);
+        //mat.SetFloat(Get("Warp_Amplitude"), warpAmplitute);
     }
 }

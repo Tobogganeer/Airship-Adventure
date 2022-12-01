@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ProcGen : MonoBehaviour
 {
-    public Material terrainMat;
+    //public Material terrainMat;
     public Material mapMat;
     public Material bakeMat;
     public TerrainHeight terrain;
@@ -18,22 +18,25 @@ public class ProcGen : MonoBehaviour
     [System.Serializable]
     public class MainSettings
     {
+        public int seed = 0;
         public float scale = 750f;
-        public float terrainScale = 5f;
+        //public float terrainScale = 5f;
         public Vector2 offset = Vector2.zero;
-        public float frequency = 6;
-        public float gain = 9;
-        public float lacunarity = 10;
-        public float warpMult = 100;
+        //public float frequency = 6;
+        //public float gain = 9;
+        //public float lacunarity = 10;
+        //public float warpMult = 100;
 
-        public void SetToMat(Material mat, bool useTerrainScale = false)
+        public void SetToMat(Material mat)//, bool useTerrainScale = false)
         {
-            mat.SetFloat("_Scale", useTerrainScale ? terrainScale : scale);
+            //mat.SetFloat("_Scale", useTerrainScale ? terrainScale : scale);
+            mat.SetFloat("_Seed", seed);
+            mat.SetFloat("_Scale", scale);
             mat.SetVector("_Offset", offset);
-            mat.SetFloat("_Frequency", frequency);
-            mat.SetFloat("_Gain", gain);
-            mat.SetFloat("_Lacunarity", lacunarity);
-            mat.SetFloat("_Warp_Mult", warpMult);
+            //mat.SetFloat("_Frequency", frequency);
+            //mat.SetFloat("_Gain", gain);
+            //mat.SetFloat("_Lacunarity", lacunarity);
+            //mat.SetFloat("_Warp_Mult", warpMult);
         }
     }
 
@@ -45,6 +48,7 @@ public class ProcGen : MonoBehaviour
         //c_mat = Instantiate(terrainMat);
         //terrain.terrain.materialTemplate = c_mat;
         UploadValues();
+        main.seed = Random.Range(0, 10000);
 
         terrain.temp = temp;
         terrain.prec = prec;
@@ -72,9 +76,10 @@ public class ProcGen : MonoBehaviour
 
     void UploadValues()
     {
-        prec.SetToMat(terrainMat, "P");
-        temp.SetToMat(terrainMat, "T");
-        main.SetToMat(terrainMat, true);
+        //prec.SetToMat(terrainMat, "P");
+        //temp.SetToMat(terrainMat, "T");
+        //main.SetToMat(terrainMat, true);
+        //main.SetToMat(terrainMat, true);
 
         prec.SetToMat(mapMat, "P");
         temp.SetToMat(mapMat, "T");

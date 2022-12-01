@@ -45,15 +45,17 @@ Material:
     m_Floats:
     - Depth: 2
     - _Displacment: 0.07
-    - _NormalScale: 8.5
-    - _Normal_Strength: 0.481
+    - _NormalScale: 26.2
+    - _Normal_Speed: 0.2
+    - _Normal_Strength: 0.125
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Scale: 1
     - _Smoothness: 0.85
-    - _Strength: 0.08
+    - _Strength: 0.25
     m_Colors:
-    - _DeepWaterColor: {r: 0, g: 0.50077295, b: 1, a: 0.92941177}
-    - _ShallowWaterColor: {r: 0.36320734, g: 0.8657364, b: 1, a: 0.8784314}
+    - _DeepWaterColor: {r: 0.041295834, g: 0.17243189, b: 0.30188674, a: 1}
+    - _ShallowWaterColor: {r: 0.7688679, g: 0.9334026, b: 1, a: 0.8784314}
   m_BuildTextureStacks: []
 --- !u!114 &329063841515967759
 MonoBehaviour:

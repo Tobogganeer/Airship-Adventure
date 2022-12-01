@@ -6,6 +6,7 @@ using static UnityEngine.Rendering.DebugUI;
 public class TerrainHeight : MonoBehaviour
 {
     public float height = 80f;
+    public AnimationCurve heightCurve;
     //public float scale = 5f;
 
     public BakeShader baker;
@@ -51,7 +52,7 @@ public class TerrainHeight : MonoBehaviour
         {
             for (int j = 0; j < hmRes; j++)
             {
-                heights[i, j] = Remap.Float(heights[i, j], 0, 1,
+                heights[i, j] = Remap.Float(heightCurve.Evaluate(heights[i, j]), 0, 1,
                     0, this.height / terrain.terrainData.size.y);
             }
         }
