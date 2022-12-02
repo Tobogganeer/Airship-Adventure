@@ -5,7 +5,14 @@ using UnityEngine;
 
 public class ProcGen : MonoBehaviour
 {
-    //public Material terrainMat;
+    public static ProcGen instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    public bool genOnStart = false;
+
     public Material mapMat;
     public Material bakeMat;
     public TerrainHeight terrain;
@@ -41,25 +48,10 @@ public class ProcGen : MonoBehaviour
     }
 
 
-    //Material c_mat;
     private void Start()
     {
-        //mat = GetComponent<Renderer>().material;
-        //c_mat = Instantiate(terrainMat);
-        //terrain.terrain.materialTemplate = c_mat;
-        UploadValues();
-        main.seed = Random.Range(0, 10000);
-
-        terrain.temp = temp;
-        terrain.prec = prec;
-        //terrain.tempNoise = temp.Get();
-        //terrain.precNoise = prec.Get();
-        terrain.main = main;
-        terrain.SetHeight();
-    }
-    private void OnDestroy()
-    {
-        //Destroy(c_mat);
+        if (genOnStart)
+            Gen();
     }
 
     public void Gen()
@@ -68,8 +60,6 @@ public class ProcGen : MonoBehaviour
 
         terrain.temp = temp;
         terrain.prec = prec;
-        //terrain.tempNoise = temp.Get();
-        //terrain.precNoise = prec.Get();
         terrain.main = main;
         terrain.SetHeight();
     }

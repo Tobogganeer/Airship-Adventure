@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    resolutionScale: 0.5
-    intensity: 0.5
-    blurWidth: 0.85
+    resolutionScale: 0.3
+    intensity: 0.08
+    blurWidth: 0.154
 --- !u!114 &-1878332245247344467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2a9c6bcc9f9664a898f3348c880908, type: 3}
   m_Name: UIBlurFeature
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings:
     DownscaleAmount: 2
     BlurType: 0
@@ -133,14 +133,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    color: {r: 0.7880877, g: 0.8305639, b: 0.8373493, a: 1}
-    sunColor: {r: 0.8944404, g: 0.8686668, b: 0.79658633, a: 1}
+    color: {r: 0.84206957, g: 0.95325696, b: 0.9710186, a: 1}
+    sunColor: {r: 0.8028722, g: 0.7675504, b: 0.67312753, a: 1}
     fogDensity: 0.01
     fogDensityPower: 0.1
     skyAlpha: 0.8
     useHeightFog: 1
     fogHeightStart: -100
-    fogHeightEnd: 31.55495
+    fogHeightEnd: 95.896454
     fogHeightPower: 0.2
     extraFogHeightEnd: -50
     extraFogHeightPower: 0.9
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1614fc811f8f184697d9bee70ab9fe5, type: 3}
   m_Name: DecalRendererFeature
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   m_Settings:
     technique: 0
     maxDrawDistance: 1000
