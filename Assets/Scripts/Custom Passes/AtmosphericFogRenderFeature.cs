@@ -4,7 +4,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace OD {
     public class AtmosphericFogRenderFeature : ScriptableRendererFeature {
-        class CustomRenderPass : ScriptableRenderPass{
+        class CustomRenderPass : ScriptableRenderPass {
             static readonly int _Color = Shader.PropertyToID("_Color");
             static readonly int _SunColor = Shader.PropertyToID("_SunColor");
             static readonly int _FogDensity = Shader.PropertyToID("_FogDensity");

@@ -3,44 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using static FastNoiseLite;
 
-[System.Serializable]
-public class NoiseSettings
+[CreateAssetMenu(menuName = "Scriptable Objects/Noise Settings")]
+public class NoiseSettings : ScriptableObject
 {
     [Space]
-    public int mSeed = 1337;
-    public float mFrequency = 0.01f;
-    public NoiseType mNoiseType = NoiseType.OpenSimplex2;
-    public RotationType3D mRotationType3D = RotationType3D.None;
+    public float scale = 1;
+    public float seed = 1258;
+    //public Vector2 offset = Vector2.zero;
+    //public float frequency = 1.4f;
+    //NoiseType mNoiseType = NoiseType.OpenSimplex2;
+    //RotationType3D mRotationType3D = RotationType3D.None;
 
-    [Space]
-    public FractalType mFractalType = FractalType.None;
-    public int mOctaves = 3;
-    public float mLacunarity = 2.0f;
-    public float mGain = 0.5f;
-    public float mWeightedStrength = 0.0f;
-    public float mPingPongStrength = 2.0f;
+    //[Space]
+    //FractalType mFractalType = FractalType.None;
+    //public float octaves = 7;
+    //public float lacunarity = 3.85f;
+    //public float gain = -0.48f;
+    //public float warpAmplitute = 27f;
+    //float mWeightedStrength = 0.0f;
+    //float mPingPongStrength = 2.0f;
 
-    [Space]
-    public CellularDistanceFunction mCellularDistanceFunction = CellularDistanceFunction.EuclideanSq;
-    public CellularReturnType mCellularReturnType = CellularReturnType.Distance;
-    public float mCellularJitterModifier = 1.0f;
+    //[Space]
+    //CellularDistanceFunction mCellularDistanceFunction = CellularDistanceFunction.EuclideanSq;
+    //CellularReturnType mCellularReturnType = CellularReturnType.Distance;
+    //float mCellularJitterModifier = 1.0f;
 
-    [Space]
-    public DomainWarpType mDomainWarpType = DomainWarpType.OpenSimplex2;
-    public float mDomainWarpAmp = 1.0f;
+    //[Space]
+    //DomainWarpType mDomainWarpType = DomainWarpType.OpenSimplex2;
 
-    public FastNoiseLite Get()
+    /*
+    public FastNoiseLite Get(ProcGen.MainSettings settings)
     {
-        FastNoiseLite noise = new FastNoiseLite(mSeed);
+        FastNoiseLite noise = new FastNoiseLite((int)seed);
 
-        noise.SetFrequency(mFrequency);
+        noise.SetFrequency(frequency * (settings.frequency / 10f));
         noise.SetNoiseType(mNoiseType);
         noise.SetRotationType3D(mRotationType3D);
 
         noise.SetFractalType(mFractalType);
-        noise.SetFractalOctaves(mOctaves);
-        noise.SetFractalLacunarity(mLacunarity);
-        noise.SetFractalGain(mGain);
+        noise.SetFractalOctaves((int)octaves);
+        noise.SetFractalLacunarity(lacunarity * (settings.lacunarity / 10f));
+        noise.SetFractalGain(gain * (settings.gain / 10f));
         noise.SetFractalWeightedStrength(mWeightedStrength);
         noise.SetFractalPingPongStrength(mPingPongStrength);
 
@@ -49,8 +52,23 @@ public class NoiseSettings
         noise.SetCellularJitter(mCellularJitterModifier);
 
         noise.SetDomainWarpType(mDomainWarpType);
-        noise.SetDomainWarpAmp(mDomainWarpAmp);
+        noise.SetDomainWarpAmp(warpAmplitute * settings.warpMult);
 
         return noise;
+    }
+    */
+
+    public void SetToMat(Material mat, string prefix)
+    {
+        string Get(string val) => $"_{prefix}{val}";
+
+        mat.SetFloat(Get("Scale"), scale);
+        mat.SetFloat(Get("Seed"), seed);
+        //mat.SetVector(Get("Offset"), offset);
+        //mat.SetFloat(Get("Frequency"), frequency);
+        //mat.SetFloat(Get("Octaves"), octaves);
+        //mat.SetFloat(Get("Lacunarity"), lacunarity);
+        //mat.SetFloat(Get("Gain"), gain);
+        //mat.SetFloat(Get("Warp_Amplitude"), warpAmplitute);
     }
 }
