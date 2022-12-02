@@ -131,11 +131,13 @@ public class Airship : MonoBehaviour
     void IntroSpiel()
     {
         // Using a timer util class to show the tutorial text
-        Timer.New(0.0f, () => PopUp.Show("Welcome to Airship Game!"));
-        Timer.New(4.0f, () => PopUp.Show("Right Click/E/F to interact with the wheel/grapple hooks (+- for sens)", 4.0f));
-        Timer.New(8.0f, () => PopUp.Show("Shoot fuel caches with LMB", 3.0f));
-        Timer.New(11.0f, () => PopUp.Show("Reach the end sphere, follow the arrows!", 4.0f));
-        Timer.New(16.0f, () => PopUp.Show("Good Luck!", 3.0f));
+        float offset = 3f;
+        Timer.New(0.0f, () => PopUp.Show("Seed: " + ProcGen.instance.main.seed));
+        Timer.New(offset + 0.0f, () => PopUp.Show("Welcome to Airship Game!"));
+        Timer.New(offset + 4.0f, () => PopUp.Show("Right Click/E/F to interact with the wheel/grapple hooks (+- for sens)", 4.0f));
+        Timer.New(offset + 8.0f, () => PopUp.Show("Shoot fuel caches with LMB", 3.0f));
+        Timer.New(offset + 11.0f, () => PopUp.Show("Reach the end sphere, follow the arrows!", 4.0f));
+        Timer.New(offset + 16.0f, () => PopUp.Show("Good Luck!", 3.0f));
     }
 
     public static void Crash(string reason, float time)

@@ -6,6 +6,7 @@ public class MainMenu : MonoBehaviour
 {
     // Not used rn, gonna be for screenshots
     //public GameObject mainHud;
+    public TMPro.TMP_InputField seedField;
 
     // VVV Called every time the menu is loaded
     private void Start()
@@ -22,6 +23,10 @@ public class MainMenu : MonoBehaviour
     // Should be self explanatory I think VVV
     public void Play()
     {
+        if (seedField.text.Length > 0)
+            ProcGen.mainMenuSeed = int.Parse(seedField.text);
+        else
+            ProcGen.mainMenuSeed = 0;
         SceneManager.LoadLevel(Level.Game);
     }
 

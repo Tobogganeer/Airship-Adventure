@@ -25,7 +25,7 @@ public class GameSettings
     public void Validate()
     {
         sens = Mathf.Clamp(sens, 10, 50);
-        quality = Mathf.Clamp(quality, 0.5f, 1.5f);
+        quality = Mathf.Clamp(quality, 0.3f, 1.5f);
         fov = Mathf.Clamp(fov, 50, 110);
         master = Mathf.Clamp(master, 0, 1);
         ambient = Mathf.Clamp(ambient, 0, 1);

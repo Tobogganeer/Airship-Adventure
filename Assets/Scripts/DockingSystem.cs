@@ -20,6 +20,9 @@ public class DockingSystem : MonoBehaviour
     private void Start()
     {
         Docked = false;
+        Docking = false;
+        ActiveSystem = null;
+        recentlyDocked = false;
     }
 
 
