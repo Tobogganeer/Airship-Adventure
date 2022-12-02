@@ -180,6 +180,7 @@ MonoBehaviour:
   mapMat: {fileID: 2100000, guid: ec84e6d9b15fe9b418c911d4a5f50acb, type: 2}
   bakeMat: {fileID: 2100000, guid: 659b0de8f1c4a494bb0147295e5166d2, type: 2}
   terrain: {fileID: 7562004693653334617}
+  structure: {fileID: 1394093099402498816}
   prec: {fileID: 11400000, guid: f05e61b7d30445f40bc994c4b808daab, type: 2}
   temp: {fileID: 11400000, guid: 88d946c484aa65c49b7b77b0b3cf4524, type: 2}
   main:
@@ -368,6 +369,7 @@ Transform:
   - {fileID: 7562004694153574351}
   - {fileID: 7562004695118767823}
   - {fileID: 3342574697668918545}
+  - {fileID: 3200554834722123115}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -469,3 +471,57 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &9091433219585133224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3200554834722123115}
+  - component: {fileID: 1394093099402498816}
+  m_Layer: 0
+  m_Name: Structure Gen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3200554834722123115
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091433219585133224}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7562004694175510310}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1394093099402498816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091433219585133224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 351ed50eed9dc5f488e7a302a2f24cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coastalStructures: 3
+  inlandStructures: 5
+  maxHeight: 150
+  seaLevel: 50
+  radius: 2500
+  coastalStructure: {fileID: 7334347640902190337, guid: 34d8872fe5dff174ebfe08a75528e6bb,
+    type: 3}
+  inlandStructure: {fileID: 7334347640902190337, guid: 34d8872fe5dff174ebfe08a75528e6bb,
+    type: 3}
+  gizmos: 1
