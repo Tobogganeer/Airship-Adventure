@@ -39,6 +39,24 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BN2Scale: 2
+    - _BNMul: 0.2
+    - _BNPers: 0.3
+    - _BNPow: 2
+    - _BNRough: 5
+    - _BNScale: 10
+    - _CBInfluence: 29.7
+    - _CBLInfluence: -17.4
+    - _CBLPers: 0.82
+    - _CBLRough: 3.55
+    - _CBLScale: 0.001
+    - _CBLTest: 0.6
+    - _CBLUVMult: -5.14
+    - _CBPers: 0.5
+    - _CBRough: 0.5
+    - _CBScale: 0.1
+    - _CNInfluence: 34.65
+    - _CNScale: -0.06
     - _MaxHeight: 243.99
     - _MinHeight: -41.4
     - _Mul: 0.31
@@ -51,13 +69,20 @@ Material:
     - _Normal_Persistence: 0.45
     - _Normal_Roughness: 0.88
     - _Normal_Scale: 0.26
-    - _Normal_Strength: 0.19
+    - _Normal_Strength: 0.4
     - _Pow: 5.26
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Scale_Divider: 500
     - _Smoothness: 0
-    m_Colors: []
+    m_Colors:
+    - _HighColour: {r: 0.7058823, g: 0.7019608, b: 0.6980392, a: 1}
+    - _HighColourHill: {r: 0.55294114, g: 0.5333334, b: 0.5019608, a: 1}
+    - _LowColour: {r: 0.34901956, g: 0.41176468, b: 0.34509796, a: 1}
+    - _LowColourHill: {r: 0.9843138, g: 0.8941177, b: 0.7607843, a: 1}
+    - _MidColour: {r: 0.6392157, g: 0.62352943, b: 0.55294114, a: 1}
+    - _MidColourHill: {r: 0.5372549, g: 0.5490196, b: 0.5137254, a: 1}
+    - _Steep_Colour: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7641737376803257086
 MonoBehaviour:

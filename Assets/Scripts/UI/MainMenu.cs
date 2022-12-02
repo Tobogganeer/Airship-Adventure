@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
     // Not used rn, gonna be for screenshots
-    public GameObject mainHud;
+    //public GameObject mainHud;
 
     // VVV Called every time the menu is loaded
     private void Start()

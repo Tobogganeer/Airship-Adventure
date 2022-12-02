@@ -22,12 +22,17 @@ public class BakeShader : MonoBehaviour
         texture.ReadPixels(new Rect(0, 0, res, res), 0, 0);
 
         float[,] heights = new float[res, res];
+        //int logs = 100;
 
         for (int i = 0; i < res; i++)
         {
             for (int j = 0; j < res; j++)
             {
-                heights[i, j] = texture.GetPixel(i, j).r;
+                heights[i, j] = texture.GetPixel(res - i, j).g;
+                //if (heights[i, j] > 0.1f && logs-- > 0)
+                //{
+                //    Debug.Log($"[{i}, {j}] > 0.1f");
+                //}
             }
         }
 

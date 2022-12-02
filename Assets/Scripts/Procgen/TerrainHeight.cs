@@ -48,14 +48,21 @@ public class TerrainHeight : MonoBehaviour
 
         float[,] heights = baker.Bake(hmRes);
 
+        //float total = 0;
+
         for (int i = 0; i < hmRes; i++)
         {
             for (int j = 0; j < hmRes; j++)
             {
+                // Terrain height indexed as [y,x] actually..?
+                //heights[j, i] = Remap.Float(heightCurve.Evaluate(heights[j, i]), 0, 1,
                 heights[i, j] = Remap.Float(heightCurve.Evaluate(heights[i, j]), 0, 1,
                     0, this.height / terrain.terrainData.size.y);
+                //total += heights[i, j];
             }
         }
+
+        //Debug.Log("Total height: " + total);
 
         terrain.terrainData.SetHeights(0, 0, heights);
         //debugTex.Apply();

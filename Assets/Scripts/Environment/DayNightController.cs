@@ -30,6 +30,7 @@ public class DayNightController : MonoBehaviour
     public OD.AtmosphericFogRenderFeature atmosFog;
     public Light lightData;
     public float lightIntensityMult = 1.5f;
+    public float flareIntensityMult = 0.5f;
 
     [Space]
     public float cubemapBakeTime = 5f;
@@ -57,7 +58,7 @@ public class DayNightController : MonoBehaviour
 
         if (flare != null)
         {
-            flare.intensity = dayLightIntensity.Evaluate(timeOfDay);
+            flare.intensity = dayLightIntensity.Evaluate(timeOfDay) * flareIntensityMult;
         }
 
         if (lightData != null)

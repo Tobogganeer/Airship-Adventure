@@ -28,9 +28,10 @@ public class FPSCamera : MonoBehaviour
     private const float SENSITIVITY_MULT = 0.1f;//3 / 50;
     //                           Default sens / Good cam sens
 
-    private float sensitivity => CurrentSensFromSettings * SENSITIVITY_MULT;
+    private float sensitivity => SettingsSensitivity * SENSITIVITY_MULT;
 
-    public static float CurrentSensFromSettings = 35f;
+    public static float SettingsSensitivity = 35f;
+    public static float SettingsFOV = 60f;
 
     public static float VerticalDip = 0f;
 
@@ -60,6 +61,7 @@ public class FPSCamera : MonoBehaviour
         eyeHeight = lookTransform.localPosition.y;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        GetComponent<Camera>().fieldOfView = SettingsFOV;
     }
 
     private void Update()
@@ -81,18 +83,19 @@ public class FPSCamera : MonoBehaviour
     {
         if (Keyboard.current.equalsKey.wasPressedThisFrame)
         {
-            CurrentSensFromSettings = Mathf.Min(CurrentSensFromSettings += 5f, 75f);
-            PopUp.Show("Current sens: " + CurrentSensFromSettings, 1f);
+            SettingsSensitivity = Mathf.Min(SettingsSensitivity += 5f, 75f);
+            PopUp.Show("Current sens: " + SettingsSensitivity, 1f);
         }
         if (Keyboard.current.minusKey.wasPressedThisFrame)
         {
-            CurrentSensFromSettings = Mathf.Max(CurrentSensFromSettings -= 5f, 15f);
-            PopUp.Show("Current sens: " + CurrentSensFromSettings, 1f);
+            SettingsSensitivity = Mathf.Max(SettingsSensitivity -= 5f, 15f);
+            PopUp.Show("Current sens: " + SettingsSensitivity, 1f);
         }
     }
 
     private void MouseLook()
     {
+
         if (PauseMenu.Paused)
             return;
 

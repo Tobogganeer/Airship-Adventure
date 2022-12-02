@@ -10,7 +10,7 @@ public class ClickAudio : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     private const float CLICK_MIN_DELAY = 0.06f;
     private const float HOVER_MIN_DELAY = 0.035f;
 
-    private const float HOVER_VOLUME = 0.2f;
+    private const float HOVER_VOLUME = 0.3f;
     private const float CLICK_VOLUME = 0.1f;
 
     public static void Hover()
