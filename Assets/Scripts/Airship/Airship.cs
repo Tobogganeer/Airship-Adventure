@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Airship : MonoBehaviour
 {
@@ -49,6 +50,9 @@ public class Airship : MonoBehaviour
 
     [Space]
     public Transform enemyPOI;
+
+    [SerializeField] VisualEffect _SmokeExsaust;
+
     // Place on the ship to spawn cargo (temporary)
 
     // Static float for the ships current turn amount
@@ -109,8 +113,13 @@ public class Airship : MonoBehaviour
             {
                 DockingSystem.Docked = true;
                 HUD.SetDepartureIndicator(true);
-
+                _SmokeExsaust.Stop();
             }
+        }
+
+        if (DockingSystem.recentlyDocked == true)
+        {
+            _SmokeExsaust.Play();
         }
 
         MovePlayer(delta, Turn);

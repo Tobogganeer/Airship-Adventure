@@ -8,6 +8,15 @@ public class Rotator : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(rotation * Time.deltaTime, Space.Self);
+
+        if (DockingSystem.Docked)
+        {
+
+        }
+        else
+        {
+            transform.Rotate(rotation * Time.deltaTime, Space.Self);
+        }
+        
     }
 }

@@ -9495,6 +9495,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1704774515531647974, guid: ed68e832f536e3d43ac00689876b8382,
         type: 3}
+      propertyPath: _SmokeExsaust
+      value: 
+      objectReference: {fileID: 1477810475}
+    - target: {fileID: 1704774515531647974, guid: ed68e832f536e3d43ac00689876b8382,
+        type: 3}
+      propertyPath: _smokeexsaust
+      value: 
+      objectReference: {fileID: 1477810475}
+    - target: {fileID: 1704774515531647974, guid: ed68e832f536e3d43ac00689876b8382,
+        type: 3}
       propertyPath: spawnCrapHere
       value: 
       objectReference: {fileID: 1224969412}
