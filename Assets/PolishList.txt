@@ -2,4 +2,5 @@
 -Water
 -Ship running out of fuel going down like titanic
 -Volcano
--
+-Fix up cahce spawner system ( Better spawning, tracking of differant types of chaces)
+-Shelves in basement perhaps shrink the item bafo 1/10 so it can be place on shelf with ease
