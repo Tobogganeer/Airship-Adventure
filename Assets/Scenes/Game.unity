@@ -5807,13 +5807,22 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.31138298
     - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -2.1552303
-      outSlope: -2.1552303
+      time: 0.87077
+      value: 0.7802906
+      inSlope: -0.94875365
+      outSlope: -0.94875365
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.0911683
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -14.139867
+      outSlope: -14.139867
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.060240377
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -8374,6 +8383,11 @@ PrefabInstance:
       propertyPath: airship
       value: 
       objectReference: {fileID: 543450651923396260}
+    - target: {fileID: 2180237491587026356, guid: 1b2630e10c2edd64483a045043f5d830,
+        type: 3}
+      propertyPath: m_MinMoveDistance
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2180237491587026359, guid: 1b2630e10c2edd64483a045043f5d830,
         type: 3}
       propertyPath: m_RootOrder
