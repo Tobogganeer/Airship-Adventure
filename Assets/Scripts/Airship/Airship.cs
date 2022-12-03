@@ -53,6 +53,8 @@ public class Airship : MonoBehaviour
     float turnPlusMinus1;
     // Actual value, for smoothing formula
 
+    public static Transform Transform => instance.transform;
+
     static float fuel = 50f;
     public static float Fuel
     {
@@ -155,10 +157,13 @@ public class Airship : MonoBehaviour
 
     void UpdateFuel()
     {
-        Fuel -= Time.deltaTime * fuelBurnRate;
-        if (Fuel <= 0)
+        if (!DockingSystem.Docking)
         {
-            Crash("Ran out of fuel! Collect floating caches!", 5f);
+            Fuel -= Time.deltaTime * fuelBurnRate;
+            if (Fuel <= 0)
+            {
+                Crash("Ran out of fuel! Collect floating caches!", 5f);
+            }
         }
         //HUD.SetFuel(Fuel);
         // Decreases fuel and sets the fuel bar

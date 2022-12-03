@@ -16,6 +16,9 @@ public class DockingSystem : MonoBehaviour
         Airship.instance.transform.position) < dockingDistance * dockingDistance : false;
     bool wasInRange;
 
+    [Space]
+    public Mesh debug_shipMesh;
+
 
     private void Start()
     {
@@ -135,6 +138,12 @@ public class DockingSystem : MonoBehaviour
         else
             Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, dockingDistance);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (debug_shipMesh)
+            Gizmos.DrawWireMesh(debug_shipMesh, transform.position, transform.rotation, Vector3.one * 0.5f);
     }
 
     private void OnDisable()
