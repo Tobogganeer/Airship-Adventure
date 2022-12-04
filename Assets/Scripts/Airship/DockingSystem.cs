@@ -8,10 +8,11 @@ public class DockingSystem : MonoBehaviour
 {
     public static bool Docking;
     public static bool Docked;
-    public static bool recentlyDocked;
+    public static bool RecentlyDocked;
     public static DockingSystem ActiveSystem;
 
     public float dockingDistance = 15f;
+    public Transform releaseTo;
     bool InRange => Airship.instance != null ? transform.position.SqrDistance(
         Airship.instance.transform.position) < dockingDistance * dockingDistance : false;
     bool wasInRange;
@@ -19,13 +20,21 @@ public class DockingSystem : MonoBehaviour
     [Space]
     public Mesh debug_shipMesh;
 
+    static bool tryDock;
+
+
+    // ====================
+    // This code is potentially the worst thing I have ever seen in my life
+    // ====================
+
+
 
     private void Start()
     {
         Docked = false;
         Docking = false;
         ActiveSystem = null;
-        recentlyDocked = false;
+        RecentlyDocked = false;
     }
 
 
@@ -39,46 +48,54 @@ public class DockingSystem : MonoBehaviour
             if (Docked)
             {
                 //HUD Jazz
-                HUD.SetDepartureIndicator(true);
-                HUD.SetDockIndicator(false);
+                //HUD.SetDepartureIndicator(true);
+                //HUD.SetDockIndicator(false);
+                Airship.Docked = true;
+                Airship.CanDock = false;
+                Docking = false;
+                Airship.Docking = false;
 
                 //If i is pressed depart
-                if (Keyboard.current.iKey.wasPressedThisFrame)
-                {
-                    Docking = false;
-                    Docked = false;
-                    recentlyDocked = true;
-                    HUD.SetDepartureIndicator(false);
-                }
+                //if (Keyboard.current.iKey.wasPressedThisFrame)
+                //{
+                //    Docking = false;
+                //    Airship.Docking = Docking;
+                //    Docked = false;
+                //    RecentlyDocked = true;
+                //    Airship.Docked = false;
+                //}
             }
             
             else if (Docking)
             {
                 //HUD Jazz
-                HUD.SetDockIndicator(false);
-                HUD.SetDepartureIndicator(false);
+                Airship.Docked = false;
+                Airship.CanDock = false;
 
             }
             else
             {
-                if (recentlyDocked)
+                if (RecentlyDocked)
                 {
                     //HUD Jazz
-                    HUD.SetDockIndicator(false);
-                    HUD.SetDepartureIndicator(false);
+                    Airship.Docked = false;
+                    Airship.CanDock = false;
                 }
                 else
                 {
                     //HUD Jazz
-                    HUD.SetDockIndicator(true);
-                    HUD.SetDepartureIndicator(false);
+                    Airship.Docked = false;
+                    Airship.CanDock = true;
                 }
 
                 //If u is pressed dock
-                if (Keyboard.current.uKey.wasPressedThisFrame)
+                //if (Keyboard.current.uKey.wasPressedThisFrame)
+                if (tryDock)
                 {
-                    HUD.SetDockIndicator(false);
+                    tryDock = false;
+                    Airship.CanDock = false;
                     Docking = true;
+                    Airship.Docking = Docking;
                     ActiveSystem = this;
                 }
             }
@@ -88,16 +105,40 @@ public class DockingSystem : MonoBehaviour
             if (wasInRange)
             {
                 //HUD Jazz
-                HUD.SetDockIndicator(false);
-                HUD.SetDepartureIndicator(false);
+                Airship.Docked = false;
+                Airship.CanDock = false;
                 Docked = false;
-                recentlyDocked = false;
+                RecentlyDocked = false;
                 Docking = false;
+                Airship.Docking = Docking;
             }
         }
 
         wasInRange = inRange;
         
+    }
+
+    public static void Release()
+    {
+        //Debug.Log("Try Release");
+        if (Docked)
+        {
+            //Debug.Log("Release");
+            Docking = false;
+            Airship.Docking = Docking;
+            Docked = false;
+            RecentlyDocked = true;
+            Airship.Docked = false;
+        }
+    }
+
+    public static void Dock()
+    {
+        //Debug.Log("Try Dock");
+        if (Airship.CanDock)
+            tryDock = true;
+        //DockingSystem active = ActiveSystem;
+        //active?.DockInstance();
     }
 
     /*
@@ -143,13 +184,14 @@ public class DockingSystem : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         if (debug_shipMesh)
-            Gizmos.DrawWireMesh(debug_shipMesh, transform.position, transform.rotation, Vector3.one * 0.5f);
-    }
-
-    private void OnDisable()
-    {
-        //HUD Jazz
-        HUD.SetDockIndicator(false);
-        HUD.SetDepartureIndicator(false);
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawWireMesh(debug_shipMesh, transform.position, transform.rotation * Quaternion.Euler(0, 180, 0), Vector3.one * 0.5f);
+            if (releaseTo)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawWireMesh(debug_shipMesh, releaseTo.position, releaseTo.rotation * Quaternion.Euler(0, 180, 0), Vector3.one * 0.5f);
+            }
+        }
     }
 }

@@ -307,7 +307,7 @@ AudioEchoFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2180237490120539417}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Delay: 1750
   m_DecayRatio: 0.01
   m_WetMix: 0.03
@@ -634,6 +634,7 @@ MonoBehaviour:
     type: 3}
   footSource: {fileID: 2180237491421838059}
   airship: {fileID: 0}
+  useNewAudio: 0
 --- !u!114 &2180237491587026355
 MonoBehaviour:
   m_ObjectHideFlags: 0
