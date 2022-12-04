@@ -21,6 +21,7 @@ public class Pickup : MonoBehaviour, IInteractable
     public float springStrength = 50f;
     public float springVelocity = 10f;
     public float springDamper = 6f;
+    private float timerspring = 3f;
     Vector3 scale;
     //bool blasto;
 
@@ -83,6 +84,12 @@ public class Pickup : MonoBehaviour, IInteractable
         {
             spring.Update(Time.deltaTime);
             transform.localScale = spring.Value * scale;
+            timerspring -= Time.deltaTime;
+            if ( timerspring <= 0)
+            {
+                transform.localScale = scale;
+                useSpring = false;
+            }
         }
 
         if (transform.position.SqrDistance(Interactor.InteractFrom.position) > MaxRange * MaxRange)
