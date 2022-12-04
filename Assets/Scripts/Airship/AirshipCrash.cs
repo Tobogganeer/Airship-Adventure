@@ -10,6 +10,7 @@ public class AirshipCrash : MonoBehaviour
     public float alarmRange = 150f;
     public float alarmRadius = 5f;
     public static bool NearTerrain;
+    public static bool NearTerrainVertical;
 
     [Space]
     public Transform vertDetector;
@@ -29,9 +30,11 @@ public class AirshipCrash : MonoBehaviour
             Airship.Crash("Crashed into terrain!", 3f);
     }
 
-    private void Update() =>
-        NearTerrain = Physics.SphereCast(new Ray(transform.position, transform.forward), alarmRadius, alarmRange, layerMask) ||
-            Physics.SphereCast(new Ray(vertDetector.position, vertDetector.forward), alarmRadius, vertRange, layerMask);
+    private void Update()
+    {
+        NearTerrain = Physics.SphereCast(new Ray(transform.position, transform.forward), alarmRadius, alarmRange, layerMask);
+        NearTerrainVertical = Physics.SphereCast(new Ray(vertDetector.position, vertDetector.forward), alarmRadius, vertRange, layerMask);
+    }
 
 
     //if (Physics.CheckSphere(transform.position, alarmRangeVertical, terrainLayer))

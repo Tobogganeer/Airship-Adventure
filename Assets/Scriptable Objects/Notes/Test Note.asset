@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c41d280b855bd0241bfabe0570603c9b, type: 3}
-  m_Name: Fuel
+  m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
+  m_Name: Test Note
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: b7cc6fd30b4a10945b9b43175620b881, type: 3}
-  audioPeriod: 1
-  volume: 1
+  type: 0
+  title: 
+  description: 
+  internalNotes: 

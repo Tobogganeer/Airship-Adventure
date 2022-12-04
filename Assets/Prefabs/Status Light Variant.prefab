@@ -238,15 +238,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuelThreshold: 0.15
-  dockIndicator: 2
-  fuelIndicator: 1
-  terrainIndicator: 3
-  statusLight: 5
+  dockIndicator: 1
+  fuelIndicator: 0
+  terrainIndicator: 2
+  statusLight: 3
   dockColour: {r: 9.39868, g: 25.35849, b: 5.621929, a: 0}
   fuelColour: {r: 25.660378, g: 15.871401, b: 5.446779, a: 0}
   terrainColour: {r: 27.773584, g: 3.0131724, b: 3.0131724, a: 0}
   black: {r: 0, g: 0, b: 0, a: 0}
-  dockAlarm: {fileID: 11400000, guid: a8c3504c03ab19f4bb9fac6ee6fcb802, type: 2}
-  fuelAlarm: {fileID: 11400000, guid: e4a7b37fc449d73498f313ca5bdca22b, type: 2}
-  terrainAlarm: {fileID: 11400000, guid: 33671cd859379714fb036b4cb3ccc00b, type: 2}
+  dockAlarm:
+    clip: {fileID: 8300000, guid: a43e2c40b0521aa4f8ea3998a25b61d6, type: 3}
+    audioPeriod: 1.2
+    volume: 1
+  fuelAlarm:
+    clip: {fileID: 8300000, guid: b7cc6fd30b4a10945b9b43175620b881, type: 3}
+    audioPeriod: 1
+    volume: 1
+  terrainAlarm:
+    clip: {fileID: 8300000, guid: 57a3d5ef915c39e4896055551b4e12d9, type: 3}
+    audioPeriod: 0.5
+    volume: 1
+  terrainAlarmVertical:
+    clip: {fileID: 8300000, guid: dd88cef2da571cf43b8a05ab4261dfa6, type: 3}
+    audioPeriod: 0.5
+    volume: 0.5
   alarmSource: {fileID: 4707857841255337510}
+  terrainLP: {fileID: 11400000, guid: 33671cd859379714fb036b4cb3ccc00b, type: 2}
+  terrainVerticalLP: {fileID: 11400000, guid: fc69a0a73e8f63147a92188cc37ab26e, type: 2}
+  fuelLP: {fileID: 11400000, guid: 040b136c44060a048af9e241b6aba5f8, type: 2}
+  canDockLP: {fileID: 11400000, guid: f2aee56f43cffb24c86b606e30cb59bd, type: 2}
+  dockingLP: {fileID: 11400000, guid: ff7aa453d7d059e47b5e5bcf1c474081, type: 2}
+  dockedLP: {fileID: 11400000, guid: 8981a7696ef93f543957ea78d2c6783e, type: 2}
+  blankLP: {fileID: 11400000, guid: 79ccd69f15cb3b042b1b9ef5bd238706, type: 2}

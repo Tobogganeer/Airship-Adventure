@@ -48,13 +48,13 @@ Material:
     - Vector1_846d90e0de904f79a61b0a45ba4589eb: 2
     - Vector1_8c298a7a39e84f828db1797c5255a2eb: 0.653
     - _IOR: -0.01
-    - _Normal_Strength: 3.06
+    - _Normal_Strength: 16.16
     - _Normal_Strength_Refract: 0.01
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - Color_c467de0d9ce245c6ae0db176f33639e0: {r: 1, g: 1, b: 1, a: 1}
-    - _Normal_Scale: {r: 1, g: 0.5, b: 0, a: 0}
+    - Color_c467de0d9ce245c6ae0db176f33639e0: {r: 0.6650944, g: 1, b: 0.7631971, a: 1}
+    - _Normal_Scale: {r: 0.2, g: 0.2, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &9105736720705844690
 MonoBehaviour:

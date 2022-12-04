@@ -188,7 +188,10 @@ public class PlayerMovement : MonoBehaviour
         {
             //y = -DOWNFORCE;
             //CalculateDownForce();
-            y = 0;
+            y = -0.1f; // A small force because
+            // unless min move dist is 0, if the airship tilts
+            // (prob gonna add when out of fuel)
+            // the player will not move, i.e clip through the floor
 
             if (!wasGrounded)
             {

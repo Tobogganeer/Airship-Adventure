@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Laser Green
+  m_Name: Grapple Red
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ValidKeywords:
   - _EMISSION
@@ -109,9 +109,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.165, g: 1, b: 0.2, a: 1}
-    - _Color: {r: 0.16499996, g: 1, b: 0.19999996, a: 1}
-    - _EmissionColor: {r: 5.158925, g: 45.254833, b: 0, a: 1}
+    - _BaseColor: {r: 1, g: 0.16470587, b: 0.26937374, a: 1}
+    - _Color: {r: 1, g: 0.16470584, b: 0.26937371, a: 1}
+    - _EmissionColor: {r: 45.25485, g: 0.0000010789597, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &4355608960666053673
