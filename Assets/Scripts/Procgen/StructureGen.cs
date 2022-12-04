@@ -81,9 +81,9 @@ public class StructureGen : MonoBehaviour
         if (gizmos)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(Vector3.up * maxHeight, new Vector3(2000, 1, 2000));
+            Gizmos.DrawCube(Vector3.up * maxHeight, new Vector3(2000, 1, 2000));
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireCube(Vector3.up * seaLevel, new Vector3(2000, 1, 2000));
+            Gizmos.DrawCube(Vector3.up * seaLevel, new Vector3(2000, 1, 2000));
             Gizmos.DrawWireSphere(Vector3.up * seaLevel, radius);
         }
     }

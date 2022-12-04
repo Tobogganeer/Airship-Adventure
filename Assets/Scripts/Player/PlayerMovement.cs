@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float y;
 
-    const float DOWNFORCE = 10f;
+    //const float DOWNFORCE = 10f;
     //float slopeMult;
 
     Vector3 desiredVelocity;
@@ -51,11 +51,11 @@ public class PlayerMovement : MonoBehaviour
 
     //Grounded
     const float GroundedSphereRadius = 0.475f;
-    const float GroundedSphereDist = 0.7f;
+    const float GroundedSphereDist = 0.85f;
     const float GroundNearDist = 1.8f;
     const float NearSurfaceDist = 0.8f;
     const float NearSurfaceRadius = 0.55f;
-    const float GroundedRayDist = 1.2f; // backup for sphere
+    const float GroundedRayDist = 1.35f; // backup for sphere
 
 
     // Other
@@ -130,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void Update()
+    private void LateUpdate()
     {
         cur_speed = moveSpeed; // UpdateSpeed();
         UpdateAcceleration();
@@ -187,7 +187,11 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
         {
             //y = -DOWNFORCE;
-            CalculateDownForce();
+            //CalculateDownForce();
+            y = -0.1f; // A small force because
+            // unless min move dist is 0, if the airship tilts
+            // (prob gonna add when out of fuel)
+            // the player will not move, i.e clip through the floor
 
             if (!wasGrounded)
             {
@@ -200,13 +204,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else airtime += Time.deltaTime;
 
-
-        if (wasGrounded && !grounded)
-        {
-            // Left ground (not from a jump, otherwise why cancel y velocity)
-            //y += DOWNFORCE; // counteract downforce, set y to 0
-            y = 0; // didn't work as downforce was set multiplied with downforce earlier, just set to 0
-        }
+        
+        //if (wasGrounded && !grounded)
+        //{
+        //    // Left ground (not from a jump, otherwise why cancel y velocity)
+        //    //y += DOWNFORCE; // counteract downforce, set y to 0
+        //    y = 0; // didn't work as downforce was set multiplied with downforce earlier, just set to 0
+        //}
 
         //moveDir.y = y;
 
@@ -222,9 +226,25 @@ public class PlayerMovement : MonoBehaviour
 
         moveVelocity.y = y;
 
-        controller.Move(moveVelocity * Time.deltaTime);
+        Vector3 alignedVel = moveVelocity;
+
+        float angle = Vector3.Angle(Vector3.up, groundNormal);
+
+        if (angle < slopeLimit && grounded)
+        {
+            float speed = moveVelocity.magnitude;
+            float dot = Vector3.Dot(moveVelocity, groundNormal);
+            alignedVel = (moveVelocity - groundNormal * dot).normalized * speed;
+            before = moveVelocity;
+            after = alignedVel;
+        }
+
+        controller.Move(alignedVel * Time.deltaTime);
 
     }
+
+    Vector3 before;
+    Vector3 after;
 
     private void UpdateAcceleration()
     {
@@ -250,6 +270,7 @@ public class PlayerMovement : MonoBehaviour
     private void CalculateDownForce()
     {
         // y = -DOWNFORCE;
+        /*
         float angle = Vector3.Angle(Vector3.up, groundNormal);
 
         if (angle < 1f)
@@ -275,6 +296,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+        */
     }
 
     private void OnDrawGizmos()
@@ -284,5 +306,10 @@ public class PlayerMovement : MonoBehaviour
 
         Gizmos.color = Color.magenta;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * GroundedRayDist);
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawLine(transform.position, transform.position + before * 2);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position, transform.position + after * 2);
     }
 }

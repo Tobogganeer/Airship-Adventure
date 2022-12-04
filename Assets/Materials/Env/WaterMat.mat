@@ -45,7 +45,7 @@ Material:
     m_Floats:
     - Depth: 2
     - _Displacement_Scale: 17.71
-    - _Displacment: 7.05
+    - _Displacment: 3
     - _NormalScale: 0.01
     - _Normal_Speed: 0.6
     - _Normal_Strength: 0.125

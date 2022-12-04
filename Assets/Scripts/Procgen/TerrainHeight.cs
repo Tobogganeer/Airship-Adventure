@@ -18,19 +18,12 @@ public class TerrainHeight : MonoBehaviour
     [HideInInspector] public ProcGen.MainSettings main;
 
     int hmRes;
-    //Texture2D debugTex;
-
-    void Awake()
-    {
-        terrain = GetComponent<Terrain>();
-        hmRes = terrain.terrainData.heightmapResolution;
-        //debugTex = new Texture2D(hmRes, hmRes);
-        //debugMat.mainTexture = debugTex;
-        //SetHeight();
-    }
 
     public void SetHeight()
     {
+        terrain = GetComponent<Terrain>();
+        hmRes = terrain.terrainData.heightmapResolution;
+
         /*
         float[,] heights = new float[hmRes, hmRes];
         for (int i = 0; i < hmRes; i++)

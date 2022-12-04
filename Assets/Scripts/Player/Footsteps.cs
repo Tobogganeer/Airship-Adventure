@@ -17,6 +17,9 @@ public class Footsteps : MonoBehaviour
 
     public Transform airship;
 
+    [Space]
+    public bool useNewAudio;
+
     public static Foot foot;
     public static float SinValue;
     private const float MIN_AIRTIME = 0.2f;
@@ -42,14 +45,17 @@ public class Footsteps : MonoBehaviour
         float range = 25f;
 
         Instantiate(smokeParticles, footSource.position, Quaternion.identity, airship);
-        AudioManager.Play(new Audio(GetSound(foot)).SetPosition(footSource.position).SetDistance(range).SetVolume(vol));
+        string sound = GetSound(foot);
+        if (useNewAudio)
+            sound += "NEW";
+        AudioManager.Play(new Audio(sound).SetPosition(footSource.position).SetDistance(range).SetVolume(vol));
     }
 
     private void PlayerMovement_OnLand(float airtime)
     {
         if (airtime > MIN_AIRTIME)
-        { 
-            AudioManager.Play(new Audio("Drop").SetPosition(footSource.position).SetVolume(Mathf.Clamp01(airtime * 0.6f)));
+        {
+            AudioManager.Play(new Audio(useNewAudio ? "DropNEW" : "Drop").SetPosition(footSource.position).SetVolume(Mathf.Clamp01(airtime * 0.6f)));
             Instantiate(dropParticles, footSource.position, Quaternion.identity, airship);
         }
             //AudioManager.Play(AudioArray.Drop, footSource.position, null, 35, AudioCategory.SFX, Mathf.Clamp01(airtime * 0.6f));

@@ -6,14 +6,11 @@ public class MainMenu : MonoBehaviour
 {
     // Not used rn, gonna be for screenshots
     //public GameObject mainHud;
+    public TMPro.TMP_InputField seedField;
 
     // VVV Called every time the menu is loaded
     private void Start()
     {
-        HUD.SetBlack(false);
-        HUD.SetInteract(false);
-        //HUD.SetFuelVisibility(false);
-        Time.timeScale = 1f; // Time slowed when game is paused, reset it
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         // Set cursor to be visible
@@ -22,6 +19,10 @@ public class MainMenu : MonoBehaviour
     // Should be self explanatory I think VVV
     public void Play()
     {
+        if (seedField.text.Length > 0)
+            ProcGen.mainMenuSeed = int.Parse(seedField.text);
+        else
+            ProcGen.mainMenuSeed = 0;
         SceneManager.LoadLevel(Level.Game);
     }
 

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProcGen : MonoBehaviour
@@ -9,6 +8,15 @@ public class ProcGen : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        if (mainMenuSeed >= 0)
+        {
+            if (mainMenuSeed == 0)
+                main.seed = Random.Range(1, 100000);
+            else
+                main.seed = mainMenuSeed;
+        }
+        mainMenuSeed = 0;
     }
 
     public bool genOnStart = false;
@@ -22,6 +30,8 @@ public class ProcGen : MonoBehaviour
     public NoiseSettings prec;
     public NoiseSettings temp;
     public MainSettings main;
+
+    public static int mainMenuSeed = -1;
 
     [System.Serializable]
     public class MainSettings
