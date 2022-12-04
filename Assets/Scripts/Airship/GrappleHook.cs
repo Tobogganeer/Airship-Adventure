@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class GrappleHook : MonoBehaviour, IInteractable
 {
@@ -28,6 +29,9 @@ public class GrappleHook : MonoBehaviour, IInteractable
 
     public Material red;
     public Material green;
+
+    [SerializeField] VisualEffect _SmokeflashL;
+    [SerializeField] VisualEffect _SmokeflashR;
 
     bool IInteractable.FixedPosition => true;
     public Transform grabbedTarget { get; private set; }
@@ -120,6 +124,7 @@ public class GrappleHook : MonoBehaviour, IInteractable
                 grabbedPos = hit.transform.position.DirectionTo_NoNormalize(hit.point);
                 StartCoroutine(GrabTarget());
                 AudioManager.Play(new Audio("GrappleLaunch").SetPosition(transform.position).SetParent(transform));
+                PlaySmokeThing();
             }
         }
         else
@@ -194,5 +199,11 @@ public class GrappleHook : MonoBehaviour, IInteractable
             .DirectionTo(grabbedTarget.position.Flattened()));
 
         return val * Mathf.Sign(sideDot);
+    }
+
+    void PlaySmokeThing()
+    {
+        _SmokeflashL.Play();
+        _SmokeflashR.Play();
     }
 }

@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CacheSpawner : MonoBehaviour
+public class MosSpawner : MonoBehaviour
 {
-    public GameObject[] cachePrefab;
-
+    public GameObject enemyPrefab;
     //public Camera cam;
     Camera cam;
     public float maxSpawnRange = 250f;
     public float minSpawnRange = 150f;
-    public int caches = 3;
+    public int enemys = 1;
     public Vector2 spawnTime = new Vector2(5f, 20f);
     Plane[] planes = new Plane[6];
 
@@ -36,24 +35,24 @@ public class CacheSpawner : MonoBehaviour
         {
             timer = Random.Range(spawnTime.x, spawnTime.y);
 
-            if (Cache.Num < caches)
+            if (Mos.NumEnemys < enemys)
             {
                 Vector3 pos = Random.insideUnitCircle.XYToXZ() * maxSpawnRange;
                 if (pos.magnitude < minSpawnRange)
                     pos = pos.normalized * minSpawnRange;
                 pos.y = Random.Range(-5f, 25f);
 
-                GameObject newCache = Instantiate(cachePrefab[Random.Range(0, cachePrefab.Length)], pos + transform.position, Quaternion.Euler(0, Random.value * 360f, 0));
-                if (IsVisible(cam, newCache.GetComponent<Renderer>()))
+                GameObject newCache = Instantiate(enemyPrefab, pos + transform.position, Quaternion.identity);
+                if (IsVisible(cam, newCache.GetComponentInChildren<Renderer>()))
                 {
                     pos.x = -pos.x;
                     pos.z = -pos.z;
                     newCache.transform.position = pos + transform.position;
                 }
 
-                Vector3 audioPos = Airship.instance.transform.position +
+                /* Vector3 audioPos = Airship.instance.transform.position +
                     Airship.instance.transform.position.DirectionTo(newCache.transform.position) * 20f;
-                AudioManager.Play(new Audio("Hit").SetPosition(audioPos).SetVolume(0.2f).SetDistance(100f));
+                AudioManager.Play(new Audio("Hit").SetPosition(audioPos).SetVolume(0.2f).SetDistance(100f)); */
             }
         }
     }

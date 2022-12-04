@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Airship : MonoBehaviour
 {
@@ -49,6 +50,7 @@ public class Airship : MonoBehaviour
     public Wheel wheel;
     public CharacterController playerController; // To move the player with the ship
     public List<Transform> kiddos; // Objects that the ship should move (crates, rat etc)
+    [SerializeField] VisualEffect _SmokeExsaust;
 
 
     // ====================
@@ -192,6 +194,7 @@ public class Airship : MonoBehaviour
             if (Mathf.Abs(Turn) < 2f)
             {
                 DockingSystem.Docked = true;
+                _SmokeExsaust.Stop();
                 //HUD.SetDepartureIndicator(true);
             }
         }
@@ -220,6 +223,11 @@ public class Airship : MonoBehaviour
                 DockingSystem.RecentlyDocked = false;
                 //HUD.SetDepartureIndicator(true);
             }
+        }
+
+        if (DockingSystem.recentlyDocked == true)
+        {
+            _SmokeExsaust.Play();
         }
 
         MovePlayer(delta, Turn);
