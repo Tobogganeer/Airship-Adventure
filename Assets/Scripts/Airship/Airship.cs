@@ -45,6 +45,7 @@ public class Airship : MonoBehaviour
     [Space(10), Header("==- References -==")]
     [Rename("Pickup Spawn Position")]
     public Transform spawnCrapHere; // Place on the ship to spawn cargo (temporary)
+    public Transform enemyPOI;
     public GrappleHook leftHook; // Grapple hooks
     public GrappleHook rightHook;
     public Wheel wheel;
@@ -225,7 +226,7 @@ public class Airship : MonoBehaviour
             }
         }
 
-        if (DockingSystem.recentlyDocked == true)
+        if (DockingSystem.RecentlyDocked == true)
         {
             _SmokeExsaust.Play();
         }
