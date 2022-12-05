@@ -22,12 +22,14 @@ public class DayNightController : MonoBehaviour
     public AnimationCurve nightIntensity;
     public AnimationCurve nightLightIntensity;
     public Gradient fogColour;
+    public Gradient borderFogColour;
     public Gradient fogSunColour;
     public AnimationCurve fogExtraHeight;
 
     [Space]
     public LensFlareComponentSRP flare;
-    public OD.AtmosphericFogRenderFeature atmosFog;
+    public OD.AtmosphericFogRenderFeature heightFog;
+    public OD.AtmosphericFogRenderFeature borderFog;
     public Light lightData;
     public float lightIntensityMult = 1.5f;
     public float flareIntensityMult = 0.5f;
@@ -66,11 +68,17 @@ public class DayNightController : MonoBehaviour
             lightData.intensity = dayLightIntensity.Evaluate(timeOfDay) * lightIntensityMult;
         }
 
-        if (atmosFog?.settings != null)
+        if (heightFog?.settings != null)
         {
-            atmosFog.settings.color = fogColour.Evaluate(timeOfDay);
-            atmosFog.settings.sunColor = fogSunColour.Evaluate(timeOfDay);
-            atmosFog.settings.fogHeightEnd = DefaultFogHeight + fogExtraHeight.Evaluate(timeOfDay);
+            heightFog.settings.color = fogColour.Evaluate(timeOfDay);
+            heightFog.settings.sunColor = fogSunColour.Evaluate(timeOfDay);
+            heightFog.settings.fogHeightEnd = DefaultFogHeight + fogExtraHeight.Evaluate(timeOfDay);
+        }
+
+        if (borderFog?.settings != null)
+        {
+            borderFog.settings.color = borderFogColour.Evaluate(timeOfDay);
+            borderFog.settings.sunColor = fogSunColour.Evaluate(timeOfDay);
         }
 
         if (Application.isPlaying)

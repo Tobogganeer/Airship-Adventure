@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
+  m_Name: Prometheus
+  m_EditorClassIdentifier: 
+  type: 0
+  title: Prometheus
+  description: "Damn, you know. I feel like the titan, from those old legends. Chained
+    to a rock in the sky? Same thing over and over? I like the song, was my children's
+    favourite when they lived. Maybe that\u2019s why I traded way too much fuel for
+    it... Well I guess you can enjoy it now..."
+  internalNotes: Near speaker
