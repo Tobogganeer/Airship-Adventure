@@ -77,4 +77,10 @@ public class Interactor : MonoBehaviour
         HUD.SetInteract(false);
         lookingAt = null;
     }
+
+    public static void OnDestroy(IInteractable i)
+    {
+        if (CurrentInteractable == i)
+            CurrentInteractable = null;
+    }
 }

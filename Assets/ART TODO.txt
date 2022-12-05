@@ -1,0 +1,36 @@
+
+MODELS:
+
+See current blend files for references on what parts are needed
+
+Status/Alarm Console
+ -Has 3 status indicators (crash, fuel, dock)
+ -Has a light
+ -Status indicators are just scaled down planes
+	(MAKE SURE UVS ARE CORRECT ON THESE)
+
+Docking Lever
+ -It's a lever
+ -The lever part is a seperate object
+ -See current blend file for reference
+
+Shelf model
+ -Ikea shelf (rustic, industrial)
+
+Map station
+ -Has a scaled down plane to display map (keep default/proper uvs)
+ -Has two icons for adjusting elevation,
+    one for desired and one for current height
+ -Has a spot for a light to illuminate the height area (basement is dark)
+ -See current blend file for reference
+
+
+TEXTURES:
+Indicators
+ -Ship crashing into terrain icon
+ -Low fuel icon
+ -Dock available icon
+ -ALL ICONS SHOULD BE WHITE PNGS
+ -NO COLOUR, NO BACKGROUND
+ -JUST THE ICON IN WHITE, IT IS COLOURED IN ENGINE
+ -See the icons I have rn for info

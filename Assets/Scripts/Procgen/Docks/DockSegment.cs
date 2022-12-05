@@ -14,12 +14,15 @@ public class DockSegment : MonoBehaviour
     //public List<Transform> nodes = new List<Transform>();
 
     [Space]
+    public bool drawGizmos = true;
     public Mesh plankMesh;
     public Mesh pillarMesh;
     public Mesh intersectionMesh;
 
     private void OnDrawGizmos()
     {
+        if (!drawGizmos) return;
+
         int children = transform.childCount;
 
         if (children == 0) return;
