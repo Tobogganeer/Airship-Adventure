@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DockingSystem : MonoBehaviour
+public abstract class DockingSystem : MonoBehaviour
 {
     public static bool Docking;
     public static bool Docked;
@@ -28,7 +28,7 @@ public class DockingSystem : MonoBehaviour
 
 
 
-    private void Start()
+    public virtual void Start()
     {
         Docked = false;
         Docking = false;
@@ -37,7 +37,7 @@ public class DockingSystem : MonoBehaviour
     }
 
 
-    private void Update()
+    public virtual void Update()
     {
         bool inRange = InRange;
 
