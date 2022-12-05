@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5229430296661535166}
   - component: {fileID: 1935592466222512491}
   - component: {fileID: 3438223819066583607}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bread
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4469628688857426498}
   - component: {fileID: 3311836139750652903}
   - component: {fileID: 657636619470738923}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Icing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,8 @@ GameObject:
   - component: {fileID: 1891927203992044188}
   - component: {fileID: 5415630025817573992}
   - component: {fileID: 2509923964889800872}
-  m_Layer: 0
+  - component: {fileID: -133508644727558282}
+  m_Layer: 9
   m_Name: DoNut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,6 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carryForce: 10
   useMass: 0
+  carryRange: 2
   useSpring: 1
   springStrength: 50
   springVelocity: 10
@@ -250,3 +252,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6510839796755108485, guid: 1bb59b8af013d8846a07adf1d8e91618, type: 3}
+--- !u!114 &-133508644727558282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6971088551302814353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18d6ff4342bc7243a06caabcce1a17c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Desiredsize: 0
+  scaleSpeed: 3
+  ShelfSize: 0.25
+  NormSize: 1

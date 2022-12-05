@@ -141,6 +141,24 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1110480277110371123, guid: ad150136dfe5a6849ba8a43b313020c8, type: 3}
+--- !u!114 &-5700182687437413280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8941055042905898903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa55a4850daa6ca4f95cf179d9811193, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound: MetalHit
+  dist: 10
+  minVelocity: 3
+  minVelocityVolume: 0.1
+  maxVolVelocity: 15
+  maxVol: 1
 --- !u!114 &831349282477254706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +178,22 @@ MonoBehaviour:
   oilLevelRenderer: {fileID: 401414407130713184}
   levelAtMin: 0.4
   levelAtMax: 0.8
+--- !u!114 &4276398347148902828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8941055042905898903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18d6ff4342bc7243a06caabcce1a17c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Desiredsize: 0
+  scaleSpeed: 3
+  ShelfSize: 0.25
+  NormSize: 1
 --- !u!114 &5967543372476840233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,21 +213,3 @@ MonoBehaviour:
   springStrength: 50
   springVelocity: 10
   springDamper: 6
---- !u!114 &-5700182687437413280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8941055042905898903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa55a4850daa6ca4f95cf179d9811193, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sound: MetalHit
-  dist: 10
-  minVelocity: 3
-  minVelocityVolume: 0.1
-  maxVolVelocity: 15
-  maxVol: 1

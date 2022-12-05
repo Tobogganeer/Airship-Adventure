@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Models/Blend/Ship Hull Debug.blend.meta
-guid: af5fc70155240274286eb1d0dddb1faa
-========
-guid: a93620d7d9e723e448fa20088feae8df
->>>>>>>> origin/Mosquito:Assets/Models/Blend/ResourcecacheLimeGreen.blend.meta
+guid: bf7c75cca2d2b0f4db3fc3b73a25324c
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
