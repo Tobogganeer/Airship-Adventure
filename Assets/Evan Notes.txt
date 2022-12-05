@@ -3,5 +3,6 @@ Nate notes (all copied)
 Ship tilting when low on fuel
 Different fuel consumption at max and min
 Proper dock
-Screenshot
+Screenshots working
 Radio or speaker
+Rhys' end explosion
