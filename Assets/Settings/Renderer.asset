@@ -15,8 +15,8 @@ MonoBehaviour:
   m_Active: 1
   settings:
     resolutionScale: 0.3
-    intensity: 0.08
-    blurWidth: 0.154
+    intensity: 0.15
+    blurWidth: 0.15
 --- !u!114 &-1878332245247344467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,8 +54,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    color: {r: 0.7490196, g: 0.8901961, b: 1, a: 1}
-    sunColor: {r: 0.8773585, g: 0.8098478, b: 0.6911268, a: 1}
+    color: {r: 0.70500386, g: 0.8383076, b: 0.9477181, a: 1}
+    sunColor: {r: 0.8028722, g: 0.7675504, b: 0.67312753, a: 1}
     fogDensity: 0.0001
     fogDensityPower: 0.5
     skyAlpha: 0
@@ -105,8 +105,7 @@ MonoBehaviour:
   - {fileID: -1980355072386613639}
   - {fileID: 6022545821692632820}
   - {fileID: -1631164627759943977}
-  - {fileID: 6693380802680012756}
-  m_RendererFeatureMap: adc0de57c6d2eee579be40d58d5d84e4f49e801984619453d7ae2fd069f05ce9d43f298260aae35c
+  m_RendererFeatureMap: adc0de57c6d2eee579be40d58d5d84e4f49e801984619453d7ae2fd069f05ce9
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -173,26 +172,3 @@ MonoBehaviour:
     extraFogHeightPower: 0.9
     directionalIntesity: 1
     directionalPower: 3
---- !u!114 &6693380802680012756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1614fc811f8f184697d9bee70ab9fe5, type: 3}
-  m_Name: DecalRendererFeature
-  m_EditorClassIdentifier: 
-  m_Active: 0
-  m_Settings:
-    technique: 0
-    maxDrawDistance: 1000
-    dBufferSettings:
-      surfaceData: 2
-    screenSpaceSettings:
-      normalBlend: 0
-      useGBuffer: 1
-  m_CopyDepthPS: {fileID: 4800000, guid: d6dae50ee9e1bfa4db75f19f99355220, type: 3}
-  m_DBufferClear: {fileID: 4800000, guid: f056d8bd2a1c7e44e9729144b4c70395, type: 3}

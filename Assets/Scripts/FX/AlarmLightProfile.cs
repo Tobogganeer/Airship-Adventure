@@ -11,9 +11,9 @@ public class AlarmLightProfile : ScriptableObject
     public AnimationCurve brightnessCurve;
 
     float time;
-    Material mat;
+    //Material mat;
 
-    public void Tick(float dt)
+    public Color Tick(float dt)
     {
         time += dt;
         if (time > period)
@@ -21,12 +21,14 @@ public class AlarmLightProfile : ScriptableObject
             time = 0;
         }
 
-        mat.SetColor("_EmissionColor", Color.Lerp(colourLow, colourHigh, brightnessCurve.Evaluate(Remap.Float01(time, 0, period))));
+        //mat.SetColor("_EmissionColor", Color.Lerp(colourLow, colourHigh, brightnessCurve.Evaluate(Remap.Float01(time, 0, period))));
+        return Color.Lerp(colourLow, colourHigh, brightnessCurve.Evaluate(Remap.Float01(time, 0, period)));
     }
 
-    public void Reset(Material mat)
+    //public void Reset(Material mat)
+    public void Reset()
     {
         time = 0;
-        this.mat = mat;
+        //this.mat = mat;
     }
 }
