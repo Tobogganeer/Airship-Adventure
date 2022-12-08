@@ -318,7 +318,7 @@ MonoBehaviour:
     type: 3}
   intersectionPrefab: {fileID: 2376311142114862429, guid: 68e69cce476b6b34ab4a8b2f62aa0733,
     type: 3}
-  drawGizmos: 1
+  drawGizmos: 0
   plankMesh: {fileID: -3481501719365375840, guid: cf8b3536e419fc248a0c4d5e947f44a7,
     type: 3}
   pillarMesh: {fileID: -8116138440861595531, guid: e977e1454a8de804692b2b28a8a21a1c,

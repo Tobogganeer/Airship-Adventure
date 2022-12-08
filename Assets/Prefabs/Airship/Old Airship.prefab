@@ -8857,7 +8857,7 @@ GameObject:
   - component: {fileID: 1704774515531647974}
   - component: {fileID: 1704774515531647975}
   m_Layer: 0
-  m_Name: Airship
+  m_Name: Old Airship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
