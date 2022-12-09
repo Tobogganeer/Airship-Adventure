@@ -6936,17 +6936,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 52f1fa79408ab1f4eab4884efa1e4166,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 25.327023
+      value: -420.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 52f1fa79408ab1f4eab4884efa1e4166,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 23.7
+      value: -12
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 52f1fa79408ab1f4eab4884efa1e4166,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -34.343
+      value: -561.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 52f1fa79408ab1f4eab4884efa1e4166,
         type: 3}
@@ -8202,7 +8202,7 @@ PrefabInstance:
     - target: {fileID: 2916687493020684324, guid: 4234e4f63ac09524d8290c9345e5bb34,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.984416
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2916687493020684324, guid: 4234e4f63ac09524d8290c9345e5bb34,
         type: 3}
@@ -8244,8 +8244,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2916687493020684320, guid: 4234e4f63ac09524d8290c9345e5bb34, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4234e4f63ac09524d8290c9345e5bb34, type: 3}
+--- !u!1 &2916687492944094579 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2916687493020684323, guid: 4234e4f63ac09524d8290c9345e5bb34,
+    type: 3}
+  m_PrefabInstance: {fileID: 2916687492944094578}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2916687492944094580 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2916687492744475292, guid: 4234e4f63ac09524d8290c9345e5bb34,
+    type: 3}
+  m_PrefabInstance: {fileID: 2916687492944094578}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2916687492944094581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2916687492944094579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cb5a7a1f0b61d4aba19df7ab6e88c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dockingDistance: 15
+  releaseTo: {fileID: 2916687492944094580}
+  debug_shipMesh: {fileID: 8547471881871753710, guid: befde49dc8460cc4c9d9824f0e10cf79,
+    type: 3}
 --- !u!1001 &8800892987482784341
 PrefabInstance:
   m_ObjectHideFlags: 0
