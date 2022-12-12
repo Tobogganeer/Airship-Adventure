@@ -32,6 +32,10 @@ public class StatusBeacon : MonoBehaviour
     [ColorUsage(false, true)] public Color terrainColour;
     [ColorUsage(false, true)] public Color black;
 
+    Color curDockColour;
+    Color curFuelColour;
+    Color curTerrainColour;
+
     [Space]
     public AlarmProfile dockAlarm;
     public AlarmProfile fuelAlarm;
@@ -52,6 +56,7 @@ public class StatusBeacon : MonoBehaviour
     AlarmLightProfile activeLP;
 
     const string EmStr = "_EmissionColor"; // Color, not Colour :|
+    const float LerpSpeed = 10f;
 
     bool disableAlarms => docked || docking || releasing;
 
@@ -84,9 +89,13 @@ public class StatusBeacon : MonoBehaviour
 
     void SetIndicators()
     {
-        dockMaterial.SetColor(EmStr, canDock || docking || docked ? dockColour : black);
-        fuelMaterial.SetColor(EmStr, fuel < fuelThreshold ? fuelColour : black);
-        terrainMaterial.SetColor(EmStr, (nearTerrain || nearTerrainVertical) && !disableAlarms ? terrainColour : black);
+        curDockColour = Color.Lerp(curDockColour, canDock || docking || docked ? dockColour : black, Time.deltaTime * LerpSpeed);
+        curFuelColour = Color.Lerp(curFuelColour, fuel < fuelThreshold ? fuelColour : black, Time.deltaTime * LerpSpeed);
+        curTerrainColour = Color.Lerp(curTerrainColour, (nearTerrain || nearTerrainVertical) && !disableAlarms ? terrainColour : black, Time.deltaTime * LerpSpeed);
+
+        dockMaterial.SetColor(EmStr, curDockColour);
+        fuelMaterial.SetColor(EmStr, curFuelColour);
+        terrainMaterial.SetColor(EmStr, curTerrainColour);
     }
 
     void SetAlarms()
@@ -112,6 +121,8 @@ public class StatusBeacon : MonoBehaviour
         activeAlarm?.Tick(Time.deltaTime);
     }
 
+
+    Color curLightColour;
     void SetLights()
     {
         AlarmLightProfile old = activeLP;
@@ -138,9 +149,15 @@ public class StatusBeacon : MonoBehaviour
             activeLP = blankLP;
 
         if (activeLP != old)
-            activeLP?.Reset(lightMaterial);
+            activeLP?.Reset();
+        //activeLP?.Reset(lightMaterial);
 
-        activeLP?.Tick(Time.deltaTime);
+        if (activeLP != null)
+        {
+            Color col = activeLP.Tick(Time.deltaTime);
+            curLightColour = Color.Lerp(curLightColour, col, Time.deltaTime * LerpSpeed);
+            lightMaterial.SetColor("_EmissionColor", curLightColour);
+        }
     }
 
     [System.Serializable]

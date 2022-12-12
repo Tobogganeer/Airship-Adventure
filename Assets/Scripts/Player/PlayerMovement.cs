@@ -139,6 +139,9 @@ public class PlayerMovement : MonoBehaviour
 
         UpdateGrounded();
 
+        ReturnToShip();
+
+        #region ---
         //if (Input.GetKeyDown(KeyCode.Mouse0))
         //    Time.timeScale = Time.timeScale < 0.3f ? 1f : 0.25f;
 
@@ -152,6 +155,7 @@ public class PlayerMovement : MonoBehaviour
         //lastPos = transform.position;
         //SetProperties();
         // Moved to late update ^^^
+        #endregion
 
         actualVelocity = moveVelocity;
 
@@ -170,6 +174,9 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         Vector2 input = PlayerInputs.Movement;
+
+        if (Cursor.visible)
+            input = Vector2.zero;
 
         if (Interactor.Interacting && Interactor.CurrentInteractable.FixedPosition)
         {
@@ -241,6 +248,19 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(alignedVel * Time.deltaTime);
 
+    }
+
+    private void ReturnToShip()
+    {
+        const float MaxDist = 100f;
+        if (transform.position.SqrDistance(Airship.Transform.position) > MaxDist * MaxDist)
+        {
+            controller.enabled = false;
+            transform.position = Airship.instance.spawnCrapHere.position;
+            controller.enabled = true;
+
+            y = 0;
+        }
     }
 
     Vector3 before;

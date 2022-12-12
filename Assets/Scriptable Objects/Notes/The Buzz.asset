@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
+  m_Name: The Buzz
+  m_EditorClassIdentifier: 
+  type: 0
+  title: The Buzz
+  description: "God Damn Buzzers, for a deadman I usually am pretty chull, or I guess
+    it\u2019s Chill I never know. But those bugs. They eat the fuel that is worked
+    so hard for. Damnit, usually I just get mad and throw whatever I can over at
+    them. You know I might not have a spear, but a desk to the face works just as
+    well."
+  internalNotes: 'Near the stairs
+
+'

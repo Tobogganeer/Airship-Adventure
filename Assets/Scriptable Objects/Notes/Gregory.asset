@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
+  m_Name: Gregory
+  m_EditorClassIdentifier: 
+  type: 0
+  title: A Note About Gregory
+  description: "This ship I leave you has a special gift. A close friend of mine.
+    Meet Gregory. I know I know humorous, a rat as a friend\u2026. But damn does
+    it get lonely, so keep Lil \u2018greg safe. Particularly away from the fire,
+    Gregory doesn\u2019t like fire."
+  internalNotes: Around cage of rat

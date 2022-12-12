@@ -59,8 +59,8 @@ public class FPSCamera : MonoBehaviour
     private void Start()
     {
         eyeHeight = lookTransform.localPosition.y;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
         GetComponent<Camera>().fieldOfView = SettingsFOV;
     }
 
@@ -95,8 +95,7 @@ public class FPSCamera : MonoBehaviour
 
     private void MouseLook()
     {
-
-        if (PauseMenu.Paused)
+        if (Cursor.visible)
             return;
 
         //float x = Input.GetAxisRaw("Mouse X");

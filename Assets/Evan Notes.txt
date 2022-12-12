@@ -1,4 +1,8 @@
 
-Nate notes https://docs.google.com/document/d/1yhFFxV6_FSxyRPNYiz-rS8MZjvttFbLQ55eT5c6J1k4/edit
-Player teleporting back to the ship
-Dock lever
+Nate notes (all copied)
+Ship tilting when low on fuel
+Different fuel consumption at max and min
+Proper dock
+Screenshots working
+Radio or speaker
+Rhys' end explosion

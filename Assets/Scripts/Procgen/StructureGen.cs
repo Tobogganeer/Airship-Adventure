@@ -20,22 +20,36 @@ public class StructureGen : MonoBehaviour
     [Space]
     public bool gizmos;
 
+    [SerializeField, HideInInspector]
     List<GameObject> structures = new List<GameObject>();
 
     public void Generate(int seed)
     {
-        Random.State oldState = Random.state;
+        //Random.State oldState = Random.state;
 
         foreach (GameObject s in structures)
-            Destroy(s);
+            if (s != null)
+                if (Application.isPlaying)
+                    Destroy(s);
+                else
+                    DestroyImmediate(s);
+
+        //foreach (GameObject s in GameObject.FindGameObjectsWithTag("Structure"))
+        //{
+        //    Destroy(s);
+        //}
 
         structures.Clear();
 
-        Random.InitState(seed);
-        GenCoastals();
-        GenInland();
+        //Random.InitState(seed);
 
-        Random.state = oldState;
+        using (SeededRNG.Block(seed))
+        {
+            GenCoastals();
+            GenInland();
+        }
+
+        //Random.state = oldState;
     }
 
     void GenCoastals()

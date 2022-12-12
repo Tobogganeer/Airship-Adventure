@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-//using UnityEngine.Rendering.Universal;
 
 [ExecuteAlways]
 public class DayNightController : MonoBehaviour
@@ -17,17 +16,20 @@ public class DayNightController : MonoBehaviour
     public float yRot = -30f;
 
     [Header("Rise -> Noon -> Set -> Midnight -> Rise")]
-    public AnimationCurve dayIntensity;
+    public AnimationCurve sunriseSkyboxIntensity;
+    public AnimationCurve sunsetSkyboxIntensity;
+    public AnimationCurve middaySkyboxIntensity;
+    public AnimationCurve nightSkyboxIntensity;
     public AnimationCurve dayLightIntensity;
-    public AnimationCurve nightIntensity;
-    public AnimationCurve nightLightIntensity;
     public Gradient fogColour;
+    public Gradient borderFogColour;
     public Gradient fogSunColour;
     public AnimationCurve fogExtraHeight;
 
     [Space]
     public LensFlareComponentSRP flare;
-    public OD.AtmosphericFogRenderFeature atmosFog;
+    public OD.AtmosphericFogRenderFeature heightFog;
+    public OD.AtmosphericFogRenderFeature borderFog;
     public Light lightData;
     public float lightIntensityMult = 1.5f;
     public float flareIntensityMult = 0.5f;
@@ -52,8 +54,10 @@ public class DayNightController : MonoBehaviour
         if (skyboxMaterial != null)
         {
             //skyboxMaterial.SetFloat("_Mix", pos);
-            skyboxMaterial.SetFloat("_DayIntensity", dayIntensity.Evaluate(timeOfDay));
-            skyboxMaterial.SetFloat("_NightIntensity", nightIntensity.Evaluate(timeOfDay));
+            skyboxMaterial.SetFloat("_SunriseIntensity", sunriseSkyboxIntensity.Evaluate(timeOfDay));
+            skyboxMaterial.SetFloat("_SunsetIntensity", sunsetSkyboxIntensity.Evaluate(timeOfDay));
+            skyboxMaterial.SetFloat("_NightIntensity", nightSkyboxIntensity.Evaluate(timeOfDay));
+            skyboxMaterial.SetFloat("_MiddayIntensity", middaySkyboxIntensity.Evaluate(timeOfDay));
         }
 
         if (flare != null)
@@ -66,11 +70,17 @@ public class DayNightController : MonoBehaviour
             lightData.intensity = dayLightIntensity.Evaluate(timeOfDay) * lightIntensityMult;
         }
 
-        if (atmosFog?.settings != null)
+        if (heightFog?.settings != null)
         {
-            atmosFog.settings.color = fogColour.Evaluate(timeOfDay);
-            atmosFog.settings.sunColor = fogSunColour.Evaluate(timeOfDay);
-            atmosFog.settings.fogHeightEnd = DefaultFogHeight + fogExtraHeight.Evaluate(timeOfDay);
+            heightFog.settings.color = fogColour.Evaluate(timeOfDay);
+            heightFog.settings.sunColor = fogSunColour.Evaluate(timeOfDay);
+            heightFog.settings.fogHeightEnd = DefaultFogHeight + fogExtraHeight.Evaluate(timeOfDay);
+        }
+
+        if (borderFog?.settings != null)
+        {
+            borderFog.settings.color = borderFogColour.Evaluate(timeOfDay);
+            borderFog.settings.sunColor = fogSunColour.Evaluate(timeOfDay);
         }
 
         if (Application.isPlaying)

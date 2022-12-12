@@ -136,13 +136,12 @@ public class Airship : MonoBehaviour
 
     void UpdateFuel()
     {
-        if (!DockingSystem.Docking)
+        if (Docked || Docking) return;
+
+        Fuel -= Time.deltaTime * fuelBurnRate;
+        if (Fuel <= 0)
         {
-            Fuel -= Time.deltaTime * fuelBurnRate;
-            if (Fuel <= 0)
-            {
-                Crash("Ran out of fuel! Collect floating caches!", 5f);
-            }
+            Crash("Ran out of fuel! Collect floating caches!", 5f);
         }
         //HUD.SetFuel(Fuel);
         // Decreases fuel and sets the fuel bar

@@ -107,4 +107,9 @@ public class Pickup : MonoBehaviour, IInteractable
         }
         */
     }
+
+    private void OnDestroy()
+    {
+        Interactor.OnDestroy(this);
+    }
 }

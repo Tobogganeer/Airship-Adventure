@@ -836,8 +836,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -930.0000610351563,
-            "y": 611.0,
+            "x": -928.0,
+            "y": 579.0,
             "width": 97.0,
             "height": 101.0
         }
@@ -1529,8 +1529,8 @@
     "m_ObjectId": "4ce032a50d784e21a491e01a82d8886f",
     "m_Title": "FILL",
     "m_Position": {
-        "x": -1279.0001220703125,
-        "y": 229.0
+        "x": -1394.0,
+        "y": 280.0
     }
 }
 
@@ -2302,7 +2302,7 @@
     "m_ObjectId": "92372356de3946d2a91402ac838e03e6",
     "m_Title": "WOBBLE",
     "m_Position": {
-        "x": -2060.999755859375,
+        "x": -2061.0,
         "y": 869.0
     }
 }
@@ -3625,8 +3625,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1254.0,
-            "y": 288.0,
+            "x": -1369.0,
+            "y": 468.0,
             "width": 208.0,
             "height": 315.0
         }
