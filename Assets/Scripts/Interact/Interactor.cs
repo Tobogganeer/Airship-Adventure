@@ -31,7 +31,7 @@ public class Interactor : MonoBehaviour
     {
         FetchInteractables();
 
-        if (PlayerInputs.Secondary)
+        if (PlayerInputs.Secondary && !Cursor.visible)
         {
             if (CurrentInteractable != null && CurrentInteractable.IsInteracting)
             {
