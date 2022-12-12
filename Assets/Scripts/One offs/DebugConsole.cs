@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class DebugConsole : MonoBehaviour
 {
     public static DebugConsole instance;
 
-    
+    private GUIStyle boxStyle;
+    private GUIStyle textStyle;
 
     void Awake()
     {
@@ -25,18 +25,23 @@ public class DebugConsole : MonoBehaviour
         Application.logMessageReceived += LogErrors;
     }
 
+    private bool showConsole = false;
+
+    private bool logErrors = true;
+    private bool logWarnings = true;
+    private bool logMessages = true;
+
     [Space]
-    //public int maxMessagesOnScreen = 10;
-    public int consoleHeight = 500;
-    public int maxMessages = 64;
-    //public int messageHeight = 40;
-    //public int messageSpacing = 5;
-    public int fontSize = 18;
-    const float FontSizeMult = 1.35f;
-    int fontHeight;
+    public int maxMessages = 10;
+    public int messageHeight = 40;
+    public int messageSpacing = 5;
 
     [Space]
     public int consoleXOffset = 0;
+    //public int buttonXAdjustment = 250;
+    //public int buttonWidth = 200;
+
+    private List<ConsoleMessage> messages = new List<ConsoleMessage>(16);
 
     [Space]
     public Color errorMessageColour = Color.red;
@@ -46,155 +51,98 @@ public class DebugConsole : MonoBehaviour
     [Space]
     public Color mainBGColour = Color.black;
     public Color messageBGColour = Color.gray;
-    public Color inputBGColour = Color.Lerp(Color.gray, Color.black, 0.5f);
-
-    [Space]
-    public Texture2D texture;
-
-
-
-    private bool showConsole = false;
-    public static bool Active { get; private set; }
-
-    private bool logErrors = true;
-    private bool logWarnings = true;
-    private bool logMessages = true;
-    private bool logMessageStacktraces = false;
-
-    private GUIStyle boxStyle;
-    private GUIStyle textStyle;
-
-    private List<ConsoleMessage> messages = new List<ConsoleMessage>(64);
-
-    Vector2 scroll;
-    int curHeight;
-    string input = string.Empty;
-    bool removeFocus;
 
     private void Update()
     {
-        if (Keyboard.current.backquoteKey.wasPressedThisFrame)
-        {
-            showConsole = !showConsole;
-            Active = showConsole;
-            //GUI.FocusControl(null);
-            removeFocus = true;
-        }
-
-        if (Keyboard.current.enterKey.wasPressedThisFrame && showConsole)
-        {
-            if (input.Contains('`'))
-                input = input.Replace("`", string.Empty);
-
-            HandleInput();
-            input = "";
-        }
+        if (Input.GetKeyDown(KeyCode.BackQuote)) showConsole = !showConsole;
     }
-
-    private void HandleInput()
-    {
-
-    }
-
-    const string InputControlName = "InputControl";
 
     private void OnGUI()
     {
-        if (removeFocus)
-        {
-            removeFocus = false;
-            //GUIUtility.keyboardControl = 0;
-            // Actually add focus lol
-            GUI.FocusControl(InputControlName);
-        }
-
-        if (input.Contains('`'))
-            input = input.Replace("`", string.Empty);
-
         if (!showConsole) return;
-
-        fontHeight = Mathf.RoundToInt(fontSize * FontSizeMult);
 
         if (boxStyle == null)
         {
             boxStyle = new GUIStyle(GUI.skin.box);
-            boxStyle.normal.background = texture == null ? Texture2D.whiteTexture : texture;
+            boxStyle.normal.background = Texture2D.whiteTexture;
         }
 
         if (textStyle == null)
         {
             textStyle = new GUIStyle(GUI.skin.box);
             textStyle.alignment = TextAnchor.UpperLeft;
-            textStyle.normal.background = texture == null ? Texture2D.whiteTexture : texture;
-            textStyle.richText = true;
-            textStyle.wordWrap = true;
+            textStyle.normal.background = Texture2D.whiteTexture;
         }
 
         int width = Screen.width / 2;
 
         GUI.backgroundColor = mainBGColour;
         //GUI.Box(new Rect(width - width / 2 + consoleXOffset, 0, width, messageHeight * maxMessages + 40), "", boxStyle);
-        float height = consoleHeight + 40;
-        GUI.Box(new Rect(consoleXOffset, 0, width, height), "", boxStyle); // Main background
+        GUI.Box(new Rect(consoleXOffset, 0, width, (messageHeight + messageSpacing) * maxMessages + 40), "", boxStyle);
 
-        Rect viewPort = new Rect(0, 0, width - 30, curHeight);
-        scroll = GUI.BeginScrollView(new Rect(consoleXOffset, 0, width, consoleHeight), scroll, viewPort);
+        //int buttonX = width + width / 2;
 
-        textStyle.fontSize = fontSize;
+        //textStyle.normal.textColor = logMessageColour;
+        //logErrors = GUI.Toggle(new Rect(buttonXAdjustment, 20, buttonWidth, 20), logErrors, new GUIContent("Log Errors", "Log errors to the console"), textStyle);
+        //logWarnings = GUI.Toggle(new Rect(buttonXAdjustment, 40, buttonWidth, 20), logWarnings, new GUIContent("Log Warnings", "Log warnings to the console"), textStyle);
+        //logMessages = GUI.Toggle(new Rect(buttonXAdjustment, 60, buttonWidth, 20), logMessages, new GUIContent("Log Messages", "Log messages to the console"), textStyle);
+        //
+        //GUI.backgroundColor = mainBGColour;
+
+        int numMessages = Mathf.Min(maxMessages, messages.Count);
 
         GUI.backgroundColor = messageBGColour;
 
-        curHeight = 0;
-
-        for (int i = 0; i < messages.Count; i++)
+        for (int i = 0; i < numMessages; i++)
         {
-            ConsoleMessage message = messages[i];
-            
-            string strippedMessage = message.Message; // This combats seemingly random blank spaces // Actually doesn't
-            strippedMessage = strippedMessage.Substring(17); // <color=#ff0000ff>
-            strippedMessage.Remove(strippedMessage.Length - 8, 8); // </color>
-            int messsageHeight = Mathf.RoundToInt(textStyle.CalcHeight(new GUIContent(strippedMessage), width - 10));// * FontSizeMult);
-            GUI.Label(new Rect(5 + consoleXOffset, curHeight + 10, width - 10, messsageHeight), message.Message, textStyle);
-            curHeight += messsageHeight;
+            ConsoleMessage consoleMessage = messages[i];
+            string message = "";
+
+            switch (consoleMessage.type)
+            {
+                case LogType.Error:
+                    textStyle.normal.textColor = errorMessageColour;
+                    message = $"ERROR: {consoleMessage.condition} - STACKTRACE: {consoleMessage.stackTrace}";
+                    break;
+                case LogType.Exception:
+                    textStyle.normal.textColor = errorMessageColour;
+                    message = $"EXCEPTION: {consoleMessage.condition} - STACKTRACE: {consoleMessage.stackTrace}";
+                    break;
+                case LogType.Warning:
+                    textStyle.normal.textColor = warningMessageColour;
+                    message = $"WARNING: {consoleMessage.condition} - STACKTRACE: {consoleMessage.stackTrace}";
+                    break;
+                case LogType.Log:
+                    textStyle.normal.textColor = logMessageColour;
+                    message = $"{consoleMessage.condition}";
+                    break;
+            }
+
+            if (i < messages.Count)
+                GUI.Box(new Rect(5 + consoleXOffset, i * (messageHeight + messageSpacing) + 10, width - 10, messageHeight), message, textStyle);
+            //GUI.Box(new Rect(width - width / 2 + 5 + consoleXOffset, i * messageHeight + 20, width - buttonXAdjustment - 5, messageHeight), message, style);
         }
 
-        GUI.EndScrollView();
-
-        GUI.backgroundColor = inputBGColour;
-        GUI.Box(new Rect(consoleXOffset, height, width, fontSize + 10), "", boxStyle); // Input
-        GUI.backgroundColor = Color.clear;
-
-        GUIStyle style = new GUIStyle(GUI.skin.textField);
-        style.alignment = TextAnchor.MiddleLeft;
-
-        GUI.Label(new Rect(consoleXOffset + 5, height, fontSize + 10, fontSize + 10), ">", style); // >
-        GUI.SetNextControlName(InputControlName);
-        input = GUI.TextField(new Rect(consoleXOffset + 20, height, width - 30, fontSize + 10), input, style); // Input field
-
-        GUI.backgroundColor = messageBGColour;
-        int suggestions = 3; // test num
-        GUI.Box(new Rect(consoleXOffset + 20, height + fontSize + 10, width / 2, suggestions * fontHeight * FontSizeMult), "", boxStyle);
+        //if (GameManager.verboseLoggingEnabled) Debug.Log("");
     }
 
     private void LogErrors(string condition, string stackTrace, LogType type)
     {
-        switch (type)
+        if (type == LogType.Error && logErrors)
         {
-            case LogType.Error:
-            case LogType.Exception:
-                if (logErrors)
-                    messages.Add(new ConsoleMessage(condition, stackTrace, type, this));
-                break;
-            case LogType.Warning:
-                if (logWarnings)
-                    messages.Add(new ConsoleMessage(condition, stackTrace, type, this));
-                break;
-            case LogType.Log:
-                if (logMessages)
-                    messages.Add(new ConsoleMessage(condition, stackTrace, type, this));
-                break;
-            default:
-                break;
+            messages.Add(new ConsoleMessage(condition, stackTrace, type));
+        }
+        else if (type == LogType.Exception && logErrors)
+        {
+            messages.Add(new ConsoleMessage(condition, stackTrace, type));
+        }
+        else if (type == LogType.Warning && logWarnings)
+        {
+            messages.Add(new ConsoleMessage(condition, stackTrace, type));
+        }
+        else if (type == LogType.Log && logMessages)
+        {
+            messages.Add(new ConsoleMessage(condition, stackTrace, type));
         }
 
         while (messages.Count > maxMessages)
@@ -202,12 +150,7 @@ public class DebugConsole : MonoBehaviour
             messages.RemoveAt(0);
         }
 
-        fontHeight = Mathf.RoundToInt(fontSize * FontSizeMult);
-
-        int pixelLimit = consoleHeight;// + 40;
-        int pixels = messages.Count * fontHeight;
-        int scrollPixels = Mathf.Max(pixels - pixelLimit, 0);
-        scroll = new Vector2(0, scrollPixels);
+        //Debug.Log($"Message Received: {condition}: {stackTrace}");
     }
 
     #region Message Log Tests
@@ -239,63 +182,18 @@ public class DebugConsole : MonoBehaviour
 
     //[ConsoleCommand(Description = "Spawns a player with <health> health")]
     //public void SpawnPlayer(int health) { }
+}
 
+public struct ConsoleMessage
+{
+    public LogType type;
+    public string condition, stackTrace;
 
-    public struct ConsoleMessage
+    public ConsoleMessage(string condition, string stackTrace, LogType type)
     {
-        // <color=#ff0000ff>colorfully</color>
-
-        /*
-        
-        case LogType.Error:
-                    textStyle.normal.textColor = errorMessageColour;
-                    break;
-                case LogType.Exception:
-                    textStyle.normal.textColor = errorMessageColour;
-                    break;
-                case LogType.Warning:
-                    textStyle.normal.textColor = warningMessageColour;
-                    break;
-                case LogType.Log:
-                    textStyle.normal.textColor = logMessageColour;
-                    break;
-
-        */
-
-        public LogType Type { get; private set; }
-        //private string condition;
-        //private string stackTrace;
-
-        public string Message { get; private set; }
-
-        public ConsoleMessage(string condition, string stackTrace, LogType type, DebugConsole console)
-        {
-            this.Type = type;
-            //this.condition = condition;
-            //this.stackTrace = stackTrace;
-            Message = $"<color=#{GetColour(type, console)}>> {FormatType(type)}{condition} {(type != LogType.Log || console.logMessageStacktraces ? stackTrace : string.Empty)}</color>";
-        }
-
-        static string FormatType(LogType type) => type switch
-        {
-            LogType.Error => "[ERROR]: ",
-            LogType.Assert => "[ASSERT]: ",
-            LogType.Warning => "[WARNING]: ",
-            LogType.Log => string.Empty,
-            LogType.Exception => "[EXCEPTION]: ",
-            _ => throw new System.NotImplementedException(),
-        };
-
-        static string GetColour(LogType type, DebugConsole console) => type switch
-        {
-            LogType.Error => ColorUtility.ToHtmlStringRGB(console.errorMessageColour),
-            LogType.Assert => throw new System.NotImplementedException(),
-            LogType.Warning => ColorUtility.ToHtmlStringRGB(console.warningMessageColour),
-            LogType.Log => ColorUtility.ToHtmlStringRGB(console.logMessageColour),
-            LogType.Exception => ColorUtility.ToHtmlStringRGB(console.errorMessageColour),
-            _ => throw new System.NotImplementedException(),
-        };
-        //ColorUtility.ToHtmlStringRGB(col);
+        this.type = type;
+        this.condition = condition;
+        this.stackTrace = stackTrace;
     }
 }
 

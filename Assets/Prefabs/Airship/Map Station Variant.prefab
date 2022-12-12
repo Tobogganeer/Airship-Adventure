@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 1172874487438492576}
   - component: {fileID: 8593985790082040140}
   - component: {fileID: 3017680400053292042}
-  - component: {fileID: 4009083139483162854}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -147,21 +146,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
---- !u!114 &4009083139483162854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8834658618164893098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c486bbf4d6f32ff43903f6cdb310f8fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  variance: 0.4
-  intensity: 1
 --- !u!1001 &1580461877784471163
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,19 +5,18 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable Objects/Note")]
 public class Note : ScriptableObject
 {
-    //public Type noteType;
+    public Type type;
 
-    //[Space]
-    //public string shortTitle;
+    [Space]
     public string title;
     [TextArea(5, 20)] public string description;
 
     [Space, TextArea(2, 5)]
     public string internalNotes;
 
-    //public enum Type
-    //{
-    //    Normal,
-    //    Delivery
-    //}
+    public enum Type
+    {
+        Normal,
+        Delivery
+    }
 }

@@ -74,7 +74,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Scale_Divider: 500
-    - _Smoothness: 0.2
+    - _Smoothness: 0
     m_Colors:
     - _HighColour: {r: 0.7058823, g: 0.7019608, b: 0.6980392, a: 1}
     - _HighColourHill: {r: 0.55294114, g: 0.5333334, b: 0.5019608, a: 1}

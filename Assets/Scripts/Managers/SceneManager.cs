@@ -26,13 +26,6 @@ public class SceneManager : MonoBehaviour
 
         foreach (InspectorLevel level in levels)
             scenes.Add(level.level, level.scene);
-
-        string current = UnitySceneManager.GetActiveScene().name;
-        for (int i = 0; i < levels.Length; i++)
-        {
-            if (levels[i].name == current)
-                CurrentLevel = levels[i].level;
-        }
     }
 
     private static Dictionary<Level, string> scenes = new Dictionary<Level, string>();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+//using UnityEngine.Rendering.Universal;
 
 [ExecuteAlways]
 public class DayNightController : MonoBehaviour
@@ -16,11 +17,10 @@ public class DayNightController : MonoBehaviour
     public float yRot = -30f;
 
     [Header("Rise -> Noon -> Set -> Midnight -> Rise")]
-    public AnimationCurve sunriseSkyboxIntensity;
-    public AnimationCurve sunsetSkyboxIntensity;
-    public AnimationCurve middaySkyboxIntensity;
-    public AnimationCurve nightSkyboxIntensity;
+    public AnimationCurve dayIntensity;
     public AnimationCurve dayLightIntensity;
+    public AnimationCurve nightIntensity;
+    public AnimationCurve nightLightIntensity;
     public Gradient fogColour;
     public Gradient borderFogColour;
     public Gradient fogSunColour;
@@ -54,10 +54,8 @@ public class DayNightController : MonoBehaviour
         if (skyboxMaterial != null)
         {
             //skyboxMaterial.SetFloat("_Mix", pos);
-            skyboxMaterial.SetFloat("_SunriseIntensity", sunriseSkyboxIntensity.Evaluate(timeOfDay));
-            skyboxMaterial.SetFloat("_SunsetIntensity", sunsetSkyboxIntensity.Evaluate(timeOfDay));
-            skyboxMaterial.SetFloat("_NightIntensity", nightSkyboxIntensity.Evaluate(timeOfDay));
-            skyboxMaterial.SetFloat("_MiddayIntensity", middaySkyboxIntensity.Evaluate(timeOfDay));
+            skyboxMaterial.SetFloat("_DayIntensity", dayIntensity.Evaluate(timeOfDay));
+            skyboxMaterial.SetFloat("_NightIntensity", nightIntensity.Evaluate(timeOfDay));
         }
 
         if (flare != null)

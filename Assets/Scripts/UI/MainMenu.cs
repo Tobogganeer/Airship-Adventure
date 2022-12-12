@@ -11,8 +11,8 @@ public class MainMenu : MonoBehaviour
     // VVV Called every time the menu is loaded
     private void Start()
     {
-        //Cursor.visible = true;
-        //Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         // Set cursor to be visible
     }
 
