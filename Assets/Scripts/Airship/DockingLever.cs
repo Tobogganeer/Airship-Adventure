@@ -9,7 +9,7 @@ public class DockingLever : MonoBehaviour, IInteractable
     public float flipSpeed = 2f;
     public float flipAmount = 45;
     public float flipPause = 1f;
-    public AnimationCurve turnCurve;
+    //public AnimationCurve turnCurve;
 
     float turn;
     bool flip;
@@ -27,10 +27,10 @@ public class DockingLever : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        float turn0_1 = (turn + 1) / 2f;
-        float curve = turnCurve.Evaluate(turn0_1);
-        float turnN1_1 = curve * 2f - 1f;
-        handle.localRotation = Quaternion.Euler(Vector3.right * turnN1_1 * flipAmount);
+        //float turn0_1 = (turn + 1) / 2f;
+        //float curve = turnCurve.Evaluate(turn0_1);
+        //float turnN1_1 = curve * 2f - 1f;
+        handle.localRotation = Quaternion.Euler(Vector3.right * turn * flipAmount);
         indicator.SetActive(Airship.CanDock || Airship.Docked);
 
         Flip();

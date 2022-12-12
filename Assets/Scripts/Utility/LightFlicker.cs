@@ -6,6 +6,7 @@ using UnityEngine;
 public class LightFlicker : MonoBehaviour
 {
     public float speed = 5f;
+    public float variance = 5f;
     public float intensity = 5f;
     float time;
     new Light light;
@@ -20,7 +21,7 @@ public class LightFlicker : MonoBehaviour
     {
         time += Time.deltaTime * speed;
         float noise = Mathf.PerlinNoise(time + 0.01f, time + 0.67f);
-        light.intensity = Mathf.Clamp01(noise) * intensity;
+        light.intensity = intensity + (Mathf.Clamp01(noise) * 2f - 1f) * variance;
         //light.intensity = intensity.Evaluate(time);
     }
 }

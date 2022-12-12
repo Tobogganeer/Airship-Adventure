@@ -31,7 +31,7 @@ public class Interactor : MonoBehaviour
     {
         FetchInteractables();
 
-        if (PlayerInputs.Secondary)
+        if (PlayerInputs.Secondary && !Cursor.visible)
         {
             if (CurrentInteractable != null && CurrentInteractable.IsInteracting)
             {
@@ -76,5 +76,11 @@ public class Interactor : MonoBehaviour
 
         HUD.SetInteract(false);
         lookingAt = null;
+    }
+
+    public static void OnDestroy(IInteractable i)
+    {
+        if (CurrentInteractable == i)
+            CurrentInteractable = null;
     }
 }
