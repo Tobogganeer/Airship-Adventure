@@ -24,6 +24,8 @@ public class Pickup : MonoBehaviour, IInteractable
     public float springDamper = 6f;
     private float timerspring = 3f;
     Vector3 scale;
+    //Quaternion rot;
+    //Vector3 rot;
     //bool blasto;
 
     const float MaxRange = 6f;
@@ -46,6 +48,9 @@ public class Pickup : MonoBehaviour, IInteractable
     public void OnInteract()
     {
         IsInteracting = !IsInteracting;
+        //rot = transform.rotation;
+        //rot = transform.eulerAngles;
+        //rot = Quaternion.FromToRotation(Interactor.InteractFrom.forward, transform.forward);
         //blasto = IsInteracting == false;
     }
 
@@ -60,7 +65,10 @@ public class Pickup : MonoBehaviour, IInteractable
         {
             rb.useGravity = false;
             Vector3 targetPos = Interactor.InteractFrom.position + Interactor.InteractFrom.forward * carryRange;
-            Quaternion targetRot = Interactor.InteractFrom.rotation;// * relRot;
+            Quaternion targetRot = Interactor.InteractFrom.rotation;
+            //Quaternion targetRot = rot * Interactor.InteractFrom.rotation;
+            //Quaternion targetRot = Quaternion.Euler(Interactor.InteractFrom.eulerAngles + rot);
+
 
             //interpolate to the target position using velocity
             float mass = useMass ? rb.mass : 1f;
@@ -68,7 +76,8 @@ public class Pickup : MonoBehaviour, IInteractable
 
             //keep the relative rotation the same
             //rb.rotation = targetRot;
-            rb.rotation = Quaternion.Slerp(rb.rotation, targetRot, Time.deltaTime * 10f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 10f);
+            //transform.rotation = targetRot;
 
             //no spinning around
             rb.angularVelocity = Vector3.zero;
