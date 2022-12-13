@@ -125,7 +125,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minFuel: 20
   maxFuel: 40
+  rend: {fileID: 0}
   fuel: 0
+--- !u!114 &8363318160255092402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887853252310784936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 664da0bd21e308e4aa7bc2056eb68c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - ShipObject
 --- !u!114 &8458727195435067882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carryForce: 10
   useMass: 0
+  carryRange: 2
   useSpring: 1
   springStrength: 50
   springVelocity: 10

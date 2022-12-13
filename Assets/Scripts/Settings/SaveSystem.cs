@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class SaveSystem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static void Save()
     {
-        
+        ByteBuffer buf = ByteBuffer.Get();
     }
 
-    // Update is called once per frame
-    void Update()
+    public class Prefab
     {
-        
+        public ID id;
+        public GameObject prefab;
+    }
+
+    public enum ID
+    {
+        Player,
+        Airship,
+        Barrel,
+        Crate,
+        Lantern,
+        NitrousCan,
+        Food,
+        Water,
+        Rat
     }
 }

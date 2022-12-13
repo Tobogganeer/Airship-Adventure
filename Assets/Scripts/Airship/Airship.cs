@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class Airship : MonoBehaviour
+public class Airship : MonoBehaviour, ISaveable
 {
     // Singleton stuff
     public static Airship instance;
@@ -292,5 +292,21 @@ public class Airship : MonoBehaviour
     {
         startingSecondsOfFuel = maxFuel * startingFuel / fuelBurnRate;
         maxSecondsOfFuel = maxFuel / fuelBurnRate;
+    }
+
+    public void Save(ByteBuffer buf)
+    {
+        buf.Write(transform.position);
+        buf.Write(transform.rotation);
+        buf.Write(fuel);
+        buf.Write(movement);
+        buf.Write(turnPlusMinus1);
+        buf.Write(Turn);
+        // ship objects?
+    }
+
+    public void Load(ByteBuffer buf)
+    {
+        throw new System.NotImplementedException();
     }
 }

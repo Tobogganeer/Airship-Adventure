@@ -253,6 +253,8 @@ public class PlayerMovement : MonoBehaviour
     private void ReturnToShip()
     {
         const float MaxDist = 100f;
+        if (Airship.instance == null) return;
+
         if (transform.position.SqrDistance(Airship.Transform.position) > MaxDist * MaxDist)
         {
             controller.enabled = false;

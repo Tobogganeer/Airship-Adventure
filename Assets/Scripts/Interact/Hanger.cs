@@ -19,7 +19,7 @@ public class Hanger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (!other.CompareTag(Tag)) return;
+        if (!other.HasTag(Tag)) return;
 
         //IInteractable i = Interactor.CurrentInteractable;
         //Debug.Log("I is null: " + (i == null));

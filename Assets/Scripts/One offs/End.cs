@@ -6,7 +6,7 @@ public class End : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.HasTag("Player"))
         {
             PopUp.Show("You win!");
             HUD.SetBlack(true);
