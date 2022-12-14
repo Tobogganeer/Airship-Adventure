@@ -21,7 +21,8 @@ public class Airship : MonoBehaviour, ISaveable
     public float turnAmount = 20f; // Turn angle
     public float dockingTurnSpeed = 30f;
     public float hookGrabbingTurnAmount = 2f; // When reeling in a cache, the amount the ship should turn towards that direction
-    public float kidRemoveRange = 40f; // Don't drag along objects further away than this
+    //public float kidRemoveRange = 40f; // Don't drag along objects further away than this
+    public float attachedObjectMaxDistance = 30f;
     // TODO: Add objects to kiddos list when they come within range
     // (currently, once a barrel etc is removed from the list,
     //      they are never a child of the ship again)
@@ -50,7 +51,8 @@ public class Airship : MonoBehaviour, ISaveable
     public GrappleHook rightHook;
     public Wheel wheel;
     public CharacterController playerController; // To move the player with the ship
-    public List<Transform> kiddos; // Objects that the ship should move (crates, rat etc)
+    public ShipObjects shipObjects;
+    public List<Transform> attachedObjects; // Objects that the ship should move (crates, rat etc)
     [SerializeField] VisualEffect _SmokeExsaust;
 
 
@@ -106,6 +108,7 @@ public class Airship : MonoBehaviour, ISaveable
     {
         UpdateFuel();
         Move();
+        //UpdateAttachedObjects();
     }
 
 
@@ -231,7 +234,8 @@ public class Airship : MonoBehaviour, ISaveable
         }
 
         MovePlayer(delta, Turn);
-        MoveKids(delta, Turn);
+        MoveAttachedObjects(delta, Turn);
+        shipObjects.MoveObjects(delta, Turn);
         // ^^^ Move the player and children along with the ship
 
         // VVV Move and rotate the ship itself
@@ -249,19 +253,24 @@ public class Airship : MonoBehaviour, ISaveable
         // Moves and rotates player, must disable cc to rotate player
     }
 
-    void MoveKids(Vector3 delta, float y)
+    void MoveAttachedObjects(Vector3 delta, float y)
     {
-        // Removes kids that are far away
-        for (int i = kiddos.Count; i > 0;)
+        foreach (Transform obj in attachedObjects)
         {
-            i--;
-            if (kiddos[i] == null || kiddos[i].position
-                .SqrDistance(transform.position) > kidRemoveRange * kidRemoveRange)
-                kiddos.RemoveAt(i);
+            if (obj.position.SqrDistance(transform.position) >
+                attachedObjectMaxDistance * attachedObjectMaxDistance)
+            {
+                obj.position = spawnCrapHere.position;
+                if (obj.TryGetComponent(out Rigidbody rb))
+                {
+                    rb.velocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                }
+            }
         }
 
         // Moves kids
-        foreach (Transform child in kiddos)
+        foreach (Transform child in attachedObjects)
         {
             child.position += delta;
             child.transform.RotateAround(transform.position, Vector3.up, y * Time.deltaTime);
@@ -283,7 +292,7 @@ public class Airship : MonoBehaviour, ISaveable
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, kidRemoveRange);
+        //Gizmos.DrawWireSphere(transform.position, kidRemoveRange);
     }
 
 
