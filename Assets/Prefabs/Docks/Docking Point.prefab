@@ -135,7 +135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2916687493020684324}
-  - component: {fileID: 2916687493020684320}
+  - component: {fileID: 8865270570843801371}
   m_Layer: 0
   m_Name: Docking Point
   m_TagString: Untagged
@@ -161,7 +161,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2916687493020684320
+--- !u!114 &8865270570843801371
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,12 +170,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2916687493020684323}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c76ab97203d8f1741b4570dc04d2797e, type: 3}
+  m_Script: {fileID: 11500000, guid: d6cb5a7a1f0b61d4aba19df7ab6e88c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dockingDistance: 40
+  dockingDistance: 15
   releaseTo: {fileID: 2916687492744475292}
-  debug_shipMesh: {fileID: -7436536173005492603, guid: b65f1678f19ede04ba67e62dc581c040,
+  debug_shipMesh: {fileID: 8547471881871753710, guid: befde49dc8460cc4c9d9824f0e10cf79,
     type: 3}
 --- !u!1 &6113665183735928436
 GameObject:

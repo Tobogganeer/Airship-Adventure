@@ -401,9 +401,9 @@ MonoBehaviour:
   - name: Main Menu
     level: 0
     scene: Main Menu
-  - name: Evan Dev
+  - name: Nora Dev
     level: 1
-    scene: Evan Dev
+    scene: Nora Dev
 --- !u!114 &9064390647583115209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,6 +451,7 @@ MonoBehaviour:
   logMessageColour: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
   mainBGColour: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 0.57254905}
   messageBGColour: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 0.5019608}
+  inputBGColour: {r: 0.25, g: 0.25, b: 0.25, a: 1}
   texture: {fileID: 0}
 --- !u!114 &-5219372860450742536
 MonoBehaviour:
