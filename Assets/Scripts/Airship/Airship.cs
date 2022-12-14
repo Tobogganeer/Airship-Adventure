@@ -19,6 +19,7 @@ public class Airship : MonoBehaviour
     public Vector3 movement = new Vector3(0, 0, 5f); // Speed of the ship
     public float turnSpeed = 0.2f; // Turn speed
     public float turnAmount = 20f; // Turn angle
+    public float NOSModifi = 2;
     public float dockingTurnSpeed = 30f;
     public float hookGrabbingTurnAmount = 2f; // When reeling in a cache, the amount the ship should turn towards that direction
     public float kidRemoveRange = 40f; // Don't drag along objects further away than this
@@ -58,6 +59,7 @@ public class Airship : MonoBehaviour
     // Instance Members
     // ====================
     static float fuel = 50f;
+    public static float NosTank = 0f;
     float turnPlusMinus1;
     bool canDock;
     bool docked;
@@ -139,6 +141,13 @@ public class Airship : MonoBehaviour
         if (Docked || Docking) return;
 
         Fuel -= Time.deltaTime * fuelBurnRate;
+        NosTank -= Time.deltaTime * fuelBurnRate;
+
+        //if (NosTank >= 1)
+        //{
+        //    NOSModifi = 2;
+        //}
+
         if (Fuel <= 0)
         {
             Crash("Ran out of fuel! Collect floating caches!", 5f);
@@ -146,6 +155,8 @@ public class Airship : MonoBehaviour
         //HUD.SetFuel(Fuel);
         // Decreases fuel and sets the fuel bar
     }
+
+  
 
     //public bool DOCKED;
     //public float TURN;
@@ -170,7 +181,8 @@ public class Airship : MonoBehaviour
         Turn = (EaseInOutQuad(0, 1, (turnPlusMinus1 + 1) / 2f) * 2 - 1) * turnAmount;
 
         // VVV How much the ship will move
-        Vector3 delta = (-transform.forward * movement.z + Vector3.up * movement.y) * Time.deltaTime;
+        float speedMult = NosTank > 0 ? NOSModifi : 1f;
+        Vector3 delta = (-transform.forward * ( movement.z * speedMult) + Vector3.up * (movement.y * speedMult)) * Time.deltaTime;
 
         if (DockingSystem.Docking)
         {
