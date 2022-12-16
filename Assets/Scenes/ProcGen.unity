@@ -1240,6 +1240,86 @@ PrefabInstance:
       propertyPath: gizmos
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.size
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.data[4]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.data[5]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.data[6]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.data[7]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.data[8]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.data[9]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.data[10]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.data[11]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.data[12]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.data[13]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394093099402498816, guid: e00756dedf6df27428a1714eeb76f133,
+        type: 3}
+      propertyPath: structures.Array.data[14]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7562004694175510305, guid: e00756dedf6df27428a1714eeb76f133,
         type: 3}
       propertyPath: m_Name

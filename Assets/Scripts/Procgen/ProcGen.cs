@@ -38,6 +38,8 @@ public class ProcGen : MonoBehaviour
     [ReadOnly, Rename("Seed")] public int inspectorSeed;
 
     public static int mainMenuSeed = -1;
+    public static Biome mainMenuBiome;
+    public static bool useMainMenuBiome;
 
     public Biome currentBiome = Biome.Grasslands;
     public Material grasslands;
@@ -105,6 +107,9 @@ public class ProcGen : MonoBehaviour
 
     public void Gen()
     {
+        if (useMainMenuBiome)
+            currentBiome = mainMenuBiome;
+
         main.seed = seed + (int)currentBiome;
         inspectorSeed = seed;
 

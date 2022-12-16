@@ -39,12 +39,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BN2Scale: 2
-    - _BNMul: 0.2
-    - _BNPers: 0.3
-    - _BNPow: 2
-    - _BNRough: 5
-    - _BNScale: 10
+    - _BN2Mult: 0.22
+    - _BN2Scale: 4.4
+    - _BNMul: -0.2
+    - _BNOffset: -0.58
+    - _BNPers: 0.08
+    - _BNPow: 4.5
+    - _BNRough: 1.91
+    - _BNScale: 0.02
     - _CBInfluence: 29.7
     - _CBLInfluence: -17.4
     - _CBLPers: 1
@@ -88,11 +90,12 @@ Material:
     - _Smoothness: 0.3
     m_Colors:
     - _HighColour: {r: 0.5176471, g: 0.5176471, b: 0.5176471, a: 1}
-    - _HighColourHill: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 1}
+    - _HighColourHill: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
     - _LowColour: {r: 1, g: 1, b: 1, a: 1}
     - _LowColourHill: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 1}
-    - _MidColour: {r: 1, g: 1, b: 1, a: 1}
-    - _MidColourHill: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 1}
+    - _MidColour: {r: 1, g: 0.9292453, b: 0.93554884, a: 1}
+    - _MidColourHill: {r: 0, g: 0, b: 0, a: 1}
+    - _Normal_UV_Mult: {r: 1, g: 1, b: 0, a: 0}
     - _Steep_Colour: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7641737376803257086

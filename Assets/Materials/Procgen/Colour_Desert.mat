@@ -39,12 +39,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BN2Scale: 2
-    - _BNMul: 0.2
-    - _BNPers: 0.3
-    - _BNPow: 2
-    - _BNRough: 5
-    - _BNScale: 10
+    - _BN2Mult: 0.22
+    - _BN2Scale: 4.4
+    - _BNMul: 0.1
+    - _BNOffset: -0.58
+    - _BNPers: 0.08
+    - _BNPow: 3.2
+    - _BNRough: 1.91
+    - _BNScale: 0.02
     - _CBInfluence: 29.7
     - _CBLInfluence: -17.4
     - _CBLPers: 1
@@ -58,11 +60,11 @@ Material:
     - _CNInfluence: 34.65
     - _CNScale: -0.06
     - _HillPower: 0.7
-    - _Hill_Fac_1: 0.2
-    - _Hill_Fac_2: 0.5
-    - _Hill_Fac_3: 0.75
+    - _Hill_Fac_1: 0.1
+    - _Hill_Fac_2: 0.2
+    - _Hill_Fac_3: 0.5
     - _Hill_Power: 2
-    - _Hill_Smoothness: 0.5
+    - _Hill_Smoothness: 0.4
     - _MaxHeight: 243.99
     - _MinHeight: -41.4
     - _Mul: 0.31
@@ -72,27 +74,28 @@ Material:
     - _Noise_Persistence: 0.6
     - _Noise_Roughness: 1.5
     - _Noise_Scale: 0.01
-    - _Normal_Cam_Dist_Fade: 200
-    - _Normal_Fac_1: 0.2
-    - _Normal_Fac_2: 0.45
-    - _Normal_Fac_3: 0.7
+    - _Normal_Cam_Dist_Fade: 100
+    - _Normal_Fac_1: 0
+    - _Normal_Fac_2: 0.2
+    - _Normal_Fac_3: 0.25
     - _Normal_Persistence: 0.45
     - _Normal_Roughness: 0.88
-    - _Normal_Scale: 0.26
+    - _Normal_Scale: 0.33
     - _Normal_Smoothness: 0.2
-    - _Normal_Strength: 0.8
+    - _Normal_Strength: 0
     - _Pow: 5.26
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Scale_Divider: 500
     - _Smoothness: 0.3
     m_Colors:
-    - _HighColour: {r: 0.7725491, g: 0.64705884, b: 0.43137258, a: 1}
+    - _HighColour: {r: 0.8018868, g: 0.6572127, b: 0.5257654, a: 1}
     - _HighColourHill: {r: 0.5849056, g: 0.5066311, b: 0.45523316, a: 1}
     - _LowColour: {r: 0.76470596, g: 0.58431375, b: 0.3647059, a: 1}
     - _LowColourHill: {r: 0.8396226, g: 0.73790073, b: 0.5980331, a: 1}
-    - _MidColour: {r: 0.76470596, g: 0.6156863, b: 0.40784317, a: 1}
+    - _MidColour: {r: 0.6698113, g: 0.52698594, b: 0.42653078, a: 1}
     - _MidColourHill: {r: 0.5849056, g: 0.5540485, b: 0.5159309, a: 1}
+    - _Normal_UV_Mult: {r: 1, g: 0.3, b: 0, a: 0}
     - _Steep_Colour: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7641737376803257086

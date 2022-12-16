@@ -109,6 +109,8 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Height_Mult: 0.8
+    - _Height_Power: 0.8
     - _Lacunarity: 10
     - _Metallic: 0
     - _Normal_Strength: 0
