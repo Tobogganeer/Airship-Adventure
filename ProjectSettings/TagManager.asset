@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hangable
   - Structure
+  - ShipObject
   layers:
   - Default
   - TransparentFX

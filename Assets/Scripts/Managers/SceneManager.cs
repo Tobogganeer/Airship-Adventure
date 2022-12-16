@@ -7,7 +7,7 @@ using Scene = UnityEngine.SceneManagement.Scene;
 public class SceneManager : MonoBehaviour
 {
     public static SceneManager instance;
-    public static Level CurrentLevel = Level.MainMenu;
+    public static Level CurrentLevel = Level.Game;
 
     private void Awake()
     {

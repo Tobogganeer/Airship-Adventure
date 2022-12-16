@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Colour_Grass
+  m_Shader: {fileID: -6465566751694194690, guid: f9240c2bf9f965944a9b1d4784808af6,
+    type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Normal_Map:
+        m_Texture: {fileID: 2800000, guid: f489c182768ec9942bed0eaf8945b089, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BN2Scale: 2
+    - _BNMul: 0.2
+    - _BNPers: 0.3
+    - _BNPow: 2
+    - _BNRough: 5
+    - _BNScale: 10
+    - _CBInfluence: 29.7
+    - _CBLInfluence: -17.4
+    - _CBLPers: 1
+    - _CBLRough: 2.75
+    - _CBLScale: 0.001
+    - _CBLTest: 0.6
+    - _CBLUVMult: -5.14
+    - _CBPers: 0.5
+    - _CBRough: 0.5
+    - _CBScale: 0.1
+    - _CNInfluence: 34.65
+    - _CNScale: -0.06
+    - _HillPower: 0.7
+    - _Hill_Fac_1: 0.2
+    - _Hill_Fac_2: 0.5
+    - _Hill_Fac_3: 0.75
+    - _Hill_Power: 0.7
+    - _Hill_Smoothness: 0.5
+    - _MaxHeight: 243.99
+    - _MinHeight: -41.4
+    - _Mul: 0.31
+    - _NPers: 0.75
+    - _NRough: 2.14
+    - _Noise_2_Scale: 0.15
+    - _Noise_Persistence: 0.6
+    - _Noise_Roughness: 1.5
+    - _Noise_Scale: 0.01
+    - _Normal_Cam_Dist_Fade: 200
+    - _Normal_Fac_1: 0.2
+    - _Normal_Fac_2: 0.45
+    - _Normal_Fac_3: 0.7
+    - _Normal_Persistence: 0.45
+    - _Normal_Roughness: 0.88
+    - _Normal_Scale: 0.26
+    - _Normal_Smoothness: 0.2
+    - _Normal_Strength: 0.8
+    - _Pow: 5.26
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Scale_Divider: 500
+    - _Smoothness: 0.3
+    m_Colors:
+    - _HighColour: {r: 0.6392157, g: 0.62352943, b: 0.5529412, a: 1}
+    - _HighColourHill: {r: 0.5529412, g: 0.53333336, b: 0.5019608, a: 1}
+    - _LowColour: {r: 0.31764707, g: 0.3882353, b: 0.24705882, a: 1}
+    - _LowColourHill: {r: 0.61960787, g: 0.6509804, b: 0.56078434, a: 1}
+    - _MidColour: {r: 0.5058824, g: 0.5647059, b: 0.49019608, a: 1}
+    - _MidColourHill: {r: 0.5372549, g: 0.54901963, b: 0.5137255, a: 1}
+    - _Steep_Colour: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
+  m_BuildTextureStacks: []
+--- !u!114 &7641737376803257086
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

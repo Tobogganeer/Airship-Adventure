@@ -70,16 +70,16 @@ Material:
     m_Floats:
     - _DayIntensity: 0.19756663
     - _Day_Intensity: 0.3
-    - _MiddayIntensity: 0.30900794
+    - _MiddayIntensity: 0.7659456
     - _Mix: 0.41575527
     - _Mult: 1
-    - _NightIntensity: 0.1450675
+    - _NightIntensity: 0.052834064
     - _Night_Intensity: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Rotate: 81.2
     - _Sub: 0.5
-    - _SunriseIntensity: 0.31814915
+    - _SunriseIntensity: 0.0018734634
     - _SunsetIntensity: 0
     - _SunsetRotate: -90.63
     - _Test: 1

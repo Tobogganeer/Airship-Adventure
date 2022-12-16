@@ -7,6 +7,10 @@ public class TerrainHeight : MonoBehaviour
 {
     public float height = 80f;
     public AnimationCurve heightCurve;
+
+    public BiomeHeightSettings grasslands;
+    public BiomeHeightSettings desert;
+    public BiomeHeightSettings snow;
     //public float scale = 5f;
 
     public BakeShader baker;
@@ -19,7 +23,7 @@ public class TerrainHeight : MonoBehaviour
 
     int hmRes;
 
-    public void SetHeight()
+    public void SetHeight(Biome biome, Material mat)
     {
         terrain = GetComponent<Terrain>();
         hmRes = terrain.terrainData.heightmapResolution;
@@ -39,9 +43,11 @@ public class TerrainHeight : MonoBehaviour
         }
         */
 
-        float[,] heights = baker.Bake(hmRes);
+        float[,] heights = baker.Bake(hmRes, mat);
 
         //float total = 0;
+
+        BiomeHeightSettings settings = Get(biome);
 
         for (int i = 0; i < hmRes; i++)
         {
@@ -49,7 +55,7 @@ public class TerrainHeight : MonoBehaviour
             {
                 // Terrain height indexed as [y,x] actually..?
                 //heights[j, i] = Remap.Float(heightCurve.Evaluate(heights[j, i]), 0, 1,
-                heights[i, j] = Remap.Float(heightCurve.Evaluate(heights[i, j]), 0, 1,
+                heights[i, j] = Remap.Float(settings.heightCurve.Evaluate(heights[i, j]), 0, 1,
                     0, this.height / terrain.terrainData.size.y);
                 //total += heights[i, j];
             }
@@ -60,6 +66,14 @@ public class TerrainHeight : MonoBehaviour
         terrain.terrainData.SetHeights(0, 0, heights);
         //debugTex.Apply();
     }
+
+    BiomeHeightSettings Get(Biome biome) => biome switch
+    {
+        Biome.Grasslands => grasslands,
+        Biome.Desert => desert,
+        Biome.Snow => snow,
+        _ => throw new System.NotImplementedException()
+    };
 
     /*
     float GetHeight(int x, int y)
@@ -118,4 +132,10 @@ public class TerrainHeight : MonoBehaviour
         return (n.GetNoise(uv.x, uv.y) + 1f) / 2f;
     }
     */
+
+    [System.Serializable]
+    public class BiomeHeightSettings
+    {
+        public AnimationCurve heightCurve;
+    }
 }

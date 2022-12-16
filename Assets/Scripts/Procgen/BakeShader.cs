@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class BakeShader : MonoBehaviour
 {
-    public Material mat;
+    //public Material mat;
 
     //void Update()
     //{
     //    
     //}
 
-    public float[,] Bake(int res)
+    public float[,] Bake(int res, Material mat)
     {
         RenderTexture renderTexture = RenderTexture.GetTemporary(res, res);
         Graphics.Blit(null, renderTexture, mat);

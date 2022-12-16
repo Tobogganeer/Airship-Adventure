@@ -54,8 +54,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    color: {r: 0.5344117, g: 0.637203, b: 0.7450885, a: 1}
-    sunColor: {r: 0.6286545, g: 0.6069941, b: 0.5476857, a: 1}
+    color: {r: 0.53316987, g: 0.63573897, b: 0.7436134, a: 1}
+    sunColor: {r: 0.62764245, g: 0.60608524, b: 0.5470388, a: 1}
     fogDensity: 0.0001
     fogDensityPower: 0.75
     skyAlpha: 0
@@ -159,14 +159,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    color: {r: 0.52626085, g: 0.5633978, b: 0.5693303, a: 1}
-    sunColor: {r: 0.6286545, g: 0.6069941, b: 0.5476857, a: 1}
+    color: {r: 0.523526, g: 0.55992025, b: 0.565734, a: 1}
+    sunColor: {r: 0.62764245, g: 0.60608524, b: 0.5470388, a: 1}
     fogDensity: 0.01
     fogDensityPower: 0.1
     skyAlpha: 0
     useHeightFog: 1
     fogHeightStart: -100
-    fogHeightEnd: 95.47887
+    fogHeightEnd: 95.896454
     fogHeightPower: 0.2
     extraFogHeightEnd: -50
     extraFogHeightPower: 0.9
