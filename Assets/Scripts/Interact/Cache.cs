@@ -5,9 +5,12 @@ using UnityEngine;
 public class Cache : MonoBehaviour
 {
     public float maxDist = 450f;
-    public float ascendRate = 2f;
+    //public float ascendRate = 2f;
     public float sizeMin = 0.1f;
     public float sizemax = 1.0f;
+    public float lifeTime = 45f;
+    public AnimationCurve height;
+    public float heightScale = 150f;
     float size;
 
     [Space]
@@ -15,12 +18,18 @@ public class Cache : MonoBehaviour
 
     public static int Num { get; private set; }
 
-    float lifeTime;
+    //float lifeTime;
+    float life;
+    float startingHeight;
 
     private void Start()
     {
         size = Random.Range(sizeMin, sizemax);
-        transform.localScale = Vector3.one * size;
+        //transform.localScale = Vector3.one * size;
+        transform.localScale = Vector3.zero;
+        startingHeight = transform.position.y;
+        float y = height.Evaluate(0);
+        transform.position = transform.position.WithY(y * heightScale + startingHeight);
     }
 
     public void OnReelIn()
@@ -39,18 +48,36 @@ public class Cache : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, Airship.instance.transform.position) > maxDist)
-            Destroy(gameObject);
-        transform.position += Vector3.up * ascendRate * Time.deltaTime;
-
-        lifeTime += Time.deltaTime;
-        if (lifeTime > 45f)
+        if (transform.position.DistanceFlat(Airship.instance.transform.position) > maxDist)
         {
-            ascendRate -= Time.deltaTime * 3f;
+            Destroy(gameObject);
+            return;
         }
 
-        if (transform.position.y < -100)
+        float fac = life / lifeTime;
+
+        if (life < 3f)
+        {
+            transform.localScale = Vector3.one * Mathf.Lerp(0, size, Remap.Float(life, 0, 3, 0, 1));
+        }
+        else
+        {
+            transform.localScale = Vector3.one * size;
+        }
+
+        float y = height.Evaluate(fac);
+        transform.position = transform.position.WithY(y * heightScale + startingHeight);
+        //transform.position += Vector3.up * ascendRate * Time.deltaTime;
+
+        life += Time.deltaTime;
+        if (life > lifeTime)
+        {
+            //ascendRate -= Time.deltaTime * 3f;
             Destroy(gameObject);
+        }
+
+        //if (transform.position.y < -100)
+        //    Destroy(gameObject);
     }
 
     private void OnEnable()
