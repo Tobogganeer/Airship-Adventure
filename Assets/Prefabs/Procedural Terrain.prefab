@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd46cbb6fe781343b6c382af22b7b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setTexTo: {fileID: 2100000, guid: eafc69f6f26479c479e2909870dad6fe, type: 2}
+  mapMaterialObject: {fileID: 0}
 --- !u!1 &7562004694153574347
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,6 +449,8 @@ Transform:
   - {fileID: 7562004695118767823}
   - {fileID: 3342574697668918545}
   - {fileID: 3200554834722123115}
+  - {fileID: 4066270854116804139}
+  - {fileID: 8183818735236536792}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -482,6 +484,8 @@ MonoBehaviour:
   grasslands: {fileID: 2100000, guid: fe823487f61a4b948823e4d6eb8d3fa7, type: 2}
   desert: {fileID: 2100000, guid: 1949ae2528f0c8a4881248858faabd25, type: 2}
   snow: {fileID: 2100000, guid: aec4c0a020849d749a48dc2d42981da9, type: 2}
+  north: {fileID: 5514617586845453273}
+  south: {fileID: 395001140742607914}
 --- !u!1 &7562004695118767819
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,3 +643,182 @@ MonoBehaviour:
   - {fileID: 5162908267636974354, guid: 8f0d79353bc3e0346aa5b038a9902462, type: 3}
   - {fileID: 7860443884915512625, guid: e9dbc397ce5d8764d8960968b787b807, type: 3}
   gizmos: 1
+--- !u!1001 &2737607357344141591
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7562004694175510310}
+    m_Modifications:
+    - target: {fileID: 2343767444862534973, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: dir
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.0000029504295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303376597148408798, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_Name
+      value: South Biome Transition
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2600ca4284cd86944b4f6e05b869dfd7, type: 3}
+--- !u!114 &395001140742607914 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2343767444862534973, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+    type: 3}
+  m_PrefabInstance: {fileID: 2737607357344141591}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c26dd43dcd0ff74d8d8bcab6b1d58fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8183818735236536792 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+    type: 3}
+  m_PrefabInstance: {fileID: 2737607357344141591}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7782615329647333092
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7562004694175510310}
+    m_Modifications:
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303376597148408798, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: m_Name
+      value: North Biome Transition
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2600ca4284cd86944b4f6e05b869dfd7, type: 3}
+--- !u!4 &4066270854116804139 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+    type: 3}
+  m_PrefabInstance: {fileID: 7782615329647333092}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5514617586845453273 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2343767444862534973, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+    type: 3}
+  m_PrefabInstance: {fileID: 7782615329647333092}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c26dd43dcd0ff74d8d8bcab6b1d58fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

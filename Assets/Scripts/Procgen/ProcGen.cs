@@ -46,6 +46,10 @@ public class ProcGen : MonoBehaviour
     public Material desert;
     public Material snow;
 
+    [Space]
+    public BiomeTransition north;
+    public BiomeTransition south;
+
     //public BiomeSettings grasslands;
     //public BiomeSettings desert;
     //public BiomeSettings snow;
@@ -120,6 +124,9 @@ public class ProcGen : MonoBehaviour
         terrain.main = main;
         terrain.SetHeight(currentBiome, bakeMat);
         structure.Generate(main.seed);
+
+        north.SetBiome(currentBiome);
+        south.SetBiome(currentBiome);
     }
 
     void UploadValues()

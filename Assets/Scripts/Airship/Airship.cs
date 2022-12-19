@@ -289,6 +289,21 @@ public class Airship : MonoBehaviour, ISaveable
         }
     }
 
+    public static void MoveAllObjects(Vector3 toPos, float toRot)
+    {
+        Vector3 delta = Transform.position.DirectionTo(toPos);
+        float y = toRot - Transform.eulerAngles.y;
+
+        instance.MovePlayer(delta, y);
+        instance.MoveAttachedObjects(delta, y);
+        instance.shipObjects.MoveObjects(delta, y);
+        // ^^^ Move the player and children along with the ship
+
+        // VVV Move and rotate the ship itself
+        Transform.position += delta;
+        Transform.Rotate(Vector3.up * Turn * Time.deltaTime);
+    }
+
     float GetSpeed()
     {
         float height = Altitude.AirshipHeightFactor;
