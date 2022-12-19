@@ -12,10 +12,12 @@ public class Merchant : MonoBehaviour, IInteractable
 
     public MerchantDock dock;
 
+    private CursorController curcon;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        curcon = GameObject.FindObjectOfType<CursorController>();
     }
 
     // Update is called once per frame
@@ -27,5 +29,8 @@ public class Merchant : MonoBehaviour, IInteractable
     public void OnInteract()
     {
         IsInteracting = !IsInteracting;
+        dock.saleActive = IsInteracting;
+
+        curcon.IntToggle();
     }
 }
