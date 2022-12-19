@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class BakeShader : MonoBehaviour
 {
+    public Renderer mapMaterialObject;
+    Material setTexTo;
+    Texture2D tex;
+
     //public Material mat;
 
     //void Update()
@@ -14,12 +17,16 @@ public class BakeShader : MonoBehaviour
 
     public float[,] Bake(int res, Material mat)
     {
+        if (setTexTo == null && Application.isPlaying)
+            setTexTo = mapMaterialObject.material;
+
         RenderTexture renderTexture = RenderTexture.GetTemporary(res, res);
         Graphics.Blit(null, renderTexture, mat);
 
-        Texture2D texture = new Texture2D(res, res);
+        if (tex == null)
+            tex = new Texture2D(res, res, TextureFormat.RGBA32, 0, true);// { anisoLevel = 9 };
         RenderTexture.active = renderTexture;
-        texture.ReadPixels(new Rect(0, 0, res, res), 0, 0);
+        tex.ReadPixels(new Rect(0, 0, res, res), 0, 0);
 
         float[,] heights = new float[res, res];
         //int logs = 100;
@@ -28,7 +35,7 @@ public class BakeShader : MonoBehaviour
         {
             for (int j = 0; j < res; j++)
             {
-                heights[i, j] = texture.GetPixel(res - i, j).g;
+                heights[i, j] = tex.GetPixel(res - i, j).g;
                 //if (heights[i, j] > 0.1f && logs-- > 0)
                 //{
                 //    Debug.Log($"[{i}, {j}] > 0.1f");
@@ -38,9 +45,20 @@ public class BakeShader : MonoBehaviour
 
         RenderTexture.active = null;
         RenderTexture.ReleaseTemporary(renderTexture);
-        DestroyImmediate(texture);
+        tex.Apply();
+        if (Application.isPlaying)
+            setTexTo.SetTexture("_MainTex", tex);
+        //setTexTo.u
+            //setTexTo.mainTexture = texture;
+        //DestroyImmediate(texture);
 
         return heights;
         //texture.Apply();
+    }
+
+    private void OnDestroy()
+    {
+        if (setTexTo != null)
+            Destroy(setTexTo);
     }
 }

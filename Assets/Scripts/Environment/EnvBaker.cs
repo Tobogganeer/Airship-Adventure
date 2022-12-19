@@ -16,7 +16,13 @@ public class EnvBaker : MonoBehaviour
     [ContextMenu("Bake")]
     public void Bake()
     {
+        transform.rotation = Quaternion.identity;
         if (reflectionProbe.IsFinishedRendering(lastRender))
             lastRender = reflectionProbe.RenderProbe(target);
+    }
+
+    private void LateUpdate()
+    {
+        transform.rotation = Quaternion.identity;
     }
 }

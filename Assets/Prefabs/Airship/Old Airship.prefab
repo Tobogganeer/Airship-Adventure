@@ -9005,12 +9005,19 @@ MonoBehaviour:
   turnAmount: 20
   dockingTurnSpeed: 30
   hookGrabbingTurnAmount: 0.1
-  attachedObjectMaxDistance: 30
+  attachedObjectMaxDistance: 50
+  baseSpeed: 6.5
+  minHeightSpeed: 15
+  maxHeightSpeed: 3.5
+  nitrousSpeedMult: 3
   fuelBurnRate: 0.5
+  burnRateHeightMult: 0.5
   startingFuel: 0.5
   maxFuel: 180
   startingSecondsOfFuel: 180
   maxSecondsOfFuel: 360
+  maxSecondsOfFuelMinHeight: 180
+  maxSecondsOfFuelMaxHeight: 540
   spawnCrapHere: {fileID: 1107175527444006586}
   enemyPOI: {fileID: 0}
   leftHook: {fileID: 1704774514999612263}
