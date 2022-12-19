@@ -28,13 +28,6 @@ public class ShipObjects : MonoBehaviour
     public void MoveObjects(Vector3 delta, float y)
     {
         // Moves kids
-        for (int i = objects.Count; i > 0;)
-        {
-            i--;
-            if (objects[i] == null)
-                objects.RemoveAt(i);
-        }
-
         foreach (Transform child in objects)
         {
             child.position += delta;

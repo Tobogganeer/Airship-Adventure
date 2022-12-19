@@ -11,7 +11,6 @@ public class DockingSystem : MonoBehaviour
     public static DockingSystem ActiveSystem;
 
     public float dockingDistance = 15f;
-    public Transform dockTo;
     public Transform releaseTo;
     bool InRange => Airship.instance != null ? transform.position.SqrDistance(
         Airship.instance.transform.position) < dockingDistance * dockingDistance : false;
@@ -174,27 +173,24 @@ public class DockingSystem : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (InRange)
+            Gizmos.color = Color.yellow;
+        else
+            Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, dockingDistance);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
         if (debug_shipMesh)
         {
-            if (dockTo)
-            {
-                Gizmos.color = Color.white;
-                Gizmos.DrawWireMesh(debug_shipMesh, dockTo.position, dockTo.rotation * Quaternion.Euler(0, 180, 0), Vector3.one * 0.5f);
-            }
+            Gizmos.color = Color.white;
+            Gizmos.DrawWireMesh(debug_shipMesh, transform.position, transform.rotation * Quaternion.Euler(0, 180, 0), Vector3.one * 0.5f);
             if (releaseTo)
             {
                 Gizmos.color = Color.green;
                 Gizmos.DrawWireMesh(debug_shipMesh, releaseTo.position, releaseTo.rotation * Quaternion.Euler(0, 180, 0), Vector3.one * 0.5f);
             }
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (InRange)
-            Gizmos.color = Color.yellow;
-        else
-            Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position, dockingDistance);
     }
 }

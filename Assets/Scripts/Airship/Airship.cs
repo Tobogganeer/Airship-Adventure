@@ -16,23 +16,16 @@ public class Airship : MonoBehaviour, ISaveable
     // Other Values
     // ====================
     [Space(10), Header("==- Values -==")]
-    public Vector3 movement = new Vector3(0, 0, 6.5f); // Speed of the ship
+    public Vector3 movement = new Vector3(0, 0, 5f); // Speed of the ship
     public float turnSpeed = 0.2f; // Turn speed
     public float turnAmount = 20f; // Turn angle
     public float dockingTurnSpeed = 30f;
     public float hookGrabbingTurnAmount = 2f; // When reeling in a cache, the amount the ship should turn towards that direction
     //public float kidRemoveRange = 40f; // Don't drag along objects further away than this
-    public float attachedObjectMaxDistance = 50f;
-
-    // ====================
-    // Speed Values
-    // ====================
-    [Space(10), Header("==- Speed -==")]
-    public float baseSpeed = 6.5f;
-    public float minHeightSpeed = 15f;
-    public float maxHeightSpeed = 3.5f;
-    public float nitrousSpeedMult = 3f;
-
+    public float attachedObjectMaxDistance = 30f;
+    // TODO: Add objects to kiddos list when they come within range
+    // (currently, once a barrel etc is removed from the list,
+    //      they are never a child of the ship again)
 
     // ====================
     // Fuel Values
@@ -40,15 +33,12 @@ public class Airship : MonoBehaviour, ISaveable
     [Space(10), Header("==- Fuel -==")]
     [Min(0f)]
     public float fuelBurnRate = 1f; // How many fuel units are burnt, per second
-    public float burnRateHeightMult = 0.5f; // At min height, burn rate is rate * 0.5f, at max, burn rate is rate * 1.5
     [Range(0f, 1f)]
     public float startingFuel = 0.5f; // Percentage (0-1) of how full a tank to start with
     public float maxFuel = 100f; // The max fuel the ship holds
 
     [ReadOnly] public float startingSecondsOfFuel; // Inspector values, showing the equivalant
     [ReadOnly] public float maxSecondsOfFuel;       // seconds of fuel, from fuel units
-    [ReadOnly] public float maxSecondsOfFuelMinHeight;       // seconds of fuel, from fuel units
-    [ReadOnly] public float maxSecondsOfFuelMaxHeight;       // seconds of fuel, from fuel units
 
     // ====================
     // Inspector References
@@ -182,8 +172,6 @@ public class Airship : MonoBehaviour, ISaveable
         turnPlusMinus1 = Mathf.MoveTowards(turnPlusMinus1, desiredTurn, Time.deltaTime * turnSpeed);
         Turn = (EaseInOutQuad(0, 1, (turnPlusMinus1 + 1) / 2f) * 2 - 1) * turnAmount;
 
-        movement.z = GetSpeed();
-
         // VVV How much the ship will move
         Vector3 delta = (-transform.forward * movement.z + Vector3.up * movement.y) * Time.deltaTime;
 
@@ -191,10 +179,10 @@ public class Airship : MonoBehaviour, ISaveable
         {
             //delta = Vector3.zero;
             delta = transform.position.DirectionTo_NoNormalize
-                (DockingSystem.ActiveSystem.dockTo.position) * Time.deltaTime;
+                (DockingSystem.ActiveSystem.transform.position) * Time.deltaTime;
             //desiredTurn = 0;
             turnPlusMinus1 = 0;
-            float y = DockingSystem.ActiveSystem.dockTo.eulerAngles.y;
+            float y = DockingSystem.ActiveSystem.transform.eulerAngles.y;
             float deltaAngle = y - transform.eulerAngles.y;
             //Debug.Log("DELTA: " + deltaAngle);
             //if (deltaAngle < -360) deltaAngle += 360;
@@ -289,16 +277,6 @@ public class Airship : MonoBehaviour, ISaveable
         }
     }
 
-    float GetSpeed()
-    {
-        float height = Altitude.AirshipHeightFactor;
-
-        if (height < 0.5f)
-            return Mathf.Lerp(minHeightSpeed, baseSpeed, height * 2f);
-        return Mathf.Lerp(baseSpeed, maxHeightSpeed, (height - 0.5f) * 2f);
-        //baseSpeed
-    }
-
     // https://gitlab.com/gamedev-public/unity/-/blob/main/Scripts/Extensions/Easings/EasingUtility.cs
     // Ease function
     public static float EaseInOutQuad(float start, float end, float value)
@@ -323,8 +301,6 @@ public class Airship : MonoBehaviour, ISaveable
     {
         startingSecondsOfFuel = maxFuel * startingFuel / fuelBurnRate;
         maxSecondsOfFuel = maxFuel / fuelBurnRate;
-        maxSecondsOfFuelMinHeight = maxSecondsOfFuel * (1f - burnRateHeightMult);
-        maxSecondsOfFuelMaxHeight = maxSecondsOfFuel * (1f + burnRateHeightMult);
     }
 
     public void Save(ByteBuffer buf)

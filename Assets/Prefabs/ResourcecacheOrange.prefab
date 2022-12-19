@@ -155,77 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDist: 450
+  ascendRate: 2
   sizeMin: 0.1
   sizemax: 1
-  lifeTime: 45
-  height:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -36.484844
-      outSlope: -36.484844
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.046917774
-    - serializedVersion: 3
-      time: 0.0883728
-      value: 0.15657043
-      inSlope: 0.76089364
-      outSlope: 0.76089364
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.06637597
-    - serializedVersion: 3
-      time: 0.3180467
-      value: 0.07948542
-      inSlope: 0.6556942
-      outSlope: 0.6556942
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.098648645
-    - serializedVersion: 3
-      time: 0.514467
-      value: 0.17920603
-      inSlope: -1.05004
-      outSlope: -1.05004
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.12326174
-    - serializedVersion: 3
-      time: 0.7065291
-      value: 0.08071334
-      inSlope: 1.2836319
-      outSlope: 1.2836319
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.27580705
-    - serializedVersion: 3
-      time: 0.89615476
-      value: 0.11616516
-      inSlope: 0.94180214
-      outSlope: 0.94180214
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.06025566
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: -1
-      inSlope: -29.31817
-      outSlope: -29.31817
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.06711466
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  heightScale: 150
   prefab: {fileID: 8941055042905898903, guid: e01b5f1c8344bcb459c3d31bfca2837c, type: 3}

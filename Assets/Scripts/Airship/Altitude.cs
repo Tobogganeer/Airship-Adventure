@@ -26,7 +26,6 @@ public class Altitude : MonoBehaviour, IInteractable
 
     float height = 0.5f;
 
-    //public static float AirshipHeightFactor { get; private set; }
     public static float AirshipHeightFactor { get; private set; }
 
     bool IInteractable.FixedPosition => true;
@@ -52,7 +51,6 @@ public class Altitude : MonoBehaviour, IInteractable
 
         heightGauge.localPosition = heightGauge.localPosition.WithY(Remap.Float(height, 0, 1, -gaugeRange, gaugeRange));
         AirshipHeightFactor = Mathf.InverseLerp(-actualHeightRange, actualHeightRange, Airship.Transform.position.y);
-        AirshipHeightFactor = Mathf.Clamp01(AirshipHeightFactor);
         shipGauge.localPosition = shipGauge.localPosition.WithY(Remap.Float(AirshipHeightFactor, 0, 1, -gaugeRange, gaugeRange));
 
         mat.SetFloat("_Base_Height", Remap.Float(height, 0, 1, -materialHeightRange, materialHeightRange) + materialBase);

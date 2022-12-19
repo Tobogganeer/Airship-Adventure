@@ -7,27 +7,25 @@ public class CacheSpawner : MonoBehaviour
     public GameObject[] cachePrefab;
 
     //public Camera cam;
-    //Camera cam;
+    Camera cam;
     public float maxSpawnRange = 250f;
     public float minSpawnRange = 150f;
     public int caches = 3;
     public Vector2 spawnTime = new Vector2(5f, 20f);
-    //Plane[] planes = new Plane[6];
+    Plane[] planes = new Plane[6];
 
     float timer;
 
-    // Relics of airshit game VVV
+    private void Start()
+    {
+        cam = FPSCamera.instance.GetComponent<Camera>();
+    }
 
-    //private void Start()
-    //{
-    //    cam = FPSCamera.instance.GetComponent<Camera>();
-    //}
-
-    //private bool IsVisible(Camera c, Renderer target)
-    //{
-    //    GeometryUtility.CalculateFrustumPlanes(c, planes);
-    //    return GeometryUtility.TestPlanesAABB(planes, target.bounds);
-    //}
+    private bool IsVisible(Camera c, Renderer target)
+    {
+        GeometryUtility.CalculateFrustumPlanes(c, planes);
+        return GeometryUtility.TestPlanesAABB(planes, target.bounds);
+    }
 
     private void Update()
     {
@@ -46,12 +44,12 @@ public class CacheSpawner : MonoBehaviour
                 pos.y = Random.Range(-5f, 25f);
 
                 GameObject newCache = Instantiate(cachePrefab[Random.Range(0, cachePrefab.Length)], pos + transform.position, Quaternion.Euler(0, Random.value * 360f, 0));
-                //if (IsVisible(cam, newCache.GetComponent<Renderer>()))
-                //{
-                //pos.x = -pos.x;
-                //pos.z = -pos.z;
-                //newCache.transform.position = pos + transform.position;
-                //}
+                if (IsVisible(cam, newCache.GetComponent<Renderer>()))
+                {
+                    pos.x = -pos.x;
+                    pos.z = -pos.z;
+                    newCache.transform.position = pos + transform.position;
+                }
 
                 Vector3 audioPos = Airship.instance.transform.position +
                     Airship.instance.transform.position.DirectionTo(newCache.transform.position) * 20f;
