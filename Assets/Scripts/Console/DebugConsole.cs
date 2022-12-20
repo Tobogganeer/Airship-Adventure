@@ -8,8 +8,6 @@ public class DebugConsole : MonoBehaviour
 {
     public static DebugConsole instance;
 
-    
-
     void Awake()
     {
         if (instance == null)
@@ -25,7 +23,8 @@ public class DebugConsole : MonoBehaviour
 
         Application.logMessageReceived += LogErrors;
 
-        Help();
+        RegisterCommands();
+        RunCommand("help");
     }
 
     [Space]
@@ -54,7 +53,7 @@ public class DebugConsole : MonoBehaviour
     [Space]
     public Texture2D texture;
 
-    Dictionary<string, Command> commands = new Dictionary<string, Command>();
+    public Dictionary<string, ConsoleCommandBase> commands = new Dictionary<string, ConsoleCommandBase>();
 
 
 
@@ -69,12 +68,14 @@ public class DebugConsole : MonoBehaviour
     private GUIStyle boxStyle;
     private GUIStyle textStyle;
 
-    private List<ConsoleMessage> messages = new List<ConsoleMessage>(64);
+    public List<ConsoleMessage> messages = new List<ConsoleMessage>(64);
 
     Vector2 scroll;
     int curHeight;
     string input = string.Empty;
     bool removeFocus;
+    int suggestionSelected;
+    bool accept;
 
     private void Update()
     {
@@ -91,24 +92,53 @@ public class DebugConsole : MonoBehaviour
             if (input.Contains('`'))
                 input = input.Replace("`", string.Empty);
 
-            HandleInput(input);
+            RunCommand(input);
             input = "";
+        }
+
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame)
+        {
+            suggestionSelected--;
+        }
+        if (Keyboard.current.downArrowKey.wasPressedThisFrame)
+        {
+            suggestionSelected++;
+        }
+
+        if (Keyboard.current.tabKey.wasPressedThisFrame)
+        {
+            accept = true;
         }
     }
 
-    private void HandleInput(string input)
+    private void RunCommand(string input)
     {
-        string[] split = input.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-        if (commands.TryGetValue(split[0], out Command command))
+        string[] split = input.ToLower().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
+        if (split.Length < 2)
+        {
+            split = new string[2] { split[0], "" };
+        }
+
+        if (commands.TryGetValue(split[0], out ConsoleCommandBase cmdBase))
         {
             try
             {
-                command.execute(split);
+                if (cmdBase is ConsoleCommand command) command.Invoke();
+                else if (cmdBase is ConsoleCommand<int> commandInt) commandInt.Invoke(int.TryParse(split[1], out int intValue), intValue);
+                else if (cmdBase is ConsoleCommand<float> commandFloat) commandFloat.Invoke(float.TryParse(split[1], out float floatValue), floatValue);
+                else if (cmdBase is ConsoleCommand<string> commandString) commandString.Invoke(split[1].Length > 0, split[1]);
+
+                //command.execute(split);
             }
             catch
             {
                 Debug.Log("Type it correct knob");
             }
+        }
+        else
+        {
+            Debug.Log("No registered command with ID of \"" + split[0] + "\"");
         }
     }
 
@@ -188,8 +218,36 @@ public class DebugConsole : MonoBehaviour
         input = GUI.TextField(new Rect(consoleXOffset + 20, height, width - 30, fontSize + 10), input, style); // Input field
 
         GUI.backgroundColor = messageBGColour;
-        int suggestions = 3; // test num
-        GUI.Box(new Rect(consoleXOffset + 20, height + fontSize + 10, width / 2, suggestions * fontHeight * FontSizeMult), "", boxStyle);
+        //int suggestions = 3; // test num
+        List<ConsoleCommandBase> suggestions = GetAutoCompletedStrings(input);
+
+        if (suggestionSelected >= suggestions.Count)
+            suggestionSelected = 0;
+
+        if (suggestions.Count > 0)
+        {
+            if (accept)
+            {
+                input = suggestions[suggestionSelected].commandID;
+            }
+
+            if (suggestionSelected < 0)
+                suggestionSelected = suggestions.Count - 1;
+
+            GUI.Box(new Rect(consoleXOffset + 20, height + fontSize + 10, width / 2, suggestions.Count * fontHeight * FontSizeMult), "", boxStyle);
+
+            for (int i = 0; i < suggestions.Count; i++)
+            {
+                GUI.Label(new Rect(consoleXOffset + 20, height + fontSize * FontSizeMult * i + 30, width / 2, fontHeight * FontSizeMult), suggestions[i].commandFormat);
+            }
+
+            //GUIStyle thisBox = new GUIStyle(GUI.skin.box);
+            //thisBox.normal.background = Texture2D.whiteTexture;
+            GUI.backgroundColor = Color.white;
+            GUI.Label(new Rect(consoleXOffset, height + fontSize * FontSizeMult * suggestionSelected + 30, 20, fontHeight * FontSizeMult), ">");
+        }
+
+        accept = false;
     }
 
     private void LogErrors(string condition, string stackTrace, LogType type)
@@ -314,62 +372,45 @@ public class DebugConsole : MonoBehaviour
         //ColorUtility.ToHtmlStringRGB(col);
     }
 
-    void Help()
+    void RegisterCommands()
     {
         // I am so tired I wish for sleep please
-        RegisterAll();
+        Commands.Register();
 
+        /*
         Debug.Log("==- CONSOLE -==\n\n");
         Debug.Log("Commands:");
         Debug.Log("- biome [snow, grass, desert]");
         Debug.Log("- time [0-24, 0 is sunrise]");
         Debug.Log("- fuel [0-100]");
         Debug.Log("---------\n");
+        */
     }
 
-    void RegisterAll()
+    public static void Register(ConsoleCommandBase c)
     {
-        Register(new Command("biome", (args) =>
-        {
-            string biome = args[1];
-            if (biome == "snow")
-            {
-                ProcGen.instance.currentBiome = Biome.Snow;
-                ProcGen.instance.Gen();
-                Debug.Log("Set biome to Biome.Snow");
-            }
-            if (biome == "grass")
-            {
-                ProcGen.instance.currentBiome = Biome.Grasslands;
-                ProcGen.instance.Gen();
-                Debug.Log("Set biome to Biome.Grasslands");
-            }
-            if (biome == "desert")
-            {
-                ProcGen.instance.currentBiome = Biome.Desert;
-                ProcGen.instance.Gen();
-                Debug.Log("Set biome to Biome.Desert");
-            }
-        }));
-
-        Register(new Command("time", (args) =>
-        {
-            float time = int.Parse(args[1]) / 24f;
-            DayNightController.instance.timeOfDay = time;
-            Debug.Log("Set time to " + time);
-        }));
-
-        Register(new Command("fuel", (args) =>
-        {
-            float fuel = int.Parse(args[1]) / 100f;
-            Airship.Fuel01 = fuel;
-            Debug.Log("Set fuel to " + fuel);
-        }));
+        instance.commands.Add(c.commandID, c);
     }
 
-    void Register(Command c)
+
+    List<ConsoleCommandBase> GetAutoCompletedStrings(string partialString, int maxResults = 25)
     {
-        commands.Add(c.commandID, c);
+        List<ConsoleCommandBase> autoCompletedStrings = new List<ConsoleCommandBase>();
+        if (partialString.Length == 0)
+            return autoCompletedStrings;
+
+        partialString = partialString.ToLower();
+
+        foreach (ConsoleCommandBase command in commands.Values)
+        {
+            if (autoCompletedStrings.Count >= maxResults) break;
+
+            if (command.commandID.StartsWith(partialString) ||
+                command.commandID.Contains(partialString))
+                autoCompletedStrings.Add(command);
+        }
+
+        return autoCompletedStrings;
     }
 }
 
