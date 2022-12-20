@@ -6,6 +6,7 @@ public class BiomeTransition : MonoBehaviour
 {
     public Direction dir;
     [ReadOnly] public Biome currentBiome;
+    public float tpOffset = 250;
 
     [Space]
     public GameObject grasslandsIcon;
@@ -24,7 +25,11 @@ public class BiomeTransition : MonoBehaviour
 
     void Transition()
     {
-        SetIcon();
+        float offset = dir == Direction.North ? tpOffset : -tpOffset;
+        Airship.MoveAllObjects(Airship.Transform.position.WithZ(-Airship.Transform.position.z + offset));
+        ProcGen.instance.currentBiome = currentBiome;
+        ProcGen.instance.Gen();
+        //SetIcon();
     }
 
     public void SetBiome(Biome currentWorldBiome)
@@ -84,5 +89,11 @@ public class BiomeTransition : MonoBehaviour
     {
         North,
         South
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position + transform.forward * -tpOffset, 30f);
     }
 }

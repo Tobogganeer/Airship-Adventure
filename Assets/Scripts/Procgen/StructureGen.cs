@@ -11,6 +11,7 @@ public class StructureGen : MonoBehaviour
     public float seaLevel = 50;
     public float radius = 2500;
     public float minStructureDist = 250;
+    public LayerMask layerMask;
 
     [Space]
     public float minCoastalStructureAngle = 20;
@@ -156,7 +157,7 @@ public class StructureGen : MonoBehaviour
             pt = pt.WithZ(pt.y).WithY(0);
             pt *= radius * 1.5f;
             pt += Vector3.up * seaLevel;
-            if (!Physics.Raycast(pt, pt.DirectionTo(Vector3.up * seaLevel), out RaycastHit hit) || CloseTo(hit.point, positions, minStructureDist))
+            if (!Physics.Raycast(pt, pt.DirectionTo(Vector3.up * seaLevel), out RaycastHit hit, float.PositiveInfinity, layerMask) || CloseTo(hit.point, positions, minStructureDist))
             {
                 i--;
                 continue;
@@ -179,7 +180,7 @@ public class StructureGen : MonoBehaviour
         {
             Vector3 pt = Random.insideUnitSphere.Flattened() * radius;
             pt.y = 1000;
-            if (!Physics.SphereCast(pt, sphereCastRadius, Vector3.down, out RaycastHit hit) || hit.point.y > maxHeight || hit.point.y < seaLevel || CloseTo(hit.point, positions, minStructureDist))
+            if (!Physics.SphereCast(pt, sphereCastRadius, Vector3.down, out RaycastHit hit, float.PositiveInfinity, layerMask) || hit.point.y > maxHeight || hit.point.y < seaLevel || CloseTo(hit.point, positions, minStructureDist))
             {
                 i--;
                 continue;

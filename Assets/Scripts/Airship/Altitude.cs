@@ -7,6 +7,9 @@ public class Altitude : MonoBehaviour, IInteractable
     [field: SerializeField]
     public Transform InteractFrom { get; set; }
     public float speed = 0.1f;
+    public float noFuelSpeedMult = 0.3f;
+    public float tiltSpeed = 0.2f;
+    public float maxTilt = 20f;
 
     [Space]
     public Transform heightGauge;
@@ -25,6 +28,8 @@ public class Altitude : MonoBehaviour, IInteractable
     public float airshipAccel = 0.3f;
 
     float height = 0.5f;
+    float fuelHeight = 0.5f;
+    float tilt;
 
     //public static float AirshipHeightFactor { get; private set; }
     public static float AirshipHeightFactor { get; private set; }
@@ -44,13 +49,36 @@ public class Altitude : MonoBehaviour, IInteractable
 
     void Update()
     {
+        if (Airship.Fuel <= 0)
+        {
+            IsInteracting = false;
+            //height -= speed * noFuelSpeedMult * Time.deltaTime;
+            fuelHeight -= speed * noFuelSpeedMult * Time.deltaTime;
+            fuelHeight = Mathf.Clamp(fuelHeight, -0.25f, height); // Clamp lower to enable crashing
+            //height = Mathf.Clamp(height, -0.5f, 1f); // Clamp lower to enable crashing
+            //tilt += tiltSpeed * Time.deltaTime;
+            //tilt = Mathf.Clamp(tilt, 0, 15);
+            tilt = Mathf.Lerp(tilt, maxTilt, Time.deltaTime * tiltSpeed);
+        }
+        else
+        {
+            fuelHeight += speed * noFuelSpeedMult * Time.deltaTime;
+            fuelHeight = Mathf.Clamp(fuelHeight, -0.5f, height);
+        }
+        
         if (IsInteracting)
         {
             height += PlayerInputs.Movement.y * speed * Time.deltaTime;
             height = Mathf.Clamp01(height);
+            //tilt -= tiltSpeed * Time.deltaTime;
+            //tilt = Mathf.Clamp(tilt, 0, 15);
+            tilt = Mathf.Lerp(tilt, 0, Time.deltaTime * tiltSpeed);
         }
 
-        heightGauge.localPosition = heightGauge.localPosition.WithY(Remap.Float(height, 0, 1, -gaugeRange, gaugeRange));
+        float usedHeight = Airship.Fuel <= 0 ? fuelHeight : height;
+
+        Airship.Transform.localRotation = Quaternion.Euler(Airship.Transform.localEulerAngles.WithX(-tilt));
+        heightGauge.localPosition = heightGauge.localPosition.WithY(Remap.Float(usedHeight, 0, 1, -gaugeRange, gaugeRange));
         AirshipHeightFactor = Mathf.InverseLerp(-actualHeightRange, actualHeightRange, Airship.Transform.position.y);
         AirshipHeightFactor = Mathf.Clamp01(AirshipHeightFactor);
         shipGauge.localPosition = shipGauge.localPosition.WithY(Remap.Float(AirshipHeightFactor, 0, 1, -gaugeRange, gaugeRange));
@@ -62,7 +90,8 @@ public class Altitude : MonoBehaviour, IInteractable
 
     void UpdateAirshipSpeed()
     {
-        float desired = Remap.Float(height, 0, 1, -actualHeightRange, actualHeightRange);
+        float usedHeight = Airship.Fuel <= 0 ? fuelHeight : height;
+        float desired = Remap.Float(usedHeight, 0, 1, -actualHeightRange, actualHeightRange);
         float delta = desired - Airship.Transform.position.y;
         Airship.instance.movement.y = Mathf.Lerp(Airship.instance.movement.y, Mathf.Clamp(delta, -maxAirshipSpeed, maxAirshipSpeed), Time.deltaTime * airshipAccel);
 
@@ -72,6 +101,8 @@ public class Altitude : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
+        if (Airship.Fuel <= 0)
+            return;
         IsInteracting = !IsInteracting;
     }
 }

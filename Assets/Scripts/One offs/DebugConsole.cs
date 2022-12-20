@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class DebugConsole : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class DebugConsole : MonoBehaviour
         }
 
         Application.logMessageReceived += LogErrors;
+
+        Help();
     }
 
     [Space]
@@ -50,6 +53,8 @@ public class DebugConsole : MonoBehaviour
 
     [Space]
     public Texture2D texture;
+
+    Dictionary<string, Command> commands = new Dictionary<string, Command>();
 
 
 
@@ -86,14 +91,25 @@ public class DebugConsole : MonoBehaviour
             if (input.Contains('`'))
                 input = input.Replace("`", string.Empty);
 
-            HandleInput();
+            HandleInput(input);
             input = "";
         }
     }
 
-    private void HandleInput()
+    private void HandleInput(string input)
     {
-
+        string[] split = input.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+        if (commands.TryGetValue(split[0], out Command command))
+        {
+            try
+            {
+                command.execute(split);
+            }
+            catch
+            {
+                Debug.Log("Type it correct knob");
+            }
+        }
     }
 
     const string InputControlName = "InputControl";
@@ -296,6 +312,76 @@ public class DebugConsole : MonoBehaviour
             _ => throw new System.NotImplementedException(),
         };
         //ColorUtility.ToHtmlStringRGB(col);
+    }
+
+    void Help()
+    {
+        // I am so tired I wish for sleep please
+        RegisterAll();
+
+        Debug.Log("==- CONSOLE -==\n\n");
+        Debug.Log("Commands:");
+        Debug.Log("- biome [snow, grass, desert]");
+        Debug.Log("- time [0-24, 0 is sunrise]");
+        Debug.Log("- fuel [0-100]");
+        Debug.Log("---------\n");
+    }
+
+    void RegisterAll()
+    {
+        Register(new Command("biome", (args) =>
+        {
+            string biome = args[1];
+            if (biome == "snow")
+            {
+                ProcGen.instance.currentBiome = Biome.Snow;
+                ProcGen.instance.Gen();
+                Debug.Log("Set biome to Biome.Snow");
+            }
+            if (biome == "grass")
+            {
+                ProcGen.instance.currentBiome = Biome.Grasslands;
+                ProcGen.instance.Gen();
+                Debug.Log("Set biome to Biome.Grasslands");
+            }
+            if (biome == "desert")
+            {
+                ProcGen.instance.currentBiome = Biome.Desert;
+                ProcGen.instance.Gen();
+                Debug.Log("Set biome to Biome.Desert");
+            }
+        }));
+
+        Register(new Command("time", (args) =>
+        {
+            float time = int.Parse(args[1]) / 24f;
+            DayNightController.instance.timeOfDay = time;
+            Debug.Log("Set time to " + time);
+        }));
+
+        Register(new Command("fuel", (args) =>
+        {
+            float fuel = int.Parse(args[1]) / 100f;
+            Airship.Fuel01 = fuel;
+            Debug.Log("Set fuel to " + fuel);
+        }));
+    }
+
+    void Register(Command c)
+    {
+        commands.Add(c.commandID, c);
+    }
+}
+
+public class Command
+{
+    public string commandID;
+    public Action<string[]> execute;
+
+    public Command(string commandID, Action<string[]> execute)
+    {
+        this.commandID = commandID;
+        this.execute = execute;
     }
 }
 

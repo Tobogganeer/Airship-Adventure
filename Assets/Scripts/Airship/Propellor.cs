@@ -20,7 +20,7 @@ public class Propellor : MonoBehaviour
     void Update()
     {
         bool docked = DockingSystem.Docked || DockingSystem.Docking;
-        float desired = docked ? 0 : speed + speedChangeAtMinAndMax * (Altitude.AirshipHeightFactor * 2f - 1);
+        float desired = (docked || Airship.Fuel <= 0) ? 0 : speed + speedChangeAtMinAndMax * (Altitude.AirshipHeightFactor * 2f - 1);
         currentSpeed = Mathf.Lerp(currentSpeed, desired, Time.deltaTime * acceleration);
 
         transform.Rotate(Vector3.up * currentSpeed * Time.deltaTime, Space.Self);

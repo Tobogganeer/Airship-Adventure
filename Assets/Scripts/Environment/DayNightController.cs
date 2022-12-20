@@ -6,6 +6,12 @@ using UnityEngine.Rendering;
 [ExecuteAlways]
 public class DayNightController : MonoBehaviour
 {
+    public static DayNightController instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public EnvBaker baker;
     public Material skyboxMaterial;
 
@@ -21,10 +27,16 @@ public class DayNightController : MonoBehaviour
     public AnimationCurve middaySkyboxIntensity;
     public AnimationCurve nightSkyboxIntensity;
     public AnimationCurve dayLightIntensity;
-    public Gradient fogColour;
-    public Gradient borderFogColour;
+    //public Gradient fogColour;
+    public Gradient fogColourGrasslands;
+    public Gradient fogColourDesert;
+    public Gradient fogColourSnow;
+    public Gradient borderFogColourGrasslands;
+    public Gradient borderFogColourDesert;
+    public Gradient borderFogColourSnow;
     public Gradient fogSunColour;
     public AnimationCurve fogExtraHeight;
+    public float desertFogExtraHeight = 30;
 
     [Space]
     public LensFlareComponentSRP flare;
@@ -37,6 +49,15 @@ public class DayNightController : MonoBehaviour
     [Space]
     public float cubemapBakeTime = 5f;
     TimeSince bakeTime;
+
+    static Biome currentBiome
+    {
+        get
+        {
+            if (ProcGen.instance == null) return Biome.Grasslands;
+            return ProcGen.instance.currentBiome;
+        }
+    }
 
     private void Start()
     {
@@ -72,14 +93,38 @@ public class DayNightController : MonoBehaviour
 
         if (heightFog?.settings != null)
         {
-            heightFog.settings.color = fogColour.Evaluate(timeOfDay);
+            Gradient fogGrad = currentBiome switch
+            {
+                Biome.Grasslands => fogColourGrasslands,
+                Biome.Desert => fogColourDesert,
+                Biome.Snow => fogColourSnow,
+                _ => throw new System.NotImplementedException(),
+            };
+
+            heightFog.settings.color = fogGrad.Evaluate(timeOfDay);
             heightFog.settings.sunColor = fogSunColour.Evaluate(timeOfDay);
-            heightFog.settings.fogHeightEnd = DefaultFogHeight + fogExtraHeight.Evaluate(timeOfDay);
+            heightFog.settings.fogHeightEnd = DefaultFogHeight + fogExtraHeight.Evaluate(timeOfDay)
+                + (currentBiome == Biome.Desert ? desertFogExtraHeight : 0);
+            if (currentBiome == Biome.Desert)
+            {
+                heightFog.settings.fogHeightPower = 1f;
+            }
+            else
+            {
+                heightFog.settings.fogHeightPower = 0.2f;
+            }
         }
 
         if (borderFog?.settings != null)
         {
-            borderFog.settings.color = borderFogColour.Evaluate(timeOfDay);
+            Gradient fogGrad = currentBiome switch
+            {
+                Biome.Grasslands => borderFogColourGrasslands,
+                Biome.Desert => borderFogColourDesert,
+                Biome.Snow => borderFogColourSnow,
+                _ => throw new System.NotImplementedException(),
+            };
+            borderFog.settings.color = fogGrad.Evaluate(timeOfDay);
             borderFog.settings.sunColor = fogSunColour.Evaluate(timeOfDay);
         }
 

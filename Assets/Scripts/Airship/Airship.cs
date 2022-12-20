@@ -49,6 +49,7 @@ public class Airship : MonoBehaviour, ISaveable
     [ReadOnly] public float maxSecondsOfFuel;       // seconds of fuel, from fuel units
     [ReadOnly] public float maxSecondsOfFuelMinHeight;       // seconds of fuel, from fuel units
     [ReadOnly] public float maxSecondsOfFuelMaxHeight;       // seconds of fuel, from fuel units
+    [ReadOnly] public float currentFuelBurnRate;
 
     // ====================
     // Inspector References
@@ -84,7 +85,11 @@ public class Airship : MonoBehaviour, ISaveable
         get => fuel;
         set => fuel = Mathf.Clamp(value, 0, instance.maxFuel);
     }
-    public static float Fuel01 => Remap.Float01(Fuel, 0, instance.maxFuel);
+    public static float Fuel01
+    {
+        get => Remap.Float01(Fuel, 0, instance.maxFuel);
+        set => Fuel = value * instance.maxFuel;
+    }
     public static Transform Transform => instance.transform;
     public static float Turn { get; private set; }
     public static bool CanDock
@@ -151,11 +156,16 @@ public class Airship : MonoBehaviour, ISaveable
     {
         if (Docked || Docking) return;
 
-        Fuel -= Time.deltaTime * fuelBurnRate;
-        if (Fuel <= 0)
-        {
-            Crash("Ran out of fuel! Collect floating caches!", 5f);
-        }
+        float height = Altitude.AirshipHeightFactor;
+        float rate = Mathf.Lerp(-burnRateHeightMult, burnRateHeightMult, height);
+
+        Fuel -= Time.deltaTime * fuelBurnRate * (1f + rate);
+        currentFuelBurnRate = fuelBurnRate * (1f + rate);
+        //if (Fuel <= 0)
+        //{
+        //    Crash("Ran out of fuel! Collect floating caches!", 5f);
+        //}
+        // Fuel clamps itself
         //HUD.SetFuel(Fuel);
         // Decreases fuel and sets the fuel bar
     }
@@ -289,10 +299,11 @@ public class Airship : MonoBehaviour, ISaveable
         }
     }
 
-    public static void MoveAllObjects(Vector3 toPos, float toRot)
+    public static void MoveAllObjects(Vector3 toPos)//, float toRot)
     {
-        Vector3 delta = Transform.position.DirectionTo(toPos);
-        float y = toRot - Transform.eulerAngles.y;
+        Vector3 delta = Transform.position.DirectionTo_NoNormalize(toPos);
+        //float y = toRot - Transform.eulerAngles.y;
+        float y = 0;
 
         instance.MovePlayer(delta, y);
         instance.MoveAttachedObjects(delta, y);
@@ -338,8 +349,8 @@ public class Airship : MonoBehaviour, ISaveable
     {
         startingSecondsOfFuel = maxFuel * startingFuel / fuelBurnRate;
         maxSecondsOfFuel = maxFuel / fuelBurnRate;
-        maxSecondsOfFuelMinHeight = maxSecondsOfFuel * (1f - burnRateHeightMult);
-        maxSecondsOfFuelMaxHeight = maxSecondsOfFuel * (1f + burnRateHeightMult);
+        maxSecondsOfFuelMinHeight = maxSecondsOfFuel * (1f + burnRateHeightMult);
+        maxSecondsOfFuelMaxHeight = maxSecondsOfFuel * (1f - burnRateHeightMult);
     }
 
     public void Save(ByteBuffer buf)
