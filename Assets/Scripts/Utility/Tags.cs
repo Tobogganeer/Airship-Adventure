@@ -8,7 +8,7 @@ public class Tags : MonoBehaviour
     private List<string> tags;
     private HashSet<string> tagsHashset;
 
-    private void Start()
+    private void Awake()
     {
         if (tags.Count == 0) return;
 

@@ -5,10 +5,13 @@ using UnityEngine;
 public class Record : MonoBehaviour
 {
     public AudioClip clip;
-    public Rigidbody rb;
+    public float volume = 1.0f;
+    [HideInInspector] public Rigidbody rb;
+    [HideInInspector] public Pickup pickup;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        pickup = GetComponent<Pickup>();
     }
 }

@@ -21,6 +21,7 @@ public class EnvBaker : MonoBehaviour
             lastRender = reflectionProbe.RenderProbe(target);
     }
 
+    [ExecuteAlways]
     private void LateUpdate()
     {
         transform.rotation = Quaternion.identity;

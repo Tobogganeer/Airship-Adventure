@@ -278,10 +278,11 @@ public class DebugConsole : MonoBehaviour
 
         fontHeight = Mathf.RoundToInt(fontSize * FontSizeMult);
 
-        int pixelLimit = consoleHeight;// + 40;
-        int pixels = messages.Count * fontHeight;
-        int scrollPixels = Mathf.Max(pixels - pixelLimit, 0);
-        scroll = new Vector2(0, scrollPixels);
+        //int pixelLimit = consoleHeight;// + 40;
+        //int pixels = messages.Count * fontHeight;
+        //int scrollPixels = Mathf.Max(pixels - pixelLimit, 0);
+        //scroll = new Vector2(0, scrollPixels);
+        scroll = new Vector2(0, 10000);
     }
 
     #region Message Log Tests

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
   m_Name: Prometheus
   m_EditorClassIdentifier: 
-  type: 0
+  type: 9
   title: Prometheus
   description: "Damn, you know. I feel like the titan, from those old legends. Chained
     to a rock in the sky? Same thing over and over? I like the song, was my children's

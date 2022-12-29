@@ -61,6 +61,14 @@ public class Interactor : MonoBehaviour
                 }
             }
         }
+        if (PlayerInputs.Primary && !Cursor.visible)
+        {
+            if (CurrentInteractable != null && CurrentInteractable.IsInteracting)
+            {
+                if (CurrentInteractable.transform.TryGetComponent(out ILMBInteractable lmb))
+                    lmb.OnLMBInteract();
+            }
+        }
     }
 
     private void FetchInteractables()

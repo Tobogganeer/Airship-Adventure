@@ -7,6 +7,7 @@ TagManager:
   - Hangable
   - Structure
   - ShipObject
+  - Record
   layers:
   - Default
   - TransparentFX

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
   m_Name: Barreltossing
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
   title: Barreltossing
   description: "I never did that when I was here. Kinda funny, losing fuel. But hey,
     you ever need to relax or something, ---toss one off in my name or something---.

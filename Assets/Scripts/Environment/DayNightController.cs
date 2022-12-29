@@ -47,8 +47,12 @@ public class DayNightController : MonoBehaviour
     public float flareIntensityMult = 0.5f;
 
     [Space]
-    public float cubemapBakeTime = 5f;
-    TimeSince bakeTime;
+    public float cubemapBakeAngle = 0.5f;
+    //public float cubemapBakeTime = 5f;
+    //TimeSince bakeTime;
+    //Vector3 bakeAngle;
+    float bakeAngle;
+    float bakeTimer;
 
     static Biome currentBiome
     {
@@ -61,7 +65,10 @@ public class DayNightController : MonoBehaviour
 
     private void Start()
     {
-        bakeTime = 0;
+        //bakeTime = 0;
+        bakeAngle = timeOfDay * 360;
+        heightFog.SetActive(true);
+        borderFog.SetActive(true);
     }
 
     const float DefaultFogHeight = 15f;
@@ -131,11 +138,15 @@ public class DayNightController : MonoBehaviour
         if (Application.isPlaying)
         {
             timeOfDay = (timeOfDay + speed * Time.deltaTime) % 1;
+            bakeTimer -= Time.deltaTime;
 
-            if (bakeTime > cubemapBakeTime)
+            //if (bakeTime > cubemapBakeTime)
+            if (timeOfDay * 360 - bakeAngle > cubemapBakeAngle || bakeTimer < 0)
             {
                 //Debug.Log("Bake");
-                bakeTime = 0;
+                //bakeTime = 0;
+                bakeAngle = timeOfDay * 360;
+                bakeTimer = 5f;
                 baker.Bake();
             }
         }

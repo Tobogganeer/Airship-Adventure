@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class AirshipCrash : MonoBehaviour
 {
-    [Layer]
-    public int terrainLayer;
-    int layerMask;
+    //[Layer]
+    //public int terrainLayer;
+    public LayerMask terrainLayerMask;
+    //int layerMask;
     public float alarmRange = 150f;
     public float alarmRadius = 5f;
     public static bool NearTerrain;
@@ -19,21 +20,16 @@ public class AirshipCrash : MonoBehaviour
     [Space]
     public bool drawGizmos = true;
 
-    private void Start()
-    {
-        layerMask = 1 << terrainLayer;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == terrainLayer)
+        if (terrainLayerMask.Contains(other.gameObject.layer))
             Airship.Crash("Crashed into terrain!", 3f);
     }
 
     private void Update()
     {
-        NearTerrain = Physics.SphereCast(new Ray(transform.position, transform.forward), alarmRadius, alarmRange, layerMask);
-        NearTerrainVertical = Physics.SphereCast(new Ray(vertDetector.position, vertDetector.forward), alarmRadius, vertRange, layerMask);
+        NearTerrain = Physics.SphereCast(new Ray(transform.position, transform.forward), alarmRadius, alarmRange, terrainLayerMask);
+        NearTerrainVertical = Physics.SphereCast(new Ray(vertDetector.position, vertDetector.forward), alarmRadius, vertRange, terrainLayerMask);
     }
 
 

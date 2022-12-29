@@ -104,18 +104,21 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _Falloff_2_Hardness: 0.75
+    - _Falloff_2_Power: 30
+    - _Falloff_2_Radius: 0.74
     - _Frequency: 6
     - _Gain: 9
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Height_Mult: 0.8
-    - _Height_Power: 0.8
+    - _Height_Power: 0.7
     - _Lacunarity: 10
     - _Metallic: 0
     - _Normal_Strength: 0
     - _OcclusionStrength: 1
-    - _PFrequency: 1.4
+    - _PFrequency: 2.71
     - _PGain: -0.22
     - _PLacunarity: 3.85
     - _POctaves: 7

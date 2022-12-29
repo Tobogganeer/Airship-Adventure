@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
   m_Name: Ted
   m_EditorClassIdentifier: 
-  type: 0
+  type: 12
   title: Ted the Breaker of Bread & Bones
   description: Yeah This is Ted. He looks kinda scary but this lad is a sweetheart.
     Will say not a scary man indeed, but quite a good boy. He enjoys head pats and

@@ -1059,7 +1059,7 @@ MonoBehaviour:
   minStructureDist: 500
   layerMask:
     serializedVersion: 2
-    m_Bits: 6145
+    m_Bits: 2049
   minCoastalStructureAngle: 20
   maxHeight: 70
   sphereCastRadius: 10

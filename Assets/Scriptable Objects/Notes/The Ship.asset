@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
   m_Name: The Ship
   m_EditorClassIdentifier: 
-  type: 0
+  type: 14
   title: The Ship
   description: "So you found yourself my airship. I guess even I couldn\u2019t live
     forever. But more importantly you now got something to do. I still have packages

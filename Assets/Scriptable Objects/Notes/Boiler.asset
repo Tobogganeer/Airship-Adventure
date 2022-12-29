@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
   m_Name: Boiler
   m_EditorClassIdentifier: 
-  type: 0
+  type: 2
   title: Boiling Point
   description: "HA Get the pun? Boiling point? It\u2019s funny. LAUGH! Anyways. You
     gotta find some fuel. Those barrels that float around, they got some stuff in

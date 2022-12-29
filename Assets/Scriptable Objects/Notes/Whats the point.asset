@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
   m_Name: Whats the point
   m_EditorClassIdentifier: 
-  type: 0
+  type: 15
   title: What's the Point?
   description: Ah my Harpoons. Not every ship has got one of these. But damn does
     Cloudbreaker get some nice retrofits, anyways these little pokers got some juice

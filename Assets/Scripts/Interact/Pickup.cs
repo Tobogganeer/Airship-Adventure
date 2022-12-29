@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Pickup : MonoBehaviour, IInteractable
+public class Pickup : MonoBehaviour, IInteractable, ILMBInteractable
 {
     bool IInteractable.FixedPosition => false;
     public bool IsInteracting { get; set; }
@@ -16,6 +16,7 @@ public class Pickup : MonoBehaviour, IInteractable
     public float carryForce = 10f;
     public bool useMass = false;
     public float carryRange = 2;
+    public float throwForce = 5f;
 
     [Header("Spawning")]
     public bool useSpring = true;
@@ -27,6 +28,8 @@ public class Pickup : MonoBehaviour, IInteractable
     //Quaternion rot;
     //Vector3 rot;
     //bool blasto;
+
+    bool _throw;
 
     const float MaxRange = 6f;
 
@@ -52,6 +55,15 @@ public class Pickup : MonoBehaviour, IInteractable
         //rot = transform.eulerAngles;
         //rot = Quaternion.FromToRotation(Interactor.InteractFrom.forward, transform.forward);
         //blasto = IsInteracting == false;
+    }
+
+    public void OnLMBInteract()
+    {
+        if (IsInteracting)
+        {
+            IsInteracting = false;
+            _throw = true;
+        }
     }
 
     private void FixedUpdate()
@@ -85,6 +97,11 @@ public class Pickup : MonoBehaviour, IInteractable
         else
         {
             rb.useGravity = true;
+            if (_throw)
+            {
+                _throw = false;
+                rb.AddForce(Interactor.InteractFrom.forward * throwForce, ForceMode.VelocityChange);
+            }
         }
     }
 

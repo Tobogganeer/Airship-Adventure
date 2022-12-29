@@ -112,10 +112,16 @@ public class Airship : MonoBehaviour, ISaveable
     // 
     // ====================
 
+    static bool showTut = true;
 
     private void Start()
     {
-        IntroSpiel(); // Tutorial text
+        if (showTut)
+        {
+            PopUp.Show("E/F/RMB to pick up notes, view them with ESC", 3, 2f);
+            showTut = false;
+        }
+        //IntroSpiel(); // Tutorial text
         fuel = maxFuel * startingFuel; // Starting fuel
     }
 
@@ -127,6 +133,7 @@ public class Airship : MonoBehaviour, ISaveable
     }
 
 
+    /*
     void IntroSpiel()
     {
         // Using a timer util class to show the tutorial text
@@ -138,6 +145,7 @@ public class Airship : MonoBehaviour, ISaveable
         Timer.New(offset + 11.0f, () => PopUp.Show("Reach the end sphere, follow the arrows!", 4.0f));
         Timer.New(offset + 16.0f, () => PopUp.Show("Good Luck!", 3.0f));
     }
+    */
 
     public static void Crash(string reason, float time)
     {
