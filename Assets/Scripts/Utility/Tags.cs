@@ -26,4 +26,9 @@ public static class TagsExtensions
     {
         return comp.CompareTag(tag) || comp.TryGetComponent(out Tags tags) && tags.HasTag(tag);
     }
+
+    public static bool HasTag(this GameObject comp, string tag)
+    {
+        return comp.CompareTag(tag) || comp.TryGetComponent(out Tags tags) && tags.HasTag(tag);
+    }
 }

@@ -12,7 +12,7 @@ public class Shelf : MonoBehaviour
         if (other.TryGetComponent(out ShelfObject obj) && !shelfList.Contains(obj))
         {
             shelfList.Add(obj);
-            obj.Desiredsize = .25f;
+            obj.onShelf = true;
 
             //other.gameObject.transform.localScale *= 4f;
             //Destroy(other.gameObject);
@@ -26,7 +26,7 @@ public class Shelf : MonoBehaviour
         if (other.TryGetComponent(out ShelfObject obj) && shelfList.Contains(obj))
         {
             shelfList.Remove(obj);
-            obj.Desiredsize = 1;
+            obj.onShelf = false;
 
             //other.gameObject.transform.localScale *= 0.25f;
         }

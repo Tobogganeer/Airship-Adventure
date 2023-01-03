@@ -8,7 +8,8 @@ public class AirshipCrash : MonoBehaviour
     //public int terrainLayer;
     public LayerMask terrainLayerMask;
     //int layerMask;
-    public float alarmRange = 150f;
+    //public float alarmRange = 150f;
+    public float alarmRangeSeconds = 15f;
     public float alarmRadius = 5f;
     public static bool NearTerrain;
     public static bool NearTerrainVertical;
@@ -23,12 +24,13 @@ public class AirshipCrash : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (terrainLayerMask.Contains(other.gameObject.layer))
-            Airship.Crash("Crashed into terrain!", 3f);
+            Airship.Crash();
+            //Airship.Crash("Crashed into terrain!", 3f);
     }
 
     private void Update()
     {
-        NearTerrain = Physics.SphereCast(new Ray(transform.position, transform.forward), alarmRadius, alarmRange, terrainLayerMask);
+        NearTerrain = Physics.SphereCast(new Ray(transform.position, transform.forward), alarmRadius, GetAlarmRange(), terrainLayerMask);
         NearTerrainVertical = Physics.SphereCast(new Ray(vertDetector.position, vertDetector.forward), alarmRadius, vertRange, terrainLayerMask);
     }
 
@@ -48,6 +50,7 @@ public class AirshipCrash : MonoBehaviour
         //Gizmos.DrawWireSphere(transform.position, alarmRangeHorizontal);
         //Gizmos.DrawLine(transform.position + Vector3.up * alarmRangeVertical,
         //    transform.position + Vector3.down * alarmRangeVertical);
+        float alarmRange = GetAlarmRange();
         Gizmos.DrawWireSphere(transform.position, alarmRadius);
         Gizmos.DrawWireSphere(transform.position + transform.forward * alarmRange, alarmRadius);
         Gizmos.DrawLine(transform.position, transform.position + transform.forward * alarmRange);
@@ -58,5 +61,11 @@ public class AirshipCrash : MonoBehaviour
             Gizmos.DrawWireSphere(vertDetector.position + vertDetector.forward * vertRange, alarmRadius);
             Gizmos.DrawLine(vertDetector.position, vertDetector.position + vertDetector.forward * vertRange);
         }
+    }
+
+    float GetAlarmRange()
+    {
+        if (Airship.instance == null) return 150;
+        return alarmRangeSeconds * Airship.instance.movement.z;
     }
 }

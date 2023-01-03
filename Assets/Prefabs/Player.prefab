@@ -612,9 +612,13 @@ MonoBehaviour:
   airAcceleration: 1
   accelLerpSpeed: 5
   pushPower: 3
+  ladderSpeed: 2
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 1025
+  touchingLadder: 0
+  ladderDir: {x: 0, y: 0, z: 0}
+  ladderDot: 0
 --- !u!114 &2180237491587026354
 MonoBehaviour:
   m_ObjectHideFlags: 0

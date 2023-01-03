@@ -19,16 +19,23 @@ public class BiomeTransition : MonoBehaviour
     {
         if (other.HasTag("Player") && active)
         {
-            Transition();
+            StartCoroutine(Transition());
         }
     }
 
-    void Transition()
+    IEnumerator Transition()
     {
+        HUD.SetLoading(true);
+
+        for (int i = 0; i < 10; i++)
+            yield return null;
+
         float offset = dir == Direction.North ? tpOffset : -tpOffset;
         Airship.MoveAllObjects(Airship.Transform.position.WithZ(-Airship.Transform.position.z + offset));
         ProcGen.instance.currentBiome = currentBiome;
         ProcGen.instance.Gen();
+
+        HUD.SetLoading(false);
         //SetIcon();
     }
 
@@ -94,6 +101,7 @@ public class BiomeTransition : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + transform.forward * -tpOffset, 30f);
+        //Gizmos.DrawWireSphere(transform.position + transform.forward * -tpOffset, 30f);
+        Gizmos.DrawWireSphere(transform.position.WithZ(-transform.position.z + tpOffset), 30f);
     }
 }

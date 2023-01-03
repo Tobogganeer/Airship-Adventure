@@ -14,7 +14,8 @@ public class HUD : MonoBehaviour
 
     private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
     {
-        SetBlack(false);
+        //SetBlack(false);
+        SetLoading(false);
         SetInteract(false);
         Time.timeScale = 1f; // Time slowed when game is paused, reset it
     }
@@ -23,9 +24,10 @@ public class HUD : MonoBehaviour
 
     [Space]
     public CanvasGroup interactIcon;
-    public CanvasGroup blackScreen;
+    public CanvasGroup loadingScreen;
     bool interact;
-    bool black;
+    //bool black;
+    bool loading;
 
 
     public static bool ShowHUD = true;
@@ -35,15 +37,25 @@ public class HUD : MonoBehaviour
         instance.interact = on;
     }
 
-    public static void SetBlack(bool on)
+    //public static void SetBlack(bool on)
+    //{
+    //    instance.black = on;
+    //}
+
+    public static void SetLoading(bool on)
     {
-        instance.black = on;
+        instance.loading = on;
     }
 
     private void Update()
     {
         interactIcon.alpha = Mathf.Lerp(interactIcon.alpha, interact ? 1 : 0, Time.deltaTime * 10);
-        blackScreen.alpha = Mathf.Lerp(blackScreen.alpha, black ? 1 : 0, Time.deltaTime * 10);
+        //blackScreen.alpha = Mathf.Lerp(blackScreen.alpha, black ? 1 : 0, Time.deltaTime * 10);
         hudHolder.alpha = ShowHUD ? 1f : 0f;
+
+        if (loading)
+            loadingScreen.alpha = 1f;
+        else
+            loadingScreen.alpha = Mathf.Lerp(loadingScreen.alpha, 0, Time.deltaTime * 5);
     }
 }

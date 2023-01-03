@@ -179,12 +179,12 @@ public class DockingSystem : MonoBehaviour
             if (dockTo)
             {
                 Gizmos.color = Color.white;
-                Gizmos.DrawWireMesh(debug_shipMesh, dockTo.position, dockTo.rotation * Quaternion.Euler(0, 180, 0), Vector3.one * 0.5f);
+                Gizmos.DrawWireMesh(debug_shipMesh, dockTo.position, dockTo.rotation * Quaternion.Euler(0, 180, 0), Vector3.one);
             }
             if (releaseTo)
             {
                 Gizmos.color = Color.green;
-                Gizmos.DrawWireMesh(debug_shipMesh, releaseTo.position, releaseTo.rotation * Quaternion.Euler(0, 180, 0), Vector3.one * 0.5f);
+                Gizmos.DrawWireMesh(debug_shipMesh, releaseTo.position, releaseTo.rotation * Quaternion.Euler(0, 180, 0), Vector3.one);
             }
         }
     }

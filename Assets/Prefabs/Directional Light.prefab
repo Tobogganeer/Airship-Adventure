@@ -695,7 +695,8 @@ MonoBehaviour:
   lightData: {fileID: 6688411938076863218}
   lightIntensityMult: 1.5
   flareIntensityMult: 0.6
-  cubemapBakeTime: 1
+  cubemapBakeAngle: 0.5
+  desertSmoke: {fileID: 0}
 --- !u!1 &8504909213179960767
 GameObject:
   m_ObjectHideFlags: 0

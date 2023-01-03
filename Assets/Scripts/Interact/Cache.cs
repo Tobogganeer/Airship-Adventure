@@ -15,6 +15,7 @@ public class Cache : MonoBehaviour
 
     [Space]
     public GameObject prefab;
+    public GameObject deathParticles;
 
     public static int Num { get; private set; }
 
@@ -40,6 +41,7 @@ public class Cache : MonoBehaviour
         AudioManager.Play(audio.SetClip("Pop"));
         GameObject obj = Instantiate(prefab, Airship.instance.spawnCrapHere.position,
             Airship.instance.spawnCrapHere.rotation);//, Airship.instance.transform);
+        Instantiate(deathParticles, transform.position, Quaternion.identity);
         //Airship.instance.kiddos.Add(obj.transform);
         //obj.transform.localScale = Vector3.one / Airship.instance.transform.localScale.x;
         //Airship.Fuel += fuel;

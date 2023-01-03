@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Biome Transition
-  m_Shader: {fileID: -6465566751694194690, guid: 507ab17b52be92847a38b236fca3abd5,
+  m_Shader: {fileID: -6465566751694194690, guid: 967af5bb16177554a856347262b2cf03,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -86,6 +86,8 @@ Material:
     - _Cam_Dist: 0.001
     - _Cam_Offset: 0.07
     - _Cam_Pow: 5
+    - _Camera_Dist: 0.01
+    - _Camera_Pow: 0.75
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -94,10 +96,13 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _Fresnel_Power: 8
+    - _Fresnel_Strength: 7
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Glow: 1.5
+    - _Max_Alpha: 0.3
     - _Metallic: 0
     - _Min: 0.1
     - _Mult: 0.5
@@ -117,6 +122,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _Strength: 1.5
     - _Surface: 0
     - _Total_Noise_Scale: 0.5
     - _Voronoise_Scale: 2

@@ -15,8 +15,8 @@ MonoBehaviour:
   m_Active: 1
   settings:
     resolutionScale: 0.3
-    intensity: 0.15
-    blurWidth: 0.15
+    intensity: 0.5
+    blurWidth: 1
 --- !u!114 &-1878332245247344467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,10 +52,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e83db520041bcb44966275a111dd4ee, type: 3}
   m_Name: Border Fog
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
-    color: {r: 0.80577624, g: 0.8227262, b: 0.7923384, a: 1}
-    sunColor: {r: 0.722773, g: 0.6915208, b: 0.607849, a: 1}
+    color: {r: 0.75359154, g: 0.7924528, b: 0.72890705, a: 1}
+    sunColor: {r: 1, g: 1, b: 1, a: 1}
     fogDensity: 0.0001
     fogDensityPower: 0.75
     skyAlpha: 0
@@ -157,16 +157,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e83db520041bcb44966275a111dd4ee, type: 3}
   m_Name: Height Fog
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
-    color: {r: 0.5779505, g: 0.5779505, b: 0.5779505, a: 0.38039216}
-    sunColor: {r: 0.722773, g: 0.6915208, b: 0.607849, a: 1}
+    color: {r: 0.38951987, g: 0.38951987, b: 0.38951987, a: 0.38039216}
+    sunColor: {r: 0.7262234, g: 0.70971996, b: 0.66351014, a: 1}
     fogDensity: 0.01
     fogDensityPower: 0.2
     skyAlpha: 0
     useHeightFog: 1
     fogHeightStart: -100
-    fogHeightEnd: 56.036835
+    fogHeightEnd: 115
     fogHeightPower: 0.2
     extraFogHeightEnd: -50
     extraFogHeightPower: 0.9

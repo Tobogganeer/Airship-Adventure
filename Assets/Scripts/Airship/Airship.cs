@@ -44,6 +44,7 @@ public class Airship : MonoBehaviour, ISaveable
     [Range(0f, 1f)]
     public float startingFuel = 0.5f; // Percentage (0-1) of how full a tank to start with
     public float maxFuel = 100f; // The max fuel the ship holds
+    public float maxNox = 30f;
 
     [ReadOnly] public float startingSecondsOfFuel; // Inspector values, showing the equivalant
     [ReadOnly] public float maxSecondsOfFuel;       // seconds of fuel, from fuel units
@@ -64,31 +65,39 @@ public class Airship : MonoBehaviour, ISaveable
     public CharacterController playerController; // To move the player with the ship
     public ShipObjects shipObjects;
     public List<Transform> attachedObjects; // Objects that the ship should move (crates, rat etc)
+    public GameObject nukePrefab;
+    public GameObject destroyedShipPrefab;
     [SerializeField] VisualEffect _SmokeExsaust;
 
 
     // ====================
     // Instance Members
     // ====================
-    static float fuel = 50f;
+    float fuel = 50f;
+    float nox = 0f;
     float turnPlusMinus1;
     bool canDock;
     bool docked;
     bool docking;
-    bool crashed; // Temporary
+    bool crashed;
 
     // ====================
     // Static Values
     // ====================
     public static float Fuel
     {
-        get => fuel;
-        set => fuel = Mathf.Clamp(value, 0, instance.maxFuel);
+        get => instance.fuel;
+        set => instance.fuel = Mathf.Clamp(value, 0, instance.maxFuel);
     }
     public static float Fuel01
     {
         get => Remap.Float01(Fuel, 0, instance.maxFuel);
         set => Fuel = value * instance.maxFuel;
+    }
+    public static float Nox
+    {
+        get => instance.nox;
+        set => instance.nox = Mathf.Clamp(value, 0, instance.maxNox);
     }
     public static Transform Transform => instance.transform;
     public static float Turn { get; private set; }
@@ -107,6 +116,7 @@ public class Airship : MonoBehaviour, ISaveable
         get => instance.docking;
         set => instance.docking = value;
     }
+    public static bool Crashed => instance.crashed;
 
     // ====================
     // 
@@ -147,28 +157,37 @@ public class Airship : MonoBehaviour, ISaveable
     }
     */
 
-    public static void Crash(string reason, float time)
+    public static void Crash()//string reason, float time)
     {
         if (!instance.crashed)
         {
-            Timer.DestroyAll(-1);
+            //Timer.DestroyAll(-1);
             instance.crashed = true;
-            PopUp.Show(reason, time);
-            HUD.SetBlack(true);
-            Timer.Create(time, SceneManager.ReloadCurrentLevel);
+            Music.StopImmediately();
+            Timer.Create(1.8f, () => Instantiate(instance.nukePrefab, Transform.position, Quaternion.identity));
+            //Timer.Create(3.0f, () => Transform.position -= Vector3.up * 20);
+            Timer.Create(2.5f, () => Instantiate(instance.destroyedShipPrefab, Transform.position + Vector3.up * 20, Transform.rotation));
+            Timer.Create(3.0f, () => instance.gameObject.SetActive(false));
+            AudioManager.Play(new Audio("Nuke Full").SetGlobal());
+            FPSCamera.Nuke();
+            //PopUp.Show(reason, time);
+            //HUD.SetBlack(true);
+            //Timer.Create(time, SceneManager.ReloadCurrentLevel);
             // Sets screen to black, shows text, reloads level after time
         }
     }
 
     void UpdateFuel()
     {
-        if (Docked || Docking) return;
+        if (Docked || Docking || crashed) return;
 
         float height = Altitude.AirshipHeightFactor;
         float rate = Mathf.Lerp(-burnRateHeightMult, burnRateHeightMult, height);
 
-        Fuel -= Time.deltaTime * fuelBurnRate * (1f + rate);
+        Fuel = Mathf.Max(Fuel - Time.deltaTime * fuelBurnRate * (1f + rate), 0f);
         currentFuelBurnRate = fuelBurnRate * (1f + rate);
+
+        nox = Mathf.Max(nox - Time.deltaTime, 0f);
         //if (Fuel <= 0)
         //{
         //    Crash("Ran out of fuel! Collect floating caches!", 5f);
@@ -186,6 +205,8 @@ public class Airship : MonoBehaviour, ISaveable
     {
         //DOCKED = docked;
         //TURN = Turn; Just for testing
+
+        if (crashed) return;
 
         float desiredTurn = 0f;
         desiredTurn += leftHook.GetTurnAmount() * hookGrabbingTurnAmount;
@@ -275,11 +296,13 @@ public class Airship : MonoBehaviour, ISaveable
 
     void MovePlayer(Vector3 delta, float y)
     {
-        //playerController.Move(delta);
+        playerController.Move(delta);
         playerController.enabled = false;
-        playerController.transform.position += delta;
+        //playerController.transform.position += delta;
         playerController.transform.RotateAround(transform.position, Vector3.up, y * Time.deltaTime);
         playerController.enabled = true;
+        //playerController.enableOverlapRecovery = false;
+        //playerController.
         // Moves and rotates player, must disable cc to rotate player
     }
 
@@ -326,10 +349,11 @@ public class Airship : MonoBehaviour, ISaveable
     float GetSpeed()
     {
         float height = Altitude.AirshipHeightFactor;
+        float noxMult = nox > 0f ? nitrousSpeedMult : 1f;
 
         if (height < 0.5f)
-            return Mathf.Lerp(minHeightSpeed, baseSpeed, height * 2f);
-        return Mathf.Lerp(baseSpeed, maxHeightSpeed, (height - 0.5f) * 2f);
+            return Mathf.Lerp(minHeightSpeed, baseSpeed, height * 2f) * noxMult;
+        return Mathf.Lerp(baseSpeed, maxHeightSpeed, (height - 0.5f) * 2f) * noxMult;
         //baseSpeed
     }
 

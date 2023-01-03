@@ -21,6 +21,8 @@ public class Interactor : MonoBehaviour
 
     public static bool Interacting => CurrentInteractable != null && CurrentInteractable.IsInteracting;
 
+    //public string die;
+
     private void Start()
     {
         CurrentInteractable = null;
@@ -90,5 +92,35 @@ public class Interactor : MonoBehaviour
     {
         if (CurrentInteractable == i)
             CurrentInteractable = null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (Physics.Raycast(interactFrom.position, interactFrom.forward, out RaycastHit hit, interactRange, interactLayers, QueryTriggerInteraction.Collide))
+        {
+            Gizmos.color = Color.red;
+
+            if (hit.transform.TryGetComponent(out lookingAt))
+            {
+                Gizmos.color = Color.green;
+            }
+
+            Gizmos.DrawSphere(hit.point, 0.1f);
+            //die = hit.transform.name;
+        }
+
+        if (CurrentInteractable != null)
+        {
+            Gizmos.color = Color.green;
+        }
+        else if (lookingAt != null)
+        {
+            Gizmos.color = Color.yellow;
+        }
+        else
+        {
+            Gizmos.color = Color.red;
+        }
+        Gizmos.DrawLine(interactFrom.position, interactFrom.position + interactFrom.forward * interactRange);
     }
 }

@@ -24,6 +24,13 @@ public class Music : MonoBehaviour
         instance.target = 0f;
     }
 
+    public static void StopImmediately()
+    {
+        instance.target = 0f;
+        instance.source.volume = 0f;
+
+    }
+
     public static void Play()
     {
         instance.target = instance.baseVolume;

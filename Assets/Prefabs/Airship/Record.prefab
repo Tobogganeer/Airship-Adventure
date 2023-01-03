@@ -69,6 +69,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 126761affef99d243b3071ad39e0d259,
         type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 126761affef99d243b3071ad39e0d259,
+        type: 3}
       propertyPath: m_TagString
       value: ShipObject
       objectReference: {fileID: 0}
@@ -125,6 +130,7 @@ MonoBehaviour:
   carryForce: 10
   useMass: 0
   carryRange: 2
+  throwForce: 5
   useSpring: 0
   springStrength: 50
   springVelocity: 10
@@ -156,5 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip: {fileID: 0}
+  volume: 1
   rb: {fileID: 1823495702949192034}
   pickup: {fileID: 2213129974888587799}

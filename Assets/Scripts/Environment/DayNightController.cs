@@ -19,7 +19,7 @@ public class DayNightController : MonoBehaviour
     public float timeOfDay;
     [ReadOnly] public float speed;
     public float secondsPerDay = 240;
-    public float yRot = -30f;
+    //public float yRot = -30f;
 
     [Header("Rise -> Noon -> Set -> Midnight -> Rise")]
     public AnimationCurve sunriseSkyboxIntensity;
@@ -48,6 +48,9 @@ public class DayNightController : MonoBehaviour
 
     [Space]
     public float cubemapBakeAngle = 0.5f;
+
+    [Space]
+    public GameObject desertSmoke;
     //public float cubemapBakeTime = 5f;
     //TimeSince bakeTime;
     //Vector3 bakeAngle;
@@ -75,7 +78,8 @@ public class DayNightController : MonoBehaviour
 
     void Update()
     {
-        transform.localRotation = Quaternion.Euler(timeOfDay * 360, yRot, 0);
+        //transform.localRotation = Quaternion.Euler(timeOfDay * 360, yRot, 0);
+        transform.localRotation = Quaternion.Euler(timeOfDay * 360, 0, 0);
         //float pos = Vector3.Dot(transform.forward, Vector3.up) * 0.5f + 0.5f;
         //Debug.Log(pos); // 0 : up, 0.5 : sideways, 1 : down
 
@@ -109,16 +113,22 @@ public class DayNightController : MonoBehaviour
             };
 
             heightFog.settings.color = fogGrad.Evaluate(timeOfDay);
-            heightFog.settings.sunColor = fogSunColour.Evaluate(timeOfDay);
+            heightFog.settings.sunColor = Add(fogGrad.Evaluate(timeOfDay), fogSunColour.Evaluate(timeOfDay));
             heightFog.settings.fogHeightEnd = DefaultFogHeight + fogExtraHeight.Evaluate(timeOfDay)
                 + (currentBiome == Biome.Desert ? desertFogExtraHeight : 0);
             if (currentBiome == Biome.Desert)
             {
                 heightFog.settings.fogHeightPower = 1f;
+                borderFog.settings.fogDensityPower = 0.2f;
+                if (Application.isPlaying)
+                    desertSmoke.SetActive(true);
             }
             else
             {
                 heightFog.settings.fogHeightPower = 0.2f;
+                borderFog.settings.fogDensityPower = 0.75f;
+                if (Application.isPlaying)
+                    desertSmoke.SetActive(false);
             }
         }
 
@@ -132,7 +142,8 @@ public class DayNightController : MonoBehaviour
                 _ => throw new System.NotImplementedException(),
             };
             borderFog.settings.color = fogGrad.Evaluate(timeOfDay);
-            borderFog.settings.sunColor = fogSunColour.Evaluate(timeOfDay);
+            //borderFog.settings.sunColor = fogSunColour.Evaluate(timeOfDay);
+            borderFog.settings.sunColor = Add(fogGrad.Evaluate(timeOfDay), fogSunColour.Evaluate(timeOfDay));
         }
 
         if (Application.isPlaying)
@@ -156,5 +167,18 @@ public class DayNightController : MonoBehaviour
     {
         speed = 1f / secondsPerDay;
         //secondsPerDay = 1f / speed;
+    }
+
+    Color Add(Color col1, Color col2)
+    {
+        float _1 = col1.a;
+        float _2 = col2.a;
+
+        return new Color(
+            Mathf.Clamp01(col1.r * _1 + col2.r * _2),
+            Mathf.Clamp01(col1.g * _1 + col2.g * _2),
+            Mathf.Clamp01(col1.b * _1 + col2.b * _2),
+            Mathf.Clamp01(_1 + _2)
+        );
     }
 }
