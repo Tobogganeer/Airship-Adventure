@@ -1052,8 +1052,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351ed50eed9dc5f488e7a302a2f24cdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coastalStructures: 3
-  inlandStructures: 5
+  coastalStructures: 2
+  inlandStructures: 3
   seaLevel: -70
   radius: 2500
   minStructureDist: 500
@@ -1063,13 +1063,28 @@ MonoBehaviour:
   minCoastalStructureAngle: 20
   maxHeight: 70
   sphereCastRadius: 10
-  coastalStructurePrefabs:
-  - {fileID: 5162908267636974354, guid: 8f0d79353bc3e0346aa5b038a9902462, type: 3}
-  - {fileID: 7860443884915512625, guid: e9dbc397ce5d8764d8960968b787b807, type: 3}
-  inlandStructurePrefabs:
-  - {fileID: 5162908267636974354, guid: 8f0d79353bc3e0346aa5b038a9902462, type: 3}
-  - {fileID: 7860443884915512625, guid: e9dbc397ce5d8764d8960968b787b807, type: 3}
-  gizmos: 1
+  grasslandStructures:
+    merchant: {fileID: 5162908267636974354, guid: 8f0d79353bc3e0346aa5b038a9902462,
+      type: 3}
+    coastalStructures:
+    - {fileID: 5162908267636974354, guid: 8f0d79353bc3e0346aa5b038a9902462, type: 3}
+    inlandStructures:
+    - {fileID: 7860443884915512625, guid: e9dbc397ce5d8764d8960968b787b807, type: 3}
+  desertStructures:
+    merchant: {fileID: 5162908267636974354, guid: 8f0d79353bc3e0346aa5b038a9902462,
+      type: 3}
+    coastalStructures:
+    - {fileID: 5162908267636974354, guid: 8f0d79353bc3e0346aa5b038a9902462, type: 3}
+    inlandStructures:
+    - {fileID: 7860443884915512625, guid: e9dbc397ce5d8764d8960968b787b807, type: 3}
+  snowStructures:
+    merchant: {fileID: 5162908267636974354, guid: 8f0d79353bc3e0346aa5b038a9902462,
+      type: 3}
+    coastalStructures:
+    - {fileID: 5162908267636974354, guid: 8f0d79353bc3e0346aa5b038a9902462, type: 3}
+    inlandStructures:
+    - {fileID: 7860443884915512625, guid: e9dbc397ce5d8764d8960968b787b807, type: 3}
+  gizmos: 0
 --- !u!1001 &2737607357344141591
 PrefabInstance:
   m_ObjectHideFlags: 0

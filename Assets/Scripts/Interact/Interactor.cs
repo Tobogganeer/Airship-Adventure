@@ -33,7 +33,7 @@ public class Interactor : MonoBehaviour
     {
         FetchInteractables();
 
-        if (PlayerInputs.Secondary && !Cursor.visible)
+        if (PlayerInputs.Primary && !Cursor.visible)
         {
             if (CurrentInteractable != null && CurrentInteractable.IsInteracting)
             {
@@ -63,12 +63,16 @@ public class Interactor : MonoBehaviour
                 }
             }
         }
-        if (PlayerInputs.Primary && !Cursor.visible)
+        if (PlayerInputs.Secondary && !Cursor.visible)
         {
             if (CurrentInteractable != null && CurrentInteractable.IsInteracting)
             {
-                if (CurrentInteractable.transform.TryGetComponent(out ILMBInteractable lmb))
-                    lmb.OnLMBInteract();
+                if (CurrentInteractable.transform.TryGetComponent(out ISecondaryInteractable lmb))
+                    lmb.OnSecondaryInteract();
+                if (CurrentInteractable.IsInteracting == false)
+                {
+                    CurrentInteractable = null;
+                }
             }
         }
     }

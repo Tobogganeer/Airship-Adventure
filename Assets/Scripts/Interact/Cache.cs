@@ -39,8 +39,8 @@ public class Cache : MonoBehaviour
         Audio audio = new Audio().SetPosition(transform.position).SetParent(Airship.instance.transform).SetDistance(50f);
         AudioManager.Play(audio.SetClip("Hit"));
         AudioManager.Play(audio.SetClip("Pop"));
-        GameObject obj = Instantiate(prefab, Airship.instance.spawnCrapHere.position,
-            Airship.instance.spawnCrapHere.rotation);//, Airship.instance.transform);
+        Airship.Spawn(Instantiate(prefab));
+
         Instantiate(deathParticles, transform.position, Quaternion.identity);
         //Airship.instance.kiddos.Add(obj.transform);
         //obj.transform.localScale = Vector3.one / Airship.instance.transform.localScale.x;

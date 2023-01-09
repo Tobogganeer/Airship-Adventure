@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Pickup : MonoBehaviour, IInteractable, ILMBInteractable
+public class Pickup : MonoBehaviour, IInteractable, ISecondaryInteractable
 {
     bool IInteractable.FixedPosition => false;
     public bool IsInteracting { get; set; }
@@ -19,11 +19,15 @@ public class Pickup : MonoBehaviour, IInteractable, ILMBInteractable
     public float throwForce = 5f;
 
     [Header("Spawning")]
-    public bool useSpring = true;
-    public float springStrength = 50f;
-    public float springVelocity = 10f;
-    public float springDamper = 6f;
-    private float timerspring = 3f;
+    public float start = 0f;
+    public float springStrength = 30f;
+    public float springVelocity = 1f;
+    public float springDamper = 10f;
+
+    const float DisableTime = 2.0f;
+    float timer;
+    bool springActive;
+    //public Vector3 scale = Vector3.one;
     Vector3 scale;
     //Quaternion rot;
     //Vector3 rot;
@@ -33,36 +37,33 @@ public class Pickup : MonoBehaviour, IInteractable, ILMBInteractable
 
     const float MaxRange = 6f;
 
+    private void Awake()
+    {
+        scale = transform.localScale;
+    }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        if (useSpring)
-        {
-            spring = new Spring();
-            spring.SetTarget(1f);
-            spring.SetDamper(springDamper);
-            spring.SetStrength(springStrength);
-            spring.SetVelocity(springVelocity);
-            scale = transform.localScale;
-            transform.localScale = spring.Value * scale;
-        }
+        //scale = transform.localScale;
     }
 
     public void OnInteract()
     {
         IsInteracting = !IsInteracting;
+        if (!IsInteracting)
+            _throw = true;
         //rot = transform.rotation;
         //rot = transform.eulerAngles;
         //rot = Quaternion.FromToRotation(Interactor.InteractFrom.forward, transform.forward);
         //blasto = IsInteracting == false;
     }
 
-    public void OnLMBInteract()
+    public void OnSecondaryInteract()
     {
         if (IsInteracting)
         {
             IsInteracting = false;
-            _throw = true;
         }
     }
 
@@ -107,15 +108,18 @@ public class Pickup : MonoBehaviour, IInteractable, ILMBInteractable
 
     private void Update()
     {
-        if (useSpring)
+        //if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        //    Spawn();
+
+        if (springActive)
         {
             spring.Update(Time.deltaTime);
             transform.localScale = spring.Value * scale;
-            timerspring -= Time.deltaTime;
-            if ( timerspring <= 0)
+            timer -= Time.deltaTime;
+            if (timer <= 0)
             {
                 transform.localScale = scale;
-                useSpring = false;
+                springActive = false;
             }
         }
 
@@ -137,5 +141,20 @@ public class Pickup : MonoBehaviour, IInteractable, ILMBInteractable
     private void OnDestroy()
     {
         Interactor.OnDestroy(this);
+    }
+
+    public void Spawn()
+    {
+        springActive = true;
+
+        timer = DisableTime;
+        spring = new Spring();
+        spring.SetTarget(1f);
+        spring.SetDamper(springDamper);
+        spring.SetStrength(springStrength);
+        spring.SetVelocity(springVelocity);
+        spring.SetValue(start);
+        //transform.localScale = spring.Value * scale;
+        transform.localScale = scale * start;
     }
 }

@@ -13,6 +13,9 @@ public class Hanger : MonoBehaviour
     const string Tag = "Hangable";
     Transform child;
 
+    public int num;
+    public int num2;
+
     private void Start()
     {
         child = transform.GetChild(0);
@@ -33,6 +36,8 @@ public class Hanger : MonoBehaviour
 
     private void Update()
     {
+        num = nearby.Count;
+        num2 = 0;
         Transform remove = null;
 
         foreach (Rigidbody rb in nearby.Values)
@@ -42,9 +47,10 @@ public class Hanger : MonoBehaviour
             && Interactor.CurrentInteractable.transform != rb.transform))
             {
                 rb.velocity = rb.transform.position.DirectionTo_NoNormalize(child.position) * force;
+                num2++;
             }
-            else
-                remove = rb.transform;
+            //else
+            //    remove = rb.transform;
         }
 
         if (remove != null)

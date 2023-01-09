@@ -21,8 +21,9 @@ public class StructureGen : MonoBehaviour
     public float sphereCastRadius = 10f;
 
     [Space]
-    public GameObject[] coastalStructurePrefabs;
-    public GameObject[] inlandStructurePrefabs;
+    public BiomeStructures grasslandStructures;
+    public BiomeStructures desertStructures;
+    public BiomeStructures snowStructures;
 
     [Space]
     public bool gizmos;
@@ -144,6 +145,8 @@ public class StructureGen : MonoBehaviour
         List<Vector3> positions = new List<Vector3>(coastalStructures);
         List<Vector3> directions = new List<Vector3>(coastalStructures);
 
+        BiomeStructures current = Current();
+
         for (int i = 0; i < coastalStructures && attempts > 0; i++, attempts--)
         {
             Vector3 pt = Random.insideUnitCircle.normalized;
@@ -166,7 +169,7 @@ public class StructureGen : MonoBehaviour
             //Debug.Log("Gen coastal " + i);
             positions.Add(hit.point);
             directions.Add(angle);
-            Spawn(coastalStructurePrefabs[Random.Range(0, coastalStructurePrefabs.Length)], hit);
+            Spawn(current.coastalStructures[Random.Range(0, current.coastalStructures.Length)], hit);
             //structures.Add(Instantiate(coastalStructure, hit.point, Quaternion.identity));
         }
     }
@@ -174,9 +177,11 @@ public class StructureGen : MonoBehaviour
     void GenInland()
     {
         int attempts = 1000;
-        List<Vector3> positions = new List<Vector3>(inlandStructures);
+        List<Vector3> positions = new List<Vector3>(inlandStructures + 1);
 
-        for (int i = 0; i < inlandStructures && attempts > 0; i++, attempts--)
+        BiomeStructures current = Current();
+
+        for (int i = 0; i < inlandStructures + 1 && attempts > 0; i++, attempts--)
         {
             Vector3 pt = Random.insideUnitSphere.Flattened() * radius;
             pt.y = 1000;
@@ -188,7 +193,10 @@ public class StructureGen : MonoBehaviour
 
             //Debug.Log("Gen inland " + i);
             positions.Add(hit.point);
-            Spawn(inlandStructurePrefabs[Random.Range(0, inlandStructurePrefabs.Length)], hit);
+            if (i == 0)
+                Spawn(current.merchant, hit);
+            else
+                Spawn(current.inlandStructures[Random.Range(0, current.inlandStructures.Length)], hit);
             //structures.Add(Instantiate(inlandStructure, hit.point, Quaternion.identity));
         }
     }
@@ -227,5 +235,28 @@ public class StructureGen : MonoBehaviour
             Gizmos.DrawCube(Vector3.up * seaLevel, new Vector3(2000, 1, 2000));
             Gizmos.DrawWireSphere(Vector3.up * seaLevel, radius);
         }
+    }
+
+    BiomeStructures Current()
+    {
+        switch (ProcGen.instance.currentBiome)
+        {
+            case Biome.Grasslands:
+                return grasslandStructures;
+            case Biome.Desert:
+                return desertStructures;
+            case Biome.Snow:
+                return snowStructures;
+        }
+
+        throw new System.Exception();
+    }
+
+    [System.Serializable]
+    public class BiomeStructures
+    {
+        public GameObject merchant;
+        public GameObject[] coastalStructures;
+        public GameObject[] inlandStructures;
     }
 }

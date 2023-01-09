@@ -82,6 +82,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ad150136dfe5a6849ba8a43b313020c8,
+        type: 3}
+      propertyPath: m_TagString
+      value: ShipObject
+      objectReference: {fileID: 0}
     - target: {fileID: 2492030350272917094, guid: ad150136dfe5a6849ba8a43b313020c8,
         type: 3}
       propertyPath: m_Layer
@@ -159,7 +164,7 @@ MonoBehaviour:
   minVelocityVolume: 0.1
   maxVolVelocity: 15
   maxVol: 1
---- !u!114 &-2605052906761890628
+--- !u!114 &-1142456052386698818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,11 +173,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8941055042905898903}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 664da0bd21e308e4aa7bc2056eb68c3c, type: 3}
+  m_Script: {fileID: 11500000, guid: c18d6ff4342bc7243a06caabcce1a17c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tags:
-  - ShipObject
+  onShelf: 0
+  scaleSpeed: 3
+  smallSize: 0.25
 --- !u!114 &831349282477254706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,21 +214,6 @@ MonoBehaviour:
   carryRange: 2
   throwForce: 7.5
   useSpring: 1
-  springStrength: 50
-  springVelocity: 10
-  springDamper: 6
---- !u!114 &-1142456052386698818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8941055042905898903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18d6ff4342bc7243a06caabcce1a17c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onShelf: 0
-  scaleSpeed: 3
-  smallSize: 0.25
+  springStrength: 30
+  springVelocity: 1
+  springDamper: 10

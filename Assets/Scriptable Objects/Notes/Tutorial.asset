@@ -19,18 +19,18 @@ MonoBehaviour:
     Mouse: Look
 
     LMB/Space:
-    Shoot grapple/throw object
+    Interact/throw object
 
-    RMB/R/F: Interact
+    RMB/E/F: Shoot grapple/drop object
 
     ESC: Pause
 
 
-    Use the
-    grapple hooks to capture floating caches for fuel, resources etc.
+    Use
+    the grapple hooks to capture floating caches for fuel, resources etc.
 
-    Fuel the
-    boiler.
+    Fuel
+    the boiler.
 
     Dock at points of interest.
 

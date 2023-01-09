@@ -178,10 +178,9 @@ GameObject:
   - component: {fileID: 1891927203992044188}
   - component: {fileID: 5415630025817573992}
   - component: {fileID: 2509923964889800872}
-  - component: {fileID: 9118124005522184429}
   m_Layer: 9
   m_Name: DoNut
-  m_TagString: Untagged
+  m_TagString: ShipObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -234,10 +233,11 @@ MonoBehaviour:
   carryForce: 10
   useMass: 0
   carryRange: 2
+  throwForce: 5
   useSpring: 1
-  springStrength: 50
-  springVelocity: 10
-  springDamper: 6
+  springStrength: 30
+  springVelocity: 1
+  springDamper: 10
 --- !u!64 &2509923964889800872
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -252,17 +252,3 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6510839796755108485, guid: 1bb59b8af013d8846a07adf1d8e91618, type: 3}
---- !u!114 &9118124005522184429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6971088551302814353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 664da0bd21e308e4aa7bc2056eb68c3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tags:
-  - ShipObject

@@ -711,17 +711,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 27a239d31d325cd44b6031a9b01a9789,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.2446046
+      value: -1541.357
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 27a239d31d325cd44b6031a9b01a9789,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.358
+      value: 2.421
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 27a239d31d325cd44b6031a9b01a9789,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.95538765
+      value: -938.809
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 27a239d31d325cd44b6031a9b01a9789,
         type: 3}
@@ -864,10 +864,11 @@ MonoBehaviour:
   carryForce: 10
   useMass: 0
   carryRange: 2
-  useSpring: 0
-  springStrength: 50
-  springVelocity: 10
-  springDamper: 6
+  throwForce: 7
+  start: 1
+  springStrength: 0
+  springVelocity: 0
+  springDamper: 0
 --- !u!4 &8985747700501980132 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 27a239d31d325cd44b6031a9b01a9789,

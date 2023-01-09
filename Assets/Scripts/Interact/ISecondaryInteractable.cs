@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ILMBInteractable
+public interface ISecondaryInteractable
 {
-    void OnLMBInteract();
+    void OnSecondaryInteract();
 }

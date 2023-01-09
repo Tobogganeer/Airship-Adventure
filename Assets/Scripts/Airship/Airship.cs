@@ -56,7 +56,7 @@ public class Airship : MonoBehaviour, ISaveable
     // Inspector References
     // ====================
     [Space(10), Header("==- References -==")]
-    [Rename("Pickup Spawn Position")]
+    [Rename("Player Spawn Position")]
     public Transform spawnCrapHere; // Place on the ship to spawn cargo (temporary)
     public Transform enemyPOI;
     public GrappleHook leftHook; // Grapple hooks
@@ -67,7 +67,10 @@ public class Airship : MonoBehaviour, ISaveable
     public List<Transform> attachedObjects; // Objects that the ship should move (crates, rat etc)
     public GameObject nukePrefab;
     public GameObject destroyedShipPrefab;
-    [SerializeField] VisualEffect _SmokeExsaust;
+    //[SerializeField] VisualEffect _SmokeExsaust;
+    public VisualEffect[] smokeEffects;
+    public ItemPipe leftPipe;
+    public ItemPipe rightPipe;
 
 
     // ====================
@@ -247,8 +250,11 @@ public class Airship : MonoBehaviour, ISaveable
 
             if (Mathf.Abs(Turn) < 2f)
             {
+                Turn = deltaAngle / Time.deltaTime;
                 DockingSystem.Docked = true;
-                _SmokeExsaust.Stop();
+                //_SmokeExsaust.Stop();
+                foreach (VisualEffect vfx in smokeEffects)
+                    vfx.Stop();
                 //HUD.SetDepartureIndicator(true);
             }
         }
@@ -281,7 +287,8 @@ public class Airship : MonoBehaviour, ISaveable
 
         if (DockingSystem.RecentlyDocked == true)
         {
-            _SmokeExsaust.Play();
+            foreach (VisualEffect vfx in smokeEffects)
+                vfx.Play();
         }
 
         MovePlayer(delta, Turn);
@@ -313,12 +320,15 @@ public class Airship : MonoBehaviour, ISaveable
             if (obj.position.SqrDistance(transform.position) >
                 attachedObjectMaxDistance * attachedObjectMaxDistance)
             {
+                /*
                 obj.position = spawnCrapHere.position;
                 if (obj.TryGetComponent(out Rigidbody rb))
                 {
                     rb.velocity = Vector3.zero;
                     rb.angularVelocity = Vector3.zero;
                 }
+                */
+                Spawn(obj.gameObject);
             }
         }
 
@@ -399,5 +409,16 @@ public class Airship : MonoBehaviour, ISaveable
     public void Load(ByteBuffer buf)
     {
         throw new System.NotImplementedException();
+    }
+
+    public static void Spawn(GameObject obj)
+    {
+        if (!obj.TryGetComponent(out Rigidbody rb))
+            throw new System.ArgumentException("Spawned object must have a Rigidbody!");
+
+        if (Random.value > 0.5f)
+            instance.leftPipe.Spawn(rb);
+        else
+            instance.rightPipe.Spawn(rb);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShipObjects : MonoBehaviour
 {
     public List<Transform> objects = new List<Transform>();
+    Vector3 lastVelocity;
     //Dictionary<Transform, Rigidbody> rigidbodies = new Dictionary<Transform, Rigidbody>();
 
     private void OnTriggerEnter(Collider other)
@@ -21,12 +22,15 @@ public class ShipObjects : MonoBehaviour
         if (objects.Contains(other.transform))
         {
             objects.Remove(other.transform);
+            other.GetComponent<Rigidbody>().velocity += lastVelocity;
             //rigidbodies.Remove(other.transform);
         }
     }
 
     public void MoveObjects(Vector3 delta, float y)
     {
+        lastVelocity = delta / Time.deltaTime;
+
         // Moves kids
         for (int i = objects.Count; i > 0;)
         {

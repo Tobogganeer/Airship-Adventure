@@ -131,10 +131,10 @@ MonoBehaviour:
   useMass: 0
   carryRange: 2
   throwForce: 5
-  useSpring: 0
-  springStrength: 50
-  springVelocity: 10
-  springDamper: 6
+  start: 1
+  springStrength: 0
+  springVelocity: 0
+  springDamper: 0
 --- !u!114 &5580762943002753387
 MonoBehaviour:
   m_ObjectHideFlags: 0
