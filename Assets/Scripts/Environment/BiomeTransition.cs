@@ -35,6 +35,9 @@ public class BiomeTransition : MonoBehaviour
         ProcGen.instance.currentBiome = currentBiome;
         ProcGen.instance.Gen();
 
+        for (int i = 0; i < 10; i++)
+            yield return null;
+
         HUD.SetLoading(false);
         //SetIcon();
     }

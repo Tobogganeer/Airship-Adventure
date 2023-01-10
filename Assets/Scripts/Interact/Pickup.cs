@@ -16,7 +16,7 @@ public class Pickup : MonoBehaviour, IInteractable, ISecondaryInteractable
     public float carryForce = 10f;
     public bool useMass = false;
     public float carryRange = 2;
-    public float throwForce = 5f;
+    public float throwForce = 7.5f;
 
     [Header("Spawning")]
     public float start = 0f;

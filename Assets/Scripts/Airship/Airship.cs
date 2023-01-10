@@ -353,7 +353,7 @@ public class Airship : MonoBehaviour, ISaveable
 
         // VVV Move and rotate the ship itself
         Transform.position += delta;
-        Transform.Rotate(Vector3.up * Turn * Time.deltaTime);
+        Transform.Rotate(Vector3.up * y * Time.deltaTime);
     }
 
     float GetSpeed()
