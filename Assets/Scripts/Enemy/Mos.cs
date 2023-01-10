@@ -16,26 +16,49 @@ public class Mos : MonoBehaviour
 
     private void Start()
     {
-        target = Airship.instance.enemyPOIs[Random.Range(0, Airship.instance.enemyPOIs.Length)];
+        //target = Airship.instance.enemyPOIs[Random.Range(0, Airship.instance.enemyPOIs.Length)];
+
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+
+        foreach(Transform potentialTarget in Airship.instance.enemyPOIs)
+        {
+            Vector3 directionToTarget = potentialTarget.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                target = potentialTarget;
+            }
+        }
+
+
     }
 
     private void LateUpdate()
     {
         if (docked)
         {
-            desired = Quaternion.RotateTowards(desired, target.rotation, Time.deltaTime * 180);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, Time.deltaTime * 45);
             transform.position = target.position;
-            //transform.LookAt(target);
-            //transform.Rotate(desired);
-            transform.rotation = desired;
+
+            /* private void OnCollisionEnter(Collision collision)
+            {
+                float mag = collision.relativeVelocity.magnitude;
+                if (mag < minVelocity) return;
+            }
+            */
+
+            //Check ridged body mass and make that affect that with the speed, this is to prevent the latern from killing the mos 
+
         }
         else
         {
             transform.LookAt(target);
-
+            
             transform.position = Vector3.MoveTowards(transform.position, target.position, (Time.deltaTime * speed));
             
-            if (Vector3.Distance(transform.position, target.position) < 2)
+            if (Vector3.Distance(transform.position, target.position) < .1f)
             {
                 docked = true;
             }
