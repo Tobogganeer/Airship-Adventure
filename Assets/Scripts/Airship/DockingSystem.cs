@@ -11,6 +11,7 @@ public class DockingSystem : MonoBehaviour
     public static DockingSystem ActiveSystem;
 
     public float dockingDistance = 15f;
+    public Transform dockOrigin;
     public Transform dockTo;
     public Transform releaseTo;
     bool InRange => Airship.instance != null ? transform.position.SqrDistance(
@@ -191,10 +192,12 @@ public class DockingSystem : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        if (!dockOrigin) return;
+
         if (InRange)
             Gizmos.color = Color.yellow;
         else
             Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position, dockingDistance);
+        Gizmos.DrawWireSphere(dockOrigin.position, dockingDistance);
     }
 }

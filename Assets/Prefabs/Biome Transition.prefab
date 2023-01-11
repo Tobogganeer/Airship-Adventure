@@ -316,7 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dir: 0
   currentBiome: 0
-  tpOffset: 250
+  tpDistance: -3000
   grasslandsIcon: {fileID: 6750972448045445834}
   desertIcon: {fileID: 8271986462561768086}
   snowIcon: {fileID: 449502580206628864}

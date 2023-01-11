@@ -60,7 +60,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2916687493020684324}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &2916687493020684323
 GameObject:
@@ -92,6 +92,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7677419422114842784}
+  - {fileID: 2921810224745425937}
   - {fileID: 2916687492744475292}
   - {fileID: 7829443172531554709}
   - {fileID: 5986772005160599234}
@@ -111,7 +112,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dockingDistance: 40
-  dockTo: {fileID: 7677419422114842784}
+  dockOrigin: {fileID: 7677419422114842784}
+  dockTo: {fileID: 2921810224745425937}
   releaseTo: {fileID: 2916687492744475292}
   debug_shipMesh: {fileID: -7436536173005492603, guid: b65f1678f19ede04ba67e62dc581c040,
     type: 3}
@@ -125,7 +127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7677419422114842784}
   m_Layer: 0
-  m_Name: Dock ship to
+  m_Name: Dock Origin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,7 +179,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2916687493020684324}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6612809119074149537
 MeshFilter:
@@ -261,7 +263,7 @@ Transform:
   - {fileID: 6751607894125175210}
   - {fileID: 1036132641448830450}
   m_Father: {fileID: 2916687493020684324}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9046329785112854456
 MonoBehaviour:
@@ -323,4 +325,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5986772005160599234}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8768759496110419837
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2921810224745425937}
+  m_Layer: 0
+  m_Name: Dock To
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2921810224745425937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8768759496110419837}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.220001, y: -18.08, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2916687493020684324}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

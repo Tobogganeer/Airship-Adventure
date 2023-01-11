@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2944798745890423977}
   m_Layer: 12
   m_Name: South
-  m_TagString: Untagged
+  m_TagString: No Crash Alarm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 4404392289404394692}
   m_Layer: 12
   m_Name: West
-  m_TagString: Untagged
+  m_TagString: No Crash Alarm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -793,7 +793,7 @@ GameObject:
   - component: {fileID: 774539140284871050}
   m_Layer: 12
   m_Name: East
-  m_TagString: Untagged
+  m_TagString: No Crash Alarm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -925,7 +925,7 @@ GameObject:
   - component: {fileID: 9076942656979547922}
   m_Layer: 12
   m_Name: North
-  m_TagString: Untagged
+  m_TagString: No Crash Alarm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1102,6 +1102,11 @@ PrefabInstance:
       propertyPath: tpOffset
       value: -250
       objectReference: {fileID: 0}
+    - target: {fileID: 2343767444862534973, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: tpDistance
+      value: 3500
+      objectReference: {fileID: 0}
     - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
         type: 3}
       propertyPath: m_RootOrder
@@ -1189,6 +1194,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7562004694175510310}
     m_Modifications:
+    - target: {fileID: 2343767444862534973, guid: 2600ca4284cd86944b4f6e05b869dfd7,
+        type: 3}
+      propertyPath: tpDistance
+      value: -3500
+      objectReference: {fileID: 0}
     - target: {fileID: 6084130707692292303, guid: 2600ca4284cd86944b4f6e05b869dfd7,
         type: 3}
       propertyPath: m_RootOrder

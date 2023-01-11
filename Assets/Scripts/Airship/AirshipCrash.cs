@@ -30,8 +30,9 @@ public class AirshipCrash : MonoBehaviour
 
     private void Update()
     {
-        NearTerrain = Physics.SphereCast(new Ray(transform.position, transform.forward), alarmRadius, GetAlarmRange(), terrainLayerMask);
-        NearTerrainVertical = Physics.SphereCast(new Ray(vertDetector.position, vertDetector.forward), alarmRadius, vertRange, terrainLayerMask);
+        const string Tag = "No Crash Alarm";
+        NearTerrain = Physics.SphereCast(new Ray(transform.position, transform.forward), alarmRadius, out RaycastHit hit, GetAlarmRange(), terrainLayerMask) && !hit.collider.HasTag(Tag);
+        NearTerrainVertical = Physics.SphereCast(new Ray(vertDetector.position, vertDetector.forward), alarmRadius, out hit, vertRange, terrainLayerMask) && !hit.collider.HasTag(Tag);
     }
 
 

@@ -2956,7 +2956,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1356212369}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.958}
+  m_LocalPosition: {x: -0, y: 0, z: -1.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12121,18 +12121,18 @@ MonoBehaviour:
   hookGrabbingTurnAmount: 0.1
   attachedObjectMaxDistance: 50
   baseSpeed: 7
-  minHeightSpeed: 15
-  maxHeightSpeed: 4
+  minHeightSpeed: 4
+  maxHeightSpeed: 5
   nitrousSpeedMult: 3
-  fuelBurnRate: 0.5
+  fuelBurnRate: 1
   burnRateHeightMult: 0.5
   startingFuel: 0.75
-  maxFuel: 180
+  maxFuel: 300
   maxNox: 30
-  startingSecondsOfFuel: 270
-  maxSecondsOfFuel: 360
-  maxSecondsOfFuelMinHeight: 540
-  maxSecondsOfFuelMaxHeight: 180
+  startingSecondsOfFuel: 225
+  maxSecondsOfFuel: 300
+  maxSecondsOfFuelMinHeight: 450
+  maxSecondsOfFuelMaxHeight: 150
   currentFuelBurnRate: 0
   spawnCrapHere: {fileID: 538852776}
   enemyPOI: {fileID: 0}

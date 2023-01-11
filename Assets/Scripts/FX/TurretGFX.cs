@@ -15,6 +15,7 @@ public class TurretGFX : MonoBehaviour
     public Transform shaft;
     public Transform head;
     public float winchSpeed = 100f;
+    public float winchAccel = 3f;
 
     float winch;
     float winchSpeedSmooth;
@@ -49,10 +50,10 @@ public class TurretGFX : MonoBehaviour
     void Winch()
     {
         if (hook.grabbing && !hook.targetOnHook)
-            winchSpeedSmooth = Mathf.Lerp(winchSpeedSmooth, winchSpeed, Time.deltaTime * 5);
+            winchSpeedSmooth = Mathf.Lerp(winchSpeedSmooth, winchSpeed, Time.deltaTime * winchAccel);
         //winch += Time.deltaTime * winchSpeed;
         else
-            winchSpeedSmooth = Mathf.Lerp(winchSpeedSmooth, -winchSpeed, Time.deltaTime * 5);
+            winchSpeedSmooth = Mathf.Lerp(winchSpeedSmooth, -winchSpeed, Time.deltaTime * winchAccel);
         winch += Time.deltaTime * winchSpeedSmooth;
         winch = Mathf.Max(winch, 0);
         winchGear.localRotation = Quaternion.Euler(-winch, 0, -90);

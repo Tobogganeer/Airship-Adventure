@@ -191,8 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ffed331adf50254f873c97434f9c295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minFuel: 20
-  maxFuel: 40
+  minFuel: 30
+  maxFuel: 60
   fuel: 0
   oilLevelRenderer: {fileID: 401414407130713184}
   levelAtMin: 0.4
@@ -213,7 +213,7 @@ MonoBehaviour:
   useMass: 0
   carryRange: 2
   throwForce: 7.5
-  useSpring: 1
+  start: 0
   springStrength: 30
   springVelocity: 1
   springDamper: 10

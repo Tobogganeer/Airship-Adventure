@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BiomeTransition : MonoBehaviour
 {
     public Direction dir;
     [ReadOnly] public Biome currentBiome;
-    public float tpOffset = 250;
+    public float tpDistance = 3000;
 
     [Space]
     public GameObject grasslandsIcon;
@@ -30,8 +31,9 @@ public class BiomeTransition : MonoBehaviour
         for (int i = 0; i < 10; i++)
             yield return null;
 
-        float offset = dir == Direction.North ? tpOffset : -tpOffset;
-        Airship.MoveAllObjects(Airship.Transform.position.WithZ(-Airship.Transform.position.z + offset));
+        //float offset = dir == Direction.North ? tpOffset : -tpOffset;
+        //Airship.MoveAllObjects(Airship.Transform.position.WithZ(-Airship.Transform.position.z + offset));
+        Airship.MoveAllObjects(Airship.Transform.position.WithZ(transform.position.z + tpDistance));
         ProcGen.instance.currentBiome = currentBiome;
         ProcGen.instance.Gen();
 
@@ -105,6 +107,8 @@ public class BiomeTransition : MonoBehaviour
     {
         Gizmos.color = Color.red;
         //Gizmos.DrawWireSphere(transform.position + transform.forward * -tpOffset, 30f);
-        Gizmos.DrawWireSphere(transform.position.WithZ(-transform.position.z + tpOffset), 30f);
+        //Gizmos.DrawWireSphere(transform.position.WithZ(-transform.position.z + tpOffset), 30f);
+        Gizmos.DrawWireSphere(transform.position.WithZ(transform.position.z + tpDistance), 30f);
+        Gizmos.DrawLine(transform.position, transform.position.WithZ(transform.position.z + tpDistance));
     }
 }

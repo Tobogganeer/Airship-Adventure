@@ -9,6 +9,7 @@ TagManager:
   - ShipObject
   - Record
   - Crate
+  - No Crash Alarm
   layers:
   - Default
   - TransparentFX

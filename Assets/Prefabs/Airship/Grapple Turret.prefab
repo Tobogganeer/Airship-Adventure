@@ -744,7 +744,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 41623afb33d71e946b14a6a2223f5eda,
         type: 3}
       propertyPath: m_Name
-      value: Left Grapple Turret
+      value: Grapple Turret
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41623afb33d71e946b14a6a2223f5eda, type: 3}
@@ -788,6 +788,7 @@ MonoBehaviour:
   shaft: {fileID: 1455346800121922200}
   head: {fileID: 7538306809238313678}
   winchSpeed: 1080
+  winchAccel: 2
   gearOffset: {x: 0, y: 0, z: -90}
   gearFactor: {x: -1, y: 0, z: 0}
 --- !u!114 &1082152280
