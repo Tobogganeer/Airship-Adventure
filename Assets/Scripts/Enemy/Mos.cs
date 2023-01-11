@@ -8,6 +8,7 @@ public class Mos : MonoBehaviour
     public float speed = 12f;
     public float FuelsuckRate = 2f;
     public float FuelsuckAmmt = 4f;
+    public float minVelocity = 1f;
     private float Fuelsucktrckr;
     private bool dockedyet;
     private bool DoneorDead;
@@ -49,14 +50,14 @@ public class Mos : MonoBehaviour
     {
         if (DoneorDead)
         {
-            transform.position -= new Vector3(0, 15, 0) * Time.deltaTime;
+            //transform.position -= new Vector3(0, 15, 0) * Time.deltaTime;
             if ( transform.position.y < -110)
             {
                 Destroy(gameObject);
             }
         }
 
-        if (docked)
+        if (docked && !DoneorDead)
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, Time.deltaTime * 45);
             transform.position = target.position;
@@ -70,6 +71,9 @@ public class Mos : MonoBehaviour
                     docked = false;
                     DoneorDead = true;
                     FuelsuckRate = 0f;
+                    Rigidbody rb = GetComponent<Rigidbody>();
+                    rb.isKinematic = false;
+                    rb.AddTorque(Ran(100));
                 }
 
             }
@@ -77,14 +81,7 @@ public class Mos : MonoBehaviour
 
             // When destoryed
             //transform.position -= new Vector3(0, 15, 0) * Time.deltaTime;
-
-
-            /* private void OnCollisionEnter(Collision collision)
-            {
-                float mag = collision.relativeVelocity.magnitude;
-                if (mag < minVelocity) return;
-            }
-            */
+            
 
             //Check ridged body mass and make that affect that with the speed, this is to prevent the latern from killing the mos 
 
@@ -112,6 +109,36 @@ public class Mos : MonoBehaviour
         //        (Airship.instance.enemyPOI.position) * (Time.deltaTime);
         
     }
+
+    Vector3 Ran(float lim = 360) => new Vector3(
+        UnityEngine.Random.Range(-lim, lim),
+        UnityEngine.Random.Range(-lim, lim),
+        UnityEngine.Random.Range(-lim, lim));
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (DoneorDead) return;
+
+        float mag = collision.relativeVelocity.magnitude;
+        // collision.rigidbody.mass
+        if (mag > minVelocity)
+        {
+            Debug.Log("Hit Item at: " + mag);
+
+            // Hp code, take into account mass etc
+            // Kinetic energy m * v^2
+
+            // if (should die idk hp < 0)
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.isKinematic = false;
+            rb.AddTorque(Ran() * 3);
+            float force = 10f;
+            //rb.AddForce(collision.contacts[0].normal * force, ForceMode.VelocityChange);
+            rb.velocity = collision.rigidbody.velocity * 2f;
+            DoneorDead = true;
+        }
+    }
+
 
     private void OnEnable()
     {
