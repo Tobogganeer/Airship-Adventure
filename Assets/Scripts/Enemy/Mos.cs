@@ -9,14 +9,15 @@ public class Mos : MonoBehaviour
     public float FuelsuckRate = 2f;
     public float FuelsuckAmmt = 4f;
     public float minVelocity = 1f;
+    public float MosHp = 100f;
+
     private float Fuelsucktrckr;
     private bool dockedyet;
     private bool DoneorDead;
-    //public Vector3 rot = new Vector3(0, -90, 0);
-    //public Vector3 movement = new Vector3(0, 0, 5f); // Speed of the mos
-    //Vector3 desired;
-    Quaternion desired;
     bool docked;
+
+    Quaternion desired;
+    
 
     public static int NumEnemys;
     Transform target;
@@ -50,7 +51,6 @@ public class Mos : MonoBehaviour
     {
         if (DoneorDead)
         {
-            //transform.position -= new Vector3(0, 15, 0) * Time.deltaTime;
             if ( transform.position.y < -110)
             {
                 Destroy(gameObject);
@@ -78,13 +78,6 @@ public class Mos : MonoBehaviour
 
             }
 
-
-            // When destoryed
-            //transform.position -= new Vector3(0, 15, 0) * Time.deltaTime;
-            
-
-            //Check ridged body mass and make that affect that with the speed, this is to prevent the latern from killing the mos 
-
         }
         else
         {
@@ -104,9 +97,6 @@ public class Mos : MonoBehaviour
                 dockedyet = true;
             }
         }
-
-        //delta = transform.position.DirectionTo_NoNormalize
-        //        (Airship.instance.enemyPOI.position) * (Time.deltaTime);
         
     }
 
@@ -117,25 +107,30 @@ public class Mos : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+
         if (DoneorDead) return;
+        if (collision.collider.HasTag"NoMosDamage") return;
 
-        float mag = collision.relativeVelocity.magnitude;
-        // collision.rigidbody.mass
-        if (mag > minVelocity)
+        float mass = GetComponent<Rigidbody>().mass;
+        float velocity = collision.rigidbody.velocity.magnitude;
+        float KE = (mass * 0.5f) * (velocity * velocity);
+
+        if (KE > minVelocity)
         {
-            Debug.Log("Hit Item at: " + mag);
+            Debug.Log("Hit Item at: " + KE);
 
-            // Hp code, take into account mass etc
-            // Kinetic energy m * v^2
+            MosHp -= KE;
 
-            // if (should die idk hp < 0)
+            if (MosHp < 0) 
+            { 
             Rigidbody rb = GetComponent<Rigidbody>();
+
             rb.isKinematic = false;
             rb.AddTorque(Ran() * 3);
-            float force = 10f;
-            //rb.AddForce(collision.contacts[0].normal * force, ForceMode.VelocityChange);
             rb.velocity = collision.rigidbody.velocity * 2f;
+
             DoneorDead = true;
+            }
         }
     }
 
