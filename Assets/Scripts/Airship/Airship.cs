@@ -58,7 +58,7 @@ public class Airship : MonoBehaviour, ISaveable
     [Space(10), Header("==- References -==")]
     [Rename("Player Spawn Position")]
     public Transform spawnCrapHere; // Place on the ship to spawn cargo (temporary)
-    public Transform enemyPOI;
+    public Transform[] enemyPOIs;
     public GrappleHook leftHook; // Grapple hooks
     public GrappleHook rightHook;
     public Wheel wheel;

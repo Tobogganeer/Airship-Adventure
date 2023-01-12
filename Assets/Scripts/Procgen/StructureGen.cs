@@ -239,6 +239,8 @@ public class StructureGen : MonoBehaviour
 
     BiomeStructures Current()
     {
+        if (ProcGen.instance == null) return grasslandStructures;
+
         switch (ProcGen.instance.currentBiome)
         {
             case Biome.Grasslands:

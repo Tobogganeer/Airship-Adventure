@@ -33,6 +33,7 @@ public class Altitude : MonoBehaviour, IInteractable
 
     //public static float AirshipHeightFactor { get; private set; }
     public static float AirshipHeightFactor { get; private set; }
+    public static float DesiredAirshipHeight { get; private set; }
 
     bool IInteractable.FixedPosition => true;
     public bool IsInteracting { get; set; }
@@ -64,6 +65,7 @@ public class Altitude : MonoBehaviour, IInteractable
         {
             fuelHeight += speed * noFuelSpeedMult * Time.deltaTime;
             fuelHeight = Mathf.Clamp(fuelHeight, -0.5f, height);
+            tilt = Mathf.Lerp(tilt, 0, Time.deltaTime * tiltSpeed);
         }
         
         if (IsInteracting)
@@ -72,7 +74,6 @@ public class Altitude : MonoBehaviour, IInteractable
             height = Mathf.Clamp01(height);
             //tilt -= tiltSpeed * Time.deltaTime;
             //tilt = Mathf.Clamp(tilt, 0, 15);
-            tilt = Mathf.Lerp(tilt, 0, Time.deltaTime * tiltSpeed);
         }
 
         float usedHeight = Airship.Fuel <= 0 ? fuelHeight : height;
@@ -92,6 +93,7 @@ public class Altitude : MonoBehaviour, IInteractable
     {
         float usedHeight = Airship.Fuel <= 0 ? fuelHeight : height;
         float desired = Remap.Float(usedHeight, 0, 1, -actualHeightRange, actualHeightRange);
+        DesiredAirshipHeight = desired;
         float delta = desired - Airship.Transform.position.y;
         Airship.instance.movement.y = Mathf.Lerp(Airship.instance.movement.y, Mathf.Clamp(delta, -maxAirshipSpeed, maxAirshipSpeed), Time.deltaTime * airshipAccel);
 

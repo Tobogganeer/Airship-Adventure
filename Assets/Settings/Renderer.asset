@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    color: {r: 0.75359154, g: 0.7924528, b: 0.72890705, a: 1}
+    color: {r: 0.7878948, g: 0.8123528, b: 0.7706032, a: 1}
     sunColor: {r: 1, g: 1, b: 1, a: 1}
     fogDensity: 0.0001
     fogDensityPower: 0.75
@@ -127,10 +127,10 @@ MonoBehaviour:
   m_AssetVersion: 1
   m_OpaqueLayerMask:
     serializedVersion: 2
-    m_Bits: 16375
+    m_Bits: 49143
   m_TransparentLayerMask:
     serializedVersion: 2
-    m_Bits: 16375
+    m_Bits: 49143
   m_DefaultStencilState:
     overrideStencilState: 0
     stencilReference: 0
@@ -159,14 +159,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    color: {r: 0.38951987, g: 0.38951987, b: 0.38951987, a: 0.38039216}
-    sunColor: {r: 0.7262234, g: 0.70971996, b: 0.66351014, a: 1}
+    color: {r: 0.5133833, g: 0.5133833, b: 0.5133833, a: 0.38039216}
+    sunColor: {r: 0.86847067, g: 0.8422722, b: 0.77143705, a: 1}
     fogDensity: 0.01
     fogDensityPower: 0.2
     skyAlpha: 0
     useHeightFog: 1
     fogHeightStart: -100
-    fogHeightEnd: 115
+    fogHeightEnd: 76.638626
     fogHeightPower: 0.2
     extraFogHeightEnd: -50
     extraFogHeightPower: 0.9

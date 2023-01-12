@@ -869,6 +869,20 @@ MonoBehaviour:
   springStrength: 0
   springVelocity: 0
   springDamper: 0
+--- !u!114 &8376747593163747544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8644687248664852830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 664da0bd21e308e4aa7bc2056eb68c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - NoMosDamage
 --- !u!4 &8985747700501980132 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 27a239d31d325cd44b6031a9b01a9789,

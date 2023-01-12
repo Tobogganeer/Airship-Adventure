@@ -10,7 +10,8 @@ public class ItemPipe : MonoBehaviour
     public Vector3 defaultRot = new Vector3(0, 180, 0);
     public Vector3 ejectRot = new Vector3(-40, 180, 0);
     public float raiseTime = 1f;
-    public float raiseSpeed = 90f;
+    public float raiseSpeed = 135f;
+    public float lowerSpeed = 90f;
     float timer;
     Quaternion rot;
 
@@ -47,7 +48,7 @@ public class ItemPipe : MonoBehaviour
         else
         {
             //ramp.localRotation = Quaternion.RotateTowards(ramp.localRotation, Quaternion.Euler(defaultRot), Time.deltaTime * raiseSpeed);
-            rot = Quaternion.RotateTowards(rot, Quaternion.Euler(defaultRot), Time.deltaTime * raiseSpeed);
+            rot = Quaternion.RotateTowards(rot, Quaternion.Euler(defaultRot), Time.deltaTime * lowerSpeed);
             ramp.localRotation = Quaternion.Slerp(ramp.localRotation, rot, Time.deltaTime * 5);
         }
     }

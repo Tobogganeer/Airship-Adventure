@@ -15,10 +15,11 @@ public class BiomeTransition : MonoBehaviour
     public GameObject snowIcon;
 
     [ReadOnly] public bool active;
+    bool travelling;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.HasTag("Player") && active)
+        if (other.HasTag("Player") && active && !travelling)
         {
             StartCoroutine(Transition());
         }
@@ -27,9 +28,12 @@ public class BiomeTransition : MonoBehaviour
     IEnumerator Transition()
     {
         HUD.SetLoading(true);
+        travelling = true;
 
         for (int i = 0; i < 10; i++)
             yield return null;
+
+        Debug.Log("GOING TO " + currentBiome);
 
         //float offset = dir == Direction.North ? tpOffset : -tpOffset;
         //Airship.MoveAllObjects(Airship.Transform.position.WithZ(-Airship.Transform.position.z + offset));
@@ -41,6 +45,7 @@ public class BiomeTransition : MonoBehaviour
             yield return null;
 
         HUD.SetLoading(false);
+        travelling = false;
         //SetIcon();
     }
 

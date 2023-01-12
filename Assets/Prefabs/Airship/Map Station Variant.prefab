@@ -285,10 +285,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <InteractFrom>k__BackingField: {fileID: 4716877462358118147}
   speed: 0.1
+  noFuelSpeedMult: 0.3
+  tiltSpeed: 0.2
+  maxTilt: 20
   heightGauge: {fileID: 6307073254646471275}
   shipGauge: {fileID: 8092240782340308827}
-  gaugeRange: 0.43
-  actualHeightRange: 50
+  gaugeRange: 0.46
+  actualHeightRange: 60
   materialHeightRange: 0.2
   materialBase: -0.19
   mapPanel: {fileID: 0}

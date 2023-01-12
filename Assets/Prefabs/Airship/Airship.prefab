@@ -1516,7 +1516,8 @@ MonoBehaviour:
   defaultRot: {x: 0, y: 180, z: 0}
   ejectRot: {x: -40, y: 180, z: 0}
   raiseTime: 1
-  raiseSpeed: 90
+  raiseSpeed: 135
+  lowerSpeed: 90
   rampMesh: {fileID: -16918687083978472, guid: 0adb96d4a276ea24d90192510183a617, type: 3}
 --- !u!1 &796852203
 GameObject:
@@ -1859,7 +1860,8 @@ MonoBehaviour:
   defaultRot: {x: 0, y: 180, z: 0}
   ejectRot: {x: -40, y: 180, z: 0}
   raiseTime: 1
-  raiseSpeed: 90
+  raiseSpeed: 135
+  lowerSpeed: 90
   rampMesh: {fileID: -5362623816518320635, guid: 0adb96d4a276ea24d90192510183a617,
     type: 3}
 --- !u!1 &918341427
@@ -8893,6 +8895,37 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!1 &243761830311509964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4906745065962752067}
+  m_Layer: 0
+  m_Name: Left Rear
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4906745065962752067
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243761830311509964}
+  m_LocalRotation: {x: -0, y: 0.7071065, z: -0, w: 0.7071071}
+  m_LocalPosition: {x: -4.16, y: 3.86, z: 8.14}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8988102627556724293}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1340409681157414530
 GameObject:
   m_ObjectHideFlags: 0
@@ -9315,6 +9348,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0635777, y: 0.76049817, z: 0.6671286}
   m_Center: {x: -0.0000000059571965, y: 0.11975095, z: -0.14128628}
+--- !u!1 &3965045616205352296
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8199975315758884009}
+  m_Layer: 0
+  m_Name: Left Front
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8199975315758884009
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3965045616205352296}
+  m_LocalRotation: {x: -0, y: 0.7071065, z: -0, w: 0.7071071}
+  m_LocalPosition: {x: -4.556, y: 0.967, z: -4.958}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8988102627556724293}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &4988769012797248072
 GameObject:
   m_ObjectHideFlags: 0
@@ -9663,6 +9727,103 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.3393745, y: 1.1164194, z: 3.1572006}
   m_Center: {x: -0.21128011, y: 0.20370261, z: -0.022315137}
+--- !u!1 &7443790937161961745
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1856825623449487418}
+  m_Layer: 0
+  m_Name: Right Rear
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1856825623449487418
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7443790937161961745}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 4.16, y: 3.86, z: 8.14}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8988102627556724293}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!1 &7461503024570140592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8988102627556724293}
+  m_Layer: 0
+  m_Name: Enemy POIs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8988102627556724293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7461503024570140592}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4906745065962752067}
+  - {fileID: 1856825623449487418}
+  - {fileID: 8199975315758884009}
+  - {fileID: 980383290539464487}
+  m_Father: {fileID: 3648660446061838670}
+  m_RootOrder: 36
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7487601193889059827
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 980383290539464487}
+  m_Layer: 0
+  m_Name: Right Front
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &980383290539464487
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7487601193889059827}
+  m_LocalRotation: {x: -0, y: 0.7071065, z: -0, w: 0.7071071}
+  m_LocalPosition: {x: -4.556, y: 0.967, z: -4.958}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8988102627556724293}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &7825657212066761478
 GameObject:
   m_ObjectHideFlags: 0
@@ -12135,7 +12296,11 @@ MonoBehaviour:
   maxSecondsOfFuelMaxHeight: 150
   currentFuelBurnRate: 0
   spawnCrapHere: {fileID: 538852776}
-  enemyPOI: {fileID: 0}
+  enemyPOIs:
+  - {fileID: 4906745065962752067}
+  - {fileID: 1856825623449487418}
+  - {fileID: 8199975315758884009}
+  - {fileID: 980383290539464487}
   leftHook: {fileID: 3830342429134162976}
   rightHook: {fileID: 7005722760718494782}
   wheel: {fileID: 2036556688}

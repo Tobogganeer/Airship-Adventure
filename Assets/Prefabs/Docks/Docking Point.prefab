@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 7829443172531554709}
   - component: {fileID: 6612809119074149537}
   - component: {fileID: 6862667131321448566}
+  - component: {fileID: 5875115223170394957}
   m_Layer: 14
   m_Name: Map Icon
   m_TagString: Untagged
@@ -231,6 +232,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5875115223170394957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6113665183735928436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca446595c86c7744beed26f92f9b515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nearColour: {r: 0.29434183, g: 0.8018868, b: 0.23073156, a: 1}
+  farColour: {r: 0.8018868, g: 0.12482201, b: 0.26476797, a: 1}
+  nearbyRange: 5
+  compHeightTo: {fileID: 2921810224745425937}
 --- !u!1 &6629036805511091765
 GameObject:
   m_ObjectHideFlags: 0
