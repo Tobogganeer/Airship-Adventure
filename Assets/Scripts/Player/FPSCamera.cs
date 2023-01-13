@@ -55,13 +55,16 @@ public class FPSCamera : MonoBehaviour
     Vector3 pos;
     Quaternion rot;
     Quaternion sprintRot;
+    Camera cam;
+    float fovMult = 1;
 
     private void Start()
     {
         eyeHeight = lookTransform.localPosition.y;
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
-        GetComponent<Camera>().fieldOfView = SettingsFOV;
+        cam = GetComponent<Camera>();
+        cam.fieldOfView = SettingsFOV;
     }
 
     private void Update()
@@ -77,6 +80,8 @@ public class FPSCamera : MonoBehaviour
 
         lookTransform.localPosition = pos + Vector3.up * eyeHeight;
         lookTransform.localRotation = rot * sprintRot;
+
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, SettingsFOV * fovMult, Time.deltaTime * 10f);
     }
 
     private void SensControls()
@@ -151,6 +156,11 @@ public class FPSCamera : MonoBehaviour
         //Vector3 pos = Random.insideUnitSphere.Flattened().normalized * CamDist;
         //transform.position = Transform.position + pos + Vector3.up * CamHeight;
         //transform.LookAt(Transform.position);
+    }
+
+    public static void SetFOV(float mult01)
+    {
+        instance.fovMult = mult01;
     }
 
     /*

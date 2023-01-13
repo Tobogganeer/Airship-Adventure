@@ -2,7 +2,10 @@
 Screenshots working
 Skybox fog maybe
 New caches
-Kill mos on dock
-Mos anims
 Snow
 Northern lights
+Screen shake explosion
+TP to ship when touching terrain or water (or die)
+Enlongen docks
+Buff sun
+Desert visibility

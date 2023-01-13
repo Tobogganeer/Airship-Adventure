@@ -50,7 +50,9 @@ public class Altitude : MonoBehaviour, IInteractable
 
     void Update()
     {
-        if (Airship.Fuel <= 0)
+        FPSCamera.SetFOV(IsInteracting ? 0.4f : 1f);
+
+        if (Airship.Fuel <= 0 && !Airship.Docked)
         {
             IsInteracting = false;
             //height -= speed * noFuelSpeedMult * Time.deltaTime;

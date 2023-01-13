@@ -278,7 +278,7 @@ public class Airship : MonoBehaviour, ISaveable
             Turn = Mathf.Clamp(deltaAngle, -dockingTurnSpeed, dockingTurnSpeed);
             //Turn /= 2;
 
-            if (Mathf.Abs(Turn) < 2f)
+            if (Mathf.Abs(Turn) < 2f) // CHECK THIS FOR MVMT TOO
             {
                 DockingSystem.RecentlyDocked = false;
                 //HUD.SetDepartureIndicator(true);
