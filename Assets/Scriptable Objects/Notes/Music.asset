@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
   m_Name: Music
   m_EditorClassIdentifier: 
-  type: 0
+  type: 8
   title: Like the Music?
   description: "I don\u2019t care if you don\u2019t like my music, but you gotta
     keep it playing. The turning of the gears is maddening. Now I may be dead and

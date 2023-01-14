@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
   m_Name: Credits
   m_EditorClassIdentifier: 
-  type: 0
+  type: 3
   title: Credits
   description: ADD THEM HERE
   internalNotes: 

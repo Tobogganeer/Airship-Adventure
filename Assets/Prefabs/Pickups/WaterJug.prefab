@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 74525569889220154}
-  m_Mesh: {fileID: -6564086670116265437, guid: bf7c75cca2d2b0f4db3fc3b73a25324c, type: 3}
+  m_Mesh: {fileID: -6564086670116265437, guid: 223634ad5ea77004aa953b62892d1cd1, type: 3}
 --- !u!23 &406235598699425418
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -94,11 +94,10 @@ GameObject:
   - component: {fileID: 6752198966078255072}
   - component: {fileID: 6502661654496657264}
   - component: {fileID: 6502661654496657265}
-  - component: {fileID: -1076955774990768942}
-  - component: {fileID: 5804557660506368581}
+  - component: {fileID: 6346260206643062111}
   m_Layer: 9
   m_Name: WaterJug
-  m_TagString: Untagged
+  m_TagString: ShipObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,27 +150,12 @@ MonoBehaviour:
   carryForce: 10
   useMass: 0
   carryRange: 2
+  throwForce: 5
   useSpring: 1
-  springStrength: 50
-  springVelocity: 10
-  springDamper: 6
---- !u!114 &-1076955774990768942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6268854017056240986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18d6ff4342bc7243a06caabcce1a17c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Desiredsize: 0
-  scaleSpeed: 3
-  ShelfSize: 0.25
-  NormSize: 1
---- !u!64 &5804557660506368581
+  springStrength: 30
+  springVelocity: 1
+  springDamper: 10
+--- !u!64 &6346260206643062111
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -184,7 +168,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -6564086670116265437, guid: bf7c75cca2d2b0f4db3fc3b73a25324c, type: 3}
+  m_Mesh: {fileID: 5360547440341672820, guid: 223634ad5ea77004aa953b62892d1cd1, type: 3}
 --- !u!1 &8272307086916520302
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +209,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8272307086916520302}
-  m_Mesh: {fileID: 5360547440341672820, guid: bf7c75cca2d2b0f4db3fc3b73a25324c, type: 3}
+  m_Mesh: {fileID: 5360547440341672820, guid: 223634ad5ea77004aa953b62892d1cd1, type: 3}
 --- !u!23 &5152644687637173382
 MeshRenderer:
   m_ObjectHideFlags: 0

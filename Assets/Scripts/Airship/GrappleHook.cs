@@ -118,7 +118,7 @@ public class GrappleHook : MonoBehaviour, IInteractable
         {
             cam.aimingAtTarget = true;
 
-            if (PlayerInputs.Primary && !grabbing && !Cursor.visible)
+            if (PlayerInputs.Secondary && !grabbing && !Cursor.visible)
             {
                 grabbedTarget = hit.transform;
                 grabbedPos = hit.transform.position.DirectionTo_NoNormalize(hit.point);

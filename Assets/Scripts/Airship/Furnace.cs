@@ -16,9 +16,9 @@ public class Furnace : MonoBehaviour
             // If the other object is fuel, add fuel to the ship and destroy it
         }
 
-        if (other.TryGetComponent(out NOS obj))
+        if (other.TryGetComponent(out Nox nox))
         {
-            Airship.NosTank = Mathf.Max(Airship.NosTank, 0) + 15;
+            Airship.Nox += nox.amount;
             Destroy(other.gameObject);
             // If the other object is fuel, add fuel to the ship and destroy it
         }

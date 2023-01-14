@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
     // Not used rn, gonna be for screenshots
     //public GameObject mainHud;
     public TMPro.TMP_InputField seedField;
+    public TMPro.TMP_Dropdown biomeDropdown;
 
     // VVV Called every time the menu is loaded
     private void Start()
@@ -23,6 +24,8 @@ public class MainMenu : MonoBehaviour
             ProcGen.mainMenuSeed = int.Parse(seedField.text);
         else
             ProcGen.mainMenuSeed = 0;
+        ProcGen.mainMenuBiome = (Biome)biomeDropdown.value;
+        ProcGen.useMainMenuBiome = true;
         SceneManager.LoadLevel(Level.Game);
     }
 

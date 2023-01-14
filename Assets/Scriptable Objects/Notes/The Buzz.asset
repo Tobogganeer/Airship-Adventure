@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
   m_Name: The Buzz
   m_EditorClassIdentifier: 
-  type: 0
+  type: 13
   title: The Buzz
   description: "God Damn Buzzers, for a deadman I usually am pretty chull, or I guess
     it\u2019s Chill I never know. But those bugs. They eat the fuel that is worked

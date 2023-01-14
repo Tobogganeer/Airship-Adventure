@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
   m_Name: Stars
   m_EditorClassIdentifier: 
-  type: 0
+  type: 10
   title: Gotta Stop and Smell the Stars
   description: "Well sometimes you know, gotta stop and smell the stars? Or however
     that old saying went. Poetry or sayings don matter when everyones dead I guess.

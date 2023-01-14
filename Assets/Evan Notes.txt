@@ -1,8 +1,15 @@
 
-Nate notes (all copied)
-Ship tilting when low on fuel
-Different fuel consumption at max and min
-Proper dock
 Screenshots working
-Radio or speaker
-Rhys' end explosion
+Skybox fog maybe
+New caches
+//Kill mos on dock
+//Mos anims
+Snow
+Northern lights
+Music
+//Mos noises
+//email files
+credits
+water crashing
+Cam zoom
+Music system

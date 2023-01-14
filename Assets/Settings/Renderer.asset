@@ -15,8 +15,8 @@ MonoBehaviour:
   m_Active: 1
   settings:
     resolutionScale: 0.3
-    intensity: 0.15
-    blurWidth: 0.15
+    intensity: 0.5
+    blurWidth: 1
 --- !u!114 &-1878332245247344467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,8 +54,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    color: {r: 0.5344117, g: 0.637203, b: 0.7450885, a: 1}
-    sunColor: {r: 0.6286545, g: 0.6069941, b: 0.5476857, a: 1}
+    color: {r: 0.7878948, g: 0.8123528, b: 0.7706032, a: 1}
+    sunColor: {r: 1, g: 1, b: 1, a: 1}
     fogDensity: 0.0001
     fogDensityPower: 0.75
     skyAlpha: 0
@@ -159,14 +159,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    color: {r: 0.52626085, g: 0.5633978, b: 0.5693303, a: 1}
-    sunColor: {r: 0.6286545, g: 0.6069941, b: 0.5476857, a: 1}
+    color: {r: 0.5133833, g: 0.5133833, b: 0.5133833, a: 0.38039216}
+    sunColor: {r: 0.86847067, g: 0.8422722, b: 0.77143705, a: 1}
     fogDensity: 0.01
-    fogDensityPower: 0.1
+    fogDensityPower: 0.2
     skyAlpha: 0
     useHeightFog: 1
     fogHeightStart: -100
-    fogHeightEnd: 95.47887
+    fogHeightEnd: 76.638626
     fogHeightPower: 0.2
     extraFogHeightEnd: -50
     extraFogHeightPower: 0.9

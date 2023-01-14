@@ -1,13 +1,6 @@
--Food
--Water
--Ship running out of fuel dives down like plane
--Fix up cahce spawner system ( Better spawning, tracking of differant types of chaces)
 -Shelves in basement perhaps shrink the item bafo 1/10 so it can be place on shelf with ease
--Clouds move with the ship 
 -When ship crashes zoom out to see whole ship and play a explosion shader thing
 -If needed taris basement
 -Slight inventory system
--Nitros Chace, with nitros tank that is toggelable to make the ship move faster 
+-Nitros Chace, with nitros tank to make the ship move faster 
 -Lever for speed change but cant go to a standstill 
--Nukelear bomb when ship crashes 
--When shrinking objects that use liquid shader shrink liquid volume with them 

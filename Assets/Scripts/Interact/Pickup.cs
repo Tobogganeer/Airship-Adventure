@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Pickup : MonoBehaviour, IInteractable
+public class Pickup : MonoBehaviour, IInteractable, ISecondaryInteractable
 {
     bool IInteractable.FixedPosition => false;
     public bool IsInteracting { get; set; }
@@ -16,37 +16,55 @@ public class Pickup : MonoBehaviour, IInteractable
     public float carryForce = 10f;
     public bool useMass = false;
     public float carryRange = 2;
+    public float throwForce = 7.5f;
 
     [Header("Spawning")]
-    public bool useSpring = true;
-    public float springStrength = 50f;
-    public float springVelocity = 10f;
-    public float springDamper = 6f;
-    private float timerspring = 3f;
+    public float start = 0f;
+    public float springStrength = 30f;
+    public float springVelocity = 1f;
+    public float springDamper = 10f;
+
+    const float DisableTime = 2.0f;
+    float timer;
+    bool springActive;
+    //public Vector3 scale = Vector3.one;
     Vector3 scale;
+    //Quaternion rot;
+    //Vector3 rot;
     //bool blasto;
 
+    bool _throw;
+
     const float MaxRange = 6f;
+
+    private void Awake()
+    {
+        scale = transform.localScale;
+    }
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        if (useSpring)
-        {
-            spring = new Spring();
-            spring.SetTarget(1f);
-            spring.SetDamper(springDamper);
-            spring.SetStrength(springStrength);
-            spring.SetVelocity(springVelocity);
-            scale = transform.localScale;
-            transform.localScale = spring.Value * scale;
-        }
+        //scale = transform.localScale;
     }
 
     public void OnInteract()
     {
         IsInteracting = !IsInteracting;
+        if (!IsInteracting)
+            _throw = true;
+        //rot = transform.rotation;
+        //rot = transform.eulerAngles;
+        //rot = Quaternion.FromToRotation(Interactor.InteractFrom.forward, transform.forward);
         //blasto = IsInteracting == false;
+    }
+
+    public void OnSecondaryInteract()
+    {
+        if (IsInteracting)
+        {
+            IsInteracting = false;
+        }
     }
 
     private void FixedUpdate()
@@ -60,7 +78,10 @@ public class Pickup : MonoBehaviour, IInteractable
         {
             rb.useGravity = false;
             Vector3 targetPos = Interactor.InteractFrom.position + Interactor.InteractFrom.forward * carryRange;
-            Quaternion targetRot = Interactor.InteractFrom.rotation;// * relRot;
+            Quaternion targetRot = Interactor.InteractFrom.rotation;
+            //Quaternion targetRot = rot * Interactor.InteractFrom.rotation;
+            //Quaternion targetRot = Quaternion.Euler(Interactor.InteractFrom.eulerAngles + rot);
+
 
             //interpolate to the target position using velocity
             float mass = useMass ? rb.mass : 1f;
@@ -68,7 +89,8 @@ public class Pickup : MonoBehaviour, IInteractable
 
             //keep the relative rotation the same
             //rb.rotation = targetRot;
-            rb.rotation = Quaternion.Slerp(rb.rotation, targetRot, Time.deltaTime * 10f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 10f);
+            //transform.rotation = targetRot;
 
             //no spinning around
             rb.angularVelocity = Vector3.zero;
@@ -76,20 +98,28 @@ public class Pickup : MonoBehaviour, IInteractable
         else
         {
             rb.useGravity = true;
+            if (_throw)
+            {
+                _throw = false;
+                rb.AddForce(Interactor.InteractFrom.forward * throwForce, ForceMode.VelocityChange);
+            }
         }
     }
 
     private void Update()
     {
-        if (useSpring)
+        //if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        //    Spawn();
+
+        if (springActive)
         {
             spring.Update(Time.deltaTime);
             transform.localScale = spring.Value * scale;
-            timerspring -= Time.deltaTime;
-            if ( timerspring <= 0)
+            timer -= Time.deltaTime;
+            if (timer <= 0)
             {
                 transform.localScale = scale;
-                useSpring = false;
+                springActive = false;
             }
         }
 
@@ -111,5 +141,20 @@ public class Pickup : MonoBehaviour, IInteractable
     private void OnDestroy()
     {
         Interactor.OnDestroy(this);
+    }
+
+    public void Spawn()
+    {
+        springActive = true;
+
+        timer = DisableTime;
+        spring = new Spring();
+        spring.SetTarget(1f);
+        spring.SetDamper(springDamper);
+        spring.SetStrength(springStrength);
+        spring.SetVelocity(springVelocity);
+        spring.SetValue(start);
+        //transform.localScale = spring.Value * scale;
+        transform.localScale = scale * start;
     }
 }

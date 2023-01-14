@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Hangable
   - Structure
+  - ShipObject
+  - Record
+  - Crate
+  - No Crash Alarm
+  - NoMosDamage
   layers:
   - Default
   - TransparentFX

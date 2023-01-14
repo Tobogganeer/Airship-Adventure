@@ -27,11 +27,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6688411938076862989}
-  m_LocalRotation: {x: 0.14810619, y: -0.2557585, z: 0.039684933, w: 0.95450366}
+  m_LocalRotation: {x: 0.1511041, y: -0.25563255, z: 0.04048822, w: 0.9540337}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8504909213179960737}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 21.864, y: -30, z: 0}
@@ -47,7 +48,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.9578636
+  m_Intensity: 2.95617
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -130,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LensFlareData: {fileID: 11400000, guid: 29f1592e5ff2bf041a8bbc6f28d19b23, type: 2}
-  intensity: 0.9859545
+  intensity: 1.182468
   maxAttenuationDistance: 100
   maxAttenuationScale: 100
   distanceAttenuationCurve:
@@ -233,7 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e26c2cde7bb594998506a69258f869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baker: {fileID: 0}
+  baker: {fileID: 8504909213179960739}
   skyboxMaterial: {fileID: 2100000, guid: d3596c99960084e4596d0d09a977c6cc, type: 2}
   timeOfDay: 0.05
   speed: 0.0033333334
@@ -294,7 +295,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.35150626
+      time: 0.3553924
       value: 0
       inSlope: -0
       outSlope: -0
@@ -303,8 +304,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.18729533
     - serializedVersion: 3
-      time: 0.48194054
-      value: 0.32010528
+      time: 0.50578314
+      value: 0.52995485
       inSlope: -0.023331324
       outSlope: -0.023331324
       tangentMode: 0
@@ -312,7 +313,7 @@ MonoBehaviour:
       inWeight: 0.11601013
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.57595384
+      time: 0.5517229
       value: 0
       inSlope: 0
       outSlope: 0
@@ -440,10 +441,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  fogColour:
+  fogColourGrasslands:
     serializedVersion: 2
     key0: {r: 0.38951987, g: 0.38951987, b: 0.38951987, a: 1}
-    key1: {r: 0.8537736, g: 0.9798585, b: 1, a: 1}
+    key1: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
     key2: {r: 0.754717, g: 0.754717, b: 0.754717, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0.05258248, g: 0.05258248, b: 0.05258248, a: 0}
@@ -469,7 +470,123 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 6
     m_NumAlphaKeys: 2
-  borderFogColour:
+  fogColourDesert:
+    serializedVersion: 2
+    key0: {r: 0.7169812, g: 0.6229718, b: 0.5309719, a: 1}
+    key1: {r: 0.6981132, g: 0.4956941, b: 0.23380208, a: 1}
+    key2: {r: 0.6226415, g: 0.39391026, b: 0.26726595, a: 0}
+    key3: {r: 0.28235295, g: 0.11372549, b: 0.07450981, a: 0}
+    key4: {r: 0.4056604, g: 0.1549929, b: 0.29857144, a: 0}
+    key5: {r: 0.7176471, g: 0.62352943, b: 0.5294118, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 11125
+    ctime2: 30942
+    ctime3: 46240
+    ctime4: 59625
+    ctime5: 65535
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 6
+    m_NumAlphaKeys: 2
+  fogColourSnow:
+    serializedVersion: 2
+    key0: {r: 0.4188323, g: 0.4831892, b: 0.49056602, a: 1}
+    key1: {r: 0.8537736, g: 0.9798585, b: 1, a: 1}
+    key2: {r: 0.754717, g: 0.754717, b: 0.754717, a: 0}
+    key3: {r: 0.13077827, g: 0.1302065, b: 0.20754719, a: 0}
+    key4: {r: 0.13576896, g: 0.18896165, b: 0.254717, a: 0}
+    key5: {r: 0.41960785, g: 0.48235294, b: 0.49019608, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 11125
+    ctime2: 30942
+    ctime3: 46453
+    ctime4: 59625
+    ctime5: 65535
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 6
+    m_NumAlphaKeys: 2
+  borderFogColourGrasslands:
+    serializedVersion: 2
+    key0: {r: 0.75359154, g: 0.7924528, b: 0.72890705, a: 1}
+    key1: {r: 0.834902, g: 0.8396226, b: 0.82774115, a: 1}
+    key2: {r: 0.5471698, g: 0.33810964, b: 0.49083114, a: 0}
+    key3: {r: 0.15378287, g: 0.18849403, b: 0.2929773, a: 0}
+    key4: {r: 0.7529412, g: 0.7921569, b: 0.7294118, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 14602
+    ctime2: 46935
+    ctime3: 60320
+    ctime4: 65535
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 5
+    m_NumAlphaKeys: 2
+  borderFogColourDesert:
+    serializedVersion: 2
+    key0: {r: 1, g: 0.8656978, b: 0.7311321, a: 1}
+    key1: {r: 0.9245283, g: 0.65620023, b: 0.53640085, a: 1}
+    key2: {r: 0.5566038, g: 0.35209307, b: 0.24417052, a: 0}
+    key3: {r: 0.6792453, g: 0.31078678, b: 0.47476387, a: 0}
+    key4: {r: 1, g: 0.8666667, b: 0.7294118, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 14602
+    ctime2: 46935
+    ctime3: 60320
+    ctime4: 65535
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 5
+    m_NumAlphaKeys: 2
+  borderFogColourSnow:
     serializedVersion: 2
     key0: {r: 0.47231892, g: 0.5640041, b: 0.6713346, a: 1}
     key1: {r: 0.7490196, g: 0.8901961, b: 1, a: 1}
@@ -569,6 +686,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  desertFogExtraHeight: 30
   flare: {fileID: 6688411938076863217}
   heightFog: {fileID: 6022545821692632820, guid: c40be3174f62c4acf8c1216858c64956,
     type: 2}
@@ -577,4 +695,85 @@ MonoBehaviour:
   lightData: {fileID: 6688411938076863218}
   lightIntensityMult: 1.5
   flareIntensityMult: 0.6
-  cubemapBakeTime: 1
+  cubemapBakeAngle: 0.5
+  desertSmoke: {fileID: 0}
+--- !u!1 &8504909213179960767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8504909213179960737}
+  - component: {fileID: 8504909213179960766}
+  - component: {fileID: 8504909213179960739}
+  m_Layer: 0
+  m_Name: Env Reflection Probe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8504909213179960737
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504909213179960767}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6688411938076863219}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!215 &8504909213179960766
+ReflectionProbe:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504909213179960767}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Type: 0
+  m_Mode: 1
+  m_RefreshMode: 2
+  m_TimeSlicingMode: 2
+  m_Resolution: 256
+  m_UpdateFrequency: 0
+  m_BoxSize: {x: 10, y: 10, z: 10}
+  m_BoxOffset: {x: 0, y: 0, z: 0}
+  m_NearClip: 0.1
+  m_FarClip: 1000
+  m_ShadowDistance: 100
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 1, g: 0, b: 0.6380305, a: 0}
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_IntensityMultiplier: 1
+  m_BlendDistance: 0
+  m_HDR: 1
+  m_BoxProjection: 0
+  m_RenderDynamicObjects: 0
+  m_UseOcclusionCulling: 0
+  m_Importance: 1
+  m_CustomBakedTexture: {fileID: 0}
+--- !u!114 &8504909213179960739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504909213179960767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2473c58ba5f22ed4e869e1c3aba337be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reflectionProbe: {fileID: 8504909213179960766}
+  target: {fileID: 8400000, guid: 8626f64790e122941849f180ed15856c, type: 2}

@@ -7,11 +7,19 @@ public class JournalCreator : MonoBehaviour
     public GameObject prefab;
     public Note[] notes;
 
-    void Start()
+    public static Dictionary<Note.Type, Note> noteDict = new Dictionary<Note.Type, Note>();
+
+    void Awake()
     {
+        noteDict.Clear();
+
         for (int i = 0; i < notes.Length; i++)
         {
-            Instantiate(prefab, transform).GetComponent<JournalEntry>().note = notes[i];
+            GameObject obj = Instantiate(prefab, transform);
+            obj.GetComponent<JournalEntry>().note = notes[i];
+            Journal.Instance.entries.Add(notes[i], obj);
+            noteDict.Add(notes[i].type, notes[i]);
+            obj.SetActive(false);
         }
     }
 }

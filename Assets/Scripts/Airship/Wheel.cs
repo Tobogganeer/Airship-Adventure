@@ -8,13 +8,19 @@ public class Wheel : MonoBehaviour, IInteractable
     public Transform InteractFrom { get; set; }
     public float mult = 4f;
     public Vector3 axis = Vector3.right;
+    Vector3 init;
 
     bool IInteractable.FixedPosition => true;
     public bool IsInteracting { get; set; }
 
+    private void Start()
+    {
+        init = transform.localEulerAngles;
+    }
+
     void Update()
     {
-        transform.localRotation = Quaternion.Euler(axis * (mult * Airship.Turn));
+        transform.localRotation = Quaternion.Euler(init + axis * (mult * Airship.Turn));
     }
 
     public void OnInteract()

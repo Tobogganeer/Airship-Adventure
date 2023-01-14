@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public float airAcceleration = 1f;
     public float accelLerpSpeed = 5f;
     public float pushPower = 3f;
+    public float ladderSpeed = 2f;
 
     public LayerMask groundLayerMask;
 
@@ -86,6 +87,12 @@ public class PlayerMovement : MonoBehaviour
 
     public static float NormalizedSpeed { get; private set; }
     public static float AirTime { get; private set; }
+
+
+    // Accessed by Ladder.cs
+    /*[HideInInspector]*/ public bool touchingLadder;
+    [HideInInspector] public Vector3 ladderDir;
+    public float ladderDot;
 
     private void Start()
     {
@@ -173,6 +180,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
+        if (Airship.Crashed) return;
+
         Vector2 input = PlayerInputs.Movement;
 
         if (Cursor.visible)
@@ -189,27 +198,52 @@ public class PlayerMovement : MonoBehaviour
 
         desiredVelocity *= cur_speed;
 
-        y -= gravity * Time.deltaTime;
-
-        if (grounded)
+        if (touchingLadder)
         {
-            //y = -DOWNFORCE;
-            //CalculateDownForce();
-            y = -0.1f; // A small force because
-            // unless min move dist is 0, if the airship tilts
-            // (prob gonna add when out of fuel)
-            // the player will not move, i.e clip through the floor
+            airtime = 0;
 
-            if (!wasGrounded)
+            ladderDot = Vector3.Dot(desiredVelocity.normalized, ladderDir);
+            if (Vector3.Dot(desiredVelocity.normalized, ladderDir) > 0)
             {
-                // Just landed
-                OnLand?.Invoke(airtime);
-                FPSCamera.VerticalDip += Mathf.Lerp(0.0f, 2f, airtime * 0.6f);
-
-                airtime = 0;
+                y = ladderSpeed;
+                desiredVelocity = Vector3.zero;
+            }
+            else
+            {
+                if (grounded)
+                {
+                    y = -0.1f;
+                }
+                else
+                {
+                    y = -ladderSpeed;
+                }
             }
         }
-        else airtime += Time.deltaTime;
+        else
+        {
+            y -= gravity * Time.deltaTime;
+
+            if (grounded)
+            {
+                //y = -DOWNFORCE;
+                //CalculateDownForce();
+                y = -0.1f; // A small force because
+                           // unless min move dist is 0, if the airship tilts
+                           // (prob gonna add when out of fuel)
+                           // the player will not move, i.e clip through the floor
+
+                if (!wasGrounded)
+                {
+                    // Just landed
+                    OnLand?.Invoke(airtime);
+                    FPSCamera.VerticalDip += Mathf.Lerp(0.0f, 2f, airtime * 0.6f);
+
+                    airtime = 0;
+                }
+            }
+            else airtime += Time.deltaTime;
+        }
 
         
         //if (wasGrounded && !grounded)
@@ -237,13 +271,13 @@ public class PlayerMovement : MonoBehaviour
 
         float angle = Vector3.Angle(Vector3.up, groundNormal);
 
-        if (angle < slopeLimit && grounded)
+        if (angle < slopeLimit && grounded && !touchingLadder)
         {
             float speed = moveVelocity.magnitude;
             float dot = Vector3.Dot(moveVelocity, groundNormal);
             alignedVel = (moveVelocity - groundNormal * dot).normalized * speed;
-            before = moveVelocity;
-            after = alignedVel;
+            //before = moveVelocity;
+            //after = alignedVel;
         }
 
         controller.Move(alignedVel * Time.deltaTime);
@@ -252,8 +286,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void ReturnToShip()
     {
-        const float MaxDist = 100f;
-        if (transform.position.SqrDistance(Airship.Transform.position) > MaxDist * MaxDist)
+        const float MaxDist = 25f;
+        const float MaxDistDocked = 80f;
+        if (Airship.instance == null) return;
+
+
+        float dist = MaxDist;
+
+        if (Airship.Docked)
+            dist = MaxDistDocked;
+
+        if (transform.position.SqrDistance(Airship.Transform.position) > dist * dist)
         {
             controller.enabled = false;
             transform.position = Airship.instance.spawnCrapHere.position;
@@ -263,12 +306,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    Vector3 before;
-    Vector3 after;
+    //Vector3 before;
+    //Vector3 after;
 
     private void UpdateAcceleration()
     {
-        float target = grounded ? groundAcceleration : airAcceleration;
+        float target = grounded || touchingLadder ? groundAcceleration : airAcceleration;
 
         cur_accel = Mathf.Lerp(cur_accel, target, Time.deltaTime * accelLerpSpeed);
     }
@@ -327,9 +370,9 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.magenta;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * GroundedRayDist);
 
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawLine(transform.position, transform.position + before * 2);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, transform.position + after * 2);
+        //Gizmos.color = Color.magenta;
+        //Gizmos.DrawLine(transform.position, transform.position + before * 2);
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawLine(transform.position, transform.position + after * 2);
     }
 }

@@ -18,6 +18,8 @@ public class CollisionSound : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (Airship.Crashed) return;
+
         float mag = collision.relativeVelocity.magnitude;
         if (mag < minVelocity || Time.time - lastTime < MinTime) return;
 

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class AirshipCrash : MonoBehaviour
 {
-    [Layer]
-    public int terrainLayer;
-    int layerMask;
-    public float alarmRange = 150f;
+    //[Layer]
+    //public int terrainLayer;
+    public LayerMask terrainLayerMask;
+    //int layerMask;
+    //public float alarmRange = 150f;
+    public float alarmRangeSeconds = 15f;
     public float alarmRadius = 5f;
     public static bool NearTerrain;
     public static bool NearTerrainVertical;
@@ -19,21 +21,18 @@ public class AirshipCrash : MonoBehaviour
     [Space]
     public bool drawGizmos = true;
 
-    private void Start()
-    {
-        layerMask = 1 << terrainLayer;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == terrainLayer)
-            Airship.Crash("Crashed into terrain!", 3f);
+        if (terrainLayerMask.Contains(other.gameObject.layer))
+            Airship.Crash();
+            //Airship.Crash("Crashed into terrain!", 3f);
     }
 
     private void Update()
     {
-        NearTerrain = Physics.SphereCast(new Ray(transform.position, transform.forward), alarmRadius, alarmRange, layerMask);
-        NearTerrainVertical = Physics.SphereCast(new Ray(vertDetector.position, vertDetector.forward), alarmRadius, vertRange, layerMask);
+        const string Tag = "No Crash Alarm";
+        NearTerrain = Physics.SphereCast(new Ray(transform.position, transform.forward), alarmRadius, out RaycastHit hit, GetAlarmRange(), terrainLayerMask) && !hit.collider.HasTag(Tag);
+        NearTerrainVertical = Physics.SphereCast(new Ray(vertDetector.position, vertDetector.forward), alarmRadius, out hit, vertRange, terrainLayerMask) && !hit.collider.HasTag(Tag);
     }
 
 
@@ -52,6 +51,7 @@ public class AirshipCrash : MonoBehaviour
         //Gizmos.DrawWireSphere(transform.position, alarmRangeHorizontal);
         //Gizmos.DrawLine(transform.position + Vector3.up * alarmRangeVertical,
         //    transform.position + Vector3.down * alarmRangeVertical);
+        float alarmRange = GetAlarmRange();
         Gizmos.DrawWireSphere(transform.position, alarmRadius);
         Gizmos.DrawWireSphere(transform.position + transform.forward * alarmRange, alarmRadius);
         Gizmos.DrawLine(transform.position, transform.position + transform.forward * alarmRange);
@@ -62,5 +62,11 @@ public class AirshipCrash : MonoBehaviour
             Gizmos.DrawWireSphere(vertDetector.position + vertDetector.forward * vertRange, alarmRadius);
             Gizmos.DrawLine(vertDetector.position, vertDetector.position + vertDetector.forward * vertRange);
         }
+    }
+
+    float GetAlarmRange()
+    {
+        if (Airship.instance == null) return 150;
+        return alarmRangeSeconds * Airship.instance.movement.z;
     }
 }

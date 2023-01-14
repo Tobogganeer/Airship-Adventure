@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
   m_Name: Mountains
   m_EditorClassIdentifier: 
-  type: 0
+  type: 6
   title: Stop and Smell the Mountains
   description: "You ever wonder how the world looks? Well I do at least. Take a moment,
     stop adventuring, just stand still. Embrace nature Never again will land like

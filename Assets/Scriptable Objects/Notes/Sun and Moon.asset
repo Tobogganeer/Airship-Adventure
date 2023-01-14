@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
   m_Name: Sun and Moon
   m_EditorClassIdentifier: 
-  type: 0
+  type: 11
   title: Sun & Moon
   description: "It\u2019s interesting, you know. There used to be a legend you know,
     a story. That if the sun and moon stood still long enough in the sky. Perhaps

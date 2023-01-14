@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
   m_Name: Gregory
   m_EditorClassIdentifier: 
-  type: 0
+  type: 4
   title: A Note About Gregory
   description: "This ship I leave you has a special gift. A close friend of mine.
     Meet Gregory. I know I know humorous, a rat as a friend\u2026. But damn does

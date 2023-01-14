@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: -133508644727558282}
   m_Layer: 9
   m_Name: DoNut
-  m_TagString: Untagged
+  m_TagString: ShipObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -234,10 +234,11 @@ MonoBehaviour:
   carryForce: 10
   useMass: 0
   carryRange: 2
+  throwForce: 5
   useSpring: 1
-  springStrength: 50
-  springVelocity: 10
-  springDamper: 6
+  springStrength: 30
+  springVelocity: 1
+  springDamper: 10
 --- !u!64 &2509923964889800872
 MeshCollider:
   m_ObjectHideFlags: 0

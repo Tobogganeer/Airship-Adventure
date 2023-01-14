@@ -102,8 +102,18 @@ public class FPSCamera : MonoBehaviour
         //float y = Input.GetAxisRaw("Mouse Y");
         Vector2 look = PlayerInputs.Look;
 
+        if (Airship.Crashed)
+        {
+            playerBody.Rotate(Vector3.up * 10f * Time.deltaTime);
+            look.y = 0;
+            look.x *= 0.2f;
+            //transform.LookAt(Airship.Transform.position);
+        }
+
         playerBody.Rotate(Vector3.up * look.x * sensitivity);
         // Rotates the body horizontally
+
+        if (Airship.Crashed) return;
 
         yRotation = Mathf.Clamp(yRotation - look.y * sensitivity, -maxVerticalRotation, maxVerticalRotation);
         //float clampedRotWithRecoil = yRotation;
@@ -121,6 +131,26 @@ public class FPSCamera : MonoBehaviour
 
         //VerticalDip = Mathf.MoveTowards(VerticalDip, 0, Time.deltaTime * VertDipSpeed);
         VerticalDip = Mathf.Lerp(VerticalDip, 0, Time.deltaTime * VertDipSpeed);
+    }
+
+    public static void Nuke()
+    {
+        instance.Nuke_Instance();
+    }
+
+    void Nuke_Instance()
+    {
+        playerBody.rotation = Quaternion.identity;
+        transform.rotation = Quaternion.identity;
+
+        const float CamDist = 450f;
+        const float CamHeight = 100f;
+        transform.localPosition = new Vector3(0, CamHeight, -CamDist);
+        transform.LookAt(Airship.Transform.position);
+        playerBody.Rotate(Vector3.up * Random.Range(0, 360));
+        //Vector3 pos = Random.insideUnitSphere.Flattened().normalized * CamDist;
+        //transform.position = Transform.position + pos + Vector3.up * CamHeight;
+        //transform.LookAt(Transform.position);
     }
 
     /*
