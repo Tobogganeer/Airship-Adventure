@@ -35,6 +35,7 @@ public class Note : ScriptableObject
         WhatsThePoint,
         Altitude,
         Alarm,
-        Tutorial
+        Tutorial,
+        Safehaven
     }
 }

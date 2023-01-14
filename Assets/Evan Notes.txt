@@ -2,7 +2,14 @@
 Screenshots working
 Skybox fog maybe
 New caches
-Kill mos on dock
-Mos anims
+//Kill mos on dock
+//Mos anims
 Snow
 Northern lights
+Music
+//Mos noises
+//email files
+credits
+water crashing
+Cam zoom
+Music system

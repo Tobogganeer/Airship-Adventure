@@ -12,11 +12,16 @@ public class Mos : MonoBehaviour
     public float MosHp = 100f;
 
     private float Fuelsucktrckr;
-    private bool dockedyet;
+    //private bool dockedyet;
     private bool DoneorDead;
     bool docked;
 
     Quaternion desired;
+
+    [Space]
+    public Animator animator;
+    public AudioSource flapAudio;
+    public AudioSource suckAudio;
 
 
     public static int NumEnemys;
@@ -25,18 +30,19 @@ public class Mos : MonoBehaviour
     private void Start()
     {
         Fuelsucktrckr = 0;
-        dockedyet = false;
+        //dockedyet = false;
         DoneorDead = false;
 
         //target = Airship.instance.enemyPOIs[Random.Range(0, Airship.instance.enemyPOIs.Length)];
 
         float closestDistanceSqr = Mathf.Infinity;
-        Vector3 currentPosition = transform.position;
+        //Vector3 currentPosition = transform.position;
 
         foreach (Transform potentialTarget in Airship.instance.enemyPOIs)
         {
-            Vector3 directionToTarget = potentialTarget.position - currentPosition;
-            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            //Vector3 directionToTarget = potentialTarget.position - currentPosition;
+            //float dSqrToTarget = directionToTarget.sqrMagnitude;
+            float dSqrToTarget = transform.position.SqrDistance(potentialTarget.position);
             if (dSqrToTarget < closestDistanceSqr)
             {
                 closestDistanceSqr = dSqrToTarget;
@@ -49,8 +55,16 @@ public class Mos : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (Airship.Docked || Airship.Docking)
+        {
+            DoneorDead = true;
+        }
+
         if (DoneorDead)
         {
+            animator.SetBool("dead", true);
+            flapAudio.Stop();
+            suckAudio.Stop();
             if (transform.position.y < -110)
             {
                 Destroy(gameObject);
@@ -59,7 +73,12 @@ public class Mos : MonoBehaviour
 
         if (docked && !DoneorDead)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, Time.deltaTime * 45);
+            flapAudio.Stop();
+            if (!suckAudio.isPlaying)
+                suckAudio.Play();
+            animator.SetBool("docked", true);
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, Time.deltaTime * 180);
             transform.position = target.position;
 
             if (transform.rotation == target.rotation)
@@ -91,10 +110,10 @@ public class Mos : MonoBehaviour
 
             }
 
-            if (Vector3.Distance(transform.position, target.position) < .1f || dockedyet == false)
+            if (Vector3.Distance(transform.position, target.position) < .1f)
             {
                 docked = true;
-                dockedyet = true;
+                //dockedyet = true;
             }
         }
 

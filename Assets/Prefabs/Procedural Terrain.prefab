@@ -1061,7 +1061,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2049
   minCoastalStructureAngle: 20
-  maxHeight: 70
+  maxHeight: 60
   sphereCastRadius: 10
   grasslandStructures:
     merchant: {fileID: 5162908267636974354, guid: 8f0d79353bc3e0346aa5b038a9902462,

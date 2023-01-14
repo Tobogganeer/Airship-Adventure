@@ -94,9 +94,9 @@ GameObject:
   - component: {fileID: 1915352436947370776}
   - component: {fileID: 8975425149213108914}
   - component: {fileID: 583237620140093155}
-  - component: {fileID: 8800892987631351547}
   - component: {fileID: 8800892987631351546}
   - component: {fileID: 1246402139}
+  - component: {fileID: 159499391}
   m_Layer: 9
   m_Name: Rat
   m_TagString: Untagged
@@ -112,7 +112,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4768872674250427497}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.1718363e-16, y: 0, z: 0.08}
+  m_LocalPosition: {x: 0, y: -0.246, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -176,22 +176,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &8800892987631351547
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4768872674250427497}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 2
 --- !u!65 &8800892987631351546
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -220,6 +204,19 @@ MonoBehaviour:
   minFuel: 1000
   maxFuel: 1000
   fuel: 0
+--- !u!114 &159499391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4768872674250427497}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 254d33c9819735845a755dc56afded9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDist: 2
 --- !u!1 &8566519781543127945
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +268,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8566519781543127945}
   serializedVersion: 2
-  m_Mass: 2
+  m_Mass: 6
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -373,10 +370,10 @@ MonoBehaviour:
   useMass: 0
   carryRange: 2
   throwForce: 5
-  start: 0.1
+  start: 0.2
   springStrength: 30
   springVelocity: 0.5
-  springDamper: 15
+  springDamper: 25
 --- !u!114 &2632093773444121582
 MonoBehaviour:
   m_ObjectHideFlags: 0
