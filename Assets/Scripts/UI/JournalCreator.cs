@@ -5,12 +5,13 @@ using UnityEngine;
 public class JournalCreator : MonoBehaviour
 {
     public GameObject prefab;
-    public Note[] notes;
+    //public Note[] notes;
 
-    public static Dictionary<Note.Type, Note> noteDict = new Dictionary<Note.Type, Note>();
+    //public static Dictionary<Note.Type, Note> noteDict = new Dictionary<Note.Type, Note>();
 
-    void Awake()
+    void Start()
     {
+        /*
         noteDict.Clear();
 
         for (int i = 0; i < notes.Length; i++)
@@ -21,5 +22,6 @@ public class JournalCreator : MonoBehaviour
             noteDict.Add(notes[i].type, notes[i]);
             obj.SetActive(false);
         }
+        */
     }
 }

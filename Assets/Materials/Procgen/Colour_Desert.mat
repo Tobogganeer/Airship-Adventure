@@ -89,12 +89,12 @@ Material:
     - _Scale_Divider: 500
     - _Smoothness: 0.3
     m_Colors:
-    - _HighColour: {r: 0.8018868, g: 0.6572127, b: 0.5257654, a: 1}
+    - _HighColour: {r: 0.8018868, g: 0.6404287, b: 0.48794055, a: 1}
     - _HighColourHill: {r: 0.5849056, g: 0.5066311, b: 0.45523316, a: 1}
-    - _LowColour: {r: 0.76470596, g: 0.58431375, b: 0.3647059, a: 1}
-    - _LowColourHill: {r: 0.8396226, g: 0.73790073, b: 0.5980331, a: 1}
-    - _MidColour: {r: 0.6698113, g: 0.52698594, b: 0.42653078, a: 1}
-    - _MidColourHill: {r: 0.5849056, g: 0.5540485, b: 0.5159309, a: 1}
+    - _LowColour: {r: 0.509434, g: 0.37024084, b: 0.11294055, a: 1}
+    - _LowColourHill: {r: 0.1792453, g: 0.1623653, b: 0.11076006, a: 1}
+    - _MidColour: {r: 0.7924528, g: 0.6878023, b: 0.5719117, a: 1}
+    - _MidColourHill: {r: 1, g: 1, b: 1, a: 1}
     - _Normal_UV_Mult: {r: 1, g: 0.3, b: 0, a: 0}
     - _Steep_Colour: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
   m_BuildTextureStacks: []

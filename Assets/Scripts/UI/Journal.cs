@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SaveSystem;
 
 public class Journal : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class Journal : MonoBehaviour
     {
         get
         {
-            if (_instance == null)
-                _instance = FindObjectOfType<Journal>();
+            //if (_instance == null)
+            //    _instance = FindObjectOfType<Journal>();
             return _instance;
         }
     }
@@ -18,8 +19,30 @@ public class Journal : MonoBehaviour
 
     public TMPro.TMP_Text title;
     public TMPro.TMP_Text content;
+    public GameObject notePrefab;
+    public Transform noteHolder;
 
     public Dictionary<Note, GameObject> entries = new Dictionary<Note, GameObject>();
+
+    public Note[] notes;
+
+    public static Dictionary<Note.Type, Note> noteDict = new Dictionary<Note.Type, Note>();
+
+    private void Awake()
+    {
+        _instance = this;
+
+        noteDict.Clear();
+
+        for (int i = 0; i < notes.Length; i++)
+        {
+            GameObject obj = Instantiate(notePrefab, transform);
+            obj.GetComponent<JournalEntry>().note = notes[i];
+            entries.Add(notes[i], obj);
+            noteDict.Add(notes[i].type, notes[i]);
+            obj.SetActive(false);
+        }
+    }
 
     private void Start()
     {
@@ -50,7 +73,19 @@ public class Journal : MonoBehaviour
         //Instance.entries[note].SetActive(true);
         //if (announce)
         //    PopUp.Show($"'{note.title}'", 1f, 1f);
-        if (JournalCreator.noteDict.TryGetValue(noteType, out Note note))
+        if (noteDict == null)
+        {
+            Debug.Log("Null note dict");
+            return;
+        }
+
+        if (Instance.entries == null)
+        {
+            Debug.Log("Null note entries");
+            return;
+        }
+
+        if (noteDict.TryGetValue(noteType, out Note note))
         {
             if (Instance.entries.TryGetValue(note, out GameObject val))
                 val.SetActive(true);

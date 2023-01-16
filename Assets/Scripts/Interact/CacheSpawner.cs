@@ -50,7 +50,7 @@ public class CacheSpawner : MonoBehaviour
             // Could be a jerk and prevent fuel caches spawning when docked
 
             Cache.Type type = (Cache.Type)Random.Range(0, 3);
-            if (Airship.Fuel01 < 0.1f)
+            if (Airship.Fuel01 < 0.2f)
                 type = Cache.Type.Fuel;
             int rolls = 2;
 

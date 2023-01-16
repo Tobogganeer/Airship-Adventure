@@ -98,7 +98,12 @@ public class Altitude : MonoBehaviour, IInteractable
         float desired = Remap.Float(usedHeight, 0, 1, -actualHeightRange, actualHeightRange);
         DesiredAirshipHeight = desired;
         float delta = desired - Airship.Transform.position.y;
-        Airship.instance.movement.y = Mathf.Lerp(Airship.instance.movement.y, Mathf.Clamp(delta, -maxAirshipSpeed, maxAirshipSpeed), Time.deltaTime * airshipAccel);
+        float extraAccel = 1f;
+        if (delta < 10f)
+        {
+            extraAccel = 3f;
+        }
+        Airship.instance.movement.y = Mathf.Lerp(Airship.instance.movement.y, Mathf.Clamp(delta, -maxAirshipSpeed, maxAirshipSpeed), Time.deltaTime * airshipAccel * extraAccel);
 
         if (Airship.Docked)
             Airship.instance.movement.y = 0;

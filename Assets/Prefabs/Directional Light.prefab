@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6688411938076862989}
-  m_LocalRotation: {x: 0.1511041, y: -0.25563255, z: 0.04048822, w: 0.9540337}
+  m_LocalRotation: {x: 0.15110414, y: -0.25563252, z: 0.040488224, w: 0.9540337}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -35,7 +35,7 @@ Transform:
   - {fileID: 8504909213179960737}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 21.864, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 18, y: -30, z: 0}
 --- !u!108 &6688411938076863218
 Light:
   m_ObjectHideFlags: 0
@@ -48,7 +48,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.95617
+  m_Intensity: 2.9747343
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LensFlareData: {fileID: 11400000, guid: 29f1592e5ff2bf041a8bbc6f28d19b23, type: 2}
-  intensity: 1.182468
+  intensity: 1.1898937
   maxAttenuationDistance: 100
   maxAttenuationScale: 100
   distanceAttenuationCurve:
@@ -236,10 +236,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baker: {fileID: 8504909213179960739}
   skyboxMaterial: {fileID: 2100000, guid: d3596c99960084e4596d0d09a977c6cc, type: 2}
-  timeOfDay: 0.05
-  speed: 0.0033333334
-  secondsPerDay: 300
-  yRot: -30
+  timeOfDay: 0.2
+  speed: 0.0025
+  secondsPerDay: 400
   sunriseSkyboxIntensity:
     serializedVersion: 2
     m_Curve:
@@ -413,7 +412,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 2
+      value: 1.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -421,7 +420,25 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.052314755
     - serializedVersion: 3
-      time: 0.6991956
+      time: 0.36765522
+      value: 2
+      inSlope: -0.00000253241
+      outSlope: -0.00000253241
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.11786932
+    - serializedVersion: 3
+      time: 0.6168592
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9165907
       value: 0
       inSlope: 0
       outSlope: 0
@@ -431,7 +448,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 2
+      value: 1.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -443,8 +460,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   fogColourGrasslands:
     serializedVersion: 2
-    key0: {r: 0.38951987, g: 0.38951987, b: 0.38951987, a: 1}
-    key1: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
+    key0: {r: 0.38951987, g: 0.38951987, b: 0.38951987, a: 0.38039216}
+    key1: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 0.38039216}
     key2: {r: 0.754717, g: 0.754717, b: 0.754717, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0.05258248, g: 0.05258248, b: 0.05258248, a: 0}
@@ -473,8 +490,8 @@ MonoBehaviour:
   fogColourDesert:
     serializedVersion: 2
     key0: {r: 0.7169812, g: 0.6229718, b: 0.5309719, a: 1}
-    key1: {r: 0.6981132, g: 0.4956941, b: 0.23380208, a: 1}
-    key2: {r: 0.6226415, g: 0.39391026, b: 0.26726595, a: 0}
+    key1: {r: 0.8980392, g: 0.67421484, b: 0.5372549, a: 0.39215687}
+    key2: {r: 0.6226415, g: 0.39391026, b: 0.26726595, a: 0.39215687}
     key3: {r: 0.28235295, g: 0.11372549, b: 0.07450981, a: 0}
     key4: {r: 0.4056604, g: 0.1549929, b: 0.29857144, a: 0}
     key5: {r: 0.7176471, g: 0.62352943, b: 0.5294118, a: 0}
@@ -489,8 +506,8 @@ MonoBehaviour:
     ctime6: 0
     ctime7: 0
     atime0: 0
-    atime1: 65535
-    atime2: 0
+    atime1: 193
+    atime2: 65535
     atime3: 0
     atime4: 0
     atime5: 0
@@ -498,12 +515,12 @@ MonoBehaviour:
     atime7: 0
     m_Mode: 0
     m_NumColorKeys: 6
-    m_NumAlphaKeys: 2
+    m_NumAlphaKeys: 3
   fogColourSnow:
     serializedVersion: 2
-    key0: {r: 0.4188323, g: 0.4831892, b: 0.49056602, a: 1}
-    key1: {r: 0.8537736, g: 0.9798585, b: 1, a: 1}
-    key2: {r: 0.754717, g: 0.754717, b: 0.754717, a: 0}
+    key0: {r: 0.4188323, g: 0.4831892, b: 0.49056602, a: 0.50980395}
+    key1: {r: 0.8537736, g: 0.9798585, b: 1, a: 0.78431374}
+    key2: {r: 0.754717, g: 0.754717, b: 0.754717, a: 0.50980395}
     key3: {r: 0.13077827, g: 0.1302065, b: 0.20754719, a: 0}
     key4: {r: 0.13576896, g: 0.18896165, b: 0.254717, a: 0}
     key5: {r: 0.41960785, g: 0.48235294, b: 0.49019608, a: 0}
@@ -518,8 +535,8 @@ MonoBehaviour:
     ctime6: 0
     ctime7: 0
     atime0: 0
-    atime1: 65535
-    atime2: 0
+    atime1: 45197
+    atime2: 65535
     atime3: 0
     atime4: 0
     atime5: 0
@@ -527,11 +544,11 @@ MonoBehaviour:
     atime7: 0
     m_Mode: 0
     m_NumColorKeys: 6
-    m_NumAlphaKeys: 2
+    m_NumAlphaKeys: 3
   borderFogColourGrasslands:
     serializedVersion: 2
-    key0: {r: 0.75359154, g: 0.7924528, b: 0.72890705, a: 1}
-    key1: {r: 0.834902, g: 0.8396226, b: 0.82774115, a: 1}
+    key0: {r: 0.75359154, g: 0.7924528, b: 0.72890705, a: 0.78431374}
+    key1: {r: 0.834902, g: 0.8396226, b: 0.82774115, a: 0.78431374}
     key2: {r: 0.5471698, g: 0.33810964, b: 0.49083114, a: 0}
     key3: {r: 0.15378287, g: 0.18849403, b: 0.2929773, a: 0}
     key4: {r: 0.7529412, g: 0.7921569, b: 0.7294118, a: 0}
@@ -559,8 +576,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   borderFogColourDesert:
     serializedVersion: 2
-    key0: {r: 1, g: 0.8656978, b: 0.7311321, a: 1}
-    key1: {r: 0.9245283, g: 0.65620023, b: 0.53640085, a: 1}
+    key0: {r: 1, g: 0.8656978, b: 0.7311321, a: 0.78431374}
+    key1: {r: 0.9245283, g: 0.65620023, b: 0.53640085, a: 0.78431374}
     key2: {r: 0.5566038, g: 0.35209307, b: 0.24417052, a: 0}
     key3: {r: 0.6792453, g: 0.31078678, b: 0.47476387, a: 0}
     key4: {r: 1, g: 0.8666667, b: 0.7294118, a: 0}
@@ -588,8 +605,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   borderFogColourSnow:
     serializedVersion: 2
-    key0: {r: 0.47231892, g: 0.5640041, b: 0.6713346, a: 1}
-    key1: {r: 0.7490196, g: 0.8901961, b: 1, a: 1}
+    key0: {r: 0.47231892, g: 0.5640041, b: 0.6713346, a: 0.78431374}
+    key1: {r: 0.7490196, g: 0.8901961, b: 1, a: 0.78431374}
     key2: {r: 0.10568709, g: 0.13179573, b: 0.23584908, a: 0}
     key3: {r: 0.15378287, g: 0.18849403, b: 0.2929773, a: 0}
     key4: {r: 0.47058824, g: 0.5647059, b: 0.67058825, a: 0}
@@ -619,10 +636,10 @@ MonoBehaviour:
     serializedVersion: 2
     key0: {r: 0.5780531, g: 0.56154966, b: 0.51533985, a: 1}
     key1: {r: 0.73643184, g: 0.7037876, b: 0.6165801, a: 1}
-    key2: {r: 0.8962264, g: 0.870639, b: 0.7989943, a: 1}
+    key2: {r: 0.8962264, g: 0.870639, b: 0.7989943, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0.060532637, g: 0.057506006, b: 0.049939428, a: 0}
-    key5: {r: 0.5764706, g: 0.56078434, b: 0.5137255, a: 0}
+    key4: {r: 0.060532637, g: 0.057506006, b: 0.049939428, a: 1}
+    key5: {r: 0.5764706, g: 0.56078434, b: 0.5137255, a: 1}
     key6: {r: 0.78431374, g: 0.74509805, b: 0.64705884, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
@@ -634,16 +651,16 @@ MonoBehaviour:
     ctime6: 65535
     ctime7: 0
     atime0: 0
-    atime1: 39128
-    atime2: 65535
-    atime3: 0
-    atime4: 0
-    atime5: 0
+    atime1: 28509
+    atime2: 39460
+    atime3: 57191
+    atime4: 61711
+    atime5: 65535
     atime6: 0
     atime7: 0
     m_Mode: 0
     m_NumColorKeys: 6
-    m_NumAlphaKeys: 3
+    m_NumAlphaKeys: 6
   fogExtraHeight:
     serializedVersion: 2
     m_Curve:
@@ -686,7 +703,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  desertFogExtraHeight: 30
+  desertFogExtraHeight: 1000
   flare: {fileID: 6688411938076863217}
   heightFog: {fileID: 6022545821692632820, guid: c40be3174f62c4acf8c1216858c64956,
     type: 2}
@@ -722,7 +739,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8504909213179960767}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.2814269, y: 0.07416848, z: 0.2438112, w: 0.9251238}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

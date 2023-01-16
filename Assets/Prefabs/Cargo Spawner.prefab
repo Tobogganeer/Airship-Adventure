@@ -48,6 +48,8 @@ MonoBehaviour:
   trinkets:
   - {fileID: 6971088551302814353, guid: 96fae1c09f9a56646810f0650fe44e02, type: 3}
   - {fileID: 6268854017056240986, guid: 99a0847ff778e79449d19c27c8a9bcbb, type: 3}
+  - {fileID: 1869996953688330037, guid: 4df80c020fd127241ae4d92a1672e2c2, type: 3}
+  - {fileID: 4185288918262790688, guid: 1a95845a37bc35f4daf37ea8110ebf8a, type: 3}
   disc: {fileID: 1247223869383465169, guid: 4c8cea538491b29469458870ccba0d41, type: 3}
   crate: {fileID: 4246213264459594140, guid: 5db790fc26ea2334d8cdd988939ffb6d, type: 3}
   trinketSpawnChance: 0.8
