@@ -46,9 +46,16 @@ public class Journal : MonoBehaviour
 
     public static void Unlock(Note.Type noteType, bool announce = true)
     {
-        Note note = JournalCreator.noteDict[noteType];
-        Instance.entries[note].SetActive(true);
-        if (announce)
-            PopUp.Show($"'{note.title}'", 1f, 1f);
+        //Note note = JournalCreator.noteDict[noteType];
+        //Instance.entries[note].SetActive(true);
+        //if (announce)
+        //    PopUp.Show($"'{note.title}'", 1f, 1f);
+        if (JournalCreator.noteDict.TryGetValue(noteType, out Note note))
+        {
+            if (Instance.entries.TryGetValue(note, out GameObject val))
+                val.SetActive(true);
+            if (announce)
+                PopUp.Show($"'{note.title}'", 1f, 1f);
+        }
     }
 }

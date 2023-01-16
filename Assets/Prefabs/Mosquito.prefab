@@ -52,9 +52,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 12
   FuelsuckRate: 2
-  FuelsuckAmmt: 12
+  FuelsuckAmmt: 30
   minVelocity: 0.2
-  MosHp: 35
+  MosHp: 10
   animator: {fileID: 5709835061738104554}
   flapAudio: {fileID: 2488455935947582787}
   suckAudio: {fileID: 7990493234416828705}

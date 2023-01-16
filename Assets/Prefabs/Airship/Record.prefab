@@ -62,6 +62,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 126761affef99d243b3071ad39e0d259,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a2579e489d36178498e819cf6a29ed5c, type: 2}
     - target: {fileID: 919132149155446097, guid: 126761affef99d243b3071ad39e0d259,
         type: 3}
       propertyPath: m_Name
@@ -135,6 +140,8 @@ MonoBehaviour:
   springStrength: 0
   springVelocity: 0
   springDamper: 0
+  despawnOnTouchWaterAndTerrain: 1
+  despawnDistance: 150
 --- !u!114 &5580762943002753387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e8046df625dda4bab87e399b8248f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 0}
-  volume: 1
+  discIndex: 0
   rb: {fileID: 1823495702949192034}
   pickup: {fileID: 2213129974888587799}

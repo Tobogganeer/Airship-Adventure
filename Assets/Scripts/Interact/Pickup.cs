@@ -24,11 +24,17 @@ public class Pickup : MonoBehaviour, IInteractable, ISecondaryInteractable
     public float springVelocity = 1f;
     public float springDamper = 10f;
 
+    [Space]
+    public bool despawnOnTouchWaterAndTerrain = true;
+    public float despawnDistance = 150f;
+    bool despawning;
+
     const float DisableTime = 2.0f;
     float timer;
     bool springActive;
     //public Vector3 scale = Vector3.one;
     Vector3 scale;
+    LayerMask groundLayers;
     //Quaternion rot;
     //Vector3 rot;
     //bool blasto;
@@ -40,6 +46,7 @@ public class Pickup : MonoBehaviour, IInteractable, ISecondaryInteractable
     private void Awake()
     {
         scale = transform.localScale;
+        groundLayers = LayerMask.GetMask("Water", "Terrain");
     }
 
     private void Start()
@@ -61,10 +68,7 @@ public class Pickup : MonoBehaviour, IInteractable, ISecondaryInteractable
 
     public void OnSecondaryInteract()
     {
-        if (IsInteracting)
-        {
-            IsInteracting = false;
-        }
+        IsInteracting = !IsInteracting;
     }
 
     private void FixedUpdate()
@@ -136,6 +140,14 @@ public class Pickup : MonoBehaviour, IInteractable, ISecondaryInteractable
             spring.Reset();
         }
         */
+
+        if (despawning) return;
+
+        if (transform.position.SqrDistance(PlayerMovement.Position) > despawnDistance * despawnDistance)
+        {
+            despawning = true;
+            Destroy(gameObject, 5f);
+        }
     }
 
     private void OnDestroy()
@@ -156,5 +168,17 @@ public class Pickup : MonoBehaviour, IInteractable, ISecondaryInteractable
         spring.SetValue(start);
         //transform.localScale = spring.Value * scale;
         transform.localScale = scale * start;
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!despawnOnTouchWaterAndTerrain || despawning) return;
+
+        if (groundLayers.Contains(collision.gameObject.layer))
+        {
+            despawning = true;
+            Destroy(gameObject, 5f);
+        }
     }
 }

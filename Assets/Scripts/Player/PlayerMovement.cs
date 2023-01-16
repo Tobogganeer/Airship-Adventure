@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public float ladderSpeed = 2f;
 
     public LayerMask groundLayerMask;
+    public LayerMask tpToShipMask;
 
     private bool grounded;
     private bool wasGrounded;
@@ -106,6 +107,11 @@ public class PlayerMovement : MonoBehaviour
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        if (tpToShipMask.Contains(hit.gameObject.layer))
+        {
+            TPToShip();
+        }
+
         //groundNormal = hit.normal;
         /*
         var body = hit.collider.attachedRigidbody;
@@ -117,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
         //if (body != null && !body.isKinematic)
         //     body.velocity += hit.controller.velocity;
 
-        
+
         Rigidbody body = hit.collider.attachedRigidbody;
         Vector3 force;
 
@@ -298,12 +304,17 @@ public class PlayerMovement : MonoBehaviour
 
         if (transform.position.SqrDistance(Airship.Transform.position) > dist * dist)
         {
-            controller.enabled = false;
-            transform.position = Airship.instance.spawnCrapHere.position;
-            controller.enabled = true;
-
-            y = 0;
+            TPToShip();
         }
+    }
+
+    private void TPToShip()
+    {
+        controller.enabled = false;
+        transform.position = Airship.instance.spawnCrapHere.position;
+        controller.enabled = true;
+
+        y = 0;
     }
 
     //Vector3 before;

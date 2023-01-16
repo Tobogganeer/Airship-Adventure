@@ -10,6 +10,31 @@ public class RecordPlayer : MonoBehaviour, IInteractable
     public float spinSpeed = 120;
     public float ejectForce = 10;
 
+    [Space]
+    public float backgroundDistanceMin = 4f;
+    public float backgroundDistanceMax = 10f;
+
+    float distortion;
+    float lowPass;
+    float highPass;
+
+    const float LowMax = 22000;
+
+    AudioLowPassFilter low; // >
+    AudioHighPassFilter high; // <
+    AudioDistortionFilter dist; // <
+
+    private void Start()
+    {
+        low = GetComponent<AudioLowPassFilter>();
+        high = GetComponent<AudioHighPassFilter>();
+        dist = GetComponent<AudioDistortionFilter>();
+
+        distortion = dist.distortionLevel;
+        lowPass = low.cutoffFrequency;
+        highPass = high.cutoffFrequency;
+    }
+
 
     public bool FixedPosition => false;
     public bool IsInteracting { get; set; }
@@ -27,6 +52,15 @@ public class RecordPlayer : MonoBehaviour, IInteractable
             currentDisk.transform.position = recordHolder.position;
             currentDisk.transform.Rotate(Vector3.up * spinSpeed * Time.deltaTime);
         }
+
+        float dist = transform.position.Distance(PlayerMovement.Position);
+        dist = Mathf.Clamp(dist, backgroundDistanceMin, backgroundDistanceMax);
+        dist = Remap.Float(dist, backgroundDistanceMin, backgroundDistanceMax, 0, 1);
+
+        low.cutoffFrequency = Mathf.Lerp(lowPass, LowMax, dist);
+        high.cutoffFrequency = Mathf.Lerp(highPass, 0, dist);
+        this.dist.distortionLevel = Mathf.Lerp(distortion, 0, dist);
+        audioSource.spatialBlend = 1 - dist;
     }
 
     void Eject()
@@ -51,17 +85,27 @@ public class RecordPlayer : MonoBehaviour, IInteractable
             currentDisk.rb.velocity = Vector3.zero;
             currentDisk.rb.angularVelocity = Vector3.zero;
             currentDisk.transform.rotation = Quaternion.identity;
-            audioSource.clip = currentDisk.clip;
-            audioSource.volume = currentDisk.volume;
+            MusicData d = MusicDiscData.Get(currentDisk.discIndex);
+            audioSource.clip = d.clip;
+            audioSource.volume = d.volume;
             audioSource.Play();
             Music.Stop();
             CancelInvoke();
             Invoke(nameof(PlayMusic), audioSource.clip.length + 1f);
+            Invoke(nameof(Eject), audioSource.clip.length + 1f);
         }
     }
 
     void PlayMusic()
     {
         Music.Play();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, backgroundDistanceMin);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, backgroundDistanceMax);
     }
 }

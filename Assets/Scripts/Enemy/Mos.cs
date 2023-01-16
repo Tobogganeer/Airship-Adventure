@@ -29,6 +29,7 @@ public class Mos : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Play(new Audio("Reverb").SetPosition(transform.position).SetDistance(1000f).SetPitch(0.5f, 1.5f));
         Fuelsucktrckr = 0;
         //dockedyet = false;
         DoneorDead = false;
@@ -57,7 +58,8 @@ public class Mos : MonoBehaviour
     {
         if (Airship.Docked || Airship.Docking)
         {
-            DoneorDead = true;
+            //DoneorDead = true;
+            Die(1f, Vector3.zero);
         }
 
         if (DoneorDead)
@@ -88,11 +90,12 @@ public class Mos : MonoBehaviour
                 if (FuelsuckAmmt < Fuelsucktrckr)
                 {
                     docked = false;
-                    DoneorDead = true;
+                    //DoneorDead = true;
                     FuelsuckRate = 0f;
-                    Rigidbody rb = GetComponent<Rigidbody>();
-                    rb.isKinematic = false;
-                    rb.AddTorque(Ran(100));
+                    //Rigidbody rb = GetComponent<Rigidbody>();
+                    //rb.isKinematic = false;
+                    //rb.AddTorque(Ran(100));
+                    Die(1f, Vector3.zero);
                 }
 
             }
@@ -141,6 +144,7 @@ public class Mos : MonoBehaviour
 
             if (MosHp < 0)
             {
+                /*
                 Rigidbody rb = GetComponent<Rigidbody>();
 
                 rb.isKinematic = false;
@@ -148,6 +152,8 @@ public class Mos : MonoBehaviour
                 rb.velocity = collision.rigidbody.velocity * 2f;
 
                 DoneorDead = true;
+                */
+                Die(3, collision.rigidbody.velocity * 2f);
             }
         }
     }
@@ -161,5 +167,20 @@ public class Mos : MonoBehaviour
     private void OnDisable()
     {
         NumEnemys--;
+    }
+
+
+    void Die(float torque, Vector3 vel)
+    {
+        if (DoneorDead) return;
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+
+        rb.isKinematic = false;
+        rb.AddTorque(Ran() * torque);
+        //rb.velocity = collision.rigidbody.velocity * 2f;
+        rb.velocity = vel;
+
+        DoneorDead = true;
     }
 }

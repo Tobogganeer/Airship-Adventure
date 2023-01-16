@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Cache : MonoBehaviour
 {
+    public Type type;
     public float maxDist = 450f;
     //public float ascendRate = 2f;
     public float sizeMin = 0.1f;
@@ -17,7 +18,7 @@ public class Cache : MonoBehaviour
     public GameObject prefab;
     public GameObject deathParticles;
 
-    public static int Num { get; private set; }
+    public static Dictionary<Type, int> nums = new Dictionary<Type, int>();
 
     //float lifeTime;
     float life;
@@ -84,11 +85,20 @@ public class Cache : MonoBehaviour
 
     private void OnEnable()
     {
-        Num++;
+        nums[type]++;
     }
 
     private void OnDisable()
     {
-        Num--;
+        nums[type]--;
     }
+
+    public enum Type
+    {
+        Cargo,
+        Fuel,
+        Nox
+    }
+
+    public static int GetNum(Type t) => nums[t];
 }
