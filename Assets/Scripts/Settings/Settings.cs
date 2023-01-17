@@ -21,7 +21,6 @@ public static class Settings
         try
         {
             WriteSettings();
-            WriteInputs();
         }
         catch (System.Exception ex)
         {
@@ -34,7 +33,6 @@ public static class Settings
         try
         {
             ReadSettings();
-            ReadInputs();
         }
         catch (System.Exception ex)
         {
@@ -57,38 +55,5 @@ public static class Settings
         }
 
         settings.Validate();
-    }
-
-
-    private static void WriteInputs()
-    {
-        //SaveLoad.SaveJson("inputs.json", Inputs_Old.Profile ?? new InputProfile(), true);
-    }
-
-    private static void ReadInputs()
-    {
-        /*
-        Inputs_Old.Profile = SaveLoad.ReadJson<InputProfile>("inputs.json", true);
-
-        if (Inputs_Old.Profile == null)
-        {
-            Inputs_Old.Profile = new InputProfile();
-            WriteInputs();
-        }
-        */
-    }
-
-
-    public static void Apply()
-    {
-        QualityManager.SetMaxFramerate(CurrentSettings.maxFramerate);
-        QualityManager.SetVSync(CurrentSettings.vsync);
-
-        AudioMaster.SetMasterVolume(CurrentSettings.masterVolume / 100f);
-        AudioMaster.SetAmbientVolume(CurrentSettings.ambientVolume / 100f);
-        AudioMaster.SetSFXVolume(CurrentSettings.sfxVolume / 100f);
-
-        FPSCamera.CurrentSensFromSettings = CurrentSettings.sensitivity;
-        AudioMaster.SetLowPass(1f);
     }
 }

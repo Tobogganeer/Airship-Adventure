@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    resolutionScale: 0.5
-    intensity: 0.2
-    blurWidth: 0.85
+    resolutionScale: 0.3
+    intensity: 0.08
+    blurWidth: 0.154
 --- !u!114 &-1878332245247344467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40,6 +40,33 @@ MonoBehaviour:
     DirectLightingStrength: 0.25
     Radius: 0.25
     SampleCount: 12
+--- !u!114 &-1631164627759943977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e83db520041bcb44966275a111dd4ee, type: 3}
+  m_Name: Border Fog
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    color: {r: 0.7490196, g: 0.8901961, b: 1, a: 1}
+    sunColor: {r: 0.8773585, g: 0.8098478, b: 0.6911268, a: 1}
+    fogDensity: 0.0001
+    fogDensityPower: 0.5
+    skyAlpha: 0
+    useHeightFog: 0
+    fogHeightStart: 0
+    fogHeightEnd: 30
+    fogHeightPower: 0.5
+    extraFogHeightEnd: 0
+    extraFogHeightPower: 0.5
+    directionalIntesity: 1
+    directionalPower: 3
 --- !u!114 &-585374866527910652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2a9c6bcc9f9664a898f3348c880908, type: 3}
   m_Name: UIBlurFeature
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings:
     DownscaleAmount: 2
     BlurType: 0
@@ -75,10 +102,11 @@ MonoBehaviour:
       type: 3}
   m_RendererFeatures:
   - {fileID: -1878332245247344467}
-  - {fileID: -585374866527910652}
   - {fileID: -1980355072386613639}
   - {fileID: 6022545821692632820}
-  m_RendererFeatureMap: adc0de57c6d2eee50485290ca954e0f779be40d58d5d84e4f49e801984619453
+  - {fileID: -1631164627759943977}
+  - {fileID: 6693380802680012756}
+  m_RendererFeatureMap: adc0de57c6d2eee579be40d58d5d84e4f49e801984619453d7ae2fd069f05ce9d43f298260aae35c
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -100,10 +128,10 @@ MonoBehaviour:
   m_AssetVersion: 1
   m_OpaqueLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 16375
   m_TransparentLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 16375
   m_DefaultStencilState:
     overrideStencilState: 0
     stencilReference: 0
@@ -128,20 +156,43 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e83db520041bcb44966275a111dd4ee, type: 3}
-  m_Name: AtmosphericFogRenderFeature
+  m_Name: Height Fog
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    color: {r: 0.80651474, g: 0.8320322, b: 0.8679245, a: 1}
-    sunColor: {r: 0.9433962, g: 0.8535622, b: 0.6897472, a: 1}
+    color: {r: 0.84206957, g: 0.95325696, b: 0.9710186, a: 1}
+    sunColor: {r: 0.8028722, g: 0.7675504, b: 0.67312753, a: 1}
     fogDensity: 0.01
     fogDensityPower: 0.1
     skyAlpha: 0
     useHeightFog: 1
     fogHeightStart: -100
-    fogHeightEnd: 25
-    fogHeightPower: 0.5
+    fogHeightEnd: 95.896454
+    fogHeightPower: 0.2
     extraFogHeightEnd: -50
     extraFogHeightPower: 0.9
     directionalIntesity: 1
-    directionalPower: 2.93
+    directionalPower: 3
+--- !u!114 &6693380802680012756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1614fc811f8f184697d9bee70ab9fe5, type: 3}
+  m_Name: DecalRendererFeature
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  m_Settings:
+    technique: 0
+    maxDrawDistance: 1000
+    dBufferSettings:
+      surfaceData: 2
+    screenSpaceSettings:
+      normalBlend: 0
+      useGBuffer: 1
+  m_CopyDepthPS: {fileID: 4800000, guid: d6dae50ee9e1bfa4db75f19f99355220, type: 3}
+  m_DBufferClear: {fileID: 4800000, guid: f056d8bd2a1c7e44e9729144b4c70395, type: 3}

@@ -5,40 +5,30 @@ using UnityEngine;
 [System.Serializable]
 public class GameSettings
 {
-    public float sensitivity;
-
-    public int masterVolume;
-    public int sfxVolume;
-    public int ambientVolume;
-
-    public int maxFramerate;
-    public bool vsync;
+    public float sens;
+    public float quality;
+    public int   fov;
+    public float master;
+    public float ambient;
+    public float sfx;
 
     public GameSettings()
     {
-        SetDefaults();
-    }
-
-    public void SetDefaults()
-    {
-        sensitivity = 50;
-        masterVolume = 65;
-        sfxVolume = 65;
-        ambientVolume = 20;
-        maxFramerate = 144;
-        vsync = false;
+        sens = 20f;
+        quality = 1.0f;
+        fov = 75;
+        master = 0.5f;
+        ambient = 0.5f;
+        sfx = 1.0f;
     }
 
     public void Validate()
     {
-        sensitivity = Mathf.Clamp(sensitivity, 0, 100);
-
-        masterVolume = Mathf.Clamp(masterVolume, 0, 100);
-
-        sfxVolume = Mathf.Clamp(sfxVolume, 0, 100);
-
-        ambientVolume = Mathf.Clamp(ambientVolume, 0, 100);
-
-        maxFramerate = Mathf.Clamp(maxFramerate, 30, 300);
+        sens = Mathf.Clamp(sens, 10, 50);
+        quality = Mathf.Clamp(quality, 0.3f, 1.5f);
+        fov = Mathf.Clamp(fov, 50, 110);
+        master = Mathf.Clamp(master, 0, 1);
+        ambient = Mathf.Clamp(ambient, 0, 1);
+        sfx = Mathf.Clamp(sfx, 0, 1);
     }
 }

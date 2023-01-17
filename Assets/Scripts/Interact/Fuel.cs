@@ -6,11 +6,12 @@ public class Fuel : MonoBehaviour
 {
     public float minFuel;
     public float maxFuel;
+    public Renderer rend;
 
     [Space, ReadOnly]
     public float fuel;
 
-    private void Start()
+    protected virtual void Start()
     {
         fuel = Random.Range(minFuel, maxFuel);
     }

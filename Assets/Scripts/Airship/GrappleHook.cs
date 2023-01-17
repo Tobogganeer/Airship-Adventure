@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+using UnityEngine.VFX;
 
 public class GrappleHook : MonoBehaviour, IInteractable
 {
     public GrappleHook other;
-    public LineRenderer laser;
     //public LineRenderer rope;
+    public Transform shootFrom;
+    public GrappleCam cam;
     public GrappleRope rope;
+    //public Renderer glowingReticle
     public Transform hook;
     public Transform hookHome;
     public Transform head;
+    public Transform shaft;
 
     [field: SerializeField]
     public Transform InteractFrom { get; set; }
@@ -21,16 +24,20 @@ public class GrappleHook : MonoBehaviour, IInteractable
     public float turnSpeed = 5f;
     public LayerMask targetMask;
     //public Vector3 defaultRot = Vector3.up * 180;
-    public float defaultRot = 180f;
+    //public Vector3 offset;
+    public Vector3 aimOffset;
 
     public Material red;
     public Material green;
 
+    [SerializeField] VisualEffect _SmokeflashL;
+    [SerializeField] VisualEffect _SmokeflashR;
+
     bool IInteractable.FixedPosition => true;
     public Transform grabbedTarget { get; private set; }
     Vector3 grabbedPos;
-    bool grabbing;
-    bool targetOnHook;
+    public bool grabbing { get; private set; }
+    public bool targetOnHook { get; private set; }
 
     //readonly WaitForSeconds wait = new WaitForSeconds(1f);
     //readonly float wait = 1f;
@@ -44,29 +51,54 @@ public class GrappleHook : MonoBehaviour, IInteractable
 
     private void LateUpdate()
     {
+        cam.aimingAtTarget = false;
+
         if (grabbing && grabbedTarget != null)
         {
             Quaternion cam = Quaternion.LookRotation(head.position.DirectionTo(grabbedTarget.position + grabbedPos));
-            head.rotation = Quaternion.Slerp(head.rotation, cam, turnSpeed * Time.deltaTime);
-            laser.enabled = false;
+            //head.rotation = Quaternion.Slerp(head.rotation, cam * Quaternion.Euler(aimOffset), turnSpeed * Time.deltaTime);
+            //shaft.rotation = Quaternion.Slerp(shaft.rotation, Quaternion.Euler(cam.eulerAngles.With(x: 0, z: 0) + aimOffset), turnSpeed * Time.deltaTime);
+            head.rotation = Quaternion.Slerp(head.rotation, cam * Quaternion.Euler(aimOffset), turnSpeed * Time.deltaTime);
+            Quaternion headRot = head.rotation;
+            shaft.rotation = Quaternion.Euler(0, head.eulerAngles.y, 0);
+            head.rotation = headRot; // Prevent springy
+            this.cam.aimingAtTarget = true;
         }
         else if (IsInteracting)
         {
-            Quaternion cam = Quaternion.LookRotation(FPSCamera.ViewDir);
-            head.rotation = Quaternion.Slerp(head.rotation, cam, turnSpeed * Time.deltaTime);
-            laser.enabled = true;
-            laser.SetPosition(0, laser.transform.position);
-            laser.SetPosition(1, head.forward * 1000 + laser.transform.position);
+            //Quaternion cam = Quaternion.LookRotation(FPSCamera.ViewDir);
+            //shaft.rotation = Quaternion.Slerp(shaft.rotation, Quaternion.Euler(cam.eulerAngles.With(x: 0, z: 0) + aimOffset), turnSpeed * Time.deltaTime);
+            //head.rotation = Quaternion.Slerp(head.rotation, cam * Quaternion.Euler(aimOffset), turnSpeed * Time.deltaTime);
+            Quaternion desired = Quaternion.Euler(Mathf.Clamp(-FPSCamera.YRot, -10, 40), FPSCamera.Transform.eulerAngles.y + 180, 0);
+            head.rotation = Quaternion.Slerp(head.rotation, desired, turnSpeed * Time.deltaTime);
+            Quaternion headRot = head.rotation;
+            shaft.rotation = Quaternion.Euler(0, head.eulerAngles.y, 0);
+            head.rotation = headRot; // Prevent springy
+            //head.localRotation = Quaternion.Euler(head.localEulerAngles.WithX(Mathf.Clamp(FPSCamera.YRot, -10, 40)));
             TryShoot();
         }
         else
         {
+            //head.rotation = Quaternion.Slerp(head.rotation, desired, turnSpeed * Time.deltaTime);
+            //head.localRotation = Quaternion.Slerp(head.localRotation,
+            //    Quaternion.Euler(offset), turnSpeed * Time.deltaTime);
             head.localRotation = Quaternion.Slerp(head.localRotation,
-                Quaternion.Euler(0, defaultRot, 0), turnSpeed * Time.deltaTime);
-            laser.enabled = false;
+                Quaternion.identity, turnSpeed * Time.deltaTime * 0.2f);
+            //Quaternion headRot = head.rotation;
+            //shaft.rotation = Quaternion.Euler(0, head.eulerAngles.y, 0);
+            shaft.localRotation = Quaternion.Slerp(shaft.localRotation,
+                Quaternion.identity, turnSpeed * Time.deltaTime * 0.2f);
+            //head.rotation = headRot; // Prevent springy
+
+            //shaft.localRotation = Quaternion.Slerp(shaft.rotation,
+            //    Quaternion.Euler(offset), turnSpeed * Time.deltaTime);
+
+            //head.localRotation = Quaternion.Slerp(head.localRotation,
+            //    Quaternion.Euler(offset), turnSpeed * Time.deltaTime);
         }
 
         rope.show = grabbing && grabbedTarget != null;
+        //rope.show = true;
         rope.start = rope.transform.position;
         rope.end = hook.position;
         rope.DrawRope();
@@ -78,13 +110,13 @@ public class GrappleHook : MonoBehaviour, IInteractable
     {
         if (grabbing)
         {
-            laser.sharedMaterial = green;
+            cam.aimingAtTarget = true;
             return;
         }
 
-        if (Physics.Raycast(head.position, head.forward, out RaycastHit hit, Mathf.Infinity, targetMask) && hit.transform != other.grabbedTarget)
+        if (Physics.Raycast(shootFrom.transform.position, shootFrom.transform.forward, out RaycastHit hit, Mathf.Infinity, targetMask) && hit.transform != other.grabbedTarget)
         {
-            laser.sharedMaterial = green;
+            cam.aimingAtTarget = true;
 
             if (PlayerInputs.Primary && !grabbing)
             {
@@ -92,16 +124,18 @@ public class GrappleHook : MonoBehaviour, IInteractable
                 grabbedPos = hit.transform.position.DirectionTo_NoNormalize(hit.point);
                 StartCoroutine(GrabTarget());
                 AudioManager.Play(new Audio("GrappleLaunch").SetPosition(transform.position).SetParent(transform));
+                PlaySmokeThing();
             }
         }
         else
         {
-            laser.sharedMaterial = red;
+            cam.aimingAtTarget = false;
         }
     }
 
     IEnumerator GrabTarget()
     {
+        //rope.Reset();
         grabbing = true;
         targetOnHook = false;
         IsInteracting = false;
@@ -165,5 +199,11 @@ public class GrappleHook : MonoBehaviour, IInteractable
             .DirectionTo(grabbedTarget.position.Flattened()));
 
         return val * Mathf.Sign(sideDot);
+    }
+
+    void PlaySmokeThing()
+    {
+        _SmokeflashL.Play();
+        _SmokeflashR.Play();
     }
 }

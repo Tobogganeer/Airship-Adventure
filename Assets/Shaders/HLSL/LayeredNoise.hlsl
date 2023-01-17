@@ -3,7 +3,7 @@
 #define INCLUDE_LAYERED_NOISE
 
 // Stolen from Unity (thanks bro)
-float2 Unity_GradientNoise_Dir_float(float2 p)
+float2 STOLEN_Unity_GradientNoise_Dir_float(float2 p)
 {
             // Permutation and hashing used in webgl-nosie goo.gl/pX7HtC
     p = p % 289;
@@ -14,15 +14,15 @@ float2 Unity_GradientNoise_Dir_float(float2 p)
     return normalize(float2(x - floor(x + 0.5), abs(x) - 0.5));
 }
         
-void Unity_GradientNoise_float(float2 UV, float Scale, out float Out)
+void STOLEN_Unity_GradientNoise_float(float2 UV, float Scale, out float Out)
 {
     float2 p = UV * Scale;
     float2 ip = floor(p);
     float2 fp = frac(p);
-    float d00 = dot(Unity_GradientNoise_Dir_float(ip), fp);
-    float d01 = dot(Unity_GradientNoise_Dir_float(ip + float2(0, 1)), fp - float2(0, 1));
-    float d10 = dot(Unity_GradientNoise_Dir_float(ip + float2(1, 0)), fp - float2(1, 0));
-    float d11 = dot(Unity_GradientNoise_Dir_float(ip + float2(1, 1)), fp - float2(1, 1));
+    float d00 = dot(STOLEN_Unity_GradientNoise_Dir_float(ip), fp);
+    float d01 = dot(STOLEN_Unity_GradientNoise_Dir_float(ip + float2(0, 1)), fp - float2(0, 1));
+    float d10 = dot(STOLEN_Unity_GradientNoise_Dir_float(ip + float2(1, 0)), fp - float2(1, 0));
+    float d11 = dot(STOLEN_Unity_GradientNoise_Dir_float(ip + float2(1, 1)), fp - float2(1, 1));
     fp = fp * fp * fp * (fp * (fp * 6 - 15) + 10);
     Out = lerp(lerp(d00, d01, fp.y), lerp(d10, d11, fp.y), fp.x) + 0.5;
 }
@@ -39,7 +39,7 @@ void LayeredNoise_float(float2 uv, float scale, float persistence, float roughne
     for (int i = 0; i < OCTAVES; i++)
     {
         float v;
-        Unity_GradientNoise_float(uv, freq, v);
+        STOLEN_Unity_GradientNoise_float(uv, freq, v);
         noise += (v + 1) * 0.5f * amp;
         freq *= roughness;
         amp *= persistence;

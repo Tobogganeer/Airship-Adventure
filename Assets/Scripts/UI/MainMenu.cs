@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject mainHud;
+    // Not used rn, gonna be for screenshots
+    //public GameObject mainHud;
+    public TMPro.TMP_InputField seedField;
 
-
+    // VVV Called every time the menu is loaded
     private void Start()
     {
-        HUD.SetBlack(false);
-        HUD.SetInteract(false);
-        HUD.SetFuelVisibility(false);
-        Time.timeScale = 1f;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        // Set cursor to be visible
     }
 
+    // Should be self explanatory I think VVV
     public void Play()
     {
+        if (seedField.text.Length > 0)
+            ProcGen.mainMenuSeed = int.Parse(seedField.text);
+        else
+            ProcGen.mainMenuSeed = 0;
         SceneManager.LoadLevel(Level.Game);
     }
 

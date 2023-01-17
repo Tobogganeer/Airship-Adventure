@@ -15,12 +15,14 @@ public class Pickup : MonoBehaviour, IInteractable
     [Header("Carrying")]
     public float carryForce = 10f;
     public bool useMass = false;
+    public float carryRange = 2;
 
     [Header("Spawning")]
     public bool useSpring = true;
     public float springStrength = 50f;
     public float springVelocity = 10f;
     public float springDamper = 6f;
+    private float timerspring = 3f;
     Vector3 scale;
     //bool blasto;
 
@@ -37,6 +39,7 @@ public class Pickup : MonoBehaviour, IInteractable
             spring.SetStrength(springStrength);
             spring.SetVelocity(springVelocity);
             scale = transform.localScale;
+            transform.localScale = spring.Value * scale;
         }
     }
 
@@ -56,7 +59,7 @@ public class Pickup : MonoBehaviour, IInteractable
         if (IsInteracting)
         {
             rb.useGravity = false;
-            Vector3 targetPos = Interactor.InteractFrom.position + Interactor.InteractFrom.forward * Interactor.InteractRange;
+            Vector3 targetPos = Interactor.InteractFrom.position + Interactor.InteractFrom.forward * carryRange;
             Quaternion targetRot = Interactor.InteractFrom.rotation;// * relRot;
 
             //interpolate to the target position using velocity
@@ -82,6 +85,12 @@ public class Pickup : MonoBehaviour, IInteractable
         {
             spring.Update(Time.deltaTime);
             transform.localScale = spring.Value * scale;
+            timerspring -= Time.deltaTime;
+            if ( timerspring <= 0)
+            {
+                transform.localScale = scale;
+                useSpring = false;
+            }
         }
 
         if (transform.position.SqrDistance(Interactor.InteractFrom.position) > MaxRange * MaxRange)
