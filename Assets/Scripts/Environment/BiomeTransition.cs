@@ -39,6 +39,7 @@ public class BiomeTransition : MonoBehaviour
         //Airship.MoveAllObjects(Airship.Transform.position.WithZ(-Airship.Transform.position.z + offset));
         Airship.MoveAllObjects(Airship.Transform.position.WithZ(transform.position.z + tpDistance));
         ProcGen.instance.currentBiome = currentBiome;
+        ProcGen.mainMenuBiome = currentBiome;
         ProcGen.instance.Gen();
 
         for (int i = 0; i < 10; i++)

@@ -23,6 +23,7 @@ public class AirshipCrash : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (Airship.Docked || Airship.Docked) return;
         if (terrainLayerMask.Contains(other.gameObject.layer))
             Airship.Crash();
             //Airship.Crash("Crashed into terrain!", 3f);

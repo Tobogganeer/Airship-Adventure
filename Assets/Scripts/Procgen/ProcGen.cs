@@ -148,6 +148,7 @@ public class ProcGen : MonoBehaviour
 
         terrain.terrain = terrain.GetComponent<Terrain>();
         terrain.terrain.materialTemplate = GetColourMaterial(currentBiome);
+        terrain.terrain.Flush();
         //GetColours(currentBiome).SetToMat(colourMat);
     }
 

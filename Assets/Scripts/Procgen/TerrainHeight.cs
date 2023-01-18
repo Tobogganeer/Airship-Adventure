@@ -63,6 +63,7 @@ public class TerrainHeight : MonoBehaviour
         //Debug.Log("Total height: " + total);
 
         terrain.terrainData.SetHeights(0, 0, heights);
+        terrain.Flush();
         //debugTex.Apply();
     }
 

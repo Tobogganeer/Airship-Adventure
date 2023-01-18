@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+//using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class Commands
@@ -27,18 +28,21 @@ public class Commands
             if (biome == "snow")
             {
                 ProcGen.instance.currentBiome = Biome.Snow;
+                ProcGen.mainMenuBiome = Biome.Snow;
                 ProcGen.instance.Gen();
                 Debug.Log("Set biome to Biome.Snow");
             }
             if (biome == "grass")
             {
                 ProcGen.instance.currentBiome = Biome.Grasslands;
+                ProcGen.mainMenuBiome = Biome.Grasslands;
                 ProcGen.instance.Gen();
                 Debug.Log("Set biome to Biome.Grasslands");
             }
             if (biome == "desert")
             {
                 ProcGen.instance.currentBiome = Biome.Desert;
+                ProcGen.mainMenuBiome = Biome.Desert;
                 ProcGen.instance.Gen();
                 Debug.Log("Set biome to Biome.Desert");
             }
@@ -53,7 +57,7 @@ public class Commands
         });
 
     static ConsoleCommand<int> fuel = new ConsoleCommand<int>
-        ("fuel", "Changes the ship's fuel", "fuel [0-1]", (valid, fuel) =>
+        ("fuel", "Changes the ship's fuel", "fuel [0-100]", (valid, fuel) =>
         {
             float fuelFloat = fuel / 100f;
             Airship.Fuel01 = fuel;
@@ -76,6 +80,13 @@ public class Commands
             }
         });
 
+    static ConsoleCommand<int> nox = new ConsoleCommand<int>
+        ("nox", "Changes the ships's nitrous tank", "nox [0-30]", (valid, val) =>
+    {
+        Airship.Nox = val;
+        Debug.Log("Set nox to " + val);
+    });
+
     public static void Register()
     {
         DebugConsole.Register(help);
@@ -84,5 +95,6 @@ public class Commands
         DebugConsole.Register(time);
         DebugConsole.Register(fuel);
         DebugConsole.Register(fullscreen);
+        DebugConsole.Register(nox);
     }
 }
