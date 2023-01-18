@@ -7,6 +7,51 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Blimp
+    second: {fileID: 2100000, guid: 8caf491a6dc5508458f9915f1d967bdf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Deck
+    second: {fileID: 2100000, guid: 38f8074ac7d5c1f479837cd5893fe994, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Doors
+    second: {fileID: 2100000, guid: cdca7c437027ae544b057cccc7dd911c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Front prop
+    second: {fileID: 2100000, guid: d45181ff95ce62b42880c92a8a783fdf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gears
+    second: {fileID: 2100000, guid: 84f6c0df83c7cdf43ba0625889d9c7a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Interior design
+    second: {fileID: 2100000, guid: 5b92ff3812206774c966cf0e809ed86c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Item pipes
+    second: {fileID: 2100000, guid: e3edfeac3f91bde47b461024b269c9a4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LArge masts
+    second: {fileID: 2100000, guid: d8e4e4c64caa7b74cbd9c4ab2f645da7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Masts
+    second: {fileID: 2100000, guid: 8d8ae5b38e9bf5f4f8414a4f602ef525, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Material
     second: {fileID: 2100000, guid: d4d34956a990baa48a11118b03820386, type: 2}
   - first:
@@ -17,6 +62,31 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Mota
+    second: {fileID: 2100000, guid: d2cfe082ff3dac845b2e01eb231b8d0a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pipes
+    second: {fileID: 2100000, guid: bcbe1b683bf3a494a895d6efe5a5787a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plank
+    second: {fileID: 2100000, guid: 080b8ff57fa08ac41aa7f26573eb381a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rails
+    second: {fileID: 2100000, guid: 03a1bd8f2ff4d454fb57cdcf9a14bdfa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ramp
+    second: {fileID: 2100000, guid: add20571ec288cd4fa4545f924cc92a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Steel
     second: {fileID: 2100000, guid: d4d34956a990baa48a11118b03820386, type: 2}
   - first:
@@ -24,6 +94,21 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Taht material thing
     second: {fileID: 2100000, guid: d4d34956a990baa48a11118b03820386, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Turbine
+    second: {fileID: 2100000, guid: 1bdfceb8a8cc24f41986cf253360d822, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wheel
+    second: {fileID: 2100000, guid: e9bb3215a8154444e9ed47fbbfc7baeb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sails
+    second: {fileID: 2100000, guid: 2d3e6ed56cda0e745a4e1b0e21c3846e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

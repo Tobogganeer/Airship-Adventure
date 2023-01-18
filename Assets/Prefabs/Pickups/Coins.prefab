@@ -69,6 +69,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 419369298447f2d4ab2127d69794d5cc,
         type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 419369298447f2d4ab2127d69794d5cc,
+        type: 3}
       propertyPath: m_TagString
       value: ShipObject
       objectReference: {fileID: 0}
@@ -130,6 +135,8 @@ MonoBehaviour:
   springStrength: 30
   springVelocity: 1
   springDamper: 10
+  despawnOnTouchWaterAndTerrain: 1
+  despawnDistance: 150
 --- !u!114 &7749135457032436753
 MonoBehaviour:
   m_ObjectHideFlags: 0

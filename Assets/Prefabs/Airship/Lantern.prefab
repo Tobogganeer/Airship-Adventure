@@ -869,6 +869,8 @@ MonoBehaviour:
   springStrength: 0
   springVelocity: 0
   springDamper: 0
+  despawnOnTouchWaterAndTerrain: 0
+  despawnDistance: 100
 --- !u!114 &8376747593163747544
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -374,6 +374,8 @@ MonoBehaviour:
   springStrength: 30
   springVelocity: 0.5
   springDamper: 25
+  despawnOnTouchWaterAndTerrain: 0
+  despawnDistance: 100
 --- !u!114 &2632093773444121582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,6 +405,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Note
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014425559638181624, guid: 6aaaa648de224344b9ca18efb3fb8bbe,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6248996050690909719, guid: 6aaaa648de224344b9ca18efb3fb8bbe,
         type: 3}

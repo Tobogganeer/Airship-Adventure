@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 1891927203992044188}
   - component: {fileID: 5415630025817573992}
   - component: {fileID: 2509923964889800872}
-  - component: {fileID: -133508644727558282}
+  - component: {fileID: 6094796879357910492}
   m_Layer: 9
   m_Name: DoNut
   m_TagString: ShipObject
@@ -195,7 +195,7 @@ Transform:
   m_GameObject: {fileID: 6971088551302814353}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.455208, y: 0.027, z: 2.013377}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5229430296661535166}
@@ -235,10 +235,12 @@ MonoBehaviour:
   useMass: 0
   carryRange: 2
   throwForce: 5
-  useSpring: 1
+  start: 0
   springStrength: 30
   springVelocity: 1
   springDamper: 10
+  despawnOnTouchWaterAndTerrain: 1
+  despawnDistance: 150
 --- !u!64 &2509923964889800872
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -253,7 +255,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6510839796755108485, guid: 1bb59b8af013d8846a07adf1d8e91618, type: 3}
---- !u!114 &-133508644727558282
+--- !u!114 &6094796879357910492
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -265,7 +267,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18d6ff4342bc7243a06caabcce1a17c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Desiredsize: 0
+  onShelf: 0
   scaleSpeed: 3
-  ShelfSize: 0.25
-  NormSize: 1
+  smallSize: 0.5

@@ -27,6 +27,7 @@ public class ProcGen : MonoBehaviour
     public Material mapMat;
     public TerrainHeight terrain;
     public StructureGen structure;
+    public TerrainScatter scatter;
 
     Material bakeMat;
 
@@ -127,6 +128,11 @@ public class ProcGen : MonoBehaviour
 
         north.SetBiome(currentBiome);
         south.SetBiome(currentBiome);
+
+        scatter.Generate(main.seed);
+
+        if (Application.isPlaying)
+            System.GC.Collect();
     }
 
     void UploadValues()

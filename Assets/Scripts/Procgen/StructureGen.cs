@@ -12,6 +12,7 @@ public class StructureGen : MonoBehaviour
     public float radius = 2500;
     public float minStructureDist = 250;
     public LayerMask layerMask;
+    public float maxSlope = 50;
 
     [Space]
     public float minCoastalStructureAngle = 20;
@@ -160,16 +161,22 @@ public class StructureGen : MonoBehaviour
             pt = pt.WithZ(pt.y).WithY(0);
             pt *= radius * 1.5f;
             pt += Vector3.up * seaLevel;
-            if (!Physics.Raycast(pt, pt.DirectionTo(Vector3.up * seaLevel), out RaycastHit hit, float.PositiveInfinity, layerMask) || CloseTo(hit.point, positions, minStructureDist))
+            Vector3 dir = pt.DirectionTo(Vector3.up * seaLevel);
+            if (!Physics.Raycast(pt, dir, out RaycastHit hit, float.PositiveInfinity, layerMask) || CloseTo(hit.point, positions, minStructureDist))
+            {
+                i--;
+                continue;
+            }
+            if (Vector3.Angle(Vector3.up, hit.normal) > maxSlope)
             {
                 i--;
                 continue;
             }
 
             //Debug.Log("Gen coastal " + i);
-            positions.Add(hit.point);
+            positions.Add(hit.point - dir * 10);
             directions.Add(angle);
-            Spawn(current.coastalStructures[Random.Range(0, current.coastalStructures.Length)], hit);
+            Spawn(current.coastalStructures[Random.Range(0, current.coastalStructures.Length)], hit, -dir * 10);
             //structures.Add(Instantiate(coastalStructure, hit.point, Quaternion.identity));
         }
     }
@@ -190,21 +197,26 @@ public class StructureGen : MonoBehaviour
                 i--;
                 continue;
             }
+            if (Vector3.Angle(Vector3.up, hit.normal) > maxSlope)
+            {
+                i--;
+                continue;
+            }
 
             //Debug.Log("Gen inland " + i);
             positions.Add(hit.point);
             if (i == 0)
-                Spawn(current.merchant, hit);
+                Spawn(current.merchant, hit, Vector3.zero);
             else
-                Spawn(current.inlandStructures[Random.Range(0, current.inlandStructures.Length)], hit);
+                Spawn(current.inlandStructures[Random.Range(0, current.inlandStructures.Length)], hit, Vector3.zero);
             //structures.Add(Instantiate(inlandStructure, hit.point, Quaternion.identity));
         }
     }
 
-    void Spawn(GameObject prefab, RaycastHit hit)
+    void Spawn(GameObject prefab, RaycastHit hit, Vector3 offset)
     {
         Vector3 slopeDir = hit.normal.Flattened().normalized;
-        Instantiate(prefab, hit.point, Quaternion.LookRotation(slopeDir), holder);
+        Instantiate(prefab, hit.point + offset, Quaternion.LookRotation(slopeDir), holder);
     }
 
     static bool CloseTo(Vector3 pos, List<Vector3> positions, float minDist)

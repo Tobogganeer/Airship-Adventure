@@ -12,7 +12,7 @@ public class Note : ScriptableObject
     public string title;
     [TextArea(5, 20)] public string description;
 
-    [Space, TextArea(2, 5)]
+    [Space, TextArea(2, 30)]
     public string internalNotes;
 
     public enum Type
@@ -36,6 +36,12 @@ public class Note : ScriptableObject
         Altitude,
         Alarm,
         Tutorial,
-        Safehaven
+        Safehaven,
+        Tut_Movement,
+        Tut_Status,
+        Tut_Dock,
+        Tut_Boiler,
+        Tut_Grapple,
+        Shelves
     }
 }

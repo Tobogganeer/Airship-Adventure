@@ -191,8 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ffed331adf50254f873c97434f9c295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minFuel: 30
-  maxFuel: 60
+  minFuel: 60
+  maxFuel: 120
   fuel: 0
   oilLevelRenderer: {fileID: 401414407130713184}
   levelAtMin: 0.4
@@ -217,3 +217,5 @@ MonoBehaviour:
   springStrength: 30
   springVelocity: 1
   springDamper: 10
+  despawnOnTouchWaterAndTerrain: 1
+  despawnDistance: 150

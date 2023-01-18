@@ -407,6 +407,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 280725bd5e211d640a46854928660e8c, type: 3}
   - {fileID: 8300000, guid: d619e9df2c25bc14e86a9c49782fb661, type: 3}
   - {fileID: 8300000, guid: 64ed12705bd267f4fa0f77ca7bb14740, type: 3}
+  - {fileID: 8300000, guid: d33fe73138988b449990c9f93eb47820, type: 3}
+  - {fileID: 8300000, guid: de49ab4859269934caae1bfc4a63e536, type: 3}
+  - {fileID: 8300000, guid: 768b1a8eff4287b48a77ff5bacf76588, type: 3}
+  - {fileID: 8300000, guid: b817593f644f61c41a5f6bfaf0e3c0c2, type: 3}
   clipGroups:
   - name: RightFoot
     clips:
@@ -434,11 +438,6 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 2435ab2e4e07e754ca850ee166ef7356, type: 3}
     - {fileID: 8300000, guid: 0c4fd1c713aa1cf468ed234458fb1147, type: 3}
     - {fileID: 8300000, guid: b9c335d6a3a682b4d931075b100906ad, type: 3}
-  - name: HighReverb
-    clips:
-    - {fileID: 8300000, guid: 7053c08cba160f94abdba3c62ff912e4, type: 3}
-    - {fileID: 8300000, guid: a5da1cf9fb6a13d478e2aa47b1877636, type: 3}
-    - {fileID: 8300000, guid: f2d91af295fe1724c989e0c27003249c, type: 3}
   - name: MetalHit
     clips:
     - {fileID: 8300000, guid: 35740807c4f053c4384052fe24628b21, type: 3}
@@ -460,6 +459,18 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 17f0529ae0e1df24c9791bfac4efbd40, type: 3}
     - {fileID: 8300000, guid: 563e5a488c9186e4fad63c66b257be1e, type: 3}
     - {fileID: 8300000, guid: 95242597ab3469b47be56a19f9790355, type: 3}
+  - name: Reverb
+    clips:
+    - {fileID: 8300000, guid: 7053c08cba160f94abdba3c62ff912e4, type: 3}
+    - {fileID: 8300000, guid: a5da1cf9fb6a13d478e2aa47b1877636, type: 3}
+    - {fileID: 8300000, guid: f2d91af295fe1724c989e0c27003249c, type: 3}
+    - {fileID: 8300000, guid: ba6a1672fb58d60409d8064d60855c1e, type: 3}
+    - {fileID: 8300000, guid: db79be354ad83b04baa97a8ea8496f6a, type: 3}
+    - {fileID: 8300000, guid: cfbe8aca45485b64aa25783767cd7c31, type: 3}
+    - {fileID: 8300000, guid: 29c32a2a70c31d243ac792ed610abf82, type: 3}
+    - {fileID: 8300000, guid: 329ea1a95aac17442a307373ea682f8c, type: 3}
+    - {fileID: 8300000, guid: 5d3b6072d7e073e42bd9254939470299, type: 3}
+    - {fileID: 8300000, guid: fc739b66943f02140838666c75c09639, type: 3}
   - name: Empty
     clips: []
 --- !u!114 &3387363760288231107

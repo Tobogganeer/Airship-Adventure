@@ -27,7 +27,7 @@ MonoBehaviour:
   m_StoreActionsOptimization: 0
   m_SupportsHDR: 1
   m_MSAA: 4
-  m_RenderScale: 1
+  m_RenderScale: 0.97410727
   m_UpscalingFilter: 3
   m_FsrOverrideSharpness: 0
   m_FsrSharpness: 0.92
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_ShadowCascadeCount: 4
   m_Cascade2Split: 0.25
   m_Cascade3Split: {x: 0.1, y: 0.3}
-  m_Cascade4Split: {x: 0.006666667, y: 0.06666666, z: 0.33333334}
+  m_Cascade4Split: {x: 0.006666667, y: 0.06666666, z: 0.33562}
   m_CascadeBorder: 0.1
   m_ShadowDepthBias: 1
   m_ShadowNormalBias: 1

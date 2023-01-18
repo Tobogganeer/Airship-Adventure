@@ -26,6 +26,8 @@ public class Screenshot : MonoBehaviour
         date = date.Replace("/", "-");
         date = date.Replace(" ", "_");
         date = date.Replace(":", "-");
+        if (!Directory.Exists("Screenshots"))
+            Directory.CreateDirectory("Screenshots");
         string fullPath = "Screenshots/Airship " + date + ".png";
         ScreenCapture.CaptureScreenshot(fullPath, 2);
         yield return null;

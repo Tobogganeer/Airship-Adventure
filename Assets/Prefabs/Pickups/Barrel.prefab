@@ -151,6 +151,8 @@ MonoBehaviour:
   springStrength: 30
   springVelocity: 1
   springDamper: 10
+  despawnOnTouchWaterAndTerrain: 1
+  despawnDistance: 150
 --- !u!1 &9214869384186792095 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2492030350272917094, guid: ad150136dfe5a6849ba8a43b313020c8,

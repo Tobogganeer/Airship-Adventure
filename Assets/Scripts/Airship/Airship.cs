@@ -248,8 +248,9 @@ public class Airship : MonoBehaviour, ISaveable
             //Debug.Log("DELTA CLAMPED: " + Turn);
             //Turn /= 2;
 
-            if (Mathf.Abs(Turn) < 2f)
+            if (transform.position.Distance(DockingSystem.ActiveSystem.dockTo.position) < 2f && Mathf.Abs(Turn) < 2f)
             {
+                //Turn = 0;
                 Turn = deltaAngle / Time.deltaTime;
                 DockingSystem.Docked = true;
                 //_SmokeExsaust.Stop();
@@ -260,8 +261,11 @@ public class Airship : MonoBehaviour, ISaveable
         }
         else if (DockingSystem.Docked)
         {
-            delta = Vector3.zero;
+            //delta = Vector3.zero;
+            delta = transform.position.DirectionTo_NoNormalize
+                (DockingSystem.ActiveSystem.dockTo.position) * Time.deltaTime;
             Turn = 0;
+            transform.rotation = Quaternion.Slerp(transform.rotation, DockingSystem.ActiveSystem.dockTo.rotation, Time.deltaTime);
         }
         else if (DockingSystem.RecentlyDocked)
         {
@@ -278,7 +282,8 @@ public class Airship : MonoBehaviour, ISaveable
             Turn = Mathf.Clamp(deltaAngle, -dockingTurnSpeed, dockingTurnSpeed);
             //Turn /= 2;
 
-            if (Mathf.Abs(Turn) < 2f)
+            //if (Mathf.Abs(Turn) < 2f)
+            if (transform.position.Distance(DockingSystem.ActiveSystem.releaseTo.position) < 1f && Mathf.Abs(Turn) < 2f)
             {
                 DockingSystem.RecentlyDocked = false;
                 //HUD.SetDepartureIndicator(true);

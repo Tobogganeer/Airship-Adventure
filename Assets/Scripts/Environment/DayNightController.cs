@@ -51,6 +51,15 @@ public class DayNightController : MonoBehaviour
 
     [Space]
     public GameObject desertSmoke;
+    public GameObject snowSmoke;
+    public GameObject snowFlakes;
+    public GameObject ice;
+    public GameObject shipSnowFlakes;
+    public Material[] northernLightMaterials;
+    public AnimationCurve northernLightsAlphaCurve;
+    public GameObject northernLights;
+    //public GameObject northernLights;
+    //public AnimationCurve northernLightHeightCurve;
     //public float cubemapBakeTime = 5f;
     //TimeSince bakeTime;
     //Vector3 bakeAngle;
@@ -120,15 +129,41 @@ public class DayNightController : MonoBehaviour
             {
                 heightFog.settings.fogHeightPower = 1f;
                 borderFog.settings.fogDensityPower = 0.2f;
-                if (Application.isPlaying)
-                    desertSmoke.SetActive(true);
             }
             else
             {
                 heightFog.settings.fogHeightPower = 0.2f;
                 borderFog.settings.fogDensityPower = 0.75f;
-                if (Application.isPlaying)
-                    desertSmoke.SetActive(false);
+            }
+        }
+
+        if (Application.isPlaying)
+        {
+            desertSmoke.SetActive(currentBiome == Biome.Desert);
+            snowSmoke.SetActive(currentBiome == Biome.Snow);
+            snowFlakes.SetActive(currentBiome == Biome.Snow);
+            ice.SetActive(currentBiome == Biome.Snow);
+            shipSnowFlakes.SetActive(currentBiome == Biome.Snow);
+
+            if (northernLightMaterials != null)
+            {
+                if (currentBiome == Biome.Snow)
+                {
+                    SetLightAlpha(northernLightsAlphaCurve.Evaluate(timeOfDay));
+                    northernLights.transform.position = PlayerMovement.Position;
+                }
+                else
+                {
+                    SetLightAlpha(0);
+                }
+            }
+        }
+
+        void SetLightAlpha(float alpha)
+        {
+            foreach (Material mat in northernLightMaterials)
+            {
+                mat.SetFloat("_Alpha", alpha);
             }
         }
 

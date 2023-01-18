@@ -41,7 +41,7 @@ public class MosSpawner : MonoBehaviour
                 Vector3 pos = Random.insideUnitCircle.XYToXZ() * maxSpawnRange;
                 if (pos.magnitude < minSpawnRange)
                     pos = pos.normalized * minSpawnRange;
-                pos.y = Random.Range(-5f, 25f);
+                pos.y = Random.Range(-5f, 60f);
 
                 GameObject newCache = Instantiate(enemyPrefab, pos + transform.position, Quaternion.identity);
                 if (IsVisible(cam, newCache.GetComponentInChildren<Renderer>()))
