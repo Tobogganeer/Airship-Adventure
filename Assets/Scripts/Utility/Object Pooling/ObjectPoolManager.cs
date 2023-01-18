@@ -55,7 +55,8 @@ public class ObjectPoolManager : MonoBehaviour
     {
         if (instance.objectPools.ContainsKey(pool.objectType))
         {
-            Debug.LogWarning($"Tried to create pool with type '{pool.objectType}', but a pool with that type already exists!");
+            Debug.LogWarning($"Tried to create pool with type '{pool.objectType}', but a pool with that type already exists! Increasing size...");
+            IncreasePoolSize(pool.objectType, pool.numToSpawn);
             return;
         }
 
@@ -79,16 +80,29 @@ public class ObjectPoolManager : MonoBehaviour
     {
         if (instance.objectPools.TryGetValue(objectType, out ObjectPool pool))
         {
-            PooledObjectInstance obj = pool.pool.Dequeue();
-            if (obj.gameObject.activeInHierarchy)
+            if (pool.pool == null) return null;
+            if (pool.pool.Count == 0)
             {
-                if (pool.pool.Count < MaxPoolSize)
-                {
-                    IncreasePoolSize(objectType, pool.pool.Count);
-                    Debug.Log($"Doubled size of {objectType} pool ({pool.pool.Count} => {pool.pool.Count * 2}) due to dequeueing an active object.");
-                }
+                IncreasePoolSize(objectType, 16);
+                Debug.Log($"Added 16 to {objectType} pool due to being empty");
             }
+
+            PooledObjectInstance obj = pool.pool.Dequeue();
+            int num = pool.pool.Count;
+            while (obj.gameObject.activeSelf && num > 0)
+            {
+                pool.pool.Enqueue(obj);
+                num--;
+                obj = pool.pool.Dequeue();
+            }
+
             pool.pool.Enqueue(obj);
+
+            if (num == 0 && pool.pool.Count < MaxPoolSize)
+            {
+                IncreasePoolSize(objectType, pool.pool.Count);
+                Debug.Log($"Doubled size of {objectType} pool ({pool.pool.Count} => {pool.pool.Count * 2}) due to dequeueing all active objects.");
+            }
 
             obj.Spawn();
             return obj.gameObject;
@@ -101,6 +115,7 @@ public class ObjectPoolManager : MonoBehaviour
         return null;
     }
 
+    /*
     public static GameObject GetObject(PooledObject objectType, Vector3 position, Quaternion rotation)
     {
         if (instance.objectPools.TryGetValue(objectType, out ObjectPool pool))
@@ -123,6 +138,7 @@ public class ObjectPoolManager : MonoBehaviour
 
         return null;
     }
+    */
 
     public static void IncreasePoolSize(PooledObject objectType, int numAdditionalObjects = 1)
     {

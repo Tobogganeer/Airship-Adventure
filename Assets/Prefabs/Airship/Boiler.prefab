@@ -700,7 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oilLevelRenderer: {fileID: 8787630459804177475}
-  levelAtMin: 0.3
+  levelAtMin: 0.2
   levelAtMax: 0.8
 --- !u!1 &3150925051038343196
 GameObject:

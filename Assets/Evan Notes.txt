@@ -1,11 +1,11 @@
 
-Screenshots working
-Skybox fog maybe
+//Screenshots working
+//Skybox fog maybe
 //New caches
 //Kill mos on dock
 //Mos anims
-Snow
-Northern lights
+//Snow
+//Northern lights
 //Mos noises
 //email files
 //credits
@@ -14,6 +14,7 @@ Northern lights
 Music system
 //Screen shake explosion
 //TP to ship when touching terrain or water (or die)
-Enlongen docks
-Buff sun
-Desert visibility
+//Enlongen docks
+//Buff sun
+//Desert visibility
+//Audio source pool

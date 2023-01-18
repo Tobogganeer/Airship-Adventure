@@ -36,7 +36,7 @@ public class Journal : MonoBehaviour
 
         for (int i = 0; i < notes.Length; i++)
         {
-            GameObject obj = Instantiate(notePrefab, transform);
+            GameObject obj = Instantiate(notePrefab, noteHolder);
             obj.GetComponent<JournalEntry>().note = notes[i];
             entries.Add(notes[i], obj);
             noteDict.Add(notes[i].type, notes[i]);
@@ -90,7 +90,17 @@ public class Journal : MonoBehaviour
             if (Instance.entries.TryGetValue(note, out GameObject val))
                 val.SetActive(true);
             if (announce)
-                PopUp.Show($"'{note.title}'", 1f, 1f);
+                PopUp.Show(GetTitle(note), 1f, 1f);
+
+
         }
+    }
+
+    static string GetTitle(Note note)
+    {
+        Note.Type t = note.type;
+        if (t == Note.Type.TheShip || t == Note.Type.Alarm || t == Note.Type.Altitude || t == Note.Type.Boiler || t == Note.Type.WhatsThePoint)
+            return $"'{note.title}' (+ tutorial)";
+        return $"'{note.title}'";
     }
 }

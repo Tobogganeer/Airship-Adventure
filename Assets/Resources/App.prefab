@@ -408,6 +408,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d619e9df2c25bc14e86a9c49782fb661, type: 3}
   - {fileID: 8300000, guid: 64ed12705bd267f4fa0f77ca7bb14740, type: 3}
   - {fileID: 8300000, guid: d33fe73138988b449990c9f93eb47820, type: 3}
+  - {fileID: 8300000, guid: de49ab4859269934caae1bfc4a63e536, type: 3}
+  - {fileID: 8300000, guid: 768b1a8eff4287b48a77ff5bacf76588, type: 3}
+  - {fileID: 8300000, guid: b817593f644f61c41a5f6bfaf0e3c0c2, type: 3}
   clipGroups:
   - name: RightFoot
     clips:

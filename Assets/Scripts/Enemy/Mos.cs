@@ -22,6 +22,7 @@ public class Mos : MonoBehaviour
     public Animator animator;
     public AudioSource flapAudio;
     public AudioSource suckAudio;
+    public AudioSource suckAudio2;
 
 
     public static int NumEnemys;
@@ -59,7 +60,7 @@ public class Mos : MonoBehaviour
         if (Airship.Docked || Airship.Docking)
         {
             //DoneorDead = true;
-            Die(1f, Vector3.zero);
+            Die(1f, Vector3.zero, false);
         }
 
         if (DoneorDead)
@@ -67,6 +68,7 @@ public class Mos : MonoBehaviour
             animator.SetBool("dead", true);
             flapAudio.Stop();
             suckAudio.Stop();
+            suckAudio2.Stop();
             if (transform.position.y < -110)
             {
                 Destroy(gameObject);
@@ -78,6 +80,8 @@ public class Mos : MonoBehaviour
             flapAudio.Stop();
             if (!suckAudio.isPlaying)
                 suckAudio.Play();
+            if (!suckAudio2.isPlaying)
+                suckAudio2.Play();
             animator.SetBool("docked", true);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, Time.deltaTime * 180);
@@ -95,7 +99,7 @@ public class Mos : MonoBehaviour
                     //Rigidbody rb = GetComponent<Rigidbody>();
                     //rb.isKinematic = false;
                     //rb.AddTorque(Ran(100));
-                    Die(1f, Vector3.zero);
+                    Die(1f, Vector3.zero, false);
                 }
 
             }
@@ -138,7 +142,8 @@ public class Mos : MonoBehaviour
 
         if (KE > minVelocity)
         {
-            Debug.Log("Hit Item at: " + KE);
+            //Debug.Log("Hit Item at: " + KE);
+            AudioManager.Play(new Audio("Mosquito Slap").SetPosition(transform.position));
 
             MosHp -= KE;
 
@@ -170,7 +175,7 @@ public class Mos : MonoBehaviour
     }
 
 
-    void Die(float torque, Vector3 vel)
+    public void Die(float torque, Vector3 vel, bool playAudio = true)
     {
         if (DoneorDead) return;
 
@@ -182,5 +187,11 @@ public class Mos : MonoBehaviour
         rb.velocity = vel;
 
         DoneorDead = true;
+
+        if (playAudio)
+        {
+            AudioManager.Play(new Audio("Crunch").SetPosition(transform.position));
+            AudioManager.Play(new Audio("Mosquito Slap").SetPosition(transform.position));
+        }
     }
 }

@@ -48,7 +48,7 @@ Material:
     - Vector1_846d90e0de904f79a61b0a45ba4589eb: 2
     - Vector1_8c298a7a39e84f828db1797c5255a2eb: 0.653
     - _IOR: -0.01
-    - _Normal_Strength: 16.16
+    - _Normal_Strength: 3.3
     - _Normal_Strength_Refract: 0.01
     - _QueueControl: 0
     - _QueueOffset: 0

@@ -11,6 +11,7 @@ TagManager:
   - Crate
   - No Crash Alarm
   - NoMosDamage
+  - Mosquito
   layers:
   - Default
   - TransparentFX

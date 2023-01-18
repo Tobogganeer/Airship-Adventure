@@ -356,4 +356,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a26079171a122634e8b9d932738419fb, type: 3}
     volume: 0.2
     discColour: {r: 0.14453542, g: 0.14602776, b: 0.1509434, a: 1}
+  - discIndex: 0
+    clip: {fileID: 8300000, guid: 8770093455c46764fa71f16888675909, type: 3}
+    volume: 0.2
+    discColour: {r: 1, g: 1, b: 1, a: 1}
   discsOnShip: 
