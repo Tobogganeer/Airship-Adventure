@@ -54,6 +54,7 @@ Material:
     - _Fill: 0.617
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _TEST: -1
     - _WobbleX: 0
     - _WobbleZ: 0
     m_Colors:

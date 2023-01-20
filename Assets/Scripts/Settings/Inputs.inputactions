@@ -133,6 +133,17 @@
                 },
                 {
                     "name": "",
+                    "id": "196209f7-5cf6-487e-a4ea-c1857dbf0cf1",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Primary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "0ffe3b5c-4eed-49aa-a7fe-4fa4ac04e63c",
                     "path": "<Mouse>/delta",
                     "interactions": "",

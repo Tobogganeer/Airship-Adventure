@@ -97,13 +97,15 @@ public class GrappleHook : MonoBehaviour, IInteractable
             //    Quaternion.Euler(offset), turnSpeed * Time.deltaTime);
         }
 
-        rope.show = grabbing && grabbedTarget != null;
+        rope.show = grabbing;// && grabbedTarget != null;
         //rope.show = true;
         rope.start = rope.transform.position;
         rope.end = hook.position;
         rope.DrawRope();
         //rope.SetPosition(0, rope.transform.position);
         //rope.SetPosition(1, hook.position);
+
+        hook.localEulerAngles = new Vector3(0, 180, 0); // if hit thing despawns, head turns, hook faces forward et voila
     }
 
     void TryShoot()
@@ -118,7 +120,7 @@ public class GrappleHook : MonoBehaviour, IInteractable
         {
             cam.aimingAtTarget = true;
 
-            if (PlayerInputs.Primary && !grabbing)
+            if (PlayerInputs.Secondary && !grabbing && !Cursor.visible)
             {
                 grabbedTarget = hit.transform;
                 grabbedPos = hit.transform.position.DirectionTo_NoNormalize(hit.point);
@@ -155,6 +157,11 @@ public class GrappleHook : MonoBehaviour, IInteractable
 
         //yield return wait;
 
+        if (grabbedTarget.HasTag("Mosquito"))
+        {
+            grabbedTarget.GetComponent<Mos>().Die(1f, transform.position.DirectionTo(grabbedTarget.transform.position) * 5);
+            grabbedTarget = null;
+        }
 
         Vector3 hookOffset = hook.position.DirectionTo_NoNormalize(grabbedTarget != null ? grabbedTarget.position : Vector3.zero);
         Vector3 grab = hook.position;
@@ -165,6 +172,8 @@ public class GrappleHook : MonoBehaviour, IInteractable
             time -= Time.deltaTime;
             hook.position = Vector3.Lerp(hookHome.position,
                 grab, Remap.Float(time, 0, travel, 0, 1));
+            //hook.forward = -hookHome.position.DirectionTo(hook.position);
+            
             if (grabbedTarget != null)
             {
                 grabbedTarget.position = hook.position + hookOffset;

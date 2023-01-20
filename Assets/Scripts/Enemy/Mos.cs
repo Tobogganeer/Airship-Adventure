@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,28 +6,163 @@ using UnityEngine;
 public class Mos : MonoBehaviour
 {
     public float speed = 12f;
+    public float FuelsuckRate = 2f;
+    public float FuelsuckAmmt = 4f;
+    public float minVelocity = 1f;
+    public float MosHp = 100f;
 
-    public Vector3 movement = new Vector3(0, 0, 5f); // Speed of the mos
+    private float Fuelsucktrckr;
+    //private bool dockedyet;
+    private bool DoneorDead;
+    bool docked;
+
+    Quaternion desired;
+
+    [Space]
+    public Animator animator;
+    public AudioSource flapAudio;
+    public AudioSource suckAudio;
+    public AudioSource suckAudio2;
+
 
     public static int NumEnemys;
+    Transform target;
 
     private void Start()
     {
-    
+        AudioManager.Play(new Audio("Reverb").SetPosition(transform.position).SetDistance(1000f).SetPitch(0.5f, 1.5f));
+        Fuelsucktrckr = 0;
+        //dockedyet = false;
+        DoneorDead = false;
+
+        //target = Airship.instance.enemyPOIs[Random.Range(0, Airship.instance.enemyPOIs.Length)];
+
+        float closestDistanceSqr = Mathf.Infinity;
+        //Vector3 currentPosition = transform.position;
+
+        foreach (Transform potentialTarget in Airship.instance.enemyPOIs)
+        {
+            //Vector3 directionToTarget = potentialTarget.position - currentPosition;
+            //float dSqrToTarget = directionToTarget.sqrMagnitude;
+            float dSqrToTarget = transform.position.SqrDistance(potentialTarget.position);
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                target = potentialTarget;
+            }
+        }
+
+
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        Vector3 delta;
+        if (Airship.Docked || Airship.Docking)
+        {
+            //DoneorDead = true;
+            Die(1f, Vector3.zero, false);
+        }
 
-        transform.LookAt(Airship.instance.enemyPOI);
+        if (DoneorDead)
+        {
+            animator.SetBool("dead", true);
+            flapAudio.Stop();
+            suckAudio.Stop();
+            suckAudio2.Stop();
+            if (transform.position.y < -110)
+            {
+                Destroy(gameObject);
+            }
+        }
 
-        //delta = transform.position.DirectionTo_NoNormalize
-        //        (Airship.instance.enemyPOI.position) * (Time.deltaTime);
-        delta = Vector3.MoveTowards(transform.position, Airship.instance.enemyPOI.position, ( Time.deltaTime * speed));
+        if (docked && !DoneorDead)
+        {
+            flapAudio.Stop();
+            if (!suckAudio.isPlaying)
+                suckAudio.Play();
+            if (!suckAudio2.isPlaying)
+                suckAudio2.Play();
+            animator.SetBool("docked", true);
 
-        transform.position = delta;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, Time.deltaTime * 180);
+            transform.position = target.position;
+
+            if (transform.rotation == target.rotation)
+            {
+                Airship.Fuel -= FuelsuckRate * Time.deltaTime;
+                Fuelsucktrckr += FuelsuckRate * Time.deltaTime;
+                if (FuelsuckAmmt < Fuelsucktrckr)
+                {
+                    docked = false;
+                    //DoneorDead = true;
+                    FuelsuckRate = 0f;
+                    //Rigidbody rb = GetComponent<Rigidbody>();
+                    //rb.isKinematic = false;
+                    //rb.AddTorque(Ran(100));
+                    Die(1f, Vector3.zero, false);
+                }
+
+            }
+
+        }
+        else
+        {
+
+            if (!DoneorDead)
+            {
+
+                transform.LookAt(target);
+
+                transform.position = Vector3.MoveTowards(transform.position, target.position, (Time.deltaTime * speed));
+
+            }
+
+            if (Vector3.Distance(transform.position, target.position) < .1f)
+            {
+                docked = true;
+                //dockedyet = true;
+            }
+        }
+
     }
+
+    Vector3 Ran(float lim = 360) => new Vector3(
+        UnityEngine.Random.Range(-lim, lim),
+        UnityEngine.Random.Range(-lim, lim),
+        UnityEngine.Random.Range(-lim, lim));
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (DoneorDead) return;
+        if (collision.transform.HasTag("NoMosDamage")) return;
+
+        float mass = GetComponent<Rigidbody>().mass;
+        float velocity = collision.rigidbody.velocity.magnitude;
+        float KE = (mass * 0.5f) * (velocity * velocity);
+
+        if (KE > minVelocity)
+        {
+            //Debug.Log("Hit Item at: " + KE);
+            AudioManager.Play(new Audio("Mosquito Slap").SetPosition(transform.position));
+
+            MosHp -= KE;
+
+            if (MosHp < 0)
+            {
+                /*
+                Rigidbody rb = GetComponent<Rigidbody>();
+
+                rb.isKinematic = false;
+                rb.AddTorque(Ran() * 3);
+                rb.velocity = collision.rigidbody.velocity * 2f;
+
+                DoneorDead = true;
+                */
+                Die(3, collision.rigidbody.velocity * 2f);
+            }
+        }
+    }
+
 
     private void OnEnable()
     {
@@ -36,5 +172,26 @@ public class Mos : MonoBehaviour
     private void OnDisable()
     {
         NumEnemys--;
+    }
+
+
+    public void Die(float torque, Vector3 vel, bool playAudio = true)
+    {
+        if (DoneorDead) return;
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+
+        rb.isKinematic = false;
+        rb.AddTorque(Ran() * torque);
+        //rb.velocity = collision.rigidbody.velocity * 2f;
+        rb.velocity = vel;
+
+        DoneorDead = true;
+
+        if (playAudio)
+        {
+            AudioManager.Play(new Audio("Crunch").SetPosition(transform.position));
+            AudioManager.Play(new Audio("Mosquito Slap").SetPosition(transform.position));
+        }
     }
 }

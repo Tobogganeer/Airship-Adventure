@@ -1,4 +1,20 @@
 
-Nate notes https://docs.google.com/document/d/1yhFFxV6_FSxyRPNYiz-rS8MZjvttFbLQ55eT5c6J1k4/edit
-Player teleporting back to the ship
-Dock lever
+//Screenshots working
+//Skybox fog maybe
+//New caches
+//Kill mos on dock
+//Mos anims
+//Snow
+//Northern lights
+//Mos noises
+//email files
+//credits
+//water crashing
+//Cam zoom
+Music system
+//Screen shake explosion
+//TP to ship when touching terrain or water (or die)
+//Enlongen docks
+//Buff sun
+//Desert visibility
+//Audio source pool

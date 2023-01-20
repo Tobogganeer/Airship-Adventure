@@ -21,6 +21,8 @@ public class Interactor : MonoBehaviour
 
     public static bool Interacting => CurrentInteractable != null && CurrentInteractable.IsInteracting;
 
+    //public string die;
+
     private void Start()
     {
         CurrentInteractable = null;
@@ -31,7 +33,7 @@ public class Interactor : MonoBehaviour
     {
         FetchInteractables();
 
-        if (PlayerInputs.Secondary)
+        if (PlayerInputs.Primary && !Cursor.visible)
         {
             if (CurrentInteractable != null && CurrentInteractable.IsInteracting)
             {
@@ -61,6 +63,18 @@ public class Interactor : MonoBehaviour
                 }
             }
         }
+        if (PlayerInputs.Secondary && !Cursor.visible)
+        {
+            if (CurrentInteractable != null && CurrentInteractable.IsInteracting)
+            {
+                if (CurrentInteractable.transform.TryGetComponent(out ISecondaryInteractable lmb))
+                    lmb.OnSecondaryInteract();
+                if (CurrentInteractable.IsInteracting == false)
+                {
+                    CurrentInteractable = null;
+                }
+            }
+        }
     }
 
     private void FetchInteractables()
@@ -76,5 +90,41 @@ public class Interactor : MonoBehaviour
 
         HUD.SetInteract(false);
         lookingAt = null;
+    }
+
+    public static void OnDestroy(IInteractable i)
+    {
+        if (CurrentInteractable == i)
+            CurrentInteractable = null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (Physics.Raycast(interactFrom.position, interactFrom.forward, out RaycastHit hit, interactRange, interactLayers, QueryTriggerInteraction.Collide))
+        {
+            Gizmos.color = Color.red;
+
+            if (hit.transform.TryGetComponent(out lookingAt))
+            {
+                Gizmos.color = Color.green;
+            }
+
+            Gizmos.DrawSphere(hit.point, 0.1f);
+            //die = hit.transform.name;
+        }
+
+        if (CurrentInteractable != null)
+        {
+            Gizmos.color = Color.green;
+        }
+        else if (lookingAt != null)
+        {
+            Gizmos.color = Color.yellow;
+        }
+        else
+        {
+            Gizmos.color = Color.red;
+        }
+        Gizmos.DrawLine(interactFrom.position, interactFrom.position + interactFrom.forward * interactRange);
     }
 }

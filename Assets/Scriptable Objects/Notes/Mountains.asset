@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
+  m_Name: Mountains
+  m_EditorClassIdentifier: 
+  type: 6
+  title: Stop and Smell the Mountains
+  description: "You ever wonder how the world looks? Well I do at least. Take a moment,
+    stop adventuring, just stand still. Embrace nature Never again will land like
+    this be seen\u2026 Reminds me of my youth atleast"
+  internalNotes: On dock near back

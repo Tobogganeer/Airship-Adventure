@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-//using UnityEngine.Rendering.Universal;
 
 [ExecuteAlways]
 public class DayNightController : MonoBehaviour
 {
+    public static DayNightController instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public EnvBaker baker;
     public Material skyboxMaterial;
 
@@ -14,46 +19,86 @@ public class DayNightController : MonoBehaviour
     public float timeOfDay;
     [ReadOnly] public float speed;
     public float secondsPerDay = 240;
-    public float yRot = -30f;
+    //public float yRot = -30f;
 
     [Header("Rise -> Noon -> Set -> Midnight -> Rise")]
-    public AnimationCurve dayIntensity;
+    public AnimationCurve sunriseSkyboxIntensity;
+    public AnimationCurve sunsetSkyboxIntensity;
+    public AnimationCurve middaySkyboxIntensity;
+    public AnimationCurve nightSkyboxIntensity;
     public AnimationCurve dayLightIntensity;
-    public AnimationCurve nightIntensity;
-    public AnimationCurve nightLightIntensity;
-    public Gradient fogColour;
+    //public Gradient fogColour;
+    public Gradient fogColourGrasslands;
+    public Gradient fogColourDesert;
+    public Gradient fogColourSnow;
+    public Gradient borderFogColourGrasslands;
+    public Gradient borderFogColourDesert;
+    public Gradient borderFogColourSnow;
     public Gradient fogSunColour;
     public AnimationCurve fogExtraHeight;
+    public float desertFogExtraHeight = 30;
 
     [Space]
     public LensFlareComponentSRP flare;
-    public OD.AtmosphericFogRenderFeature atmosFog;
+    public OD.AtmosphericFogRenderFeature heightFog;
+    public OD.AtmosphericFogRenderFeature borderFog;
     public Light lightData;
     public float lightIntensityMult = 1.5f;
     public float flareIntensityMult = 0.5f;
 
     [Space]
-    public float cubemapBakeTime = 5f;
-    TimeSince bakeTime;
+    public float cubemapBakeAngle = 0.5f;
+
+    [Space]
+    public GameObject desertSmoke;
+    public GameObject snowSmoke;
+    public GameObject snowFlakes;
+    public GameObject ice;
+    public GameObject shipSnowFlakes;
+    public Material[] northernLightMaterials;
+    public AnimationCurve northernLightsAlphaCurve;
+    public GameObject northernLights;
+    //public GameObject northernLights;
+    //public AnimationCurve northernLightHeightCurve;
+    //public float cubemapBakeTime = 5f;
+    //TimeSince bakeTime;
+    //Vector3 bakeAngle;
+    float bakeAngle;
+    float bakeTimer;
+
+    static Biome currentBiome
+    {
+        get
+        {
+            if (ProcGen.instance == null) return Biome.Grasslands;
+            return ProcGen.instance.currentBiome;
+        }
+    }
 
     private void Start()
     {
-        bakeTime = 0;
+        //bakeTime = 0;
+        bakeAngle = timeOfDay * 360;
+        heightFog.SetActive(true);
+        borderFog.SetActive(true);
     }
 
     const float DefaultFogHeight = 15f;
 
     void Update()
     {
-        transform.localRotation = Quaternion.Euler(timeOfDay * 360, yRot, 0);
+        //transform.localRotation = Quaternion.Euler(timeOfDay * 360, yRot, 0);
+        transform.localRotation = Quaternion.Euler(timeOfDay * 360, 0, 0);
         //float pos = Vector3.Dot(transform.forward, Vector3.up) * 0.5f + 0.5f;
         //Debug.Log(pos); // 0 : up, 0.5 : sideways, 1 : down
 
         if (skyboxMaterial != null)
         {
             //skyboxMaterial.SetFloat("_Mix", pos);
-            skyboxMaterial.SetFloat("_DayIntensity", dayIntensity.Evaluate(timeOfDay));
-            skyboxMaterial.SetFloat("_NightIntensity", nightIntensity.Evaluate(timeOfDay));
+            skyboxMaterial.SetFloat("_SunriseIntensity", sunriseSkyboxIntensity.Evaluate(timeOfDay));
+            skyboxMaterial.SetFloat("_SunsetIntensity", sunsetSkyboxIntensity.Evaluate(timeOfDay));
+            skyboxMaterial.SetFloat("_NightIntensity", nightSkyboxIntensity.Evaluate(timeOfDay));
+            skyboxMaterial.SetFloat("_MiddayIntensity", middaySkyboxIntensity.Evaluate(timeOfDay));
         }
 
         if (flare != null)
@@ -66,21 +111,88 @@ public class DayNightController : MonoBehaviour
             lightData.intensity = dayLightIntensity.Evaluate(timeOfDay) * lightIntensityMult;
         }
 
-        if (atmosFog?.settings != null)
+        if (heightFog?.settings != null)
         {
-            atmosFog.settings.color = fogColour.Evaluate(timeOfDay);
-            atmosFog.settings.sunColor = fogSunColour.Evaluate(timeOfDay);
-            atmosFog.settings.fogHeightEnd = DefaultFogHeight + fogExtraHeight.Evaluate(timeOfDay);
+            Gradient fogGrad = currentBiome switch
+            {
+                Biome.Grasslands => fogColourGrasslands,
+                Biome.Desert => fogColourDesert,
+                Biome.Snow => fogColourSnow,
+                _ => throw new System.NotImplementedException(),
+            };
+
+            heightFog.settings.color = fogGrad.Evaluate(timeOfDay);
+            heightFog.settings.sunColor = Add(fogGrad.Evaluate(timeOfDay), fogSunColour.Evaluate(timeOfDay));
+            heightFog.settings.fogHeightEnd = DefaultFogHeight + fogExtraHeight.Evaluate(timeOfDay)
+                + (currentBiome == Biome.Desert ? desertFogExtraHeight : 0);
+            if (currentBiome == Biome.Desert)
+            {
+                heightFog.settings.fogHeightPower = 1f;
+                borderFog.settings.fogDensityPower = 0.2f;
+            }
+            else
+            {
+                heightFog.settings.fogHeightPower = 0.2f;
+                borderFog.settings.fogDensityPower = 0.75f;
+            }
+        }
+
+        if (Application.isPlaying)
+        {
+            desertSmoke.SetActive(currentBiome == Biome.Desert);
+            snowSmoke.SetActive(currentBiome == Biome.Snow);
+            snowFlakes.SetActive(currentBiome == Biome.Snow);
+            ice.SetActive(currentBiome == Biome.Snow);
+            shipSnowFlakes.SetActive(currentBiome == Biome.Snow);
+
+            if (northernLightMaterials != null)
+            {
+                if (currentBiome == Biome.Snow)
+                {
+                    SetLightAlpha(northernLightsAlphaCurve.Evaluate(timeOfDay));
+                    northernLights.transform.position = PlayerMovement.Position;
+                }
+                else
+                {
+                    SetLightAlpha(0);
+                }
+            }
+        }
+
+        void SetLightAlpha(float alpha)
+        {
+            foreach (Material mat in northernLightMaterials)
+            {
+                mat.SetFloat("_Alpha", alpha);
+            }
+        }
+
+        if (borderFog?.settings != null)
+        {
+            Gradient fogGrad = currentBiome switch
+            {
+                Biome.Grasslands => borderFogColourGrasslands,
+                Biome.Desert => borderFogColourDesert,
+                Biome.Snow => borderFogColourSnow,
+                _ => throw new System.NotImplementedException(),
+            };
+            borderFog.settings.color = fogGrad.Evaluate(timeOfDay);
+            //borderFog.settings.sunColor = fogSunColour.Evaluate(timeOfDay);
+            borderFog.settings.sunColor = Add(fogGrad.Evaluate(timeOfDay), fogSunColour.Evaluate(timeOfDay));
         }
 
         if (Application.isPlaying)
         {
             timeOfDay = (timeOfDay + speed * Time.deltaTime) % 1;
+            bakeTimer -= Time.deltaTime;
 
-            if (bakeTime > cubemapBakeTime)
+            //if (bakeTime > cubemapBakeTime)
+            if (timeOfDay * 360 - bakeAngle > cubemapBakeAngle || bakeTimer < 0)
             {
                 //Debug.Log("Bake");
-                bakeTime = 0;
+                //bakeTime = 0;
+                bakeAngle = timeOfDay * 360;
+                bakeTimer = 5f;
                 baker.Bake();
             }
         }
@@ -90,5 +202,18 @@ public class DayNightController : MonoBehaviour
     {
         speed = 1f / secondsPerDay;
         //secondsPerDay = 1f / speed;
+    }
+
+    Color Add(Color col1, Color col2)
+    {
+        float _1 = col1.a;
+        float _2 = col2.a;
+
+        return new Color(
+            Mathf.Clamp01(col1.r * _1 + col2.r * _2),
+            Mathf.Clamp01(col1.g * _1 + col2.g * _2),
+            Mathf.Clamp01(col1.b * _1 + col2.b * _2),
+            Mathf.Clamp01(_1 + _2)
+        );
     }
 }

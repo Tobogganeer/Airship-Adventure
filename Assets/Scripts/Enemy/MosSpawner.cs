@@ -17,6 +17,7 @@ public class MosSpawner : MonoBehaviour
 
     private void Start()
     {
+        timer = Random.Range(spawnTime.x, spawnTime.y);
         cam = FPSCamera.instance.GetComponent<Camera>();
     }
 
@@ -35,12 +36,12 @@ public class MosSpawner : MonoBehaviour
         {
             timer = Random.Range(spawnTime.x, spawnTime.y);
 
-            if (Mos.NumEnemys < enemys)
+            if (Mos.NumEnemys < enemys && !Airship.Docked && !Airship.Docking)
             {
                 Vector3 pos = Random.insideUnitCircle.XYToXZ() * maxSpawnRange;
                 if (pos.magnitude < minSpawnRange)
                     pos = pos.normalized * minSpawnRange;
-                pos.y = Random.Range(-5f, 25f);
+                pos.y = Random.Range(-5f, 60f);
 
                 GameObject newCache = Instantiate(enemyPrefab, pos + transform.position, Quaternion.identity);
                 if (IsVisible(cam, newCache.GetComponentInChildren<Renderer>()))

@@ -9,7 +9,7 @@ public class Screenshot : MonoBehaviour
 {
     void Update()
     {
-        if (Keyboard.current.pKey.wasPressedThisFrame)
+        if (Keyboard.current.pKey.wasPressedThisFrame && !Cursor.visible)
         {
             StartCoroutine(Capture());
         }
@@ -21,7 +21,14 @@ public class Screenshot : MonoBehaviour
         yield return null;
         //string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         //string fullPath = Path.Combine(path, "Airship " + DateTime.Now.ToString() + ".png");
-        string fullPath = "Airship " + DateTime.Now.ToString() + ".png";
+        yield return new WaitForEndOfFrame();
+        string date = DateTime.Now.ToString();
+        date = date.Replace("/", "-");
+        date = date.Replace(" ", "_");
+        date = date.Replace(":", "-");
+        if (!Directory.Exists("Screenshots"))
+            Directory.CreateDirectory("Screenshots");
+        string fullPath = "Screenshots/Airship " + date + ".png";
         ScreenCapture.CaptureScreenshot(fullPath, 2);
         yield return null;
         HUD.ShowHUD = true;

@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Hangable
+  - Structure
+  - ShipObject
+  - Record
+  - Crate
+  - No Crash Alarm
+  - NoMosDamage
+  - Mosquito
   layers:
   - Default
   - TransparentFX
@@ -21,7 +28,7 @@ TagManager:
   - Ship Crash
   - No Player Collision
   - Map Render
-  - 
+  - Mos
   - 
   - 
   - 

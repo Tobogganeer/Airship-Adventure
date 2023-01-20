@@ -30,6 +30,8 @@ public class GrappleCam : MonoBehaviour
 
     void LateUpdate()
     {
+        if (Airship.Crashed) return;
+
         if (hook.IsInteracting)
             //fac += Time.deltaTime * moveSpeed;
             fac = Mathf.Lerp(fac, 1, Time.deltaTime * moveSpeed);

@@ -8,72 +8,233 @@ public class StructureGen : MonoBehaviour
     [Range(0, 15)] public int inlandStructures = 5;
 
     [Space]
-    public float maxHeight = 100;
     public float seaLevel = 50;
     public float radius = 2500;
+    public float minStructureDist = 250;
+    public LayerMask layerMask;
+    public float maxSlope = 50;
 
     [Space]
-    public GameObject coastalStructure;
-    public GameObject inlandStructure;
+    public float minCoastalStructureAngle = 20;
 
+    [Space]
+    public float maxHeight = 100;
+    public float sphereCastRadius = 10f;
+
+    [Space]
+    public BiomeStructures grasslandStructures;
+    public BiomeStructures desertStructures;
+    public BiomeStructures snowStructures;
 
     [Space]
     public bool gizmos;
 
-    List<GameObject> structures = new List<GameObject>();
+    Transform holder;
+
+    //[SerializeField, HideInInspector]
+    //List<GameObject> structures = new List<GameObject>();
 
     public void Generate(int seed)
     {
-        Random.State oldState = Random.state;
+        //Random.State oldState = Random.state;
 
-        foreach (GameObject s in structures)
-            Destroy(s);
+        //Debug.Log(transform.childCount + " children");
+        //int attempts = 100;
+        //while (transform.childCount > 0 && attempts > 0)
+        //{
+        //    attempts--;
+        //    if (Application.isPlaying)
+        //        Destroy(transform.GetChild(0).gameObject);
+        //    else
+        //        DestroyImmediate(transform.GetChild(0).gameObject);
+        //}
 
-        structures.Clear();
+        //if (!Application.isPlaying)
+        //{
+        //    StartCoroutine(GenerateOverTime(seed));
+        //}
+        //else
+        //{
+        //if (holder != null)
+        if (transform.childCount > 0)
+        {
+            if (Application.isPlaying)
+                Destroy(transform.GetChild(0).gameObject);
+            else
+                DestroyImmediate(transform.GetChild(0).gameObject);
+        }
 
-        Random.InitState(seed);
-        GenCoastals();
-        GenInland();
+        holder = new GameObject("POI Holder").transform;
+        holder.SetParent(transform);
+        holder.localPosition = Vector3.zero;
+        holder.localRotation = Quaternion.identity;
+        holder.localScale = Vector3.one;
 
-        Random.state = oldState;
+        //Debug.Log("Attempts left: " + attempts);
+
+        //foreach (GameObject s in structures)
+        //    if (s != null)
+        //        if (Application.isPlaying)
+        //            Destroy(s);
+        //        else
+        //            DestroyImmediate(s);
+
+        //foreach (GameObject s in GameObject.FindGameObjectsWithTag("Structure"))
+        //{
+        //    Destroy(s);
+        //}
+
+        //structures.Clear();
+
+        //Random.InitState(seed);
+
+        using (SeededRNG.Block(seed))
+        {
+            GenCoastals();
+            GenInland();
+        }
+
+        //Random.state = oldState;
+        //}
     }
+
+    /*
+    IEnumerator GenerateOverTime(int seed)
+    {
+        if (holder != null)
+        {
+            Destroy(holder.gameObject);
+        }
+
+        yield return null;
+
+        holder = new GameObject("POI Holder").transform;
+        holder.SetParent(transform);
+        holder.localPosition = Vector3.zero;
+        holder.localRotation = Quaternion.identity;
+        holder.localScale = Vector3.one;
+
+        //Debug.Log("Attempts left: " + attempts);
+
+        //foreach (GameObject s in structures)
+        //    if (s != null)
+        //        if (Application.isPlaying)
+        //            Destroy(s);
+        //        else
+        //            DestroyImmediate(s);
+
+        //foreach (GameObject s in GameObject.FindGameObjectsWithTag("Structure"))
+        //{
+        //    Destroy(s);
+        //}
+
+        //structures.Clear();
+
+        //Random.InitState(seed);
+
+        using (SeededRNG.Block(seed))
+        {
+            GenCoastals();
+            GenInland();
+        }
+    }
+    */
 
     void GenCoastals()
     {
-        int attempts = 100;
+        int attempts = 1000;
+        List<Vector3> positions = new List<Vector3>(coastalStructures);
+        List<Vector3> directions = new List<Vector3>(coastalStructures);
+
+        BiomeStructures current = Current();
 
         for (int i = 0; i < coastalStructures && attempts > 0; i++, attempts--)
         {
             Vector3 pt = Random.insideUnitCircle.normalized;
+            if (AngleCloseTo(pt, directions, minCoastalStructureAngle))
+            {
+                i--;
+                continue;
+            }
+            Vector3 angle = pt;
+
             pt = pt.WithZ(pt.y).WithY(0);
             pt *= radius * 1.5f;
             pt += Vector3.up * seaLevel;
-            if (!Physics.Raycast(pt, pt.DirectionTo(Vector3.up * seaLevel), out RaycastHit hit))
+            Vector3 dir = pt.DirectionTo(Vector3.up * seaLevel);
+            if (!Physics.Raycast(pt, dir, out RaycastHit hit, float.PositiveInfinity, layerMask) || CloseTo(hit.point, positions, minStructureDist))
+            {
+                i--;
+                continue;
+            }
+            if (Vector3.Angle(Vector3.up, hit.normal) > maxSlope)
             {
                 i--;
                 continue;
             }
 
-            structures.Add(Instantiate(coastalStructure, hit.point, Quaternion.identity));
+            //Debug.Log("Gen coastal " + i);
+            positions.Add(hit.point - dir * 10);
+            directions.Add(angle);
+            Spawn(current.coastalStructures[Random.Range(0, current.coastalStructures.Length)], hit, -dir * 10);
+            //structures.Add(Instantiate(coastalStructure, hit.point, Quaternion.identity));
         }
     }
 
     void GenInland()
     {
-        int attempts = 10000;
+        int attempts = 1000;
+        List<Vector3> positions = new List<Vector3>(inlandStructures + 1);
 
-        for (int i = 0; i < inlandStructures && attempts > 0; i++, attempts--)
+        BiomeStructures current = Current();
+
+        for (int i = 0; i < inlandStructures + 1 && attempts > 0; i++, attempts--)
         {
             Vector3 pt = Random.insideUnitSphere.Flattened() * radius;
             pt.y = 1000;
-            if (!Physics.Raycast(pt, Vector3.down, out RaycastHit hit) || hit.point.y > maxHeight || hit.point.y < seaLevel)
+            if (!Physics.SphereCast(pt, sphereCastRadius, Vector3.down, out RaycastHit hit, float.PositiveInfinity, layerMask) || hit.point.y > maxHeight || hit.point.y < seaLevel || CloseTo(hit.point, positions, minStructureDist))
+            {
+                i--;
+                continue;
+            }
+            if (Vector3.Angle(Vector3.up, hit.normal) > maxSlope)
             {
                 i--;
                 continue;
             }
 
-            structures.Add(Instantiate(inlandStructure, hit.point, Quaternion.identity));
+            //Debug.Log("Gen inland " + i);
+            positions.Add(hit.point);
+            if (i == 0)
+                Spawn(current.merchant, hit, Vector3.zero);
+            else
+                Spawn(current.inlandStructures[Random.Range(0, current.inlandStructures.Length)], hit, Vector3.zero);
+            //structures.Add(Instantiate(inlandStructure, hit.point, Quaternion.identity));
         }
+    }
+
+    void Spawn(GameObject prefab, RaycastHit hit, Vector3 offset)
+    {
+        Vector3 slopeDir = hit.normal.Flattened().normalized;
+        Instantiate(prefab, hit.point + offset, Quaternion.LookRotation(slopeDir), holder);
+    }
+
+    static bool CloseTo(Vector3 pos, List<Vector3> positions, float minDist)
+    {
+        float sqr = minDist * minDist;
+
+        foreach (Vector3 check in positions)
+            if (pos.SqrDistance(check) < sqr) return true;
+
+        return false;
+    }
+
+    static bool AngleCloseTo(Vector3 angle, List<Vector3> angles, float minAngle)
+    {
+        foreach (Vector3 check in angles)
+            if (Vector3.Angle(angle, check) < minAngle) return true;
+
+        return false;
     }
 
     private void OnDrawGizmos()
@@ -86,5 +247,30 @@ public class StructureGen : MonoBehaviour
             Gizmos.DrawCube(Vector3.up * seaLevel, new Vector3(2000, 1, 2000));
             Gizmos.DrawWireSphere(Vector3.up * seaLevel, radius);
         }
+    }
+
+    BiomeStructures Current()
+    {
+        if (ProcGen.instance == null) return grasslandStructures;
+
+        switch (ProcGen.instance.currentBiome)
+        {
+            case Biome.Grasslands:
+                return grasslandStructures;
+            case Biome.Desert:
+                return desertStructures;
+            case Biome.Snow:
+                return snowStructures;
+        }
+
+        throw new System.Exception();
+    }
+
+    [System.Serializable]
+    public class BiomeStructures
+    {
+        public GameObject merchant;
+        public GameObject[] coastalStructures;
+        public GameObject[] inlandStructures;
     }
 }

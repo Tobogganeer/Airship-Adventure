@@ -13,6 +13,7 @@ public class FPSCamera : MonoBehaviour
 
     public Transform playerBody;
     public Transform lookTransform;
+    public MilkShake.ShakeParameters shakeParameters;
     float eyeHeight;
 
     //[Space]
@@ -55,13 +56,17 @@ public class FPSCamera : MonoBehaviour
     Vector3 pos;
     Quaternion rot;
     Quaternion sprintRot;
+    Camera cam;
+    float fovMult = 1;
 
     private void Start()
     {
         eyeHeight = lookTransform.localPosition.y;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        GetComponent<Camera>().fieldOfView = SettingsFOV;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //GetComponent<Camera>().fieldOfView = SettingsFOV;
+        cam = GetComponent<Camera>();
+        cam.fieldOfView = SettingsFOV;
     }
 
     private void Update()
@@ -77,6 +82,11 @@ public class FPSCamera : MonoBehaviour
 
         lookTransform.localPosition = pos + Vector3.up * eyeHeight;
         lookTransform.localRotation = rot * sprintRot;
+
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, SettingsFOV * fovMult, Time.deltaTime * 10f);
+
+        //if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        //    MilkShake.Shaker.ShakeAll(shakeParameters);
     }
 
     private void SensControls()
@@ -95,16 +105,25 @@ public class FPSCamera : MonoBehaviour
 
     private void MouseLook()
     {
-
-        if (PauseMenu.Paused)
+        if (Cursor.visible)
             return;
 
         //float x = Input.GetAxisRaw("Mouse X");
         //float y = Input.GetAxisRaw("Mouse Y");
         Vector2 look = PlayerInputs.Look;
 
+        if (Airship.Crashed)
+        {
+            playerBody.Rotate(Vector3.up * 10f * Time.deltaTime);
+            look.y = 0;
+            look.x *= 0.2f;
+            //transform.LookAt(Airship.Transform.position);
+        }
+
         playerBody.Rotate(Vector3.up * look.x * sensitivity);
         // Rotates the body horizontally
+
+        if (Airship.Crashed) return;
 
         yRotation = Mathf.Clamp(yRotation - look.y * sensitivity, -maxVerticalRotation, maxVerticalRotation);
         //float clampedRotWithRecoil = yRotation;
@@ -122,6 +141,32 @@ public class FPSCamera : MonoBehaviour
 
         //VerticalDip = Mathf.MoveTowards(VerticalDip, 0, Time.deltaTime * VertDipSpeed);
         VerticalDip = Mathf.Lerp(VerticalDip, 0, Time.deltaTime * VertDipSpeed);
+    }
+
+    public static void Nuke()
+    {
+        instance.Nuke_Instance();
+    }
+
+    void Nuke_Instance()
+    {
+        playerBody.rotation = Quaternion.identity;
+        transform.rotation = Quaternion.identity;
+
+        const float CamDist = 450f;
+        const float CamHeight = 100f;
+        transform.localPosition = new Vector3(0, CamHeight, -CamDist);
+        transform.LookAt(Airship.Transform.position);
+        playerBody.Rotate(Vector3.up * Random.Range(0, 360));
+        Timer.Create(2.5f, () => MilkShake.Shaker.ShakeAll(shakeParameters));
+        //Vector3 pos = Random.insideUnitSphere.Flattened().normalized * CamDist;
+        //transform.position = Transform.position + pos + Vector3.up * CamHeight;
+        //transform.LookAt(Transform.position);
+    }
+
+    public static void SetFOV(float mult01)
+    {
+        instance.fovMult = mult01;
     }
 
     /*

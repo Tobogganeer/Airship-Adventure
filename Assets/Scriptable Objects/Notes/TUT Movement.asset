@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
+  m_Name: TUT Movement
+  m_EditorClassIdentifier: 
+  type: 20
+  title: 'TUT: Ship Movement'
+  description: The ship is controlled by you. Interact with the wheel and use A &
+    D to steer the ship. Use the map station in the basement to control the alititude.
+    Use the lever (when illuminated) to dock to points of interest around the map.
+    The ship consumes more fuel and moves faster the higher you are.
+  internalNotes: 

@@ -12,11 +12,17 @@ public class GodRaysSettings
     [Range(0.1f, 1f)]
     public float resolutionScale = 0.5f;
 
-    [Range(0.0f, 1.0f)]
+    [Range(0.0f, 2.0f)]
     public float intensity = 1.0f;
 
     [Range(0.0f, 1.0f)]
     public float blurWidth = 0.85f;
+
+    //[Range(0.5f, 4.0f)]
+    //public float falloffPow = 2.0f;
+
+    //[Range(0.5f, 4.0f)]
+    //public float falloffMult = 1.0f;
 }
 
 public class GodRays : ScriptableRendererFeature
@@ -28,6 +34,8 @@ public class GodRays : ScriptableRendererFeature
         private readonly float resolutionScale;
         private readonly float intensity;
         private readonly float blurWidth;
+        //private readonly float falloffPow;
+        //private readonly float falloffMult;
 
         private readonly Material occludersMaterial;
 
@@ -45,6 +53,8 @@ public class GodRays : ScriptableRendererFeature
             resolutionScale = settings.resolutionScale;
             intensity = settings.intensity;
             blurWidth = settings.blurWidth;
+            //falloffPow = settings.falloffPow;
+            //falloffMult = settings.falloffMult;
 
             occludersMaterial = new Material(Shader.Find("Hidden/UnlitColour"));
 
@@ -58,8 +68,8 @@ public class GodRays : ScriptableRendererFeature
 
         public void SetCameraColorTarget(RenderTargetIdentifier cameraColorTargetIdent)
         {
-            //this.cameraColorTargetIdent = cameraColorTargetIdent;
-            this.cameraColorTargetIdent = new RenderTargetIdentifier("_CameraColorAttachmentA");
+            this.cameraColorTargetIdent = cameraColorTargetIdent;
+            //this.cameraColorTargetIdent = new RenderTargetIdentifier("_CameraColorAttachmentA");
         }
 
         public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
@@ -119,17 +129,19 @@ public class GodRays : ScriptableRendererFeature
                     //Debug.Log("Cam screen: " + sunPositionScreenSpace);
                     // z of screen space is dot product, kinda cool
 
-                    float dot = Vector3.Dot(sunDirectionWorldSpace, camera.transform.forward);
+                    //float dot = Vector3.Dot(sunDirectionWorldSpace, camera.transform.forward); -----
                     // positive when looking away from sun
 
-                    dot = Mathf.Max(-dot, 0);
+                    //dot = Mathf.Max(-dot, 0); -----
 
                     //if (dot < 0)
                     //{
-                    radialBlurMaterial.SetFloat("_Dot", dot);
-                    radialBlurMaterial.SetVector("_Center", new Vector4(sunPositionViewportSpace.x, sunPositionViewportSpace.y, 0, 0));
+                    //radialBlurMaterial.SetFloat("_Dot", dot); -----
+                    radialBlurMaterial.SetVector("_Center", new Vector4(sunPositionViewportSpace.x, sunPositionViewportSpace.y, sunPositionViewportSpace.z, 0));
                     radialBlurMaterial.SetFloat("_Intensity", intensity);
                     radialBlurMaterial.SetFloat("_BlurWidth", blurWidth);
+                    //radialBlurMaterial.SetFloat("_FalloffMult", falloffMult);
+                    //radialBlurMaterial.SetFloat("_FalloffPow", falloffPow);
                 }
 
                 Blit(cmd, occluders.Identifier(), cameraColorTargetIdent, radialBlurMaterial);

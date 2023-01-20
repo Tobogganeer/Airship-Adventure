@@ -7,16 +7,41 @@ public class Note : ScriptableObject
 {
     public Type type;
 
-    [Space]
+    //[Space]
+    //public string shortTitle;
     public string title;
     [TextArea(5, 20)] public string description;
 
-    [Space, TextArea(2, 5)]
+    [Space, TextArea(2, 30)]
     public string internalNotes;
 
     public enum Type
     {
-        Normal,
-        Delivery
+        None,
+        BarrelTossing,
+        Boiler,
+        Credits,
+        Gregory,
+        Lights,
+        Mountains,
+        MrBubbles,
+        Music,
+        Prometheus,
+        Stars,
+        SunAndMoon,
+        Ted,
+        TheBuzz,
+        TheShip,
+        WhatsThePoint,
+        Altitude,
+        Alarm,
+        Tutorial,
+        Safehaven,
+        Tut_Movement,
+        Tut_Status,
+        Tut_Dock,
+        Tut_Boiler,
+        Tut_Grapple,
+        Shelves
     }
 }

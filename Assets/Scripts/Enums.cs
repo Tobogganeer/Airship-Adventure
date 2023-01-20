@@ -15,3 +15,10 @@ public enum PooledObject
 {
     AudioSource
 }
+
+public enum Biome
+{
+    Grasslands,
+    Desert,
+    Snow
+}

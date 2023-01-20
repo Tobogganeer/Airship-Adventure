@@ -12,17 +12,29 @@ public class PopUp : MonoBehaviour
     }
 
     public TMPro.TMP_Text text;
+    public CanvasGroup textGroup;
+    float alpha = 1f;
+    float speed = 10f;
 
-    public static void Show(string message, float time = 3)
+    public static void Show(string message, float time = 3, float speed = 10)
     {
         instance.text.text = message;
         instance.CancelInvoke();
         instance.Invoke(nameof(Cancel), time);
+        instance.alpha = 1f;
+        instance.speed = speed;
+        instance.textGroup.alpha = 1f;
         //Debug.Log(message);
     }
 
     private void Cancel()
     {
-        text.text = "";
+        //text.text = "";
+        instance.alpha = 0f;
+    }
+
+    private void Update()
+    {
+        textGroup.alpha = Mathf.Lerp(textGroup.alpha, alpha, Time.deltaTime * speed);
     }
 }

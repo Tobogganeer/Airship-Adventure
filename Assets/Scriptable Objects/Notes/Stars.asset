@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
+  m_Name: Stars
+  m_EditorClassIdentifier: 
+  type: 10
+  title: Gotta Stop and Smell the Stars
+  description: "Well sometimes you know, gotta stop and smell the stars? Or however
+    that old saying went. Poetry or sayings don matter when everyones dead I guess.
+    You\u2019ll find yourself quite busy trying to survive"
+  internalNotes: Stairs descending to main deck

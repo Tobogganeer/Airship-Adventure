@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abbe69dacccb9ee49b08177945902b0d, type: 3}
+  m_Name: Credits
+  m_EditorClassIdentifier: 
+  type: 3
+  title: Credits
+  description: 'Mark R: Project Lead, Airship Modeller
+
+    Nate L: Story Design,
+    Podcast Host
+
+    Tess R: Sound Designer, Trailer Creator
+
+    Nigel L: Art Dept.
+
+    Evan
+    D: Programming Lead
+
+    Daniel P: Modeller
+
+    Rhys G: Programming, Shader
+    Artist
+
+    Ashton F: Marketing
+
+    Liam VH: OST Composer
+
+    PJ P: UI Design,
+    Environment Art
+
+    Nora P: POI/Environment Art
+
+    !: Programming, Playtesting
+
+    Lyndsay
+    C: 3D Modeller'
+  internalNotes: "Evan\r\nNate Leising\r\nMark Reynolds\r\nRhys Grover\r\nLiam Van
+    Huisseling\r\nTess\r\nAshton Fox\r\nNigel Longman\r\nDaniel Petrie\n\nTest\r\nStory
+    Design, Awesome Podcast Host\r\nProject Lead\r\nYou know what ive done, so put
+    me under whatever you feel i should be under\r\nMusic Designer\r\nSound Designer,
+    Trailer Creator\r\nMarketing Team\r\nart fella, the pope\r\nmodeler\n\nEvan\r:
+    Test\nNate Leising: Story Design, Awesome Podcast Host\r\r\nMark Reynolds\r:
+    Project Lead\r\nRhys Grover\r: You know what ive done, so put me under whatever
+    you feel i should be under\r\nLiam Van Huisseling\r: Music Designer\r\nTess\r:
+    Sound Designer, Trailer Creator\r\nAshton Fox: Marketing Team\r\r\nNigel Longman:
+    art fella, the pope\r\nDaniel Petrie: Modeller"
