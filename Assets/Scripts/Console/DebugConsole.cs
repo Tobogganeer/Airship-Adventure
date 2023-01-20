@@ -55,6 +55,7 @@ public class DebugConsole : MonoBehaviour
 
     public Dictionary<string, ConsoleCommandBase> commands = new Dictionary<string, ConsoleCommandBase>();
 
+    string last = string.Empty;
 
 
     private bool showConsole = false;
@@ -85,6 +86,11 @@ public class DebugConsole : MonoBehaviour
             Active = showConsole;
             //GUI.FocusControl(null);
             removeFocus = true;
+        }
+
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame)
+        {
+            input = last;
         }
 
         if (Keyboard.current.enterKey.wasPressedThisFrame && showConsole)

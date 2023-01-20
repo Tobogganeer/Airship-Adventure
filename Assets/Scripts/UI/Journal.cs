@@ -28,9 +28,16 @@ public class Journal : MonoBehaviour
 
     public Dictionary<Note.Type, Note> noteDict = new Dictionary<Note.Type, Note>();
 
-    private void Awake()
+    bool inited;
+
+    public static void Init()
     {
-        _instance = this;
+        Instance.Init_I();
+    }
+
+    void Init_I()
+    {
+        if (inited) return;
 
         noteDict = new Dictionary<Note.Type, Note>();
         entries = new Dictionary<Note, GameObject>();
@@ -43,6 +50,13 @@ public class Journal : MonoBehaviour
             noteDict.Add(notes[i].type, notes[i]);
             obj.SetActive(false);
         }
+    }
+
+    private void Awake()
+    {
+        _instance = this;
+
+        Init_I();
     }
 
     private void Start()

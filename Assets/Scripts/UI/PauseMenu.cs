@@ -11,7 +11,7 @@ public class PauseMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        _ = Journal.Instance; // to init instance
+        Journal.Init();
         SetPaused(false);
     }
 

@@ -87,6 +87,75 @@ public class Commands
         Debug.Log("Set nox to " + val);
     });
 
+    static ConsoleCommand<int> AirshipSpeed = new ConsoleCommand<int>
+        ("airship_speed", "Changes the ship's speed", "airship_speed [speed: default 7]", (valid, speed) =>
+        {
+            if (!valid)
+            {
+                Debug.Log("Current speed: " + Airship.instance.baseSpeed);
+                return;
+            }
+
+            Airship.instance.baseSpeed = speed;
+            Debug.Log("Set speed to " + speed);
+        });
+
+    static ConsoleCommand<int> NoxMult = new ConsoleCommand<int>
+       ("nox_mult", "Changes the Nox multiplier", "nox_mult [mult: default 3]", (valid, mult) =>
+       {
+           if (!valid)
+           {
+               Debug.Log("Current mult: " + Airship.instance.nitrousSpeedMult);
+               return;
+           }
+
+           Airship.instance.nitrousSpeedMult = mult;
+           Debug.Log("Set speed to " + mult);
+       });
+
+    static ConsoleCommand<string> Spawn = new ConsoleCommand<string>
+       ("spawn", "Spawn's a item", "spawn [Fuel, Coins, Nox]", (valid, spawn) =>
+       {
+       //if (spawn == "Fuel")
+       //{
+       //    Airship.Spawn();
+       //}
+
+            if (ConsolePrefabs.instance.prefabs.dictionary.TryGetValue(spawn, out var prefab))
+            {
+               Airship.Spawn(Object.Instantiate(prefab));
+            }
+
+
+           Debug.Log("Spawned " + spawn);
+       });
+
+    static ConsoleCommand<float> altitude = new ConsoleCommand<float>
+       ("altitude", "Changes the Ship's altitude ", "altitude []", (valid, height) =>
+       {
+           if (!valid)
+           {
+               Debug.Log("Current altitude: " + Altitude.Instance.height);
+               return;
+           }
+
+           //height = Mathf.Clamp01(height);
+           //
+           //float desired = Remap.Float(Mathf.Max(height, 0.1f), 0, 1, -Altitude.Instance.actualHeightRange, Altitude.Instance.actualHeightRange);
+           //float delta = desired - Airship.Transform.position.y;
+           //
+           //Airship.MoveAllObjects(Airship.Transform.position + Vector3.up * delta);
+
+           Altitude.Instance.height = height;
+           Debug.Log("Set height to " + height);
+       });
+
+    static ConsoleCommand boom = new ConsoleCommand
+      ("boom", "Explodes the airship", "boom", () =>
+      {
+          Airship.Crash();
+      });
+
     public static void Register()
     {
         DebugConsole.Register(help);
@@ -96,5 +165,10 @@ public class Commands
         DebugConsole.Register(fuel);
         DebugConsole.Register(fullscreen);
         DebugConsole.Register(nox);
+        DebugConsole.Register(AirshipSpeed);
+        DebugConsole.Register(NoxMult);
+        DebugConsole.Register(Spawn);
+        DebugConsole.Register(altitude);
+        DebugConsole.Register(boom);
     }
 }

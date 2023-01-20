@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Altitude : MonoBehaviour, IInteractable
 {
+    public static Altitude Instance { get; private set; }
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     [field: SerializeField]
     public Transform InteractFrom { get; set; }
     public float speed = 0.1f;
@@ -27,7 +33,8 @@ public class Altitude : MonoBehaviour, IInteractable
     public float maxAirshipSpeed = 3f;
     public float airshipAccel = 0.3f;
 
-    float height = 0.5f;
+    [HideInInspector]
+    public float height = 0.5f;
     float fuelHeight = 0.5f;
     float tilt;
 
