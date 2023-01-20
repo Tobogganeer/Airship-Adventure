@@ -45,7 +45,7 @@ Material:
     - Vector1_b3cd357cd3bb441c924ac9955a7e9eb8: 0.5
     - Vector1_e422b42e4be24ec88a9b69471e420959: 200
     - Vector1_f64b666933fe44c189e2deef3a3c9d37: 22
-    - _Alpha: 0.043376014
+    - _Alpha: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static SaveSystem;
+//using static SaveSystem;
 
 public class Journal : MonoBehaviour
 {
@@ -10,8 +10,8 @@ public class Journal : MonoBehaviour
     {
         get
         {
-            //if (_instance == null)
-            //    _instance = FindObjectOfType<Journal>();
+            if (_instance == null)
+                _instance = FindObjectOfType<Journal>();
             return _instance;
         }
     }
@@ -26,13 +26,14 @@ public class Journal : MonoBehaviour
 
     public Note[] notes;
 
-    public static Dictionary<Note.Type, Note> noteDict = new Dictionary<Note.Type, Note>();
+    public Dictionary<Note.Type, Note> noteDict = new Dictionary<Note.Type, Note>();
 
     private void Awake()
     {
         _instance = this;
 
-        noteDict.Clear();
+        noteDict = new Dictionary<Note.Type, Note>();
+        entries = new Dictionary<Note, GameObject>();
 
         for (int i = 0; i < notes.Length; i++)
         {
@@ -46,6 +47,7 @@ public class Journal : MonoBehaviour
 
     private void Start()
     {
+        _instance = this;
         //gameObject.SetActive(false);
         gameObject.SetActive(true);
         title.text = string.Empty;
@@ -73,7 +75,14 @@ public class Journal : MonoBehaviour
         //Instance.entries[note].SetActive(true);
         //if (announce)
         //    PopUp.Show($"'{note.title}'", 1f, 1f);
-        if (noteDict == null)
+
+        if (Instance == null)
+        {
+            Debug.Log("Null instance");
+            return;
+        }
+
+        if (Instance.noteDict == null)
         {
             Debug.Log("Null note dict");
             return;
@@ -85,14 +94,16 @@ public class Journal : MonoBehaviour
             return;
         }
 
-        if (noteDict.TryGetValue(noteType, out Note note))
+        if (Instance.noteDict.TryGetValue(noteType, out Note note))
         {
             if (Instance.entries.TryGetValue(note, out GameObject val))
+            {
+                if (val == null)
+                    Debug.LogError("Null obj");
                 val.SetActive(true);
+            }
             if (announce)
                 PopUp.Show(GetTitle(note), 1f, 1f);
-
-
         }
     }
 

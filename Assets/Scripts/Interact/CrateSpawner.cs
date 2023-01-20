@@ -14,7 +14,7 @@ public class CrateSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (trackedCrate == null)
+        if (trackedCrate == null && transform.position.Distance(PlayerMovement.Position) > spawnRange)
         {
             trackedCrate = Instantiate(cratePrefab, transform.position, Quaternion.Euler(0, Random.Range(0, 360), 0)).transform;
         }
