@@ -33,6 +33,7 @@ public class Altitude : MonoBehaviour, IInteractable
     public float maxAirshipSpeed = 3f;
     public float airshipAccel = 0.3f;
 
+    [HideInInspector]
     public float height = 0.5f;
     float fuelHeight = 0.5f;
     float tilt;

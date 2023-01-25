@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Commands
 {
-
     static ConsoleCommand help = new ConsoleCommand
         ("help", "Prints commands", "help", () =>
         {
@@ -65,6 +64,29 @@ public class Commands
             Debug.Log("Set fuel to " + fuel);
         });
 
+    static ConsoleCommand<int> fullscreen = new ConsoleCommand<int>
+        ("fullscreen", "Changes fullscreen mode", "fullscreen [0, 1]", (valid, val) =>
+        {
+            if (!valid) Debug.Log("Fullscreen is currently " + Screen.fullScreen);
+            else
+            {
+                bool fullScreen = val == 1 ? true : val == 0 ? false : Screen.fullScreen;
+                Resolution maxRes = Screen.resolutions[Screen.resolutions.Length - 1];
+
+                if (fullScreen)
+                    Screen.SetResolution(maxRes.width, maxRes.height, FullScreenMode.FullScreenWindow, maxRes.refreshRate);
+                else
+                    Screen.SetResolution(1280, 720, FullScreenMode.Windowed, maxRes.refreshRate);
+            }
+        });
+
+    static ConsoleCommand<int> nox = new ConsoleCommand<int>
+        ("nox", "Changes the ships's nitrous tank", "nox [0-30]", (valid, val) =>
+    {
+        Airship.Nox = val;
+        Debug.Log("Set nox to " + val);
+    });
+
     static ConsoleCommand<int> AirshipSpeed = new ConsoleCommand<int>
         ("airship_speed", "Changes the ship's speed", "airship_speed [speed: default 7]", (valid, speed) =>
         {
@@ -94,11 +116,16 @@ public class Commands
     static ConsoleCommand<string> Spawn = new ConsoleCommand<string>
        ("spawn", "Spawn's a item", "spawn [Fuel, Coins, Nox]", (valid, spawn) =>
        {
-           if(spawn == "Fuel")
-           {
-              // Airship.Spawn();
-           }
-        
+       //if (spawn == "Fuel")
+       //{
+       //    Airship.Spawn();
+       //}
+
+            if (ConsolePrefabs.instance.prefabs.dictionary.TryGetValue(spawn, out var prefab))
+            {
+               Airship.Spawn(Object.Instantiate(prefab));
+            }
+
 
            Debug.Log("Spawned " + spawn);
        });
@@ -112,39 +139,22 @@ public class Commands
                return;
            }
 
-          //height = Mathf.Clamp01(height);
-          //
-          //float desired = Remap.Float(Mathf.Max(height, 0.1f), 0, 1, -Altitude.Instance.actualHeightRange, Altitude.Instance.actualHeightRange);
-          //float delta = desired - Airship.Transform.position.y;
-          //
-          //Airship.MoveAllObjects(Airship.Transform.position + Vector3.up * delta);
+           //height = Mathf.Clamp01(height);
+           //
+           //float desired = Remap.Float(Mathf.Max(height, 0.1f), 0, 1, -Altitude.Instance.actualHeightRange, Altitude.Instance.actualHeightRange);
+           //float delta = desired - Airship.Transform.position.y;
+           //
+           //Airship.MoveAllObjects(Airship.Transform.position + Vector3.up * delta);
 
            Altitude.Instance.height = height;
            Debug.Log("Set height to " + height);
        });
 
-    static ConsoleCommand<int> fullscreen = new ConsoleCommand<int>
-        ("fullscreen", "Changes fullscreen mode", "fullscreen [0, 1]", (valid, val) =>
-        {
-            if (!valid) Debug.Log("Fullscreen is currently " + Screen.fullScreen);
-            else
-            {
-                bool fullScreen = val == 1 ? true : val == 0 ? false : Screen.fullScreen;
-                Resolution maxRes = Screen.resolutions[Screen.resolutions.Length - 1];
-
-                if (fullScreen)
-                    Screen.SetResolution(maxRes.width, maxRes.height, FullScreenMode.FullScreenWindow, maxRes.refreshRate);
-                else
-                    Screen.SetResolution(1280, 720, FullScreenMode.Windowed, maxRes.refreshRate);
-            }
-        });
-
-    static ConsoleCommand<int> nox = new ConsoleCommand<int>
-        ("nox", "Changes the ships's nitrous tank", "nox [0-30]", (valid, val) =>
-    {
-        Airship.Nox = val;
-        Debug.Log("Set nox to " + val);
-    });
+    static ConsoleCommand boom = new ConsoleCommand
+      ("boom", "Explodes the airship", "boom", () =>
+      {
+          Airship.Crash();
+      });
 
     public static void Register()
     {
@@ -157,6 +167,8 @@ public class Commands
         DebugConsole.Register(nox);
         DebugConsole.Register(AirshipSpeed);
         DebugConsole.Register(NoxMult);
+        DebugConsole.Register(Spawn);
         DebugConsole.Register(altitude);
+        DebugConsole.Register(boom);
     }
 }

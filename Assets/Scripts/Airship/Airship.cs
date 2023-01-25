@@ -129,6 +129,9 @@ public class Airship : MonoBehaviour, ISaveable
 
     private void Start()
     {
+        //_ = Journal.Instance;
+        Journal.Init();
+
         if (showTut)
         {
             PopUp.Show("E/F/RMB to pick up notes, view them with ESC", 3, 2f);
